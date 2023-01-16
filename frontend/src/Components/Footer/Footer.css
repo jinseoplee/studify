@@ -1,0 +1,7 @@
+.bottombar {
+  position: fixed;
+  background-color: bisque;
+  bottom: 0;
+  height: 5rem;
+  width: 100%;
+}
