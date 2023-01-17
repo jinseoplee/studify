@@ -34,6 +34,7 @@ const SignupForm = () => {
   };
 
   const onSubmitHandler = async (event) => {
+    const [data, setData] = useState("");
     event.preventDefault();
     try {
       const response = await axios
@@ -42,12 +43,14 @@ const SignupForm = () => {
           password: Password,
           name: Name,
         })
-        .then((res) => {
-          console.log("response:", res);
+        setData(response.data);
+        console.log(data)
+        // .then((res) => {
+        //   console.log("response:", res);
           // if (res.status === 200) {
           // router.push('#')
           // console.log(res);
-        });
+        // });
     } catch (err) {
       console.error(err);
     }

@@ -3,11 +3,13 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import Startpage from "./Components/StartPage/StartPage";
 import reportWebVitals from "./reportWebVitals";
+import Modal from "./Components/UI/Modal";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Startpage />
+    <Modal />
   </React.StrictMode>
 );
 
