@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import LoginCard from "./LoginCard";
+import axios from "axios";
 import "./LoginID.css";
 
 const LoginID = (props) => {
@@ -26,8 +27,43 @@ const LoginID = (props) => {
   const click = () => {};
   //여기서 axios 통신을 사용하여 back에 아이디가 있는지 확인해줍니다.
   //back에서는 for문으로 찾아주는건가?..
-  const handleSubmit = (event) => {};
-
+  // axios 회원가입 참고 (post)
+  // const onSubmitHandler = async (event) => {
+  //   const [data, setData] = useState("");
+  //   event.preventDefault();
+  //   try {
+  //     const response = await axios
+  //       .post("http://192.168.31.27:8080/api/v1/users", {
+  //         email: Email,
+  //         password: Password,
+  //         name: Name,
+  //       })
+  //       setData(response.data);
+  //       console.log(data)
+  //       // .then((res) => {
+  //       //   console.log("response:", res);
+  //         // if (res.status === 200) {
+  //         // router.push('#')
+  //         // console.log(res);
+  //       // });
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // };
+  const handleSubmit = async (event) => {
+    // const [data, setData] = useState("");
+    event.preventDefault();
+    try {
+      const response = await axios.get("http://192.168.31.27:8080/api/v1/users", {params: {}});
+      // params 뭘 보내야할지 생각해보기
+      // console 찍어보고 원하는 정보 뽑아오기
+      // 이메일을 보내서 원하는 정보 뽑아올 수 있나..?
+      // setData(response);
+      console.log(response)
+    } catch (err) {
+      console.log(err)
+    }
+  };
   return (
     <LoginCard>
       <form onSubmit={handleSubmit}>
