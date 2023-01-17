@@ -1,0 +1,9 @@
+.signupform-div {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+}
+.signupform-label {
+  font-size: 17px;
+}
