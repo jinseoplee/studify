@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 /**
  * 모델 간 공통 사항 정의
  */
-
 @Getter
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
@@ -22,6 +21,7 @@ public class BaseEntity {
     private Long id;
 
     @CreatedDate
+    @Column(updatable = false)
     private LocalDateTime createdAt;
 
     @LastModifiedDate
