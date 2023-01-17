@@ -6,6 +6,8 @@ import "./LoginPW.css";
 
 const LoginPW = () => {
   const [loginInfo, setValues] = useState("");
+
+  //처음에 모달창을 꺼놓기 위해 초기값을 false로 줍니다.
   const [modalOpen, setModalOpen] = useState(false);
 
   //모달창을 열어주는 함수입니다.
@@ -38,9 +40,12 @@ const LoginPW = () => {
     //만약 비밀번호도 일치할시에 Navigate를 이용하여 대시보드로 이동시켜줄것.
   };
 
+  //비밀번호 찾기를 누르면 Modal창을 열어주기위해서 showModal을 사용합니다.
   const findPw = () => {
     showModal();
+    console.log(modalOpen);
   };
+
   //여기서 axios 통신을 사용하여 back에 아이디가 있는지 확인해줍니다.
   //back에서는 for문으로 찾아주는건가?..
   const handleSubmit = (event) => {};
@@ -58,10 +63,8 @@ const LoginPW = () => {
           다음
         </button>
       </form>
-      <div onClick={findPw}>
-        비밀번호 잊어버리셨나요?
-        {modalOpen && <LoginModal setModalOpen={closeModal}></LoginModal>}
-      </div>
+      <div onClick={findPw}>비밀번호 잊어버리셨나요?</div>
+      {modalOpen && <LoginModal setModalOpen={closeModal}></LoginModal>}
     </React.Fragment>
   );
 };

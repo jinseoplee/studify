@@ -1,6 +1,7 @@
 //아이디를 확인해주는 컴포넌트입니다.
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import LoginCard from "./LoginCard";
 import "./LoginID.css";
 
 const LoginID = (props) => {
@@ -22,15 +23,13 @@ const LoginID = (props) => {
     }
   };
 
-  const click = () => {
-    console.log("나 클릭돼 ㅁㅋㅋ");
-  };
+  const click = () => {};
   //여기서 axios 통신을 사용하여 back에 아이디가 있는지 확인해줍니다.
   //back에서는 for문으로 찾아주는건가?..
   const handleSubmit = (event) => {};
 
   return (
-    <React.Fragment>
+    <LoginCard>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -47,7 +46,7 @@ const LoginID = (props) => {
         아이디가 존재하지 않으신가요?
         <Link to="/SignUp">회원가입</Link>
       </div>
-    </React.Fragment>
+    </LoginCard>
   );
 };
 

@@ -122,3 +122,18 @@ v5와 v6은 많이 다르다.
 ```
 
 이때 navigate함수를 실행하면 다른 위치로 이동 할 수 있습니다.
+
+### 비밀번호찾기 모달창 구현 오류해결
+
+- 모달창이 떴을때 X버튼을 눌러도 모달창이 꺼지지 않았습니다
+
+```jsx
+//<div onClick={findPw}>
+// 비밀번호 잊어버리셨나요?
+// {modalOpen && <LoginModal setModalOpen={closeModal}></LoginModal>}
+// </div>
+```
+
+위와 같이 구성을 해주었는데 LoginModal의 부분에서 props로 내려간 부분이
+내가 원하는 closeModal이 되지않고 div태그 안에있는 findPw가 찍히는 것을 보았습니다.
+따라서 modal창 띄워주는 부분이 LoginModal이 내가 원하는 함수를 props로 받기 위해 div태그 바깥으로 빼내어서 해결해 주었습니다.
