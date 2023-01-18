@@ -1,10 +1,11 @@
 .logincard {
-  background-color: aqua;
+  background-color:bisque;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   border-radius: 10px;
   position: fixed;
   top: 30vh;
   left: 10%;
-  width: 80%;
+  width: 60%;
+  height: 30%;
   overflow: hidden;
 }

@@ -5,7 +5,8 @@ import { useCookies } from "react-cookie";
 import axios from "axios";
 import "./LoginPW.css";
 
-const LoginPW = () => {
+const LoginPW = (props)) => {
+  console.log(props);
   // const [loginInfo, setValues] = useState("");
   // const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
@@ -85,8 +86,7 @@ const LoginPW = () => {
           다음
         </button>
       </form>
-      <div onClick={findPw}>비밀번호 잊어버리셨나요?
-      </div>
+      <div onClick={findPw}>비밀번호 잊어버리셨나요?</div>
       {modalOpen && <LoginModal setModalOpen={closeModal}></LoginModal>}
     </React.Fragment>
   );
