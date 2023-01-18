@@ -4,6 +4,7 @@ import com.ssafy.api.request.UserLoginPostReq;
 import com.ssafy.api.request.UserRegisterPostReq;
 import com.ssafy.api.response.UserLoginPostRes;
 import com.ssafy.api.response.UserRes;
+import com.ssafy.api.request.UserAuthMailPostReq;
 import com.ssafy.db.entity.User;
 
 /**
@@ -17,7 +18,7 @@ public interface UserService {
      * @param userRegisterPostReq
      * @return
      */
-    User createUser(UserRegisterPostReq userRegisterPostReq);
+    User createUser(UserAuthMailPostReq userRegisterPostReq);
 
     /**
      * 로그인
@@ -26,4 +27,12 @@ public interface UserService {
      */
     UserLoginPostRes signin(UserLoginPostReq userLoginPostReq);
 
+    User getUser(String email);
+
+    /**
+     * 회원 정보 변경
+     * @param userUpdatePostReq
+     * @return User
+     */
+//    User updateUser(UserRegisterPutReq userUpdatePostReq);
 }

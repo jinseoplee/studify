@@ -1,8 +1,12 @@
 package com.ssafy.api.service.impl;
 
+<<<<<<< HEAD
 import com.ssafy.api.request.UserLoginPostReq;
 import com.ssafy.api.request.UserRegisterPostReq;
 import com.ssafy.api.response.UserLoginPostRes;
+=======
+import com.ssafy.api.request.UserAuthMailPostReq;
+>>>>>>> ee73e0e02f17546d5c7f2700d69514b31e63684d
 import com.ssafy.api.service.UserService;
 import com.ssafy.config.security.JwtTokenProvider;
 import com.ssafy.db.entity.User;
@@ -23,7 +27,7 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public User createUser(UserRegisterPostReq userRegisterPostReq) {
+    public User createUser(UserAuthMailPostReq userRegisterPostReq) {
         User user = User.builder()
                 .email(userRegisterPostReq.getEmail())
                 .name(userRegisterPostReq.getName())
@@ -33,6 +37,7 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
+<<<<<<< HEAD
     @Override
     public UserLoginPostRes signin(UserLoginPostReq userLoginPostReq) {
         User user = userRepository.findByEmail(userLoginPostReq.getEmail()).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 이메일입니다."));
@@ -53,4 +58,28 @@ public class UserServiceImpl implements UserService {
         return userLoginPostRes;
     }
 
+=======
+    public User getUser(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("없는 사용자입니다."));
+    }
+//    @Transactional
+//    @Override
+//    public User updateUser(UserUpdatePostReq userUpdatePostReq) {
+//        User user = userRepository.findOne(????)
+//                .orElseThrow(() -> new IllegalArgumentException("없는 사용자입니다."));
+//
+//        // 사용자의 프로필 이미지 정보를 업데이트하는 Setter 입니다.
+//        // 업데이트 정책 지정 후 다시 정의해야 합니다.
+//        user.update(userUpdatePostReq.getImgOrigin(), userUpdatePostReq.getImgSave());
+//
+//        return id;
+//    }
+
+//    @Transactional
+//    @Override
+//    public User profileImg(MultipartFile[] files) {
+//        String imgOrigin = StringUtils.cleanPath()
+//    }
+>>>>>>> ee73e0e02f17546d5c7f2700d69514b31e63684d
 }
