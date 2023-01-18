@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Router } from "react-router-dom";
+// import { Navigate } from "react-router-dom";
 import axios from "axios";
 import "./SignupForm.css";
 
@@ -20,20 +20,21 @@ const SignupForm = () => {
   const [isPassword, setIsPassword] = useState(false);
   const [isPasswordCheck, setIsPasswordCheck] = useState(false);
 
-  const onEmailHandler = (event) => {
-    setEmail(event.currentTarget.value);
-  };
-  const onPasswordHandler = (event) => {
-    setPassword(event.currentTarget.value);
-  };
-  const onPasswordCheckHandler = (event) => {
-    setPasswordCheck(event.currentTarget.value);
-  };
+  // const onEmailHandler = (event) => {
+  //   setEmail(event.currentTarget.value);
+  // };
+  // const onPasswordHandler = (event) => {
+  //   setPassword(event.currentTarget.value);
+  // };
+  // const onPasswordCheckHandler = (event) => {
+  //   setPasswordCheck(event.currentTarget.value);
+  // };
   const onNameHandler = (event) => {
     setName(event.currentTarget.value);
   };
 
-  const onSubmitHandler = async (event) => {
+  const OnSubmitHandler = async (event) => {
+    const [data, setData] = useState("");
     event.preventDefault();
     try {
       const response = await axios
@@ -42,12 +43,14 @@ const SignupForm = () => {
           password: Password,
           name: Name,
         })
-        .then((res) => {
-          console.log("response:", res);
+        setData(response.data);
+        console.log(data)
+        // .then((res) => {
+        //   console.log("response:", res);
           // if (res.status === 200) {
           // router.push('#')
           // console.log(res);
-        });
+        // });
     } catch (err) {
       console.error(err);
     }
@@ -92,7 +95,7 @@ const SignupForm = () => {
     }
   };
   return (
-    <form onSubmit={onSubmitHandler} className="signupform-div">
+    <form onSubmit={OnSubmitHandler} className="signupform-div">
       <label className="signupform-label">Email </label>
       <div>
         <input type="email" value={Email} onChange={onChangeEmail}></input>
