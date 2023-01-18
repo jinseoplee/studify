@@ -96,3 +96,4 @@ React.StrictMode를 삭제 시켜주면 됩니다.
 ### Warning: A component is changing an uncontrolled input to be controlled. This is likely caused by the value changing from undefined to a defined value, which should not happen. Decide between using a controlled or uncontrolled input element for the lifetime of the component. 에러
 
 위의 에러는 값이 있어야 하는데 값이 undefined로 들어가 있는 경우에 발생하는 에러입니다. 에러를 해결하기 위해선 공백이나 초기값을 지정해 주어야합니다.
+

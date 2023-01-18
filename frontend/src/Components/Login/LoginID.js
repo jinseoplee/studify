@@ -6,6 +6,7 @@ import LoginCard from "./LoginCard";
 import axios from "axios";
 import "./LoginID.css";
 
+
 const LoginID = (props) => {
   const [email, setEmail] = useState("");
   //쿠키 이름이 useremail입니다.
@@ -42,6 +43,21 @@ const LoginID = (props) => {
     }
   };
 
+  const cookieup = () => {
+    if(isRemember) {
+      setCookie('useremail', Email);
+    }
+  }
+  //그러고나서 이곳에서 현재의 값을 넣어줌.
+  const handleOnChange = (e) => {
+    setIsRemember(e.target.checked); //체크박스를 이벤트 부분으로 확인.
+    console.log(e.target.checked);
+    if(e.target.checked){ //체크가 되어있다면?
+      setCookie('useremail', Email); //쿠키저장
+    } else { //체크 안되어있으면 쿠키 삭제.
+    removeCookie('useremail');
+    }
+  }
   const handleChange = (event) => {
     setEmail(event.target.value);
   };
@@ -56,48 +72,19 @@ const LoginID = (props) => {
   };
 
   const click = () => {};
-  //여기서 axios 통신을 사용하여 back에 아이디가 있는지 확인해줍니다.
-  //back에서는 for문으로 찾아주는건가?..
-  // axios 회원가입 참고 (post)
-  // const onSubmitHandler = async (event) => {
-  //   const [data, setData] = useState("");
-  //   event.preventDefault();
-  //   try {
-  //     const response = await axios
-  //       .post("http://192.168.31.27:8080/api/v1/users", {
-  //         email: Email,
-  //         password: Password,
-  //         name: Name,
-  //       })
-  //       setData(response.data);
-  //       console.log(data)
-  //       // .then((res) => {
-  //       //   console.log("response:", res);
-  //         // if (res.status === 200) {
-  //         // router.push('#')
-  //         // console.log(res);
-  //       // });
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // };
   const handleSubmit = async (event) => {
-    // const [data, setData] = useState("");
     event.preventDefault();
     try {
       const response = await axios.post(
-        "http://192.168.31.27:8080/api/v1/users",
-        { email: email }
+        "http://192.168.31.27:8080/api/v1/users/signin",
+        {
+          email: email,
+        }
       );
-
-      // params 뭘 보내야할지 생각해보기
-      // console 찍어보고 원하는 정보 뽑아오기
-      // 이메일을 보내서 원하는 정보 뽑아올 수 있나..?
-      // setData(response);
       console.log(response);
+      goLoginPw();
     } catch (err) {
-      console.log(err);
-      alert("아이디가 잘못 입력 되었습니다. 다시입력해주세요");
+      console.error(err);
     }
   };
   return (
