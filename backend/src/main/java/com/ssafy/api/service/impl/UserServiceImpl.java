@@ -7,6 +7,9 @@ import com.ssafy.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 유저 관련 비즈니스 로직 처리를 위한 서비스 구현 정의
@@ -29,4 +32,22 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
+//    @Transactional
+//    @Override
+//    public User updateUser(UserUpdatePostReq userUpdatePostReq) {
+//        User user = userRepository.findOne(????)
+//                .orElseThrow(() -> new IllegalArgumentException("없는 사용자입니다."));
+//
+//        // 사용자의 프로필 이미지 정보를 업데이트하는 Setter 입니다.
+//        // 업데이트 정책 지정 후 다시 정의해야 합니다.
+//        user.update(userUpdatePostReq.getImgOrigin(), userUpdatePostReq.getImgSave());
+//
+//        return id;
+//    }
+
+    @Transactional
+    @Override
+    public User profileImg(MultipartFile[] files) {
+        String imgOrigin = StringUtils.cleanPath()
+    }
 }
