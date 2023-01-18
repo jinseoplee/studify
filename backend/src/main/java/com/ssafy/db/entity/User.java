@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.Collection;
 
 /**
@@ -19,6 +20,7 @@ import java.util.Collection;
 @Entity
 public class User extends BaseEntity implements UserDetails {
 
+    @Id
     @Column(nullable = false, unique = true)
     private String email;
 
