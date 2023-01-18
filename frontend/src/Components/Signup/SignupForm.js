@@ -53,7 +53,6 @@ const SignupForm = () => {
         }
       );
       // setData(response.data);
-
       console.log(response);
       // .then((res) => {
       //   console.log("response:", res);

@@ -1,9 +1,11 @@
+import './Modal.css'
+
 const ModalBasic = ({ setModalOpen }) => {
   const closeModal = () => {
     setModalOpen(false);
   };
   return (
-    <div>
+    <div className="container">
       <button onClick={closeModal}>확인</button>
       <p>모달창</p>
     </div>
