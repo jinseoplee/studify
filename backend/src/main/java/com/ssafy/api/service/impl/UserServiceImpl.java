@@ -1,7 +1,10 @@
 package com.ssafy.api.service.impl;
 
+import com.ssafy.api.request.UserLoginPostReq;
 import com.ssafy.api.request.UserRegisterPostReq;
+import com.ssafy.api.response.UserLoginPostRes;
 import com.ssafy.api.service.UserService;
+import com.ssafy.config.security.JwtTokenProvider;
 import com.ssafy.db.entity.User;
 import com.ssafy.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +19,7 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final JwtTokenProvider jwtTokenProvider;
     private final PasswordEncoder passwordEncoder;
 
     @Override
@@ -27,6 +31,26 @@ public class UserServiceImpl implements UserService {
                 .build();
 
         return userRepository.save(user);
+    }
+
+    @Override
+    public UserLoginPostRes signin(UserLoginPostReq userLoginPostReq) {
+        User user = userRepository.findByEmail(userLoginPostReq.getEmail()).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 이메일입니다."));
+
+        // 비밀번호 비교 수행
+        if (!passwordEncoder.matches(userLoginPostReq.getPassword(), user.getPassword())) {
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+        }
+
+        UserLoginPostRes userLoginPostRes = UserLoginPostRes.builder()
+                .statusCode(200)
+                .message("Success")
+                .token(jwtTokenProvider.createToken(userLoginPostReq.getEmail()))
+                .email(user.getEmail())
+                .name(user.getName())
+                .build();
+
+        return userLoginPostRes;
     }
 
 }

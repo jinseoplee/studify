@@ -1,6 +1,9 @@
 package com.ssafy.api.service;
 
+import com.ssafy.api.request.UserLoginPostReq;
 import com.ssafy.api.request.UserRegisterPostReq;
+import com.ssafy.api.response.UserLoginPostRes;
+import com.ssafy.api.response.UserRes;
 import com.ssafy.db.entity.User;
 
 /**
@@ -15,5 +18,12 @@ public interface UserService {
      * @return
      */
     User createUser(UserRegisterPostReq userRegisterPostReq);
+
+    /**
+     * 로그인
+     * @param userLoginPostReq
+     * @return
+     */
+    UserLoginPostRes signin(UserLoginPostReq userLoginPostReq);
 
 }
