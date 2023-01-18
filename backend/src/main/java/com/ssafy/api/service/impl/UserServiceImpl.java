@@ -1,19 +1,19 @@
 package com.ssafy.api.service.impl;
 
-<<<<<<< HEAD
 import com.ssafy.api.request.UserLoginPostReq;
 import com.ssafy.api.request.UserRegisterPostReq;
 import com.ssafy.api.response.UserLoginPostRes;
-=======
 import com.ssafy.api.request.UserAuthMailPostReq;
->>>>>>> ee73e0e02f17546d5c7f2700d69514b31e63684d
 import com.ssafy.api.service.UserService;
 import com.ssafy.config.security.JwtTokenProvider;
+import com.ssafy.db.entity.Register;
 import com.ssafy.db.entity.User;
+import com.ssafy.db.repository.RegisterRepository;
 import com.ssafy.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 유저 관련 비즈니스 로직 처리를 위한 서비스 구현 정의
@@ -23,21 +23,23 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final RegisterRepository registerRepository;
     private final JwtTokenProvider jwtTokenProvider;
     private final PasswordEncoder passwordEncoder;
 
+    @Transactional
     @Override
-    public User createUser(UserAuthMailPostReq userRegisterPostReq) {
+    public User createUser(Register register) {
         User user = User.builder()
-                .email(userRegisterPostReq.getEmail())
-                .name(userRegisterPostReq.getName())
-                .password(passwordEncoder.encode(userRegisterPostReq.getPassword())) // 비밀번호를 암호화 하여 디비에 저장
+                .email(register.getEmail())
+                .name(register.getName())
+                .password(passwordEncoder.encode(register.getPassword())) // 비밀번호를 암호화 하여 디비에 저장
                 .build();
 
         return userRepository.save(user);
     }
 
-<<<<<<< HEAD
+    @Transactional
     @Override
     public UserLoginPostRes signin(UserLoginPostReq userLoginPostReq) {
         User user = userRepository.findByEmail(userLoginPostReq.getEmail()).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 이메일입니다."));
@@ -58,11 +60,31 @@ public class UserServiceImpl implements UserService {
         return userLoginPostRes;
     }
 
-=======
+    @Transactional
     public User getUser(String email) {
         return userRepository.findByEmail(email)
                 .orElseThrow(() -> new IllegalArgumentException("없는 사용자입니다."));
     }
+
+
+    @Transactional
+    @Override
+    public Register insertRegister(Register register) {
+        return registerRepository.save(register);
+    }
+
+    @Transactional
+    @Override
+    public Register certificateRegister(UserRegisterPostReq registerAuthReq) {
+        Register register = registerRepository.findByCertified(registerAuthReq.getCertified())
+                .orElseThrow(() -> new IllegalArgumentException("없는 인증대상입니다."));
+
+        if(!register.getMailSentAt().equals(registerAuthReq.getMailSentAt())) { return null; }
+        if(!register.getCertified().equals(registerAuthReq.getCertified())) { return null; }
+
+        return register;
+    }
+
 //    @Transactional
 //    @Override
 //    public User updateUser(UserUpdatePostReq userUpdatePostReq) {
@@ -81,5 +103,5 @@ public class UserServiceImpl implements UserService {
 //    public User profileImg(MultipartFile[] files) {
 //        String imgOrigin = StringUtils.cleanPath()
 //    }
->>>>>>> ee73e0e02f17546d5c7f2700d69514b31e63684d
+
 }

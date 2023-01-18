@@ -13,9 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.mail.MessagingException;
-import java.time.LocalDateTime;
-
 /**
  * 유저 관련 API 요청 처리를 위한 컨트롤러 정의
  */
@@ -26,42 +23,40 @@ public class UserController {
 
     private final UserService userService;
     private final EmailService emailService;
-    /**
-     * 회원가입 요청을 받아 인증 이메일을 전송합니다.
-     * @param UserAuthMailPostReq: 사용자의 회원가입정보와 메일 템플릿
-     * @return
-     */
-//    @PostMapping("/auth/mail")
-//    public ResponseEntity<? extends BaseResponseBody> createUser(@RequestBody UserAuthMailPostReq authMailPostReq) {
-////        User user = userService.createUser(userRegisterPostReq)
-//
-//        Register data = Register.builder()
-//                .userAuthMailPostReq(authMailPostReq)
-//                .certified()
-//                .mailSentAt()
-//                .build();
-//
-//        try {
-//            /* 메일 전송 */
-//            emailService.sendMail(authMailPostReq.getEmail(), authMailPostReq.getSubject(), emailService.buildMailContent()); // 메일 전송
-//
-//            /* register table에 정보 저장(email, password, name, certified, mailSendAt */
-//
-//        } catch (MessagingException e) { // 메일 전송 실패
-//
-//        } catch (Exception e) { // db 저장 실패??
-//
-//        }
-//
-//        /* 프론트에 응답 전송 */
-//        return ResponseEntity.status(HttpStatus.OK).body(new BaseResponseBody(200, "Success"));
-//    }
+    private final PasswordEncoder passwordEncoder;
 
-    /**
-     * @param email
-     * @return
-     */
-    @GetMapping("{email}")
+    @PostMapping("/auth/mail")
+    public ResponseEntity<? extends BaseResponseBody> sendAuthMail(
+            @RequestBody UserAuthMailPostReq authMailPostReq) throws Exception {
+
+        String certificationCode = emailService.getCertificationCode();
+        Long mailSentAt = System.currentTimeMillis();
+
+        /* 현재 시간 생성 */
+        String content = emailService.buildMailContent(authMailPostReq.getContent(), certificationCode, mailSentAt);
+
+        /* 메일 전송 */
+        emailService.sendMail(
+                authMailPostReq.getEmail(),
+                authMailPostReq.getSubject(),
+                content);
+
+        Register register = Register.builder()
+                .email(authMailPostReq.getEmail())
+                .password(authMailPostReq.getPassword())
+                .name(authMailPostReq.getName())
+                .certified(certificationCode)
+                .mailSentAt(mailSentAt)
+                .build();
+//'didos9430@gmail.com', '$2a$10$vDKmQ5HXOmytEu4N3KhO4OqjZH4x.9F83zXzqQmSS20LSfzqjjFeK', '1674065673789', '이방환', '12341234'
+        /* register table에 정보 저장(email, password, name, certified, mailSendAt */
+        userService.insertRegister(register);
+
+        /* 프론트에 응답 전송 */
+        return ResponseEntity.status(HttpStatus.OK).body(new BaseResponseBody(200, "Success"));
+    }
+
+    @GetMapping("/{email}")
     public ResponseEntity<? extends BaseResponseBody> getUser(@PathVariable String email) {
         User user = userService.getUser(email);
 
@@ -69,28 +64,12 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(new BaseResponseBody(200, "Success"));
     }
 
-    /**
-     *
-     * @param userRegisterAuthReq
-     * @return
-     */
-    @PostMapping()
-    public ResponseEntity<? extends BaseResponseBody> get(@RequestBody UserRegisterPostReq userRegisterAuthReq) {
-        /* register 테이블이랑 비교!
-            - mailSendAt 값을 비교해서
-                같으면 pass
-                다르면 예외
+    @PostMapping("/cert")
+    public ResponseEntity<? extends BaseResponseBody> signUp(@RequestBody UserRegisterPostReq registerPostReq) {
+        Register register = userService.certificateRegister(registerPostReq);
 
-            - certified 값을 비교해서
-                같으면 pass
-                다르면 예외
-         */
-
-        /* user 테이블에 register 테이블에 있는 유저정보 추가 */
-
-        /* 추가가 완료되었으면 200 */
-
-        return null;
+        userService.createUser(register);
+        return ResponseEntity.status(HttpStatus.OK).body(new BaseResponseBody(200, "Success"));
     }
 
     /**
