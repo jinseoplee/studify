@@ -1,15 +1,12 @@
 package com.ssafy.api.service.impl;
 
-import com.ssafy.api.request.UserRegisterPostReq;
+import com.ssafy.api.request.UserAuthMailPostReq;
 import com.ssafy.api.service.UserService;
 import com.ssafy.db.entity.User;
 import com.ssafy.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
-import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 유저 관련 비즈니스 로직 처리를 위한 서비스 구현 정의
@@ -22,7 +19,7 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public User createUser(UserRegisterPostReq userRegisterPostReq) {
+    public User createUser(UserAuthMailPostReq userRegisterPostReq) {
         User user = User.builder()
                 .email(userRegisterPostReq.getEmail())
                 .name(userRegisterPostReq.getName())
@@ -32,6 +29,10 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
+    public User getUser(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("없는 사용자입니다."));
+    }
 //    @Transactional
 //    @Override
 //    public User updateUser(UserUpdatePostReq userUpdatePostReq) {
@@ -45,9 +46,9 @@ public class UserServiceImpl implements UserService {
 //        return id;
 //    }
 
-    @Transactional
-    @Override
-    public User profileImg(MultipartFile[] files) {
-        String imgOrigin = StringUtils.cleanPath()
-    }
+//    @Transactional
+//    @Override
+//    public User profileImg(MultipartFile[] files) {
+//        String imgOrigin = StringUtils.cleanPath()
+//    }
 }

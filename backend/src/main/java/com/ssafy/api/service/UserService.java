@@ -1,7 +1,6 @@
 package com.ssafy.api.service;
 
-import com.ssafy.api.request.UserRegisterPostReq;
-import com.ssafy.api.request.UserRegisterPutReq;
+import com.ssafy.api.request.UserAuthMailPostReq;
 import com.ssafy.db.entity.User;
 
 /**
@@ -15,12 +14,14 @@ public interface UserService {
      * @param userRegisterPostReq
      * @return
      */
-    User createUser(UserRegisterPostReq userRegisterPostReq);
+    User createUser(UserAuthMailPostReq userRegisterPostReq);
+
+    User getUser(String email);
 
     /**
      * 회원 정보 변경
      * @param userUpdatePostReq
      * @return User
      */
-    User updateUser(UserRegisterPutReq userUpdatePostReq);
+//    User updateUser(UserRegisterPutReq userUpdatePostReq);
 }

@@ -1,18 +1,13 @@
 package com.ssafy.api.request;
 
-import com.ssafy.db.entity.User;
 import lombok.Getter;
 import lombok.Setter;
 
-/**
- * 유저 회원가입 API ([POST] /api/v1/users) 요청에 필요한 리퀘스트 바디 정의
- */
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 public class UserRegisterPostReq {
-
-    private String email;
-    private String password;
-    private String name;
-
+    private String certified; // 랜덤문자열이 인코딩된 코드
+    private LocalDateTime mailSendedAt; // 메일이 전송된 시각
 }
