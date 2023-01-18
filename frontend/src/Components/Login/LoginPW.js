@@ -63,7 +63,8 @@ const LoginPW = () => {
           다음
         </button>
       </form>
-      <div onClick={findPw}>비밀번호 잊어버리셨나요?</div>
+      <div onClick={findPw}>비밀번호 잊어버리셨나요?
+      </div>
       {modalOpen && <LoginModal setModalOpen={closeModal}></LoginModal>}
     </React.Fragment>
   );

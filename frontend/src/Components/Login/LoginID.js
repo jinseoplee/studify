@@ -80,7 +80,7 @@ const LoginID = (props) => {
       <div onClick={click}>아이디를 잊어버리셨나요?</div>
       <div>
         아이디가 존재하지 않으신가요?
-        <Link to="/SignUp">회원가입</Link>
+        <Link to="/Signup">회원가입</Link>
       </div>
     </LoginCard>
   );

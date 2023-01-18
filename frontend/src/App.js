@@ -6,6 +6,7 @@ import Rank from "./Components/Rank/Rank";
 import StartPage from "./Components/StartPage/StartPage";
 import LoginID from "./Components/Login/LoginID";
 import LoginPW from "./Components/Login/LoginPW";
+import SignupForm from "./Components/Signup/SignupForm";
 
 const App = () => {
   useEffect(() => {
@@ -20,6 +21,7 @@ const App = () => {
         <Route path="/rank" element={<Rank />}></Route>
         <Route path="/loginId" element={<LoginID />}></Route>
         <Route path="/loginPw" element={<LoginPW />}></Route>
+        <Route path="/Signup" element={<SignupForm />}></Route>
       </Routes>
     </React.Fragment>
   );
