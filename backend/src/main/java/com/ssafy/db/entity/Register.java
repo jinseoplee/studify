@@ -30,13 +30,13 @@ public class Register {
     @Column(name = "certified")
     private String certified;
 
-    private LocalDateTime mailSentAt;
+    private Long mailSentAt;
 
     @Builder
-    public Register(UserAuthMailPostReq userAuthMailPostReq, String certified, LocalDateTime mailSentAt) {
-        this.email = userAuthMailPostReq.getEmail();
-        this.password = userAuthMailPostReq.getPassword();
-        this.name = userAuthMailPostReq.getName();
+    public Register(String email, String password, String name, String certified, Long mailSentAt) {
+        this.email = email;
+        this.password = password;
+        this.name = name;
         this.certified = certified;
         this.mailSentAt = mailSentAt;
     }
