@@ -1,6 +1,8 @@
 import { useState } from "react";
-import { Router } from "react-router-dom";
 import axios from "axios";
+
+import ModalSignup from "../UI/ModalSignup";
+import dummy from "./MailForm.JSON";
 import "./SignupForm.css";
 
 const SignupForm = () => {
@@ -17,41 +19,49 @@ const SignupForm = () => {
 
   //유효성 검사
   const [isEmail, setIsEmail] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
+  // const [checkJson, setCheckJson] = useState(false);
   const [isPassword, setIsPassword] = useState(false);
   const [isPasswordCheck, setIsPasswordCheck] = useState(false);
 
-  const onEmailHandler = (event) => {
-    setEmail(event.currentTarget.value);
-  };
-  const onPasswordHandler = (event) => {
-    setPassword(event.currentTarget.value);
-  };
-  const onPasswordCheckHandler = (event) => {
-    setPasswordCheck(event.currentTarget.value);
-  };
+  // const onEmailHandler = (event) => {
+  //   setEmail(event.currentTarget.value);
+  // };
+  // const onPasswordHandler = (event) => {
+  //   setPassword(event.currentTarget.value);
+  // };
+  // const onPasswordCheckHandler = (event) => {
+  //   setPasswordCheck(event.currentTarget.value);
+  // };
+
   const onNameHandler = (event) => {
     setName(event.currentTarget.value);
   };
 
-  const onSubmitHandler = async (event) => {
-    const [data, setData] = useState("");
+  const OnSubmitHandler = async (event) => {
+    // const [data, setData] = useState("");
     event.preventDefault();
+    const mailjson = dummy;
+
     try {
-      const response = await axios
-        .post("http://192.168.31.27:8080/api/v1/users", {
+      const response = await axios.post(
+        "http://192.168.31.27:8080/api/v1/users/signup",
+        {
           email: Email,
           password: Password,
           name: Name,
-        })
-        setData(response.data);
-        console.log(data)
-        // .then((res) => {
-        //   console.log("response:", res);
-          // if (res.status === 200) {
-          // router.push('#')
-          // console.log(res);
-        // });
+        }
+      );
+      // setData(response.data);
+      console.log(response);
+      // .then((res) => {
+      //   console.log("response:", res);
+      // if (res.status === 200) {
+      // router.push('#')
+      // console.log(res);
+      // });
     } catch (err) {
+      console.log(mailjson);
       console.error(err);
     }
   };
@@ -95,7 +105,7 @@ const SignupForm = () => {
     }
   };
   return (
-    <form onSubmit={onSubmitHandler} className="signupform-div">
+    <form onSubmit={OnSubmitHandler} className="signupform-div">
       <label className="signupform-label">Email </label>
       <div>
         <input type="email" value={Email} onChange={onChangeEmail}></input>
@@ -140,9 +150,11 @@ const SignupForm = () => {
       <button
         type="submit"
         disabled={!(isEmail && isPassword && isPasswordCheck)}
+        onClick={() => setOpenModal(true)}
       >
         가입하기
       </button>
+      <ModalSignup open={openModal} onClose={() => setOpenModal(false)} />
     </form>
   );
 };
