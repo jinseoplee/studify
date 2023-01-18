@@ -34,23 +34,25 @@ const SignupForm = () => {
   };
 
   const OnSubmitHandler = async (event) => {
-    const [data, setData] = useState("");
+    // const [data, setData] = useState("");
     event.preventDefault();
     try {
-      const response = await axios
-        .post("http://192.168.31.27:8080/api/v1/users", {
+      const response = await axios.post(
+        "http://192.168.31.27:8080/api/v1/users/signup",
+        {
           email: Email,
           password: Password,
           name: Name,
-        })
-        setData(response.data);
-        console.log(data)
-        // .then((res) => {
-        //   console.log("response:", res);
-          // if (res.status === 200) {
-          // router.push('#')
-          // console.log(res);
-        // });
+        }
+      );
+      // setData(response.data);
+      console.log(response);
+      // .then((res) => {
+      //   console.log("response:", res);
+      // if (res.status === 200) {
+      // router.push('#')
+      // console.log(res);
+      // });
     } catch (err) {
       console.error(err);
     }
