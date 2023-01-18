@@ -4,7 +4,9 @@ import LoginModal from "./LoginModal";
 
 import "./LoginPW.css";
 
-const LoginPW = () => {
+const LoginPW = (props) => {
+  console.log(props);
+
   const [loginInfo, setValues] = useState("");
 
   //처음에 모달창을 꺼놓기 위해 초기값을 false로 줍니다.
@@ -22,17 +24,14 @@ const LoginPW = () => {
 
   //비밀번호가 바뀔때마다 확인해주는 함수.
   const handleChange = (event) => {
-    setValues({
-      ...loginInfo,
-      [event.target.name]: event.target.value,
-    });
+    setValues(event.target.value);
   };
 
   //다음 버튼 클릭시 비밀번호가 아이디와 일치하는지 확인해줍니다.
   //LoginID로 부터 ID를 props를 통해 받아와서 해당 ID와 PW가 맞는지 확인시켜주어야함.
   //Map을 통해 Back에서 저장될것같다.
   const check = (event) => {
-    if (loginInfo.Pw === "") {
+    if (loginInfo === "") {
       alert("비밀번호를 입력하지 않았습니다.");
       event.preventDefault();
     } else {
@@ -56,15 +55,14 @@ const LoginPW = () => {
         <input
           type="password"
           name="email"
-          value={loginInfo.id}
+          value={loginInfo}
           onChange={handleChange}
         />
         <button type="submit" onClick={check}>
           다음
         </button>
       </form>
-      <div onClick={findPw}>비밀번호 잊어버리셨나요?
-      </div>
+      <div onClick={findPw}>비밀번호 잊어버리셨나요?</div>
       {modalOpen && <LoginModal setModalOpen={closeModal}></LoginModal>}
     </React.Fragment>
   );
