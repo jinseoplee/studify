@@ -1,5 +1,4 @@
 import { useState } from "react";
-// import { Navigate } from "react-router-dom";
 import axios from "axios";
 
 import ModalSignup from "../UI/ModalSignup";
