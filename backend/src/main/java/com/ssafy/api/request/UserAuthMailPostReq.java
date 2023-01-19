@@ -13,7 +13,5 @@ public class UserAuthMailPostReq {
     private String email; // 이메일
     private String password; // 비밀번호
     private String name; // 이름
-    private String subject; // 메일 제목
-    private String content; // 메일 본문
-
+//    private String nickname;
 }
