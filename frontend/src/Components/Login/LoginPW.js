@@ -5,7 +5,7 @@ import { useCookies } from "react-cookie";
 import axios from "axios";
 import "./LoginPW.css";
 
-const LoginPW = (props)) => {
+const LoginPW = (props) => {
   console.log(props);
   // const [loginInfo, setValues] = useState("");
   // const [Email, setEmail] = useState("");
