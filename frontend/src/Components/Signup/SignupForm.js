@@ -1,6 +1,10 @@
 import { useState } from "react";
 // import { Navigate } from "react-router-dom";
 import axios from "axios";
+
+import ModalSignup from "../UI/ModalSignup";
+import logo from "../../assets/image/logo.png";
+import dummy from "./MailForm.JSON";
 import "./SignupForm.css";
 
 const SignupForm = () => {
@@ -17,41 +21,40 @@ const SignupForm = () => {
 
   //유효성 검사
   const [isEmail, setIsEmail] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
+  // const [checkJson, setCheckJson] = useState(false);
   const [isPassword, setIsPassword] = useState(false);
   const [isPasswordCheck, setIsPasswordCheck] = useState(false);
 
-  // const onEmailHandler = (event) => {
-  //   setEmail(event.currentTarget.value);
-  // };
-  // const onPasswordHandler = (event) => {
-  //   setPassword(event.currentTarget.value);
-  // };
-  // const onPasswordCheckHandler = (event) => {
-  //   setPasswordCheck(event.currentTarget.value);
-  // };
   const onNameHandler = (event) => {
     setName(event.currentTarget.value);
   };
 
   const OnSubmitHandler = async (event) => {
-    const [data, setData] = useState("");
+    // const [data, setData] = useState("");
     event.preventDefault();
+    const mailjson = dummy;
+
     try {
-      const response = await axios
-        .post("http://192.168.31.27:8080/api/v1/users", {
+      const response = await axios.post(
+        "http://192.168.31.27:8080/api/v1/users/signup",
+        {
           email: Email,
           password: Password,
           name: Name,
-        })
-        setData(response.data);
-        console.log(data)
-        // .then((res) => {
-        //   console.log("response:", res);
-          // if (res.status === 200) {
-          // router.push('#')
-          // console.log(res);
-        // });
+        }
+      );
+      // setData(response.data);
+
+      console.log(response);
+      // .then((res) => {
+      //   console.log("response:", res);
+      // if (res.status === 200) {
+      // router.push('#')
+      // console.log(res);
+      // });
     } catch (err) {
+      console.log(mailjson);
       console.error(err);
     }
   };
@@ -95,55 +98,84 @@ const SignupForm = () => {
     }
   };
   return (
-    <form onSubmit={OnSubmitHandler} className="signupform-div">
-      <label className="signupform-label">Email </label>
-      <div>
-        <input type="email" value={Email} onChange={onChangeEmail}></input>
-        {Email.length > 0 && (
-          <span className={`message ${isEmail ? "success" : "error"}`}>
-            {emailMessage}
-          </span>
-        )}
-      </div>
+    <div className="signup-background">
+      <form onSubmit={OnSubmitHandler} className="signupform-div">
+        <img alt="logo" src={logo} className="signup-logo"></img>
+        <div className="signup-input-div">
+          <label className="signupform-label">Email </label>
+          <div>
+            <input
+              type="email"
+              value={Email}
+              onChange={onChangeEmail}
+              className="signup-input"
+            ></input>
+            <p className="signup-message">
+              {Email.length > 0 && (
+                <span className={`message ${isEmail ? "success" : "error"}`}>
+                  {emailMessage}
+                </span>
+              )}
+            </p>
+          </div>
 
-      <label className="signupform-label">Password</label>
-      <div>
-        <input
-          type="password"
-          value={Password}
-          onChange={onChangePassword}
-        ></input>
-        {Password.length > 0 && (
-          <span className={`message ${isPassword ? "success" : "error"}`}>
-            {passwordMessage}
-          </span>
-        )}
-      </div>
-      <label className="signupform-label">Password Check</label>
-      <div>
-        <input
-          type="password"
-          value={PasswordCheck}
-          onChange={onChangePasswordCheck}
-        ></input>
-        {PasswordCheck.length > 0 && (
-          <span className={`message ${isPasswordCheck ? "success" : "error"}`}>
-            {passwordCheckMessage}
-          </span>
-        )}
-      </div>
-      <label className="signupform-label">Name </label>
-      <div>
-        <input type="name" value={Name} onChange={onNameHandler}></input>
-      </div>
-      <br></br>
-      <button
-        type="submit"
-        disabled={!(isEmail && isPassword && isPasswordCheck)}
-      >
-        가입하기
-      </button>
-    </form>
+          <label className="signupform-label">Password</label>
+          <div>
+            <input
+              type="password"
+              value={Password}
+              onChange={onChangePassword}
+              className="signup-input"
+            ></input>
+            <p className="signup-message">
+              {Password.length > 0 && (
+                <span className={`message ${isPassword ? "success" : "error"}`}>
+                  {passwordMessage}
+                </span>
+              )}
+            </p>
+          </div>
+          <label className="signupform-label">Password Check</label>
+          <div>
+            <input
+              type="password"
+              value={PasswordCheck}
+              onChange={onChangePasswordCheck}
+              className="signup-input"
+            ></input>
+            <p className="signup-message">
+              {PasswordCheck.length > 0 && (
+                <span
+                  className={`message ${isPasswordCheck ? "success" : "error"}`}
+                >
+                  {passwordCheckMessage}
+                </span>
+              )}
+            </p>
+          </div>
+          <label className="signupform-label">Name </label>
+          <div>
+            <input
+              type="name"
+              value={Name}
+              onChange={onNameHandler}
+              className="signup-input"
+            ></input>
+          </div>
+
+          <br></br>
+          <button
+            type="submit"
+            disabled={!(isEmail && isPassword && isPasswordCheck)}
+            onClick={() => setOpenModal(true)}
+            className="signup-button"
+          >
+            가입하기
+          </button>
+        </div>
+        <ModalSignup open={openModal} onClose={() => setOpenModal(false)} />
+      </form>
+    </div>
   );
 };
 

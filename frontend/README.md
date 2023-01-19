@@ -96,3 +96,43 @@ React.StrictMode를 삭제 시켜주면 됩니다.
 ### Warning: A component is changing an uncontrolled input to be controlled. This is likely caused by the value changing from undefined to a defined value, which should not happen. Decide between using a controlled or uncontrolled input element for the lifetime of the component. 에러
 
 위의 에러는 값이 있어야 하는데 값이 undefined로 들어가 있는 경우에 발생하는 에러입니다. 에러를 해결하기 위해선 공백이나 초기값을 지정해 주어야합니다.
+
+### useHistory? useNavigate?란?
+
+router v5에서는 useHistory를 사용하여 방문기록을 저장해 주는 컴포넌트를 사용했습니다. 뒤로가기, 앞으로 가기등을 할 수가 있습니다.
+router v6에서는 history대신 navigate가 생기게 되었는데 useNavigate를 사용하여 첫번째 인자에 이동경로, 두번째 인자에는 state속성에 따라 파라미터를 넣어줍니다. 이때 이동한 경로에서 useLocation 을 사용하여 location을 취득하여 location.state안의 속성에 따라 값을 가져오면 파라미터의 값을 이동한 페이지에서도 작성이 가능합니다.
+
+### portal을 사용하는 이유?
+
+현재 모달창을 띄우기 위해 사용을 해 주었는데 모달이란 다이얼로그 실행 시 포커스와 제어권을 독점해 다이얼로그를 종려하기 전 까지 기존의 화면을 제어할 수 없게 하는 것입니다. 따라서 모달은 항상 화면의 최상위에 위치해야합니다.
+일반적으로 띄울때에는 언제나 최상위에 보여지는 것을 보장할수가 없습니다. 만약 자식 컴포넌트에서 모달 컴포넌트를 랜더링 할시에는 이 모달 컴포넌트는 부모 컴포넌트의 스타일의 영향을 받을수가 있습니다.
+이때 사용하는 것이 portal이며 공식 문서에는
+=> Portal이란 부모 컴포넌트의 DOM 계층 구조 바깥에 있는 DOM 노드로 자식을 렌더링 하는 최고의 방법을 제공합니다. 라고 합니다
+사용법은 ReactDom.createPortal(child, container) 형식입니다. 첫번째 인자 child 는 포탈을 사용해 계층 밖으로 보낼 대상이 되는 컴포넌트, 두번째 인자 container는 포탈로 이동할 목적지, 즉 child를 랜더링 할 DOM Element를 넣어줍니다.
+만들땐 우선 public 에 있는 index.html에 컴포넌트가 렌더링 될 DOM Element를 추가해주어야합니다. (대부분 root아이디 아래에 생성)
+그러고서 씌워줄 파일을 하나 만들어 createPortal(<>{children}</>, document.getElementById("index.html에 써준 id요소 이름")) 작성해줍니다. 위의 코드는 포탈을 만드는데 해당하는 부분은 자식컴포넌트의 요소를 전부 들고올 {children}과 어디로 보여줄지 이동하는 id값을 찾아줍니다.
+그러고서 모달창을 위의 컴포넌트로 감싸줄시에 F12를 눌러 요소를 보면 root 안에 다 있는 것이 아닌 내가 지정한 이름의 요소가 하나 더 생겨 그 아래에 생긴 것을 볼수가 있습니다.
+
+### axios요청에서 backend부분으로는 데이터 요청이 잘가는데(데이터 추가가 됌.) 현재 우리페이지에서 CORS에러가 뜨며 net :: err_failed 200 가 뜨는 오류.
+
+처음에는 CORS에러라 백엔드 부분이 문제인줄 알았지만 서버를 연결하고 요청을 보냈을때 데이터가 잘가며 에러가 떠서 난항을 겪었습니다.
+브라우저 내의 CORS정책에 막혀 미들웨어를 통하여 우회하는 식으로 해결해주었습니다.
+
+1. npm install http-proxy-middleware를 설치해줍니다.
+2. src폴더내에 setupProxy.js파일을 생성해줍니다.
+   아래의 내부 코드를 작성해줍니다.
+
+```
+const { createProxyMiddleware } = require("http-proxy-middleware");
+
+module.exports = function (app) {
+  app.use(
+    createProxyMiddleware("/api", { //내 주소를 작성.
+      target: "http://192.168.31.202:8080/",
+      changeOrigin: true,
+    })
+  );
+};
+```
+
+3. 내가 axios요청 보낸 곳의 주소는 저 앞의 주소 이후를 써주면 됩니다. 그러고 실행.
