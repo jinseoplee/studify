@@ -1,27 +1,27 @@
-package com.ssafy.api.service.impl;
+package com.ssafy.config.mail;
 
-import com.ssafy.api.request.UserAuthMailPostReq;
-import com.ssafy.api.service.EmailService;
-import com.ssafy.db.entity.Register;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-import java.time.LocalDateTime;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Random;
-import java.util.StringTokenizer;
 
 @RequiredArgsConstructor
-@Service
-public class EmailServiceImpl implements EmailService {
+@Component
+public class MailDispatcher {
+
+    private final PasswordEncoder passwordEncoder;
     private final JavaMailSender javaMailSender;
-    public final PasswordEncoder passwordEncoder;
+    private final MailContent mailContent;
 
     public void sendMail(String to, String subject, String content) throws MessagingException {
+
         /* 이메일 전송 */
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
@@ -47,14 +47,22 @@ public class EmailServiceImpl implements EmailService {
         return passwordEncoder.encode(sb.toString());
     }
 
-    public String buildMailContent(String htmlContent, String code, Long time) {
-        String[] split = htmlContent.split("XXXX|YYYY");
+    public String buildAuthMailContent(String name, String code, Long time) throws UnknownHostException {
+
+        String[] split = MailContent.AUTH_MAIL_BODY.split(MailContent.AUTH_MAIL_DELIMITERS);
+        StringBuffer sb = new StringBuffer();
+
+        // 리팩터링 필요
         return new StringBuffer()
                 .append(split[0])
-                .append(code)
+                .append(name)
                 .append(split[1])
-                .append(time)
+                .append(InetAddress.getLocalHost() + "8080")
                 .append(split[2])
+                .append(code)
+                .append(split[3])
+                .append(time)
+                .append(split[4])
                 .toString();
     }
 }
