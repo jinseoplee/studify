@@ -1,10 +1,8 @@
-import { useState,useRef } from "react";
-import './Modal.css'
 import ModalBasic from "./ModalBasic";
 
 const Modal = () => {
   const [modalOpen, setModalOpen] = useState(false);
-  const modalRef = useRef();
+  
   const showModal = () => {
     setModalOpen(true);
   };

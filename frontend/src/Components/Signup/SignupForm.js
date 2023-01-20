@@ -3,7 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 
 import ModalSignup from "../UI/ModalSignup";
-import logo from "./logo.png";
+import logo from "../../assets/image/logo.png";
 import dummy from "./MailForm.JSON";
 import "./SignupForm.css";
 
@@ -25,16 +25,6 @@ const SignupForm = () => {
   // const [checkJson, setCheckJson] = useState(false);
   const [isPassword, setIsPassword] = useState(false);
   const [isPasswordCheck, setIsPasswordCheck] = useState(false);
-
-  // const onEmailHandler = (event) => {
-  //   setEmail(event.currentTarget.value);
-  // };
-  // const onPasswordHandler = (event) => {
-  //   setPassword(event.currentTarget.value);
-  // };
-  // const onPasswordCheckHandler = (event) => {
-  //   setPasswordCheck(event.currentTarget.value);
-  // };
 
   const onNameHandler = (event) => {
     setName(event.currentTarget.value);
