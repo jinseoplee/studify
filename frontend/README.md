@@ -1,74 +1,3 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-
 ### 메인페이지 구현
 
 전체 라우터를 App.js에 몰아넣어서 모든 라우터를 한곳에서 관리하려고 합니다.
@@ -137,3 +66,34 @@ v5와 v6은 많이 다르다.
 위와 같이 구성을 해주었는데 LoginModal의 부분에서 props로 내려간 부분이
 내가 원하는 closeModal이 되지않고 div태그 안에있는 findPw가 찍히는 것을 보았습니다.
 따라서 modal창 띄워주는 부분이 LoginModal이 내가 원하는 함수를 props로 받기 위해 div태그 바깥으로 빼내어서 해결해 주었습니다.
+
+### 리액트 훅의 규칙
+
+최상위 컴포넌트가 아닌 일반 함수내에서 리액트 훅을 사용할때에는 그 함수의 시작이름이 무조건 대문자이어야 작동을합니다.
+대부분 useState를 이용할때 많이 발생하는 오류입니다.
+
+### 아이디 저장을 위한 cookie 사용
+
+cookie란? - 웹 서버가 웹 브라우저에게 보내어 저장했다가 서버의 부가적인 요청이 있을때 다시 서버로 보내주는 문자열 정보.
+쿠키는 주로 세션관리, 개인화 트래킹에 사용.
+react에서 쿠키 사용
+= npm install react-cookie 로 설치.
+사용. const [cookies, setCookie, removeCookie] = useCookies();
+setCookie('키값', '데이터값', {path, expires, maxAge...})
+여기서 useCookies에 인자로 들어가는 값은 의존성을 띄며 값을 적지 않으면 모든 쿠키값이 변할때 마다 렌더링 됩니다.
+
+### checkbox사용 막힘
+
+체크박스안의 체크는 checked로 해야한다. value값은 현재 체크박스의 값을 나타내줄뿐.
+checked를 이용하여 체크할지 말지 결정해줍니다.
+
+### useEffect에 초기 랜더링([]) 빈괄호를 사용했는데 두번 랜더링 되는 이유.
+
+리액트에는 Strict모드가 존재합니다. 이 옵션이 켜져있는 경우에 개발 모드일 경우 구성요소를 두 번 렌더링 시켜줍니다.
+한번만 렌더링 시켜주고 싶다면 index.js에 React.StrictMode가 처음 root 컴포넌트를 감싸고 있는지 확인해주며
+React.StrictMode를 삭제 시켜주면 됩니다.
+
+### Warning: A component is changing an uncontrolled input to be controlled. This is likely caused by the value changing from undefined to a defined value, which should not happen. Decide between using a controlled or uncontrolled input element for the lifetime of the component. 에러
+
+위의 에러는 값이 있어야 하는데 값이 undefined로 들어가 있는 경우에 발생하는 에러입니다. 에러를 해결하기 위해선 공백이나 초기값을 지정해 주어야합니다.
+

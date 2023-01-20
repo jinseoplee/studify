@@ -1,5 +1,5 @@
 .bottombar {
-  position: fixed;
+  position: relative;
   background-color: bisque;
   bottom: 0;
   height: 5rem;
