@@ -40,7 +40,7 @@ public class SecurityConfig {
                 // 인증이 필요한 URL과 필요하지 않은 URL에 대하여 설정
                 .and()
                 .authorizeRequests()
-                .antMatchers("/api/v1/users/signup").permitAll()
+                .antMatchers("/api/v1/users/**" ).permitAll()
 
                 // usernamePasswordAuthenticationFilter 앞에 jwtAuthenticationFilter 추가
                 .and()
