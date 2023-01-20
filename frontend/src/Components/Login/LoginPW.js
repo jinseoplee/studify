@@ -1,22 +1,21 @@
 //아이디를 확인해주는 컴포넌트입니다.
 import React, { useState } from "react";
-import LoginModal from "./LoginModal";
-import { useCookies } from "react-cookie";
-import axios from "axios";
+import { useLocation } from "react-router-dom";
+import ModalLogin from "../UI/ModalLogin";
+
 import "./LoginPW.css";
 
-const LoginPW = (props)) => {
-  console.log(props);
-  // const [loginInfo, setValues] = useState("");
-  // const [Email, setEmail] = useState("");
-  const [Password, setPassword] = useState("");
-  // const [isRemember, setIsRemember] = useState(false);
+const LoginPW = () => {
+  const [loginInfo, setValues] = useState("");
+
   //처음에 모달창을 꺼놓기 위해 초기값을 false로 줍니다.
   const [modalOpen, setModalOpen] = useState(false);
 
-  const [cookies] = useCookies(['useremail']);
+  const location = useLocation();
 
-  console.log(cookies);
+  //이전에 loginId 페이지에서 가져온 이메일 값을 지정해줍니다.
+  const useremail = location.state;
+  console.log(useremail);
 
   //모달창을 열어주는 함수입니다.
   const showModal = () => {
@@ -87,7 +86,7 @@ const LoginPW = (props)) => {
         </button>
       </form>
       <div onClick={findPw}>비밀번호 잊어버리셨나요?</div>
-      {modalOpen && <LoginModal setModalOpen={closeModal}></LoginModal>}
+      {modalOpen && <ModalLogin setModalOpen={closeModal}></ModalLogin>}
     </React.Fragment>
   );
 };
