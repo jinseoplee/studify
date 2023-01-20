@@ -53,8 +53,7 @@ public class MailDispatcher {
         StringBuffer sb = new StringBuffer();
 
         // 리팩터링 필요
-        return new StringBuffer()
-                .append(split[0])
+        return sb.append(split[0])
                 .append(name)
                 .append(split[1])
                 .append(InetAddress.getLocalHost() + "8080")
@@ -65,4 +64,5 @@ public class MailDispatcher {
                 .append(split[4])
                 .toString();
     }
+
 }

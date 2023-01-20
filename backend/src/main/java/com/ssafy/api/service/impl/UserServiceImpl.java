@@ -3,7 +3,6 @@ package com.ssafy.api.service.impl;
 import com.ssafy.api.request.UserLoginPostReq;
 import com.ssafy.api.request.UserRegisterPostReq;
 import com.ssafy.api.response.UserLoginPostRes;
-import com.ssafy.api.request.UserAuthMailPostReq;
 import com.ssafy.api.service.UserService;
 import com.ssafy.config.security.JwtTokenProvider;
 import com.ssafy.db.entity.Register;
@@ -14,6 +13,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Map;
+import java.util.Optional;
 
 /**
  * 유저 관련 비즈니스 로직 처리를 위한 서비스 구현 정의
@@ -79,29 +81,25 @@ public class UserServiceImpl implements UserService {
         Register register = registerRepository.findByCertified(registerAuthReq.getCertified())
                 .orElseThrow(() -> new IllegalArgumentException("없는 인증대상입니다."));
 
-        if(!register.getMailSentAt().equals(registerAuthReq.getMailSentAt())) { return null; }
-        if(!register.getCertified().equals(registerAuthReq.getCertified())) { return null; }
+        if(!register.getMailSentAt().equals(registerAuthReq.getMailSentAt())) return null;
+        // 추후 토큰방식으로 대체 예정
+        if(!register.getCertified().equals(registerAuthReq.getCertified())) return null;
 
         return register;
     }
 
-//    @Transactional
-//    @Override
-//    public User updateUser(UserUpdatePostReq userUpdatePostReq) {
-//        User user = userRepository.findOne(????)
-//                .orElseThrow(() -> new IllegalArgumentException("없는 사용자입니다."));
-//
-//        // 사용자의 프로필 이미지 정보를 업데이트하는 Setter 입니다.
-//        // 업데이트 정책 지정 후 다시 정의해야 합니다.
-//        user.update(userUpdatePostReq.getImgOrigin(), userUpdatePostReq.getImgSave());
-//
-//        return id;
-//    }
+    @Transactional
+    @Override
+    public User updateUserInfo(Map<String, String> userInfo) {
 
-//    @Transactional
-//    @Override
-//    public User profileImg(MultipartFile[] files) {
-//        String imgOrigin = StringUtils.cleanPath()
-//    }
+        User user = userRepository.findByEmail(userInfo.get("email"))
+                .orElseThrow(() -> new IllegalArgumentException("없는 사용자입니다."));
+
+        user.updateUserInfo(userInfo.get("nickname"));
+
+        userRepository.save(user);
+
+        return user;
+    }
 
 }

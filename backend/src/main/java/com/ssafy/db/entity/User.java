@@ -31,6 +31,9 @@ public class User extends BaseEntity implements UserDetails {
     @Column(nullable = false)
     private String name;
 
+    @Column(name = "nickname")
+    private String nickname;
+
     @Column(name = "img_origin")
     private String imgOrigin;
 
@@ -38,12 +41,18 @@ public class User extends BaseEntity implements UserDetails {
     private String imgSave;
 
     @Builder
-    public User(String email, String password, String name) {
+    public User(String email, String password, String name, String imgOrigin, String imgSave) {
         this.email = email;
         this.password = password;
         this.name = name;
+        this.imgOrigin = imgOrigin;
+        this.imgSave = imgSave;
     }
 
+    public void updateUserInfo(String nickname) {
+        this.nickname = nickname;
+        // 나중에 추가되는 정보도 여기서 변경
+    }
 
     /**
      * 계정이 가지고 있는 권한 목록을 리턴
@@ -105,12 +114,4 @@ public class User extends BaseEntity implements UserDetails {
         return true;
     }
 
-
-    // 회원정보 업데이트 관련 정책이 정해져야 합니다.
-    // 만약 엔드포인트가 전체 회원 정보를 넘겨 주는 경우에는 update persistence가 해결하도록 놔두면 되지만(파일 저장 제외),
-    // 엔드포인트가 바꾸려는 정보만을 넘겨 주는 경우에는 어떤 칼럼을 업데이트할 지 정해야 합니다.
-//    public void update(String imgOrigin, String imgSave) {
-//        this.imgOrigin = imgOrigin;
-//        this.imgSave = imgSave;
-//    }
 }
