@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDateTime;
@@ -21,15 +22,18 @@ public class UserServiceTest {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     @After
-    public void cleanUp(){ userRepository.deleteAll(); }
+    public void cleanUp(){ }
 
     @Test
     public void UserSaveTest(){
         LocalDateTime now = LocalDateTime.of(2023, 1, 14, 0, 0, 0);
         userRepository.save(User.builder()
                 .email("email")
-                .password("password")
+                .password(passwordEncoder.encode("pass"))
                 .name("name")
                 .build());
 
