@@ -1,11 +1,14 @@
 package com.ssafy.api.service;
 
+import com.ssafy.api.request.UserAuthPostReq;
 import com.ssafy.api.request.UserLoginPostReq;
-import com.ssafy.api.request.UserRegisterPostReq;
+import com.ssafy.api.request.UserSignupPostReq;
+import com.ssafy.api.response.UserAuthPostRes;
 import com.ssafy.api.response.UserLoginPostRes;
-import com.ssafy.db.entity.Register;
+import com.ssafy.db.entity.TempUser;
 import com.ssafy.db.entity.User;
 
+import javax.mail.MessagingException;
 import java.util.Map;
 
 /**
@@ -19,7 +22,7 @@ public interface UserService {
      * @param userRegisterPostReq
      * @return
      */
-    User createUser(Register register);
+    User createUser(TempUser tempUser);
 
     /**
      * 로그인
@@ -36,18 +39,25 @@ public interface UserService {
     User getUser(String email);
 
     /**
-     * 임시회원 삽입
-     * @param register
+     * 인증메일 발송
+     * @param req
      * @return
      */
-    Register insertRegister(Register register);
+    TempUser sendAuthMail(UserAuthPostReq req) throws MessagingException;
+
+    /**
+     * 임시회원 삽입
+     * @param tempUser
+     * @return
+     */
+    UserAuthPostRes insertTempUser(TempUser tempUser);
 
     /**
      * 사용자 메일 인증 확인
-     * @param registerAuthReq
+     * @param authReq
      * @return
      */
-    Register certificateRegister(UserRegisterPostReq registerAuthReq);
+    TempUser certificateTempUser(UserSignupPostReq authReq);
 
     /**
      * 회원정보 변경
@@ -55,4 +65,18 @@ public interface UserService {
      * @return
      */
     User updateUserInfo(Map<String, String> userInfo);
+
+    /**
+     * 회원 비밀번호 변경
+     * @param userInfo
+     * @return
+     */
+    User updateUserPassword(Map<String, String> userInfo);
+
+    /**
+     * 회원정보 삭제
+     * @param email
+     */
+    void deleteUser(String email);
+
 }
