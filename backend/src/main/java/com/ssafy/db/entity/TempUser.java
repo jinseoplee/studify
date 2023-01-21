@@ -1,7 +1,6 @@
 package com.ssafy.db.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.ssafy.api.request.UserAuthMailPostReq;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,12 +8,11 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @Getter
 @Entity
-public class Register {
+public class TempUser {
 
     @Id
     @Column(nullable = false, unique = true)
@@ -27,17 +25,26 @@ public class Register {
     @Column(nullable = false)
     private String name;
 
-    @Column(name = "certified")
-    private String certified;
+    @Column(name = "nickname")
+    private String nickname;
 
-    private Long mailSentAt;
+    @Column(name = "code")
+    private String code;
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
 
     @Builder
-    public Register(String email, String password, String name, String certified, Long mailSentAt) {
+    public TempUser(String email, String password, String name, String nickname, String code) {
         this.email = email;
         this.password = password;
         this.name = name;
-        this.certified = certified;
-        this.mailSentAt = mailSentAt;
+        this.nickname = nickname;
+        this.code = code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }

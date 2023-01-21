@@ -1,4 +1,4 @@
-package com.ssafy.config.mail;
+package com.ssafy.api.util;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -8,9 +8,6 @@ import org.springframework.stereotype.Component;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.util.Random;
 
 @RequiredArgsConstructor
 @Component
@@ -18,7 +15,8 @@ public class MailDispatcher {
 
     private final PasswordEncoder passwordEncoder;
     private final JavaMailSender javaMailSender;
-    private final MailContent mailContent;
+    private final EmailContent mailContent;
+    private final String PORT = "8080";
 
     public void sendMail(String to, String subject, String content) throws MessagingException {
 
@@ -34,34 +32,17 @@ public class MailDispatcher {
         javaMailSender.send(mimeMessage);
     }
 
-    public String getCertificationCode() {
-        Random rand = new Random();
-        StringBuilder sb = new StringBuilder();
-
-        // 10자리 랜덤 ascii string
-        for (int i = 0; i < 10; i++) {
-            sb.append((char) (rand.nextInt(128 - 33) + 33));
-        }
-
-        // bycrypt로 인코딩해서 반환
-        return passwordEncoder.encode(sb.toString());
-    }
-
-    public String buildAuthMailContent(String name, String code, Long time) throws UnknownHostException {
-
-        String[] split = MailContent.AUTH_MAIL_BODY.split(MailContent.AUTH_MAIL_DELIMITERS);
+    public String buildAuthMailContent(String name, String domain, String code) {
+        String[] split = EmailContent.AUTH_MAIL_BODY.split(EmailContent.AUTH_MAIL_DELIMITERS);
         StringBuffer sb = new StringBuffer();
 
-        // 리팩터링 필요
         return sb.append(split[0])
                 .append(name)
                 .append(split[1])
-                .append(InetAddress.getLocalHost() + "8080")
+                .append(domain)
                 .append(split[2])
                 .append(code)
                 .append(split[3])
-                .append(time)
-                .append(split[4])
                 .toString();
     }
 
