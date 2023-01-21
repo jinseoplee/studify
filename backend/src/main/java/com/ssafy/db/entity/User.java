@@ -41,10 +41,11 @@ public class User extends BaseEntity implements UserDetails {
     private String imgSave;
 
     @Builder
-    public User(String email, String password, String name, String imgOrigin, String imgSave) {
+    public User(String email, String password, String name, String nickname, String imgOrigin, String imgSave) {
         this.email = email;
         this.password = password;
         this.name = name;
+        this.nickname = nickname;
         this.imgOrigin = imgOrigin;
         this.imgSave = imgSave;
     }
@@ -52,6 +53,10 @@ public class User extends BaseEntity implements UserDetails {
     public void updateUserInfo(String nickname) {
         this.nickname = nickname;
         // 나중에 추가되는 정보도 여기서 변경
+    }
+
+    public void updatePassword(String password) {
+        this.password = password;
     }
 
     /**

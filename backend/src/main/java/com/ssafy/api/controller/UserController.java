@@ -27,19 +27,25 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(new BaseResponseBody(200, "Success"));
     }
 
-    @PutMapping
-    public ResponseEntity<? extends BaseResponseBody> updateUserInfo(@RequestParam Map<String, String> user) {
-        userService.updateUserInfo(user);
+    @PutMapping("/info")
+    public ResponseEntity<? extends BaseResponseBody> updateUserInfo(@RequestParam Map<String, String> userInfo) {
+        userService.updateUserInfo(userInfo);
 
         return ResponseEntity.status(HttpStatus.OK).body(new BaseResponseBody(200,"Success"));
     }
-//
-//    public ResponseEntity<? extends BaseResponseBody> updateUserPassword(@RequestParam Map<String, String>  user) {
-//        userService.updateUserInfo(userInfoPutReq);
-//
-//        return ResponseEntity.status(HttpStatus.OK).body(new BaseResponseBody(200,"Success"));
-//    }
 
+    @PutMapping("/pass")
+    public ResponseEntity<? extends BaseResponseBody> updateUserPassword(@RequestParam Map<String, String> userInfo) {
+        userService.updateUserPassword(userInfo);
 
+        return ResponseEntity.status(HttpStatus.OK).body(new BaseResponseBody(200,"Success"));
+    }
+
+    @DeleteMapping("/email")
+    public ResponseEntity<? extends BaseResponseBody> deleteUser(@PathVariable String email) {
+        userService.deleteUser(email);
+
+        return ResponseEntity.status(HttpStatus.OK).body(new BaseResponseBody(200, "Success"));
+    }
 
 }
