@@ -7,9 +7,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Collection;
 
 /**
@@ -34,20 +32,15 @@ public class User extends BaseEntity implements UserDetails {
     @Column(name = "nickname")
     private String nickname;
 
-    @Column(name = "img_origin")
-    private String imgOrigin;
-
-    @Column(name = "img_save")
-    private String imgSave;
+    @OneToOne(mappedBy = "user")
+    private Profile profile;
 
     @Builder
-    public User(String email, String password, String name, String nickname, String imgOrigin, String imgSave) {
+    public User(String email, String password, String name, String nickname) {
         this.email = email;
         this.password = password;
         this.name = name;
         this.nickname = nickname;
-        this.imgOrigin = imgOrigin;
-        this.imgSave = imgSave;
     }
 
     public void updateUserInfo(String nickname) {
