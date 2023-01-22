@@ -41,7 +41,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(new BaseResponseBody(200,"Success"));
     }
 
-    @DeleteMapping("/email")
+    @DeleteMapping("/withdraw/{email}")
     public ResponseEntity<? extends BaseResponseBody> deleteUser(@PathVariable String email) {
         userService.deleteUser(email);
 
