@@ -2,6 +2,8 @@ package com.ssafy.api.controller;
 
 import com.ssafy.api.service.ProfileService;
 import com.ssafy.api.service.impl.ProfileServiceImpl;
+import com.ssafy.common.model.response.BaseResponseBody;
+import com.ssafy.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,10 +21,25 @@ public class ProfileController {
 
     /* 프로필 이미지 업로드 */
     @PostMapping("/profile/upload")
-    public ResponseEntity<?> uploadImage(@RequestParam("image") MultipartFile multipartFile) throws IOException {
-        String uploadImage = profileService.uploadImage(multipartFile);
+    public ResponseEntity<?> uploadImage(@RequestParam("image") MultipartFile multipartFile, @RequestParam String email) throws IOException {
+        String uploadImage = profileService.uploadImage(multipartFile, email);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(uploadImage);
+    }
+
+    /* 프로필 이미지 수정 */
+    @PutMapping("/profile/update")
+    public ResponseEntity<?> updateImage(@RequestParam("image") MultipartFile multipartFile, @RequestParam String email) throws IOException {
+        String uploadImage = profileService.updateImage(multipartFile, email);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(uploadImage);
+    }
+
+    /* 프로필 이미지 삭제(default) */
+    @DeleteMapping("/profile/delete/{email}")
+    public ResponseEntity<BaseResponseBody> deleteImage(@PathVariable String email){
+        profileService.deleteImage(email);
+        return ResponseEntity.status(HttpStatus.OK).body(new BaseResponseBody(200, "Success"));
     }
 
     /* 프로필 이미지 다운로드
