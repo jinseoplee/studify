@@ -13,6 +13,7 @@ import java.util.Map;
 /**
  * 유저 관련 API 요청 처리를 위한 컨트롤러 정의
  */
+@CrossOrigin
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1/users")
@@ -24,6 +25,7 @@ public class UserController {
     @GetMapping("/{email}")
     public ResponseEntity<? extends BaseResponseBody> getUser(@PathVariable String email) {
         User user = userService.getUser(email);
+        
         return ResponseEntity.status(HttpStatus.OK).body(new BaseResponseBody(200, "Success"));
     }
 
