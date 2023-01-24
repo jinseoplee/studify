@@ -17,9 +17,8 @@ import java.util.Map;
 public interface UserService {
 
     /**
-     * 회원가입
-     *
-     * @param userRegisterPostReq
+     * 회원인증 완료 후 가입
+     * @param tempUser
      * @return
      */
     User createUser(TempUser tempUser);
@@ -79,4 +78,5 @@ public interface UserService {
      */
     void deleteUser(String email);
 
+    void deleteTempUser(String email);
 }

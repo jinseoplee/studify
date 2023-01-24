@@ -141,4 +141,12 @@ public class UserServiceImpl implements UserService {
         userRepository.deleteById(email);
     }
 
+    @Override
+    public void deleteTempUser(String email) {
+        TempUser tempUser = tempUserRepository.findById(email)
+                .orElseThrow(() -> new IllegalArgumentException("없는 인증 대상입니다."));
+
+        tempUserRepository.deleteById(email);
+    }
+
 }
