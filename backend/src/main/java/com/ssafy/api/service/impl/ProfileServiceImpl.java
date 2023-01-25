@@ -48,6 +48,8 @@ public class ProfileServiceImpl implements ProfileService {
         User user = userRepository.findById(email).get();
         String filePath = path + multipartFile.getOriginalFilename();
         Profile profile = profileRepository.findByUser(user).get();
+        File file = new File(profile.getFilePath());
+        file.delete();
         profile.updateProfile(multipartFile, filePath);
         profileRepository.save(profile);
         multipartFile.transferTo(new File(filePath));
@@ -58,12 +60,15 @@ public class ProfileServiceImpl implements ProfileService {
         return null;
     }
 
-    @Override
+    /* 프로필 이미지 삭제 */
     public void deleteImage(String email) {
         User user = userRepository.findById(email).get();
         Profile profile = profileRepository.findByUser(user).get();
+        File file = new File(profile.getFilePath());
+        file.delete();
         profileRepository.deleteById(profile.getId());
     }
+
 
 
 
