@@ -16,7 +16,7 @@ import java.util.Map;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(value = RuntimeException.class)
+    @ExceptionHandler(value = IllegalArgumentException.class)
     public ResponseEntity<Map<String, String>> handleException(RuntimeException e, HttpServletRequest request) {
         HttpHeaders responseHeaders = new HttpHeaders();
         HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
