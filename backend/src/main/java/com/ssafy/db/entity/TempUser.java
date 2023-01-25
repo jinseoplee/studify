@@ -44,7 +44,11 @@ public class TempUser {
         this.code = code;
     }
 
+
     public void setCode(String code) {
         this.code = code;
+    }
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

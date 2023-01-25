@@ -32,10 +32,12 @@ public class AuthController {
     @PostMapping("/mail/register")
     public ResponseEntity<? extends BaseResponseBody> sendAuthMail(
             @RequestBody UserAuthPostReq req) throws Exception {
+        // 중복 검사
+        userService.checkDuplicate(req.getEmail());
 
         TempUser tempUser = userService.sendAuthMail(req);
         UserAuthPostRes userAuthPostRes = userService.insertTempUser(tempUser);
-        /* 프론트에 응답 전송 */
+
         return ResponseEntity.status(HttpStatus.OK).body(userAuthPostRes);
     }
 

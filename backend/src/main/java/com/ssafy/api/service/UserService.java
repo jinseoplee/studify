@@ -79,4 +79,6 @@ public interface UserService {
     void deleteUser(String email);
 
     void deleteTempUser(String email);
+
+    boolean checkDuplicate(String email);
 }

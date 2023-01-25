@@ -30,14 +30,14 @@ public class UserController {
     }
 
     @PutMapping("/info")
-    public ResponseEntity<? extends BaseResponseBody> updateUserInfo(@RequestParam Map<String, String> userInfo) {
+    public ResponseEntity<? extends BaseResponseBody> updateUserInfo(@RequestBody Map<String, String> userInfo) {
         userService.updateUserInfo(userInfo);
 
         return ResponseEntity.status(HttpStatus.OK).body(new BaseResponseBody(200,"Success"));
     }
 
     @PutMapping("/pass")
-    public ResponseEntity<? extends BaseResponseBody> updateUserPassword(@RequestParam Map<String, String> userInfo) {
+    public ResponseEntity<? extends BaseResponseBody> updateUserPassword(@RequestBody Map<String, String> userInfo) {
         userService.updateUserPassword(userInfo);
 
         return ResponseEntity.status(HttpStatus.OK).body(new BaseResponseBody(200,"Success"));

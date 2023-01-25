@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
                 .email(tempUser.getEmail())
                 .name(tempUser.getName())
                 .nickname(tempUser.getNickname())
-                .password(passwordEncoder.encode(tempUser.getPassword())) // 비밀번호를 암호화 하여 디비에 저장
+                .password(tempUser.getPassword())
                 .build();
 
         return userRepository.save(user);
@@ -74,6 +74,14 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new IllegalArgumentException("없는 사용자입니다."));
     }
 
+    @Transactional
+    public boolean checkDuplicate(String email) {
+        if (userRepository.existsById(email))
+            throw new IllegalArgumentException("이미 가입된 이메일입니다.");
+
+        return true;
+    }
+
     @Override
     public TempUser sendAuthMail(UserAuthPostReq req) throws MessagingException {
         String code = UUID.randomUUID().toString();
@@ -96,6 +104,8 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public UserAuthPostRes insertTempUser(TempUser tempUser) {
+        tempUser.setPassword(passwordEncoder.encode(tempUser.getPassword()));
+
         tempUserRepository.save(tempUser);
 
         return UserAuthPostRes.builder()
@@ -128,7 +138,7 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findById(userInfo.get("email"))
                 .orElseThrow(() -> new IllegalArgumentException("없는 사용자입니다."));
 
-        user.updatePassword(userInfo.get("password"));
+        user.updatePassword(passwordEncoder.encode(userInfo.get("password")));
 
         return userRepository.save(user);
     }
