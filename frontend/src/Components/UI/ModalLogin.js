@@ -1,13 +1,14 @@
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import swal from "sweetalert";
 import ModalContainer from "./ModalContainer";
-import "./ModalLogin.module.css";
+import style from "./ModalLogin.module.css";
 
 const LoginModal = (props) => {
+  const navigate = useNavigate();
   //모달창 닫기.
   const closeModal = () => {
-    console.log("모달창 닫기");
-    console.log(props);
     props.setModalOpen(false);
   };
 
@@ -15,8 +16,6 @@ const LoginModal = (props) => {
     username: "",
     email: "",
   });
-
-  const { username, email } = userInfo;
 
   //modal창을 useRef로 취득.
   const modalRef = useRef();
@@ -49,52 +48,63 @@ const LoginModal = (props) => {
   //DB에 있는 정보와 일치한다면 Modal창에 있는 로그인을 로그아웃으로 변경 <
   //만약 정보가 다르다면? 로그인 실패로 만들고 모달창 그대로 유지.
   const check = async (event) => {
-    if (username === "") {
-      alert("아이디를 입력하지 않았습니다.");
+    if (userInfo.username === "") {
+      alert("이름을 입력하지 않았습니다.");
       event.preventDefault();
-    } else if (email === "") {
-      alert("비밀번호를 입력하지 않았습니다.");
+    } else if (userInfo.email === "") {
+      alert("이메일을 입력하지 않았습니다.");
       event.preventDefault();
     } else {
       //채워져있으면? 아이디와 이메일 비교해서 있으면 비밀번호 재설정페이지로 이동.
+      event.preventDefault();
       try {
-        const response = await axios.post(`api/v1/users/pwfind/`, {});
+        const response = await axios.get(`/api/v1/users/${userInfo.email}`, {
+          // name: userInfo.username,
+          // email: userInfo.email,
+        });
         console.log(response);
+        //백쪽으로 요청을 보냄. 해당 요청이 있다면 user/resetpw페이지로 이동시켜주자.
+        //있으면 로컬스토리지에 이름이랑 이메일을 저장해주자
+        //그러고 패스워드 재설정 완료시에 로컬스토리지에 저장된 것 삭제.
+        localStorage.setItem("findname", userInfo.username);
+        localStorage.setItem("findemail", userInfo.email);
+        navigate("/user/resetpw");
       } catch (err) {
         console.log(err);
+        swal("잘못된 회원정보입니다. 다시 입력해주세요.");
       }
     }
   };
 
   return (
     <ModalContainer>
-      <div ref={modalRef} className="container">
-        <button className="close" onClick={closeModal}>
+      <div ref={modalRef} className={style.container}>
+        <button className={style.close} onClick={closeModal}>
           X
         </button>
-        <div className="title">비밀번호 찾기 모달창</div>
+        <div className={style.title}>비밀번호 찾기 모달창</div>
         <form>
-          <div className="inputspaceName">
+          <div className={style.inputspaceName}>
             이름 :{" "}
             <input
               name="username"
-              className="inputspace"
+              className={style.inputspace}
               type="text"
               onChange={change}
-              value={username}
+              value={userInfo.username}
             ></input>
           </div>
-          <div className="inputspaceEmail">
+          <div className={style.inputspaceEmail}>
             이메일 :{" "}
             <input
               name="email"
-              className="inputspace"
+              className={style.inputspace}
               type="text"
               onChange={change}
-              value={email}
+              value={userInfo.email}
             ></input>
           </div>
-          <div className="loginButton">
+          <div className={style.loginButton}>
             <button type="submit" onClick={check}>
               찾기
             </button>

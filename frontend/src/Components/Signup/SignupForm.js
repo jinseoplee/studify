@@ -1,13 +1,19 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 // import { Navigate } from "react-router-dom";
+import { codenumActions } from "../../store/SignupStore";
 import axios from "axios";
+import swal from "sweetalert";
+// import { useNavigate } from "react-router-dom";
 
 import ModalSignup from "../UI/ModalSignup";
 import logo from "../../assets/image/logo.png";
-import dummy from "./MailForm.JSON";
 import "./SignupForm.css";
 
 const SignupForm = () => {
+  const dispatch = useDispatch();
+  // const navigate = useNavigate();
+
   //이메일, 비밀번호, 비밀번호 확인
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
@@ -33,28 +39,22 @@ const SignupForm = () => {
   const OnSubmitHandler = async (event) => {
     // const [data, setData] = useState("");
     event.preventDefault();
-    const mailjson = dummy;
 
     try {
-      const response = await axios.post(
-        "http://192.168.31.27:8080/api/v1/users/signup",
-        {
-          email: Email,
-          password: Password,
-          name: Name,
-        }
-      );
-      // setData(response.data);
+      const response = await axios.post("/api/v1/users/auth/mail/register", {
+        email: Email,
+        password: Password,
+        name: Name,
+        nickname: "test",
+        domain: `${window.location.host}`,
+      });
+      setOpenModal(true);
       console.log(response);
-      // .then((res) => {
-      //   console.log("response:", res);
-      // if (res.status === 200) {
-      // router.push('#')
-      // console.log(res);
-      // });
+      dispatch(codenumActions.changecode(response.code));
     } catch (err) {
-      console.log(mailjson);
       console.error(err);
+      console.log(err.response.data.message);
+      swal("중복된 이메일입니다. 다시 입력해주세요.");
     }
   };
   const onChangeEmail = (event) => {
@@ -166,13 +166,16 @@ const SignupForm = () => {
           <button
             type="submit"
             disabled={!(isEmail && isPassword && isPasswordCheck)}
-            onClick={() => setOpenModal(true)}
             className="signup-button"
           >
             가입하기
           </button>
         </div>
-        <ModalSignup open={openModal} onClose={() => setOpenModal(false)} />
+        <ModalSignup
+          open={openModal}
+          onClose={() => setOpenModal(false)}
+          userEmail={Email}
+        />
       </form>
     </div>
   );

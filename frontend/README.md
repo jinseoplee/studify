@@ -136,3 +136,14 @@ module.exports = function (app) {
 ```
 
 3. 내가 axios요청 보낸 곳의 주소는 저 앞의 주소 이후를 써주면 됩니다. 그러고 실행.
+
+### jwt 토큰을 이용한 로그인 방법.
+
+Access Token : 실질적인 인증을 위한 JWT로 유효기간이 매우 짧은 특징을 가지고 있다.
+Refresh Token : Access Token의 짧은 유효기간을 보완하기 위해 사용되며, 본 토큰을 사용해 Access Token 만료 시 재발급을 위해 사용된다.
+Refresh Token 사용이유는 ?
+= Access Token은 유효기간이 짧고 보안적으로 취약해서 Refresh 토큰을 사용하여 유효기간을 늘리고 보안을 상향하는 방식으로 사용합니다.
+
+### Redux사용(useSelector(), useDispacth())
+
+useSelector는 connect함수를 이용하지 않고 리덕스의 state를 조회할 수가 있습니다. useDispatch는 생성한 action을 useDispatch를 통해 발생시킬 수 있습니다.

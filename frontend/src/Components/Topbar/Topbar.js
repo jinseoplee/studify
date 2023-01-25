@@ -4,10 +4,7 @@ import "./Topbar.css";
 import logo from "../../assets/image/logo.png";
 import vector from "../../assets/image/vector.png";
 
-const Topbar = () => {
-  const check = () => {
-    if (localStorage.getItem.length === 0 ? true : false);
-  };
+const Topbar = (props) => {
   return (
     <React.Fragment>
       <div className="topbar">
@@ -17,21 +14,24 @@ const Topbar = () => {
           </div>
           <div className="section">
             <NavLink
-              to={check ? "/loginId" : "/openstudy"}
+              to={props.check ? "/user/login/id" : "/openstudy"}
               className="text_link"
             >
               오픈스터디
             </NavLink>
           </div>
           <div className="section">
-            <NavLink to={check ? "/loginId" : "/rank"} className="text_link">
+            <NavLink
+              to={props.check ? "/user/login/id" : "/rank"}
+              className="text_link"
+            >
               랭킹
             </NavLink>
           </div>
         </div>
         <div className="section">
           <img className="vector" src={vector} alt="로그인하러가기" />
-          <Link to="/loginId" className="text_link">
+          <Link to="/user/login/id" className="text_link">
             로그인
           </Link>
         </div>

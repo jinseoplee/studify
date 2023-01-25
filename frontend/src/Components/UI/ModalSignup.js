@@ -1,21 +1,32 @@
-import "./Modal.module.css";
+import style from "./ModalSignup.module.css";
+import { useNavigate } from "react-router-dom";
 import ModalContainer from "./ModalContainer";
+import axios from "axios";
 
-const ModalSignup = ({ open, onClose }) => {
+const ModalSignup = ({ open, onClose, userEmail }) => {
+  const navigate = useNavigate();
   if (!open) return null;
+  const getUserInfoHandler = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await axios.get(`/api/v1/users/${userEmail}`);
+      navigate("/");
+      console.log(response);
+    } catch (err) {
+      console.error(err);
+    }
+  };
   return (
     <ModalContainer>
-      <div onClick={onClose} className="modalContainer">
-        <div className="modalBody">
-          <p onClick={onClose} className="modalCloseBtn">
-            X
-          </p>
+      <div onClick={onClose} className={style.modalcontain}>
+        <div className={style.modalBody}>
+          <p className={style.modalCloseBtn}>X</p>
           <div>
             <p>인증 메일이 발송되었습니다</p>
             <button>이메일 재발송</button>
           </div>
           <div>
-            <button>인증하기</button>
+            <button onClick={getUserInfoHandler}>인증하기</button>
           </div>
         </div>
       </div>
