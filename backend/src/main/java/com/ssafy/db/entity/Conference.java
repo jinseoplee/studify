@@ -28,5 +28,4 @@ public class Conference extends BaseEntity {
 
     @Column(nullable = false)
     private boolean isActive;
-
 }
