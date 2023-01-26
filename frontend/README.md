@@ -146,4 +146,11 @@ Refresh Token 사용이유는 ?
 
 ### Redux사용(useSelector(), useDispacth())
 
-useSelector는 connect함수를 이용하지 않고 리덕스의 state를 조회할 수가 있습니다. useDispatch는 생성한 action을 useDispatch를 통해 발생시킬 수 있습니다.
+Redux 는 단방향 데이터 관리 방식으로 Actions을 통해 앱에서 Reducer로 이동하고,
+Reducer에서 스토어의 state 를 업데이트 및 관리합니다
+흐름을 정리하면
+
+> Action 객체가 dispatch 메소드에 전달 > dispatch를 통해 Reducer를 호출 > Reducer는 새로운 store를 생성
+
+useSelector는 connect함수를 이용하지 않고 리덕스의 state를 조회할 수가 있습니다.
+useDispatch는 생성한 action을 useDispatch를 통해 발생시킬 수 있습니다.
