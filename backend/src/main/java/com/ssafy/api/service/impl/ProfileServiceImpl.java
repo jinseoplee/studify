@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
@@ -25,7 +26,8 @@ public class ProfileServiceImpl implements ProfileService {
     /* 프로필 이미지 업로드 */
     public String uploadImage(MultipartFile multipartFile, String email) throws IOException {
         User user = userRepository.findById(email).get();
-        String filePath = path + multipartFile.getOriginalFilename();
+        UUID uuid = UUID.randomUUID();
+        String filePath = path + uuid.toString() + "_" + multipartFile.getOriginalFilename();
         Profile profile = profileRepository.save(
                 Profile.builder()
                         .name(multipartFile.getOriginalFilename())
@@ -46,7 +48,8 @@ public class ProfileServiceImpl implements ProfileService {
     /* 프로필 이미지 수정 */
     public String updateImage(MultipartFile multipartFile, String email) throws IOException {
         User user = userRepository.findById(email).get();
-        String filePath = path + multipartFile.getOriginalFilename();
+        UUID uuid = UUID.randomUUID();
+        String filePath = path + uuid.toString() + "_" + multipartFile.getOriginalFilename();
         Profile profile = profileRepository.findByUser(user).get();
         File file = new File(profile.getFilePath());
         file.delete();
@@ -68,9 +71,6 @@ public class ProfileServiceImpl implements ProfileService {
         file.delete();
         profileRepository.deleteById(profile.getId());
     }
-
-
-
 
     /* 프로필 이미지 다운로드
     public byte[] downloadImage(String fileName) throws IOException{
