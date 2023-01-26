@@ -18,7 +18,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 300px;
+  height: 250px;
+  width: 600px;
+  border: solid #8A6BCD;
 }
 .modalCloseBtn {
   position: absolute;
@@ -28,4 +30,13 @@
   color: rgba(0, 0, 0, 0.7);
   background-color: transparent;
   font-size: 20px;
+}
+.modalBtn {
+  position: absolute;
+  width: 100px;
+  height: 40px;
+  top: 55%;
+  border: none;
+  background-color: #8A6BCD;
+  color: white;
 }

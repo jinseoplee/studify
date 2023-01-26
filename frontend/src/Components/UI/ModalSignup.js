@@ -21,12 +21,12 @@ const ModalSignup = ({ open, onClose, userEmail }) => {
       <div onClick={onClose} className={style.modalcontain}>
         <div className={style.modalBody}>
           <p className={style.modalCloseBtn}>X</p>
-          <div>
             <p>인증 메일이 발송되었습니다</p>
-            <button>이메일 재발송</button>
+          <div>
+            <button className={style.modalBtn}>이메일 재발송</button>
           </div>
           <div>
-            <button onClick={getUserInfoHandler}>인증하기</button>
+            <button className={style.modalBtn} onClick={getUserInfoHandler}>인증하기</button>
           </div>
         </div>
       </div>
