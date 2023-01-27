@@ -1,11 +1,10 @@
 package com.ssafy.api.service;
 
-import com.ssafy.db.entity.User;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
-public interface ProfileService {
+public interface ProfileImgService {
 
     /**
      * 프로필 이미지 업로드
@@ -20,6 +19,6 @@ public interface ProfileService {
     /**
      * 프로필 이미지 삭제
      */
-    public void deleteImage(String email);
+    void deleteImage(String email);
 
 }

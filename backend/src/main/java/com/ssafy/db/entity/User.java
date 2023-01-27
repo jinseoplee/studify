@@ -33,7 +33,7 @@ public class User extends BaseEntity implements UserDetails {
     private String nickname;
 
     @OneToOne(mappedBy = "user")
-    private Profile profile;
+    private ProfileImg profileImg;
 
     @Builder
     public User(String email, String password, String name, String nickname) {
