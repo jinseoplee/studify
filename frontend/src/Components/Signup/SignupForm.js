@@ -41,19 +41,17 @@ const SignupForm = () => {
     event.preventDefault();
 
     try {
-      // 끝나면 살리기
-      // const response = await axios.post("/api/v1/users/auth/mail/register", {
-      //   email: Email,
-      //   password: Password,
-      //   name: Name,
-      //   nickname: "test",
-      //   domain: `${window.location.host}`,
-      // });
+      const response = await axios.post("/api/v1/users/auth/mail/register", {
+        email: Email,
+        password: Password,
+        name: Name,
+        nickname: "test",
+        domain: `${window.location.host}`,
+      });
       setOpenModal(true);
-      // console.log(response);
-      // dispatch(codenumActions.changecode(response.code));
+      console.log(response);
+      dispatch(codenumActions.changecode(response.code));
     } catch (err) {
-      setOpenModal(true); // 끝나면 삭제
       console.error(err);
       console.log(err.response.data.message);
       swal("중복된 이메일입니다. 다시 입력해주세요.");

@@ -22,7 +22,14 @@ const UserSignup = () => {
         console.log(codenum);
       });
   });
-  return <div>{codenum}메일 인증 확인</div>;
+  return <div>
+    {codenum}메일 인증 확인
+    <script>
+      alertFunction() {
+        alert('인증되었습니다.')
+      }
+    </script>
+    </div>;
 };
 
 export default UserSignup;

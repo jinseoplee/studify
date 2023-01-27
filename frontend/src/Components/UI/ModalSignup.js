@@ -14,6 +14,7 @@ const ModalSignup = ({ open, onClose, userEmail }) => {
       console.log(response);
     } catch (err) {
       console.error(err);
+      alert('인증되지 않았습니다.')
     }
   };
   return (
