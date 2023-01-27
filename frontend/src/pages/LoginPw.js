@@ -5,6 +5,7 @@ import { loginActions } from "../store/LoginStore";
 import axios from "axios";
 import LoginPW from "../Components/Login/LoginPW";
 import swal from "sweetalert";
+import { logoutActions } from "../store/LogoutStore";
 
 const LoginPw = () => {
   const dispatch = useDispatch();
@@ -71,6 +72,8 @@ const LoginPw = () => {
       localStorage.removeItem("email");
       //리덕스에 토큰저장.
       dispatch(loginActions.saveToken(response.data.token));
+      //로그아웃 할때는?
+      // dispatch(logoutActions.deleteToken()); //해보기.
       navigate("/dashboard"); //맞다면 대시보드 페이지로 이동시켜주기.
     } catch (err) {
       console.log(err);

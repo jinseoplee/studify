@@ -14,7 +14,7 @@ const LoginPW = ({
   closeModal,
 }) => {
   return (
-    <React.Fragment>
+    <>
       <form onSubmit={handleSubmit}>
         <input
           type="password"
@@ -28,7 +28,7 @@ const LoginPW = ({
       </form>
       <div onClick={findPw}>비밀번호 잊어버리셨나요?</div>
       {modalOpen && <ModalLogin setModalOpen={closeModal}></ModalLogin>}
-    </React.Fragment>
+    </>
   );
 };
 

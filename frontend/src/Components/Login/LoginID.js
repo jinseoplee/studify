@@ -4,11 +4,6 @@ import { Link } from "react-router-dom";
 import LoginCard from "./LoginCard";
 import "./LoginID.css";
 
-// email,
-//   isRemember,
-//   handleChange,
-//   handleSubmit,
-//   togglecheck,
 const LoginID = (props) => {
   return (
     <LoginCard>
