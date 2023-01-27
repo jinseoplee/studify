@@ -31,11 +31,22 @@
   background-color: transparent;
   font-size: 20px;
 }
-.modalBtn {
-  position: absolute;
+.modalSendBtn {
+  position: fixed;
   width: 100px;
   height: 40px;
-  top: 55%;
+  top: 53%;
+  left: 43%;
+  border: none;
+  background-color: #8A6BCD;
+  color: white;
+}
+.modalSubmitBtn {
+  position: fixed;
+  width: 100px;
+  height: 40px;
+  top: 53%;
+  left: 50.5%;
   border: none;
   background-color: #8A6BCD;
   color: white;

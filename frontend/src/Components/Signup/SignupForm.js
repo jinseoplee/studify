@@ -50,8 +50,8 @@ const SignupForm = () => {
       //   domain: `${window.location.host}`,
       // });
       setOpenModal(true);
-      console.log(response);
-      dispatch(codenumActions.changecode(response.code));
+      // console.log(response);
+      // dispatch(codenumActions.changecode(response.code));
     } catch (err) {
       setOpenModal(true); // 끝나면 삭제
       console.error(err);
