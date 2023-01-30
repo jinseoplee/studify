@@ -20,7 +20,7 @@
   align-items: center;
   height: 250px;
   width: 600px;
-  border: solid #8A6BCD;
+  border: solid #8a6bcd;
 }
 .modalCloseBtn {
   position: absolute;
@@ -31,23 +31,30 @@
   background-color: transparent;
   font-size: 20px;
 }
-.modalSendBtn {
-  position: fixed;
+.modalBtn {
+  position: absolute;
   width: 100px;
   height: 40px;
-  top: 53%;
-  left: 43%;
+  top: 55%;
   border: none;
-  background-color: #8A6BCD;
+  background-color: #8a6bcd;
   color: white;
 }
-.modalSubmitBtn {
-  position: fixed;
-  width: 100px;
-  height: 40px;
-  top: 53%;
-  left: 50.5%;
-  border: none;
-  background-color: #8A6BCD;
-  color: white;
+.modalStudyBody {
+  padding: 0;
+  margin: 0;
+  background-color: #f5f5f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 800px;
+  width: 900px;
+  border: solid #8a6bcd;
+  border-radius: 10px;
+}
+.modalStudyForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }

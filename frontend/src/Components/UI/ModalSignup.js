@@ -14,7 +14,6 @@ const ModalSignup = ({ open, onClose, userEmail }) => {
       console.log(response);
     } catch (err) {
       console.error(err);
-      alert('인증되지 않았습니다.')
     }
   };
   return (
@@ -24,10 +23,10 @@ const ModalSignup = ({ open, onClose, userEmail }) => {
           <p className={style.modalCloseBtn}>X</p>
             <p>인증 메일이 발송되었습니다</p>
           <div>
-            <button className={style.modalSendBtn}>이메일 재발송</button>
+            <button className={style.modalBtn}>이메일 재발송</button>
           </div>
           <div>
-            <button className={style.modalSubmitBtn} onClick={getUserInfoHandler}>인증하기</button>
+            <button className={style.modalBtn} onClick={getUserInfoHandler}>인증하기</button>
           </div>
         </div>
       </div>

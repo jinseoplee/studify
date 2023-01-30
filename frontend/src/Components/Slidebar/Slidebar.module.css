@@ -1,0 +1,36 @@
+.slidecontent {
+  width: 400px;
+  height: 724px;
+}
+
+.sidebar {
+  background-color: #e3ecf1;
+  /* border-right: 4px solid #202020; */
+  /* position: fixed; */
+  margin-top: 20px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  transition: 0.4s ease;
+  color: #202020;
+  height: 100%;
+  z-index: 99;
+  border-radius: 10px;
+  box-shadow: 2px 2px 2px;
+}
+.sidebarButton {
+  position: relative;
+  left: 420px;
+  top: 350px;
+  width: 40px;
+  height: 40px;
+  z-index: 99;
+  transition: 0.8s ease;
+  border: 2px solid #202020;
+  border-radius: 40px;
+  overflow: hidden;
+}
+.sidebararrow {
+  width: 10px;
+  height: 10px;
+}

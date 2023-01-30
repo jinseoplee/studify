@@ -7,6 +7,7 @@ import Signup, { action as newSignupAction } from "./pages/Signup";
 import UserSignup from "./Components/Signup/UserSignup";
 import ResetPw from "./pages/ResetPw";
 import DashBoard from "./pages/DashBoard";
+import StudyMake from "./Components/DashBoard/StudyMake";
 
 const router = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard",
         element: <DashBoard />,
+      },
+      {
+        path: "/study/newstudy",
+        element: <StudyMake />,
       },
     ],
   },

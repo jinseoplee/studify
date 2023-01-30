@@ -1,0 +1,99 @@
+.dashboardContainer {
+  display: flex;
+}
+.dashboardProfileContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.dashboardProfilePic {
+  width: 192px;
+  height: 192px;
+  border: 1px solid black;
+}
+.dashboardProfileName {
+  text-align: center;
+  width: 192px;
+  height: 32px;
+}
+.dashboardProfileFollow {
+  width: 300px;
+  height: 80px;
+}
+.dashboardProfileLine {
+  text-align: center;
+  width: 328px;
+  height: 80px;
+}
+.dashboardProfileSkill {
+  width: 380px;
+  height: 120px;
+}
+.dashboardProfileBadge {
+  width: 380px;
+  height: 120px;
+}
+.dashboardProfileList {
+  font: bold;
+  font-size: medium;
+}
+.StudyRecordContainer {
+  margin-top: 50px;
+  margin-left: 50px;
+  width: 820px;
+  height: 336px;
+}
+.StudyRecordbox {
+  display: flex;
+  align-items: center;
+  width: 1128px;
+  height: 304px;
+  background-color: #ededed;
+}
+.StudyRecordTime {
+  width: 744px;
+  height: 256px;
+  background-color: white;
+  margin-left: 24px;
+  border-radius: 15px;
+}
+.StudyRecordStrick {
+  width: 314px;
+  height: 257px;
+  background-color: white;
+  margin-left: 24px;
+  border-radius: 15px;
+}
+.MyStudycontainer {
+  width: 1128px;
+  height: 376;
+  margin-top: 50px;
+  margin-left: 50px;
+  margin-bottom: 10px;
+}
+.MyStudybox {
+  display: flex;
+  align-items: center;
+  width: 1128px;
+  height: 376px;
+  background-color: #ededed;
+}
+.MyStudyMake {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 280px;
+  height: 280px;
+  background-color: white;
+  margin-left: 24px;
+}
+.MyStudyMakeLogo {
+  width: 100px;
+  height: 100px;
+}
+.MyStudyList {
+  width: 700px;
+  height: 280px;
+  background-color: white;
+  margin-left: 40px;
+}
