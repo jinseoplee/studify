@@ -19,21 +19,24 @@ class App extends Component {
       mainStreamManager: undefined, // Main video of the page. Will be the 'publisher' or one of the 'subscribers'
       publisher: undefined, //자체 로컬 웹캡 스트림이 된다.(?)
       subscribers: [], //화상 통화에서 다른 사용자의 활성 스트림을 저장합니다. => 이 배열에 참가자들을 담는 것 같다?
+      isCamaraOn: false,
+      isAudioOn: true,
+      sessionScreen: undefined,
+      screensharing: false,
     };
 
     this.joinSession = this.joinSession.bind(this); //세션 참가
     this.leaveSession = this.leaveSession.bind(this); //세션 나가기
     this.switchCamera = this.switchCamera.bind(this); //카메라 바꾸기
-    this.myCameraOff = this.myCameraOff.bind(this); //카메라 끄기.
-    this.myCameraOn = this.myCameraOn.bind(this); //카메라 키기
-    this.myAudioOff = this.myAudioOff.bind(this); //오디오 끄기
-    this.myAudioOn = this.myAudioOn.bind(this); //오디오 키기
+    this.myCameraToggle = this.myCameraToggle.bind(this);
+    this.myAudioToggle = this.myAudioToggle.bind(this);
     this.myScreenShare = this.myScreenShare.bind(this); //화면 공유
     this.handleChangeSessionId = this.handleChangeSessionId.bind(this);
     //세션 방 이름 바꾸기
     this.handleChangeUserName = this.handleChangeUserName.bind(this);
     //내 이름 바꾸기
     this.onbeforeunload = this.onbeforeunload.bind(this);
+    this.stopScreenShare = this.stopScreenShare.bind(this);
   }
 
   //??
@@ -73,104 +76,108 @@ class App extends Component {
     }
   }
 
-  myCameraOff() {
-    let publisher = this.state.publisher;
-    publisher.publishVideo(false);
-    console.log(publisher);
+  stopScreenShare() {
+    if (this.state.screensharing) {
+      this.state.sessionScreen.disconnect();
+      this.setState((state) => ({
+        screensharing: false,
+      }));
+    }
   }
 
-  myCameraOn() {
+  myCameraToggle() {
     let publisher = this.state.publisher;
-    publisher.publishVideo(true);
-    console.log(publisher);
+    this.setState((state) => ({
+      isCamaraOn: !this.state.isCamaraOn,
+    }));
+    // console.log(this.state.isCamaraOn);
+    publisher.publishVideo(this.state.isCamaraOn);
   }
 
-  myAudioOff() {
+  myAudioToggle() {
     let publisher = this.state.publisher;
-    publisher.publishAudio(false);
+    this.setState((state) => ({
+      isAudioOn: !this.state.isAudioOn,
+    }));
+    publisher.publishAudio(this.state.isAudioOn);
   }
 
-  myAudioOn() {
-    let publisher = this.state.publisher;
-    publisher.publishAudio(true);
-  }
+  //   const publisherProperties = {
+  //             videoSource: videoSource,
+  //             publishAudio: false,
+  //             publishVideo: true,
+  //             mirror: false
+  //         };
+  // this.openViduScreen.initPublisherAsync(undefined, publisherProperties).then(
+  //             (publisher: Publisher) => {
+  //                 publisher.once('accessAllowed', () => {
+  //                     try {
+  //                         publisher.stream.getMediaStream().getVideoTracks()[0].applyConstraints({
+  //                             width: 1280,
+  //                             height: 720
+  //                           })
+  //                     } catch (error) {
+  //                         console.error(` erro na constraint =>`, publisher.stream.getMediaStream().getVideoTracks());
+  //                     }
 
   myScreenShare() {
-    const videoSource =
-      navigator.userAgent.indexOf("Firefox") !== -1 ? "window" : "screen";
-    const publisher = this.OV.initPublisher(
-      undefined,
-      {
-        videoSource: videoSource,
-        publishAudio: localUser.isAudioActive(),
-        publishVideo: localUser.isVideoActive(),
-        mirror: false,
-      },
-      (error) => {
-        if (error && error.name === "SCREEN_EXTENSION_NOT_INSTALLED") {
-          this.setState({ showExtensionDialog: true });
-        } else if (error && error.name === "SCREEN_SHARING_NOT_SUPPORTED") {
-          alert("Your browser does not support screen sharing");
-        } else if (error && error.name === "SCREEN_EXTENSION_DISABLED") {
-          alert("You need to enable screen sharing extension");
-        } else if (error && error.name === "SCREEN_CAPTURE_DENIED") {
-          alert("You need to choose a window or application to share");
-        }
-      }
-    );
+    var newOV = new OpenVidu();
+    // var sessionScreen = newOV.initSession();
+    this.setState({
+      sessionScreen: newOV.initSession(),
+    }),
+      // console.log(this.state.sessionScreen);
+      this.getToken().then((token) => {
+        this.state.sessionScreen
+          .connect(token)
+          .then(() => {
+            var publisher = newOV.initPublisher("html-element-id", {
+              videoSource: "screen",
+            });
+            // console.log(sessionScreen);
+            publisher.once("accessAllowed", () => {
+              publisher.stream
+                .getMediaStream()
+                .getVideoTracks()[0]
+                .addEventListener("ended", () => {
+                  console.log('User pressed the "Stop sharing" button');
+                  this.state.sessionScreen.unpublish(publisher);
+                  this.setState((state) => ({
+                    screensharing: false,
+                  }));
+                });
+              this.state.sessionScreen.publish(publisher);
+              this.setState((state) => ({
+                screensharing: true,
+              }));
+            });
+            // publisher.stream
+            // .getMediaStream().addEventListener('inactive', () => {
+            //   console.log('User pressed the "Stop sharing" button');
+            //   this.state.sessionScreen.unpublish(publisher);
+            //     this.setState(state => ({
+            //       screensharing: false
+            //     }));
+            // })
+            // publisher.on('videoElementCreated', (event) => {
+            //   appendUserData(event.element, this.state.sessionScreen.connection);
+            //   // event.element['muted'] = true;
+            //   console.log('이벤트', event)
+            // });
 
-    publisher.once("accessAllowed", () => {
-      this.state.session.unpublish(localUser.getStreamManager());
-      localUser.setStreamManager(publisher);
-      this.state.session.publish(localUser.getStreamManager()).then(() => {
-        localUser.setScreenShareActive(true);
-        this.setState({ localUser: localUser }, () => {
-          this.sendSignalUserChanged({
-            isScreenShareActive: localUser.isScreenShareActive(),
+            publisher.once("accessDenied", (event) => {
+              console.warn("ScreenShare: Access Denied");
+            });
+          })
+          .catch((error) => {
+            console.warn(
+              "There was an error connecting to the session:",
+              error.code,
+              error.message
+            );
           });
-        });
       });
-    });
-    publisher.on("streamPlaying", () => {
-      this.updateLayout();
-      publisher.videos[0].video.parentElement.classList.remove("custom-class");
-    });
   }
-
-  // myScrrenShare() {
-  //   var OV = new OpenVidu();
-  //   var sessionScreen = OV.initSession();
-  //   this.getToken().then((token) => {
-  //     sessionScreen
-  //       .connect(token)
-  //       .then(() => {
-  //         var publisher = OV.initPublisher("html-element-id", {
-  //           videoSource: "screen",
-  //         });
-
-  //         publisher.once("accessAllowed", () => {
-  //           publisher.stream
-  //             .getMediaStream()
-  //             .getVideoTracks()[0]
-  //             .addEventListener("ended", () => {
-  //               console.log('User pressed the "Stop sharing" button');
-  //             });
-  //           sessionScreen.publish(publisher);
-  //         });
-
-  //         publisher.once("accessDenied", () => {
-  //           console.warn("ScreenShare: Access Denied");
-  //         });
-  //       })
-  //       .catch((error) => {
-  //         console.warn(
-  //           "There was an error connecting to the session:",
-  //           error.code,
-  //           error.message
-  //         );
-  //       });
-  //   });
-  // }
 
   joinSession() {
     // --- 1) Get an OpenVidu object ---
@@ -301,10 +308,12 @@ class App extends Component {
     // --- 7) Leave the session by calling 'disconnect' method over the Session object ---
 
     const mySession = this.state.session;
+    const sessionScreen = this.state.sessionScreen;
 
-    if (mySession) {
+    if (mySession && sessionScreen) {
       //내 세션의 연결을 끊어줍니다.
       mySession.disconnect();
+      sessionScreen.disconnect();
     }
 
     // Empty all properties...
@@ -416,35 +425,22 @@ class App extends Component {
                     <UserVideoComponent
                       streamManager={this.state.mainStreamManager}
                     />
+                    <h3>{myUserName}</h3>
 
                     <input
                       className="btn btn-large btn-success"
                       type="button"
-                      id="offMyCamera"
-                      onClick={this.myCameraOff}
-                      value="화면 끄기"
-                    />
-                    <input
-                      className="btn btn-large btn-success"
-                      type="button"
-                      id="onMyCamera"
-                      onClick={this.myCameraOn}
-                      value="화면 키기"
+                      id="MyCameraToggle"
+                      onClick={this.myCameraToggle}
+                      value="화면 켜기/끄기"
                     />
                     <br />
                     <input
                       className="btn btn-large btn-success"
                       type="button"
-                      id="offMyAudio"
-                      onClick={this.myAudioOff}
-                      value="마이크 끄기"
-                    />
-                    <input
-                      className="btn btn-large btn-success"
-                      type="button"
-                      id="onMyAudio"
-                      onClick={this.myAudioOn}
-                      value="마이크 키기"
+                      id="MyAudioToggle"
+                      onClick={this.myAudioToggle}
+                      value="마이크 켜기/끄기"
                     />
                     <br />
                     <input
@@ -453,6 +449,14 @@ class App extends Component {
                       id="shareMyScreen"
                       onClick={this.myScreenShare}
                       value="화면공유하기"
+                      disabled={this.state.screensharing}
+                    />
+                    <input
+                      className="btn btn-large btn-success"
+                      type="button"
+                      id="stopScreenShare"
+                      onClick={this.stopScreenShare}
+                      value="화면공유 중지"
                     />
                     <input
                       className="btn btn-large btn-danger"
