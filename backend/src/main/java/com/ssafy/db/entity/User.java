@@ -27,7 +27,16 @@ public class User extends BaseEntity implements UserDetails {
     private String password;
 
     @Column(nullable = false)
+    private String region;
+
+    @Column(nullable = false)
+    private String ban;
+
+    @Column(nullable = false)
     private String name;
+
+    @Column(nullable = false)
+    private Integer gisu;
 
     @Column(name = "nickname")
     private String nickname;
