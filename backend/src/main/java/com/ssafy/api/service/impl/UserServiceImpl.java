@@ -36,11 +36,10 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public User createUser(TempUser tempUser) {
+    public User insertUser(TempUser tempUser) {
         User user = User.builder()
                 .email(tempUser.getEmail())
                 .name(tempUser.getName())
-                .nickname(tempUser.getNickname())
                 .password(tempUser.getPassword())
                 .build();
 
@@ -96,7 +95,6 @@ public class UserServiceImpl implements UserService {
                 .email(req.getEmail())
                 .password(req.getPassword())
                 .name(req.getName())
-                .nickname(req.getNickname())
                 .code(code)
                 .build();
     }

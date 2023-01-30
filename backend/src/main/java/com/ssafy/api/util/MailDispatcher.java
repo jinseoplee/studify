@@ -13,10 +13,7 @@ import javax.mail.internet.MimeMessage;
 @Component
 public class MailDispatcher {
 
-    private final PasswordEncoder passwordEncoder;
     private final JavaMailSender javaMailSender;
-    private final EmailContent mailContent;
-    private final String PORT = "8080";
 
     public void sendMail(String to, String subject, String content) throws MessagingException {
 
@@ -24,7 +21,7 @@ public class MailDispatcher {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
 
-        helper.setFrom("hmschlng@naver.com"); // 발신자 (우리)를 지정
+        helper.setFrom("studify-support@naver.com"); // 발신자 (우리)를 지정
         helper.setTo(to); // 받는 사람(사용자)을 지정
         helper.setSubject(subject); // 제목 지정
         helper.setText(content, true);
