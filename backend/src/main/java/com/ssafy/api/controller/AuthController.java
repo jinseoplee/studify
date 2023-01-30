@@ -44,7 +44,7 @@ public class AuthController {
     @PostMapping("/signup")
     public ResponseEntity<? extends BaseResponseBody> signUp(@RequestBody UserSignupPostReq signupPostReq) {
         TempUser tempUser = userService.certificateTempUser(signupPostReq);
-        User user = userService.createUser(tempUser);
+        User user = userService.insertUser(tempUser);
         userService.deleteTempUser(tempUser.getEmail());
         return ResponseEntity.status(HttpStatus.OK).body(new BaseResponseBody(201, "Created"));
     }

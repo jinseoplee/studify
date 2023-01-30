@@ -21,7 +21,7 @@ public interface UserService {
      * @param tempUser
      * @return
      */
-    User createUser(TempUser tempUser);
+    User insertUser(TempUser tempUser);
 
     /**
      * 로그인

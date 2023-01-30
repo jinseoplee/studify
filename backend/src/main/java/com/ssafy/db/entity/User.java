@@ -29,22 +29,18 @@ public class User extends BaseEntity implements UserDetails {
     @Column(nullable = false)
     private String name;
 
-    @Column(name = "nickname")
-    private String nickname;
-
     @OneToOne(mappedBy = "user")
     private ProfileImg profileImg;
 
     @Builder
-    public User(String email, String password, String name, String nickname) {
+    public User(String email, String password, String name) {
         this.email = email;
         this.password = password;
         this.name = name;
-        this.nickname = nickname;
     }
 
-    public void updateUserInfo(String nickname) {
-        this.nickname = nickname;
+    public void updateUserInfo(String name) {
+        this.name = name;
         // 나중에 추가되는 정보도 여기서 변경
     }
 
