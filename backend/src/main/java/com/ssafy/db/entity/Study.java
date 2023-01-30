@@ -1,10 +1,17 @@
 package com.ssafy.db.entity;
 
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
+@NoArgsConstructor
 @Getter
+@ToString
 @Entity
 public class Study extends BaseEntity {
 
@@ -26,12 +33,25 @@ public class Study extends BaseEntity {
     private Integer capacity;
 
     @Column(nullable = false)
-    private String day;
+    @ElementCollection
+    private List<String> day = new ArrayList<>();
 
     @Column(nullable = true)
-    private String skill;
+    @ElementCollection
+    private List<String> skill = new ArrayList<>();
 
     @Column(nullable = false)
     private boolean isPublic;
+
+    @Builder
+    public Study(String thumbnailUrl, String title, String description, Integer capacity, List<String> day, List<String> skill, boolean isPublic) {
+        this.thumbnailUrl = thumbnailUrl;
+        this.title = title;
+        this.description = description;
+        this.capacity = capacity;
+        this.day = day;
+        this.skill = skill;
+        this.isPublic = isPublic;
+    }
 
 }
