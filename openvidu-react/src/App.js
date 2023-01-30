@@ -77,6 +77,8 @@ class App extends Component {
     let publisher = this.state.publisher;
     publisher.publishVideo(false);
     console.log(publisher);
+    console.log(this.state.subscribers);
+    console.log(this.state.mainStreamManager);
   }
 
   myCameraOn() {
@@ -96,44 +98,37 @@ class App extends Component {
   }
 
   myScreenShare() {
-    const videoSource =
-      navigator.userAgent.indexOf("Firefox") !== -1 ? "window" : "screen";
-    const publisher = this.OV.initPublisher(
-      undefined,
-      {
-        videoSource: videoSource,
-        publishAudio: localUser.isAudioActive(),
-        publishVideo: localUser.isVideoActive(),
-        mirror: false,
-      },
-      (error) => {
-        if (error && error.name === "SCREEN_EXTENSION_NOT_INSTALLED") {
-          this.setState({ showExtensionDialog: true });
-        } else if (error && error.name === "SCREEN_SHARING_NOT_SUPPORTED") {
-          alert("Your browser does not support screen sharing");
-        } else if (error && error.name === "SCREEN_EXTENSION_DISABLED") {
-          alert("You need to enable screen sharing extension");
-        } else if (error && error.name === "SCREEN_CAPTURE_DENIED") {
-          alert("You need to choose a window or application to share");
-        }
-      }
-    );
-
-    publisher.once("accessAllowed", () => {
-      this.state.session.unpublish(localUser.getStreamManager());
-      localUser.setStreamManager(publisher);
-      this.state.session.publish(localUser.getStreamManager()).then(() => {
-        localUser.setScreenShareActive(true);
-        this.setState({ localUser: localUser }, () => {
-          this.sendSignalUserChanged({
-            isScreenShareActive: localUser.isScreenShareActive(),
+    var newOV = new OpenVidu();
+    var sessionScreen = newOV.initSession();
+    this.getToken().then((token) => {
+      sessionScreen
+        .connect(token)
+        .then(() => {
+          var publisher = newOV.initPublisher("html-element-id", {
+            videoSource: "screen",
           });
+
+          publisher.once("accessAllowed", (event) => {
+            publisher.stream
+              .getMediaStream()
+              .getVideoTracks()[0]
+              .addEventListener("ended", () => {
+                console.log('User pressed the "Stop sharing" button');
+              });
+            sessionScreen.publish(publisher);
+          });
+
+          publisher.once("accessDenied", (event) => {
+            console.warn("ScreenShare: Access Denied");
+          });
+        })
+        .catch((error) => {
+          console.warn(
+            "There was an error connecting to the session:",
+            error.code,
+            error.message
+          );
         });
-      });
-    });
-    publisher.on("streamPlaying", () => {
-      this.updateLayout();
-      publisher.videos[0].video.parentElement.classList.remove("custom-class");
     });
   }
 
@@ -416,6 +411,7 @@ class App extends Component {
                     <UserVideoComponent
                       streamManager={this.state.mainStreamManager}
                     />
+                    <h3>{myUserName}</h3>
 
                     <input
                       className="btn btn-large btn-success"
