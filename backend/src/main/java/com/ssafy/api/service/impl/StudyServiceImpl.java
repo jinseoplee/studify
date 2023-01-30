@@ -20,5 +20,9 @@ public class StudyServiceImpl implements StudyService {
                 studyRepository.save(studyCreatePostReq.toEntity()));
     }
 
+    @Override
+    public void deleteStudy(Long studyId) {
+        studyRepository.deleteById(studyId);
+    }
 
 }

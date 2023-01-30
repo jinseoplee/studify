@@ -13,5 +13,11 @@ public interface StudyService {
      */
     StudyCreatePostRes createStudy(StudyCreatePostReq studyCreatePostReq);
 
+    /**
+     * 스터디 삭제
+     *
+     * @param studyId
+     */
+    void deleteStudy(Long studyId);
 
 }

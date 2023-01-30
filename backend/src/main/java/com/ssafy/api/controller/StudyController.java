@@ -24,4 +24,10 @@ public class StudyController {
         return ResponseEntity.status(HttpStatus.CREATED).body(studyCreatePostRes);
     }
 
+    @DeleteMapping
+    public ResponseEntity<BaseResponseBody> deleteStudy(@RequestBody Map<String, String> parameter) {
+        studyService.deleteStudy(Long.parseLong(parameter.get("id")));
+        return ResponseEntity.status(HttpStatus.OK).body(new BaseResponseBody(200, "Success"));
+    }
+
 }
