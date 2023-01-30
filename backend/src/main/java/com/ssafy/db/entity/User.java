@@ -27,10 +27,10 @@ public class User extends BaseEntity implements UserDetails {
     private String password;
 
     @Column(nullable = false)
-    private String region;
+    private String regionId;
 
     @Column(nullable = false)
-    private String ban;
+    private String classId;
 
     @Column(nullable = false)
     private String name;
