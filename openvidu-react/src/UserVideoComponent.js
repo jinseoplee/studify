@@ -6,6 +6,7 @@ export default class UserVideoComponent extends Component {
   getNicknameTag() {
     // Gets the nickName of the user
     // 이 부분에서 화면공유할때 오류가 난다.
+    // 이름을 못불러옴.(제외할 경우는 가능)
     return JSON.parse(this.props.streamManager.stream.connection.data)
       .clientData;
   }

@@ -76,6 +76,7 @@ class App extends Component {
     }
   }
 
+<<<<<<< HEAD
   stopScreenShare() {
     if (this.state.screensharing) {
       this.state.sessionScreen.disconnect();
@@ -83,6 +84,14 @@ class App extends Component {
         screensharing: false,
       }));
     }
+=======
+  myCameraOff() {
+    let publisher = this.state.publisher;
+    publisher.publishVideo(false);
+    console.log(publisher);
+    console.log(this.state.subscribers);
+    console.log(this.state.mainStreamManager);
+>>>>>>> d10f2420eaf08d00cf53219eb3e250b03f5a0009
   }
 
   myCameraToggle() {
@@ -122,6 +131,7 @@ class App extends Component {
 
   myScreenShare() {
     var newOV = new OpenVidu();
+<<<<<<< HEAD
     // var sessionScreen = newOV.initSession();
     this.setState({
       sessionScreen: newOV.initSession(),
@@ -177,6 +187,39 @@ class App extends Component {
             );
           });
       });
+=======
+    var sessionScreen = newOV.initSession();
+    this.getToken().then((token) => {
+      sessionScreen
+        .connect(token)
+        .then(() => {
+          var publisher = newOV.initPublisher("html-element-id", {
+            videoSource: "screen",
+          });
+
+          publisher.once("accessAllowed", (event) => {
+            publisher.stream
+              .getMediaStream()
+              .getVideoTracks()[0]
+              .addEventListener("ended", () => {
+                console.log('User pressed the "Stop sharing" button');
+              });
+            sessionScreen.publish(publisher);
+          });
+
+          publisher.once("accessDenied", (event) => {
+            console.warn("ScreenShare: Access Denied");
+          });
+        })
+        .catch((error) => {
+          console.warn(
+            "There was an error connecting to the session:",
+            error.code,
+            error.message
+          );
+        });
+    });
+>>>>>>> d10f2420eaf08d00cf53219eb3e250b03f5a0009
   }
 
   joinSession() {
