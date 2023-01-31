@@ -34,4 +34,11 @@ public class StudyServiceImpl implements StudyService {
         return studyRes;
     }
 
+    @Override
+    public void deleteStudy(Long studyId) {
+        studyRepository.deleteById(studyId);
+
+        LOGGER.info("[deleteStudy] study({}) has been deleted", studyId);
+    }
+
 }

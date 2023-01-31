@@ -2,6 +2,7 @@ package com.ssafy.api.controller;
 
 import com.ssafy.api.response.study.StudyCreatePostRes;
 import com.ssafy.api.service.StudyService;
+import com.ssafy.common.model.response.BaseResponseBody;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +27,15 @@ public class StudyController {
         LOGGER.info("[createStudy] studyCreatePostReq : {}", studyCreatePostReq);
 
         return ResponseEntity.status(HttpStatus.OK).body(studyService.createStudy(studyCreatePostReq));
+    }
+
+    @DeleteMapping("/{studyId}")
+    public ResponseEntity<BaseResponseBody> deleteStudy(@PathVariable long studyId) {
+        LOGGER.info("[deleteStudy] studyId : {}", studyId);
+
+        studyService.deleteStudy(studyId);
+
+        return ResponseEntity.status(HttpStatus.OK).body(new BaseResponseBody(200, "Success"));
     }
 
 }

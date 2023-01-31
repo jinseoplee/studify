@@ -15,4 +15,12 @@ public interface StudyService {
      */
     StudyCreatePostRes createStudy(com.ssafy.api.request.study.StudyCreatePostReq studyCreatePostReq);
 
+    /**
+     * 스터디 삭제
+     *
+     * @param studyId
+     * @return void
+     */
+    void deleteStudy(Long studyId);
+
 }
