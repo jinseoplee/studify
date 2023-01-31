@@ -11,13 +11,16 @@ import javax.persistence.*;
 public class UserStudy {
 
     @Id
+    @Column(name = "user_study_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
+    @JoinColumn(name = "study_id")
     private Study study;
 
     public static UserStudy of(User user, Study study) {
