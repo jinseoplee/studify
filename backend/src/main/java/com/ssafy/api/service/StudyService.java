@@ -1,23 +1,18 @@
 package com.ssafy.api.service;
 
-import com.ssafy.api.request.study.StudyCreatePostReq;
 import com.ssafy.api.response.study.StudyCreatePostRes;
 
+/**
+ * 스터디 관련 비즈니스 로직 처리를 위한 서비스 인터페이스 정의
+ */
 public interface StudyService {
 
     /**
      * 스터디 생성
      *
      * @param studyCreatePostReq
-     * @return
+     * @return StudyRes
      */
-    StudyCreatePostRes createStudy(StudyCreatePostReq studyCreatePostReq);
-
-    /**
-     * 스터디 삭제
-     *
-     * @param studyId
-     */
-    void deleteStudy(Long studyId);
+    StudyCreatePostRes createStudy(com.ssafy.api.request.study.StudyCreatePostReq studyCreatePostReq);
 
 }
