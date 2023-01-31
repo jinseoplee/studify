@@ -1,6 +1,9 @@
 package com.ssafy.api.controller;
 
+import com.ssafy.api.request.study.StudyCreatePostReq;
+import com.ssafy.api.request.study.StudyInfoUpdatePutReq;
 import com.ssafy.api.response.study.StudyCreatePostRes;
+import com.ssafy.api.response.study.StudyRes;
 import com.ssafy.api.service.StudyService;
 import com.ssafy.common.model.response.BaseResponseBody;
 import lombok.RequiredArgsConstructor;
@@ -23,14 +26,22 @@ public class StudyController {
     private final StudyService studyService;
 
     @PostMapping
-    public ResponseEntity<StudyCreatePostRes> createStudy(@RequestBody com.ssafy.api.request.study.StudyCreatePostReq studyCreatePostReq) {
+    public ResponseEntity<StudyCreatePostRes> createStudy(@RequestBody StudyCreatePostReq studyCreatePostReq) {
         LOGGER.info("[createStudy] studyCreatePostReq : {}", studyCreatePostReq);
 
         return ResponseEntity.status(HttpStatus.OK).body(studyService.createStudy(studyCreatePostReq));
     }
 
+    @PutMapping("/{studyId}")
+    public ResponseEntity<StudyRes> updateStudyInfo(@PathVariable Long studyId, @RequestBody StudyInfoUpdatePutReq studyInfoUpdatePutReq) {
+        LOGGER.info("[updateStudyInfo] studyId : {}", studyId);
+        LOGGER.info("[updateStudyInfo] studyInfoUpdatePutReq : {}", studyInfoUpdatePutReq);
+
+        return ResponseEntity.status(HttpStatus.OK).body(studyService.updateStudyInfo(studyId, studyInfoUpdatePutReq));
+    }
+
     @DeleteMapping("/{studyId}")
-    public ResponseEntity<BaseResponseBody> deleteStudy(@PathVariable long studyId) {
+    public ResponseEntity<BaseResponseBody> deleteStudy(@PathVariable Long studyId) {
         LOGGER.info("[deleteStudy] studyId : {}", studyId);
 
         studyService.deleteStudy(studyId);

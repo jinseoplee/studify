@@ -1,6 +1,8 @@
 package com.ssafy.api.service.impl;
 
+import com.ssafy.api.request.study.StudyInfoUpdatePutReq;
 import com.ssafy.api.response.study.StudyCreatePostRes;
+import com.ssafy.api.response.study.StudyRes;
 import com.ssafy.api.service.StudyService;
 import com.ssafy.db.entity.Study;
 import com.ssafy.db.repository.StudyRepository;
@@ -29,6 +31,25 @@ public class StudyServiceImpl implements StudyService {
                 .statusCode(200)
                 .message("Success")
                 .study(study)
+                .build();
+
+        return studyRes;
+    }
+
+    @Override
+    public StudyRes updateStudyInfo(Long studyId, StudyInfoUpdatePutReq studyInfoUpdatePutReq) {
+        Study foundStudy = studyRepository.findById(studyId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 스터디입니다."));
+
+        LOGGER.info("[updateStudyInfo] study before change : {}", foundStudy);
+        foundStudy.changeInfo(studyInfoUpdatePutReq);
+        LOGGER.info("[updateStudyInfo] study after change : {}", foundStudy);
+
+        Study changedStudy = studyRepository.save(foundStudy);
+
+        StudyRes studyRes = StudyRes.builder()
+                .statusCode(200)
+                .message("Success")
+                .study(changedStudy)
                 .build();
 
         return studyRes;

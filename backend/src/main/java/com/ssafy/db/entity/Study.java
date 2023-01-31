@@ -1,5 +1,6 @@
 package com.ssafy.db.entity;
 
+import com.ssafy.api.request.study.StudyInfoUpdatePutReq;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -59,6 +60,20 @@ public class Study extends BaseEntity {
         this.day = day;
         this.category = category;
         this.isPublic = isPublic;
+    }
+
+    /**
+     * 스터디 정보 변경
+     *
+     * @param studyInfoUpdatePutReq
+     */
+    public void changeInfo(StudyInfoUpdatePutReq studyInfoUpdatePutReq) {
+        this.title = studyInfoUpdatePutReq.getTitle();
+        this.description = studyInfoUpdatePutReq.getDescription();
+        this.capacity = studyInfoUpdatePutReq.getCapacity();
+        this.day = studyInfoUpdatePutReq.getDay();
+        this.category = studyInfoUpdatePutReq.getCategory();
+        this.isPublic = studyInfoUpdatePutReq.isPublic();
     }
 
 }
