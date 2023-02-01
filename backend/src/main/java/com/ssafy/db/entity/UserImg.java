@@ -33,7 +33,7 @@ public class UserImg {
         this.fileUrl = fileUrl;
     }
 
-    public void updateProfileImg(MultipartFile multipartFile, String fileUrl) {
+    public void updateUserImg(MultipartFile multipartFile, String fileUrl) {
         this.name = multipartFile.getOriginalFilename();
         this.type = multipartFile.getContentType();
         this.fileUrl = fileUrl;

@@ -49,7 +49,7 @@ public class UserImgServiceImpl implements UserImgService {
         File file = new File(userImg.getFileUrl());
         file.delete();
 
-        userImg.updateProfileImg(multipartFile, filePath);
+        userImg.updateUserImg(multipartFile, filePath);
         userImgRepository.save(userImg);
         multipartFile.transferTo(new File(filePath));
 
