@@ -1,5 +1,6 @@
 package com.ssafy.api.service.impl;
 
+import com.ssafy.api.request.study.StudyCreatePostReq;
 import com.ssafy.api.request.study.StudyInfoUpdatePutReq;
 import com.ssafy.api.response.study.StudyCreatePostRes;
 import com.ssafy.api.response.study.StudyRes;
@@ -22,7 +23,7 @@ public class StudyServiceImpl implements StudyService {
     private final StudyRepository studyRepository;
 
     @Override
-    public StudyCreatePostRes createStudy(com.ssafy.api.request.study.StudyCreatePostReq studyCreatePostReq) {
+    public StudyCreatePostRes createStudy(StudyCreatePostReq studyCreatePostReq) {
         Study study = studyRepository.save(studyCreatePostReq.toEntity());
 
         LOGGER.info("[createStudy] created study : {}", study);
