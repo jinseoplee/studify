@@ -1,13 +1,21 @@
 package com.ssafy.api.controller;
 
+import com.ssafy.api.service.UserImgService;
 import com.ssafy.api.service.UserService;
+import com.ssafy.api.service.impl.StudyServiceImpl;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.User;
+import com.ssafy.db.entity.UserImg;
+import com.ssafy.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Map;
 
 /**
@@ -19,21 +27,17 @@ import java.util.Map;
 @RequestMapping("/api/v1/users")
 public class UserController {
 
+    private final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
+
     private final UserService userService;
-//    private final EmailService emailService;
+    private final UserImgService userImgService;
+    private final UserRepository userRepository;
 
-    @GetMapping("/{email}")
-    public ResponseEntity<? extends BaseResponseBody> getUser(@PathVariable String email) {
-        User user = userService.getUser(email);
-        
+    @GetMapping("/{id}")
+    public ResponseEntity<? extends BaseResponseBody> getUser(@PathVariable Long id) {
+        User user = userService.getUser(id);
+
         return ResponseEntity.status(HttpStatus.OK).body(new BaseResponseBody(200, "Success"));
-    }
-
-    @PutMapping("/info")
-    public ResponseEntity<? extends BaseResponseBody> updateUserInfo(@RequestBody Map<String, String> userInfo) {
-        userService.updateUserInfo(userInfo);
-
-        return ResponseEntity.status(HttpStatus.OK).body(new BaseResponseBody(200,"Success"));
     }
 
     @PutMapping("/pass")
@@ -48,6 +52,44 @@ public class UserController {
         userService.deleteUser(email);
 
         return ResponseEntity.status(HttpStatus.OK).body(new BaseResponseBody(200, "Success"));
+    }
+
+
+    /* 프로필 이미지 업로드 */
+    @PostMapping("/profile/upload")
+    public ResponseEntity<?> uploadImage(@RequestParam("image") MultipartFile multipartFile, @RequestParam Long userId) throws IOException {
+        if(userService.validImgFile(multipartFile)) {
+            UserImg userImg = userImgService.uploadImage(multipartFile);
+            User user = userService.getUser(userId);
+            user.setUserImg(userImg);
+            userService.updateUser(user);
+            return ResponseEntity.status(HttpStatus.OK).body(new BaseResponseBody(200, "Success"));
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(new BaseResponseBody(200, "Fail"));
+    }
+
+    /* 프로필 이미지 수정 */
+    @PutMapping("/profile/update")
+    public ResponseEntity<?> updateImage(@RequestParam("image") MultipartFile multipartFile, @RequestParam Long userId) throws IOException {
+        if(userService.validImgFile(multipartFile)) {
+            User user = userService.getUser(userId);
+            userImgService.updateImage(multipartFile, user);
+            userService.updateUser(user);
+            return ResponseEntity.status(HttpStatus.OK).body(new BaseResponseBody(200, "Success"));
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(new BaseResponseBody(200, "Fail"));
+    }
+
+    /* 프로필 이미지 삭제(default) */
+    @DeleteMapping("/profile/delete/{userId}")
+    public ResponseEntity<BaseResponseBody> deleteImage(@PathVariable Long userId){
+        userImgService.deleteImage(userId);
+        return ResponseEntity.status(HttpStatus.OK).body(new BaseResponseBody(200, "Success"));
+    }
+
+    @GetMapping("/test")
+    public User test(){
+        return userRepository.findByEmail("abc@naver.com").get();
     }
 
 }

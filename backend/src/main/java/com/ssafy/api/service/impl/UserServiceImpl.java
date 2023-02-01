@@ -6,6 +6,7 @@ import com.ssafy.api.request.UserSignupPostReq;
 import com.ssafy.api.response.UserAuthPostRes;
 import com.ssafy.api.response.UserLoginPostRes;
 import com.ssafy.api.service.UserService;
+import com.ssafy.api.util.FileValidator;
 import com.ssafy.api.util.MailDispatcher;
 import com.ssafy.config.security.JwtTokenProvider;
 import com.ssafy.db.entity.TempUser;
@@ -16,8 +17,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.MessagingException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Map;
 import java.util.UUID;
 
@@ -40,7 +44,6 @@ public class UserServiceImpl implements UserService {
         User user = User.builder()
                 .email(tempUser.getEmail())
                 .name(tempUser.getName())
-                .nickname(tempUser.getNickname())
                 .password(tempUser.getPassword())
                 .build();
 
@@ -50,7 +53,8 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public UserLoginPostRes signin(UserLoginPostReq userLoginPostReq) {
-        User user = userRepository.findById(userLoginPostReq.getEmail()).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 이메일입니다."));
+
+        User user = userRepository.findByEmail(userLoginPostReq.getEmail()).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 이메일입니다."));
 
         // 비밀번호 비교 수행
         if (!passwordEncoder.matches(userLoginPostReq.getPassword(), user.getPassword())) {
@@ -69,18 +73,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Transactional
-    public User getUser(String email) {
-        return userRepository.findById(email)
-                .orElseThrow(() -> new IllegalArgumentException("없는 사용자입니다."));
+    public User getUser(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
     }
 
     @Transactional
     public boolean checkDuplicate(String email) {
-        if (userRepository.existsById(email))
-            throw new IllegalArgumentException("이미 가입된 이메일입니다.");
+        if (userRepository.existsByEmail(email))
+            throw new IllegalArgumentException("이미 존재하는 이메일입니다.");
 
         return true;
     }
+
 
     @Override
     public TempUser sendAuthMail(UserAuthPostReq req) throws MessagingException {
@@ -119,44 +124,54 @@ public class UserServiceImpl implements UserService {
     @Override
     public TempUser certificateTempUser(UserSignupPostReq authReq) {
         return tempUserRepository.findByCode(authReq.getCode())
-                .orElseThrow(() -> new IllegalArgumentException("만료된 페이지거나 없는 인증대상입니다."));
-    }
-
-    @Transactional
-    @Override
-    public User updateUserInfo(Map<String, String> userInfo) {
-        User user = userRepository.findById(userInfo.get("email"))
-                .orElseThrow(() -> new IllegalArgumentException("없는 사용자입니다."));
-
-        user.updateUserInfo(userInfo.get("nickname"));
-
-        return userRepository.save(user);
+                .orElseThrow(() -> new IllegalArgumentException("만료된 페이지거나 인증 대상이 존재하지 않습니다."));
     }
 
     @Override
     public User updateUserPassword(Map<String, String> userInfo) {
-        User user = userRepository.findById(userInfo.get("email"))
-                .orElseThrow(() -> new IllegalArgumentException("없는 사용자입니다."));
+        User user = userRepository.findByEmail(userInfo.get("email"))
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
 
         user.updatePassword(passwordEncoder.encode(userInfo.get("password")));
 
         return userRepository.save(user);
     }
 
+
     @Override
     public void deleteUser(String email) {
-        User user = userRepository.findById(email)
-                .orElseThrow(() -> new IllegalArgumentException("없는 사용자입니다."));
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
 
-        userRepository.deleteById(email);
+        userRepository.deleteById(user.getId());
     }
 
     @Override
     public void deleteTempUser(String email) {
         TempUser tempUser = tempUserRepository.findById(email)
-                .orElseThrow(() -> new IllegalArgumentException("없는 인증 대상입니다."));
+                .orElseThrow(() -> new IllegalArgumentException("인증 대상이 존재하지 않습니다."));
 
         tempUserRepository.deleteById(email);
+    }
+
+    @Override
+    public User updateUser(User user) {
+        return userRepository.save(user);
+    }
+
+    @Override
+    public boolean validImgFile(MultipartFile multipartFile) {
+        try (InputStream inputStream = multipartFile.getInputStream()) {
+            if (!multipartFile.isEmpty()) {
+                boolean isValid = FileValidator.validImgFile(inputStream);
+                if (!isValid) {
+                    return false;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return true;
     }
 
 }
