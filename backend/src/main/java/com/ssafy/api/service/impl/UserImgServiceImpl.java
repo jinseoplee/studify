@@ -26,15 +26,15 @@ public class UserImgServiceImpl implements UserImgService {
     /* 프로필 이미지 업로드 */
     public UserImg uploadImage(MultipartFile multipartFile) throws IOException {
         UUID uuid = UUID.randomUUID();
-        String filePath = path + uuid.toString() + "_" + multipartFile.getOriginalFilename();
+        String fileUrl = path + uuid.toString() + "_" + multipartFile.getOriginalFilename();
         UserImg userImg = userImgRepository.save(
                 UserImg.builder()
                         .name(multipartFile.getOriginalFilename())
                         .type(multipartFile.getContentType())
-                        .filePath(filePath)
+                        .fileUrl(fileUrl)
                         .build()
         );
-        multipartFile.transferTo(new File(filePath));
+        multipartFile.transferTo(new File(fileUrl));
 
         return userImg;
     }
@@ -46,7 +46,7 @@ public class UserImgServiceImpl implements UserImgService {
 
         UserImg userImg = userImgRepository.findById(user.getUserImg().getId()).get();
 
-        File file = new File(userImg.getFilePath());
+        File file = new File(userImg.getFileUrl());
         file.delete();
 
         userImg.updateProfileImg(multipartFile, filePath);
@@ -62,7 +62,7 @@ public class UserImgServiceImpl implements UserImgService {
         UserImg userImg = userImgRepository.findById(user.getUserImg().getId()).get();
 
         user.setUserImg(null);
-        File file = new File(userImg.getFilePath());
+        File file = new File(userImg.getFileUrl());
         file.delete();
 
         userImgRepository.deleteById(userImg.getId());
