@@ -97,3 +97,72 @@
   background-color: white;
   margin-left: 40px;
 }
+.StudyMakeContainer {
+  display: flex;
+  flex-direction: column;
+  width: 1000px;
+}
+.StudyMakeTitle {
+  margin-top: 88px;
+  font-size: 44px;
+  font: bold;
+}
+.StudyMakeTitle:after {
+  content: "";
+  display: block;
+  width: 240px;
+  border-bottom: 4px solid #8a6bcd;
+  margin-top: 15px;
+  margin-bottom: 30px;
+  /* box-shadow: 0px 4px 2px gray; */
+}
+.StudyMakebox {
+  margin-bottom: 30px;
+  margin-left: 18px;
+}
+.StudyMakeLabel {
+  font-size: 30px;
+  margin-bottom: 15px;
+}
+.StudyTitleinput {
+  width: 752px;
+  height: 48px;
+  border-radius: 25px;
+  /* box-shadow: 5px 5px 5px gray; */
+  border: 1px solid rgb(189, 188, 188);
+  padding-left: 10px;
+  font-size: 20px;
+}
+.StudyDescriptioninput {
+  width: 752px;
+  height: 240px;
+  border: 1px solid rgb(189, 188, 188);
+  border-radius: 20px;
+  /* box-shadow: 5px 5px 5px gray; */
+  padding: 10px;
+  font-size: 20px;
+}
+.publicbutton {
+  width: 100px;
+  height: 40px;
+  border: solid 3px #8a6bcd;
+  border-radius: 20px;
+  margin-left: 10px;
+  margin-bottom: 20px;
+  text-align: center;
+  line-height: 37px;
+  cursor: pointer;
+  font-size: 18px;
+}
+.publicbutton:hover {
+  background-color: #8a6bcd;
+  color: white;
+}
+.StudymakeSubmit {
+  width: 152px;
+  height: 56px;
+  background-color: #8a6bcd;
+  color: white;
+  font-size: large;
+  border: 0px;
+}

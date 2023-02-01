@@ -8,6 +8,12 @@ import UserSignup from "./Components/Signup/UserSignup";
 import ResetPw from "./pages/ResetPw";
 import DashBoard from "./pages/DashBoard";
 import StudyMake from "./Components/DashBoard/StudyMake";
+import StudyDetail from "./Components/MainStudy/StudyDetail";
+import StudyInfo from "./Components/MainStudy/StudyInfo";
+import StudyRule from "./Components/MainStudy/StudyRule";
+import StudyHistory from "./Components/MainStudy/StudyHistory";
+import StudyMember from "./Components/MainStudy/StudyMember";
+import ChartTest from "./Components/UI/ChartTest";
 
 const router = createBrowserRouter([
   {
@@ -45,6 +51,18 @@ const router = createBrowserRouter([
         path: "/study/newstudy",
         element: <StudyMake />,
       },
+      // 중첩라우팅
+      {
+        path: "/study/:studyId",
+        element: <StudyDetail />,
+        children: [
+          { path: "info", element: <StudyInfo /> },
+          { path: "rule", element: <StudyRule /> },
+          { path: "record", element: <StudyHistory /> },
+          { path: "member", element: <StudyMember /> },
+        ],
+      },
+      { path: "//dashboard/chart", element: <ChartTest /> },
     ],
   },
 ]);

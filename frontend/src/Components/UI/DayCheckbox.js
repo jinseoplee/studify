@@ -32,8 +32,9 @@ const DayCheckbox = () => {
             name={`select-${data.id}`}
             onChange={(e) => handleSingleCheck(e.target.checked, data.title)}
             checked={checkItems.includes(data.title) ? true : false}
+            id={data.title}
           ></input>
-          <p>{data.title}</p>
+          <label for={data.title}>{data.title}</label>
         </div>
       ))}
     </div>

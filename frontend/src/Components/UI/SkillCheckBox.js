@@ -29,8 +29,10 @@ const SkillCheckBox = () => {
             name={`select-${data.id}`}
             onChange={(e) => handleSingleCheck(e.target.checked, data.skill)}
             checked={checkSkill.includes(data.skill) ? true : false}
+            // id="chk_top"
+            id={data.skill}
           ></input>
-          <p>{data.skill}</p>
+          <label for={data.skill}>{data.skill}</label>
         </div>
       ))}
     </div>
