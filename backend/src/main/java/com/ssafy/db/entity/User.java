@@ -43,7 +43,7 @@ public class User extends BaseEntity implements UserDetails {
     private Integer gisu;
 
     @OneToOne
-    @JoinColumn(name = "user_img_id", referencedColumnName = "id")
+    @JoinColumn(name = "user_img_id", referencedColumnName = "user_img_id")
     private UserImg userImg;
 
     @Builder

@@ -28,10 +28,8 @@ import java.util.Map;
 public class UserController {
 
     private final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
-
     private final UserService userService;
     private final UserImgService userImgService;
-    private final UserRepository userRepository;
 
     @GetMapping("/{id}")
     public ResponseEntity<? extends BaseResponseBody> getUser(@PathVariable Long id) {
@@ -56,7 +54,7 @@ public class UserController {
 
 
     /* 프로필 이미지 업로드 */
-    @PostMapping("/profile/upload")
+    @PostMapping("/image")
     public ResponseEntity<?> uploadImage(@RequestParam("image") MultipartFile multipartFile, @RequestParam Long userId) throws IOException {
         if(userService.validImgFile(multipartFile)) {
             UserImg userImg = userImgService.uploadImage(multipartFile);
@@ -69,7 +67,7 @@ public class UserController {
     }
 
     /* 프로필 이미지 수정 */
-    @PutMapping("/profile/update")
+    @PutMapping("/image")
     public ResponseEntity<?> updateImage(@RequestParam("image") MultipartFile multipartFile, @RequestParam Long userId) throws IOException {
         if(userService.validImgFile(multipartFile)) {
             User user = userService.getUser(userId);
@@ -81,15 +79,10 @@ public class UserController {
     }
 
     /* 프로필 이미지 삭제(default) */
-    @DeleteMapping("/profile/delete/{userId}")
+    @DeleteMapping("/image/{userId}")
     public ResponseEntity<BaseResponseBody> deleteImage(@PathVariable Long userId){
         userImgService.deleteImage(userId);
         return ResponseEntity.status(HttpStatus.OK).body(new BaseResponseBody(200, "Success"));
-    }
-
-    @GetMapping("/test")
-    public User test(){
-        return userRepository.findByEmail("abc@naver.com").get();
     }
 
 }

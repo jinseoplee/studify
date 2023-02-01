@@ -5,12 +5,17 @@ import com.ssafy.api.request.study.StudyInfoUpdatePutReq;
 import com.ssafy.api.response.study.StudyCreatePostRes;
 import com.ssafy.api.response.study.StudyRes;
 import com.ssafy.api.service.StudyService;
+import com.ssafy.api.util.FileValidator;
 import com.ssafy.db.entity.Study;
 import com.ssafy.db.repository.StudyRepository;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * 스터디 관련 비즈니스 로직 처리를 위한 서비스 구현 정의
@@ -61,6 +66,32 @@ public class StudyServiceImpl implements StudyService {
         studyRepository.deleteById(studyId);
 
         LOGGER.info("[deleteStudy] study({}) has been deleted", studyId);
+    }
+
+    @Override
+    public boolean validImgFile(MultipartFile multipartFile) {
+        try (InputStream inputStream = multipartFile.getInputStream()) {
+            if (!multipartFile.isEmpty()) {
+                boolean isValid = FileValidator.validImgFile(inputStream);
+                if (!isValid) {
+                    return false;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+
+    @Override
+    public Study getStudy(Long studyId) {
+        return studyRepository.findById(studyId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 스터디입니다."));
+    }
+
+    @Override
+    public Study updateStudy(Study study) {
+        return studyRepository.save(study);
     }
 
 }

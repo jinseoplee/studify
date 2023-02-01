@@ -24,9 +24,6 @@ public class Study extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = true)
-    private String thumbnailUrl;
-
     @Column(nullable = false)
     private String title; // 스터디 제목
 
@@ -49,6 +46,10 @@ public class Study extends BaseEntity {
 
     @Column(nullable = false)
     private boolean isPublic; // 공개 여부
+
+    @OneToOne
+    @JoinColumn(name = "study_img_id", referencedColumnName = "study_img_id")
+    private StudyImg studyImg;
 
     @Builder
     public Study(String title, String description, String host, Integer capacity, List<String> day,
@@ -74,6 +75,10 @@ public class Study extends BaseEntity {
         this.day = studyInfoUpdatePutReq.getDay();
         this.category = studyInfoUpdatePutReq.getCategory();
         this.isPublic = studyInfoUpdatePutReq.isPublic();
+    }
+
+    public void setStudyImg(StudyImg studyImg){
+        this.studyImg = studyImg;
     }
 
 }

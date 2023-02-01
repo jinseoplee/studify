@@ -11,10 +11,10 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-public class UserImg {
+public class StudyImg {
 
     @Id
-    @Column(name = "user_img_id")
+    @Column(name = "study_img_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -28,13 +28,13 @@ public class UserImg {
     private String fileUrl;
 
     @Builder
-    public UserImg(String name, String type, String fileUrl){
+    public StudyImg(String name, String type, String fileUrl){
         this.name = name;
         this.type = type;
         this.fileUrl = fileUrl;
     }
 
-    public void updateUserImg(MultipartFile multipartFile, String fileUrl) {
+    public void updateStudyImg(MultipartFile multipartFile, String fileUrl) {
         this.name = multipartFile.getOriginalFilename();
         this.type = multipartFile.getContentType();
         this.fileUrl = fileUrl;
