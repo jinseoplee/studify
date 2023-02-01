@@ -11,7 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-public class ProfileImg {
+public class UserImg {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,24 +24,19 @@ public class ProfileImg {
     private String type;
 
     @Column(nullable = false)
-    private String filePath;
-
-    @OneToOne
-    @JoinColumn(name = "user_email", referencedColumnName = "email")
-    private User user;
+    private String fileUrl;
 
     @Builder
-    public ProfileImg(String name, String type, String filePath, User user){
+    public UserImg(String name, String type, String fileUrl){
         this.name = name;
         this.type = type;
-        this.filePath = filePath;
-        this.user = user;
+        this.fileUrl = fileUrl;
     }
 
-    public void updateProfileImg(MultipartFile multipartFile, String filePath) {
+    public void updateProfileImg(MultipartFile multipartFile, String fileUrl) {
         this.name = multipartFile.getOriginalFilename();
         this.type = multipartFile.getContentType();
-        this.filePath = filePath;
+        this.fileUrl = fileUrl;
     }
 
 }
