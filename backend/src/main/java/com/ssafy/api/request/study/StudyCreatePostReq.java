@@ -34,7 +34,6 @@ public class StudyCreatePostReq {
                 .host(host)
                 .capacity(capacity)
                 .day(day)
-                .category(category)
                 .isPublic(isPublic)
                 .build();
     }

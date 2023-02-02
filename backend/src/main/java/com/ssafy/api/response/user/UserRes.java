@@ -1,4 +1,4 @@
-package com.ssafy.api.response;
+package com.ssafy.api.response.user;
 
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.User;

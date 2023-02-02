@@ -1,4 +1,4 @@
-package com.ssafy.api.util;
+package com.ssafy.common.util;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -24,7 +24,7 @@ public class MailDispatcher {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
 
-        helper.setFrom("hmschlng@naver.com"); // 발신자 (우리)를 지정
+        helper.setFrom("studify-support@naver.com"); // 발신자 (우리)를 지정
         helper.setTo(to); // 받는 사람(사용자)을 지정
         helper.setSubject(subject); // 제목 지정
         helper.setText(content, true);

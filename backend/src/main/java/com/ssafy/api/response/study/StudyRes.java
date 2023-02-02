@@ -35,10 +35,8 @@ public class StudyRes extends BaseResponseBody {
         super(statusCode, message);
         this.title = study.getTitle();
         this.description = study.getDescription();
-        this.host = study.getHost();
         this.capacity = study.getCapacity();
         this.day = study.getDay();
-        this.category = study.getCategory();
         this.isPublic = study.isPublic();
         this.users = null;
     }

@@ -1,4 +1,4 @@
-package com.ssafy.api.util;
+package com.ssafy.common.util;
 
 import org.apache.tika.Tika;
 
