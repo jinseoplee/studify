@@ -11,6 +11,8 @@ const InitialUserList = {
     { day: "Saturday", time: 56 },
     { day: "Sunday", time: 67 },
   ],
+  userAverage: "",
+  userTodayTime: "",
 };
 
 const UserSlice = createSlice({
@@ -19,6 +21,9 @@ const UserSlice = createSlice({
   reducers: {
     userchange(state, action) {
       state.user = action.payload;
+    },
+    changeUserDay(state, action) {
+      state.userToday = action.payload;
     },
   },
 });

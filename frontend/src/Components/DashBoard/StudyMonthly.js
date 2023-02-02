@@ -1,7 +1,7 @@
 import { ResponsiveTimeRange } from "@nivo/calendar";
+import { streamData } from "../UI/streamData";
 
-import { streamData } from "./streamData";
-const Stream = () => {
+const StudyMonthly = () => {
   return (
     <div style={{ height: 330 }}>
       <ResponsiveTimeRange
@@ -20,4 +20,4 @@ const Stream = () => {
   );
 };
 
-export default Stream;
+export default StudyMonthly;

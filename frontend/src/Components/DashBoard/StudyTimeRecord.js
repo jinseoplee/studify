@@ -1,18 +1,17 @@
 import { ResponsiveBar } from "@nivo/bar";
-import { useSelector } from "react-redux";
 
-const StudyTimeRecord = () => {
-  const data = useSelector((state) => state.userinfo.userTime);
+const StudyTimeRecord = ({ data }) => {
   return (
     <div style={{ width: 850, height: 250 }}>
       <ResponsiveBar
         data={data}
         keys={["time"]}
         indexBy="day"
+        layout="horizontal"
         margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
-        padding={0.4}
+        padding={0.8}
         valueScale={{ type: "linear" }}
-        colors="#3182CE"
+        colors="#CABBE7"
         animate={true}
         enableLabel={false}
         axisTop={null}

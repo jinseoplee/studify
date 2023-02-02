@@ -13,8 +13,8 @@ import StudyInfo from "./Components/MainStudy/StudyInfo";
 import StudyRule from "./Components/MainStudy/StudyRule";
 import StudyHistory from "./Components/MainStudy/StudyHistory";
 import StudyMember from "./Components/MainStudy/StudyMember";
+import StudyRoungeMain from "./Components/StudyRounge/StudyRoungeMain";
 import ChartTest from "./Components/UI/ChartTest";
-
 const router = createBrowserRouter([
   {
     path: "/",
@@ -48,6 +48,10 @@ const router = createBrowserRouter([
         element: <DashBoard />,
       },
       {
+        path: "/study/rounge",
+        element: <StudyRoungeMain />,
+      },
+      {
         path: "/study/newstudy",
         element: <StudyMake />,
       },
@@ -62,7 +66,7 @@ const router = createBrowserRouter([
           { path: "member", element: <StudyMember /> },
         ],
       },
-      { path: "//dashboard/chart", element: <ChartTest /> },
+      { path: "/chart", element: <ChartTest /> },
     ],
   },
 ]);
