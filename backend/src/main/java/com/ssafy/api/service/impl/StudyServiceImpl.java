@@ -5,7 +5,7 @@ import com.ssafy.api.request.study.StudyInfoUpdatePutReq;
 import com.ssafy.api.response.study.StudyCreatePostRes;
 import com.ssafy.api.response.study.StudyRes;
 import com.ssafy.api.service.StudyService;
-import com.ssafy.api.util.FileValidator;
+import com.ssafy.common.util.FileValidator;
 import com.ssafy.db.entity.Study;
 import com.ssafy.db.repository.StudyRepository;
 import lombok.RequiredArgsConstructor;

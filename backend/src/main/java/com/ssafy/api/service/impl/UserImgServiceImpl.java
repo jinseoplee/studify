@@ -1,7 +1,6 @@
 package com.ssafy.api.service.impl;
 
 import com.ssafy.api.service.UserImgService;
-import com.ssafy.api.util.FileValidator;
 import com.ssafy.db.entity.UserImg;
 import com.ssafy.db.entity.User;
 import com.ssafy.db.repository.UserImgRepository;
@@ -12,7 +11,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.UUID;
 
 @RequiredArgsConstructor

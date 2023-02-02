@@ -1,13 +1,13 @@
 package com.ssafy.api.service.impl;
 
-import com.ssafy.api.request.UserAuthPostReq;
-import com.ssafy.api.request.UserLoginPostReq;
-import com.ssafy.api.request.UserSignupPostReq;
-import com.ssafy.api.response.UserAuthPostRes;
-import com.ssafy.api.response.UserLoginPostRes;
+import com.ssafy.api.request.user.UserAuthPostReq;
+import com.ssafy.api.request.user.UserLoginPostReq;
+import com.ssafy.api.request.user.UserSignupPostReq;
+import com.ssafy.api.response.user.UserAuthPostRes;
+import com.ssafy.api.response.user.UserLoginPostRes;
 import com.ssafy.api.service.UserService;
-import com.ssafy.api.util.FileValidator;
-import com.ssafy.api.util.MailDispatcher;
+import com.ssafy.common.util.FileValidator;
+import com.ssafy.common.util.MailDispatcher;
 import com.ssafy.config.security.JwtTokenProvider;
 import com.ssafy.db.entity.TempUser;
 import com.ssafy.db.entity.User;
@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public UserLoginPostRes signin(UserLoginPostReq userLoginPostReq) {
+    public UserLoginPostRes signIn(UserLoginPostReq userLoginPostReq) {
 
         User user = userRepository.findByEmail(userLoginPostReq.getEmail()).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 이메일입니다."));
 
@@ -101,7 +101,6 @@ public class UserServiceImpl implements UserService {
                 .email(req.getEmail())
                 .password(req.getPassword())
                 .name(req.getName())
-                .nickname(req.getNickname())
                 .code(code)
                 .build();
     }

@@ -1,10 +1,10 @@
 package com.ssafy.api.service;
 
-import com.ssafy.api.request.UserAuthPostReq;
-import com.ssafy.api.request.UserLoginPostReq;
-import com.ssafy.api.request.UserSignupPostReq;
-import com.ssafy.api.response.UserAuthPostRes;
-import com.ssafy.api.response.UserLoginPostRes;
+import com.ssafy.api.request.user.UserAuthPostReq;
+import com.ssafy.api.request.user.UserLoginPostReq;
+import com.ssafy.api.request.user.UserSignupPostReq;
+import com.ssafy.api.response.user.UserAuthPostRes;
+import com.ssafy.api.response.user.UserLoginPostRes;
 import com.ssafy.db.entity.TempUser;
 import com.ssafy.db.entity.User;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,7 +29,7 @@ public interface UserService {
      * @param userLoginPostReq
      * @return
      */
-    UserLoginPostRes signin(UserLoginPostReq userLoginPostReq);
+    UserLoginPostRes signIn(UserLoginPostReq userLoginPostReq);
 
     /**
      * 유저 조회
