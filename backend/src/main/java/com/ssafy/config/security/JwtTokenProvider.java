@@ -78,7 +78,7 @@ public class JwtTokenProvider {
         LOGGER.info("[getAuthentication] 토큰 인증 정보 조회 시작");
         UserDetails userDetails = userDetailsService.loadUserByUsername(getUsername(token));
         LOGGER.info("[getAuthentication] 토큰 인증 정보 조회 완료. email : {}", userDetails.getUsername());
-        return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
+        return new UsernamePasswordAuthenticationToken(userDetails.getUsername(), "", userDetails.getAuthorities());
     }
 
     /**

@@ -4,7 +4,7 @@ import com.ssafy.api.request.study.StudyInfoUpdatePutReq;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -15,7 +15,8 @@ import java.util.List;
  */
 @NoArgsConstructor
 @Getter
-@ToString
+@Setter
+@Table(name = "study")
 @Entity
 public class Study extends BaseEntity {
 
@@ -27,22 +28,17 @@ public class Study extends BaseEntity {
     @Column(nullable = false)
     private String title; // 스터디 제목
 
-    @Column(nullable = true)
     private String description; // 스터디 설명
 
     @Column(nullable = false)
-    private String host; // 스터디 주최자
+    private Integer headcount; // 인원수
 
     @Column(nullable = false)
-    private Integer capacity; // 인원
+    private Integer capacity; // 수용 인원
 
-    @Column(nullable = false)
     @ElementCollection
+    @CollectionTable(name = "study_day", joinColumns = @JoinColumn(name = "study_id"))
     private List<String> day = new ArrayList<>(); // 요일
-
-    @Column(nullable = true)
-    @ElementCollection
-    private List<String> category = new ArrayList<>(); // 카테고리
 
     @Column(nullable = false)
     private boolean isPublic; // 공개 여부
@@ -52,14 +48,12 @@ public class Study extends BaseEntity {
     private StudyImg studyImg;
 
     @Builder
-    public Study(String title, String description, String host, Integer capacity, List<String> day,
-                 List<String> category, boolean isPublic) {
+    public Study(String title, String description, Integer capacity, List<String> day, boolean isPublic) {
         this.title = title;
         this.description = description;
-        this.host = host;
+        this.headcount = 1;
         this.capacity = capacity;
         this.day = day;
-        this.category = category;
         this.isPublic = isPublic;
     }
 
@@ -73,11 +67,10 @@ public class Study extends BaseEntity {
         this.description = studyInfoUpdatePutReq.getDescription();
         this.capacity = studyInfoUpdatePutReq.getCapacity();
         this.day = studyInfoUpdatePutReq.getDay();
-        this.category = studyInfoUpdatePutReq.getCategory();
         this.isPublic = studyInfoUpdatePutReq.isPublic();
     }
 
-    public void setStudyImg(StudyImg studyImg){
+    public void setStudyImg(StudyImg studyImg) {
         this.studyImg = studyImg;
     }
 

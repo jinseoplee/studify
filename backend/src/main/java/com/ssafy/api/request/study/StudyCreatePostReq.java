@@ -10,16 +10,13 @@ import java.util.List;
  * 스터디 생성 API ([POST] /api/v1/study) 요청에 필요한 리퀘스트 바디 정의
  */
 @Setter
-@ToString
 public class StudyCreatePostReq {
 
     private String title; // 스터디 제목
 
     private String description; // 스터디 설명
-
-    private String host; // 스터디 주최자
-
-    private int capacity; // 인원
+    
+    private int capacity; // 수용 인원
 
     private List<String> day; // 요일
 
@@ -31,7 +28,6 @@ public class StudyCreatePostReq {
         return Study.builder()
                 .title(title)
                 .description(description)
-                .host(host)
                 .capacity(capacity)
                 .day(day)
                 .isPublic(isPublic)

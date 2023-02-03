@@ -9,7 +9,8 @@ import lombok.Getter;
 import java.util.List;
 
 /**
- * 스터디 수정 API ([PUT] /api/v1/study/{studyId}) 요청에 대한 응답값 정의
+ * 스터디 생성 API ([POST] /api/v1/study), 스터디 수정 API ([PUT] /api/v1/study/{studyId})
+ * 요청에 대한 응답값 정의
  */
 @Getter
 public class StudyRes extends BaseResponseBody {

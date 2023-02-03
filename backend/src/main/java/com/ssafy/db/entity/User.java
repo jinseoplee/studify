@@ -4,19 +4,24 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * 유저 모델 정의
  */
 @NoArgsConstructor
 @Getter
+@Setter
+@Table(name = "user")
 @Entity
-public class User extends BaseEntity implements UserDetails {
+public class User extends BaseTimeEntity implements UserDetails {
 
     @Id
     @Column(name = "user_id")
@@ -24,27 +29,27 @@ public class User extends BaseEntity implements UserDetails {
     private Long id;
 
     @Column(nullable = false, unique = true)
-    private String email;
+    private String email; // 이메일
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(nullable = false)
-    private String password;
+    private String password; // 비밀번호
 
     @Column(nullable = false)
-    private String regionId;
+    private String region; // 지역
 
     @Column(nullable = false)
-    private String classId;
+    private Integer generation; // 기수
 
     @Column(nullable = false)
-    private String name;
+    private String classNum; // 반
 
     @Column(nullable = false)
-    private Integer gisu;
+    private String name; // 이름
 
     @OneToOne
     @JoinColumn(name = "user_img_id", referencedColumnName = "user_img_id")
-    private UserImg userImg;
+    private UserImg userImg; // 유저 이미지
 
     @Builder
     public User(String email, String password, String name) {
@@ -53,7 +58,7 @@ public class User extends BaseEntity implements UserDetails {
         this.name = name;
     }
 
-    public void setUserImg(UserImg userImg){
+    public void setUserImg(UserImg userImg) {
         this.userImg = userImg;
     }
 

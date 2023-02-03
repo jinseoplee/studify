@@ -37,6 +37,7 @@ public class SecurityConfig {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/api/v1/users/**").permitAll()
+                .antMatchers("/api/v1/study/**").authenticated()
 
                 .and()
                 .exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint())

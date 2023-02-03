@@ -27,11 +27,14 @@ public class StudyServiceImpl implements StudyService {
     private final Logger LOGGER = LoggerFactory.getLogger(StudyServiceImpl.class);
     private final StudyRepository studyRepository;
 
+    /**
+     * 스터디 생성
+     */
     @Override
     public StudyCreatePostRes createStudy(StudyCreatePostReq studyCreatePostReq) {
         Study study = studyRepository.save(studyCreatePostReq.toEntity());
 
-        LOGGER.info("[createStudy] created study : {}", study);
+        LOGGER.info("[createStudy] 스터디(id : {}) 생성 완료)", study.getId());
 
         StudyCreatePostRes studyRes = StudyCreatePostRes.builder()
                 .statusCode(200)

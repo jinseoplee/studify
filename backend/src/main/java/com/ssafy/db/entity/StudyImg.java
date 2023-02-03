@@ -10,6 +10,7 @@ import javax.persistence.*;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@Table(name = "study_img")
 @Entity
 public class StudyImg {
 

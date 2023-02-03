@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -32,9 +33,11 @@ public class StudyController {
     private final StudyService studyService;
     private final StudyImgService studyImgService;
 
-
+    /**
+     * 스터디 생성
+     */
     @PostMapping
-    public ResponseEntity<StudyCreatePostRes> createStudy(@RequestBody StudyCreatePostReq studyCreatePostReq) {
+    public ResponseEntity<StudyCreatePostRes> createStudy(@AuthenticationPrincipal String email, @RequestBody StudyCreatePostReq studyCreatePostReq) {
         LOGGER.info("[createStudy] studyCreatePostReq : {}", studyCreatePostReq);
 
         return ResponseEntity.status(HttpStatus.OK).body(studyService.createStudy(studyCreatePostReq));
