@@ -2,11 +2,9 @@ package com.ssafy.api.controller;
 
 import com.ssafy.api.service.UserImgService;
 import com.ssafy.api.service.UserService;
-import com.ssafy.api.service.impl.StudyServiceImpl;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.User;
 import com.ssafy.db.entity.UserImg;
-import com.ssafy.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,7 +40,7 @@ public class UserController {
     public ResponseEntity<? extends BaseResponseBody> updateUserPassword(@RequestBody Map<String, String> userInfo) {
         userService.updateUserPassword(userInfo);
 
-        return ResponseEntity.status(HttpStatus.OK).body(new BaseResponseBody(200,"Success"));
+        return ResponseEntity.status(HttpStatus.OK).body(new BaseResponseBody(200, "Success"));
     }
 
     @DeleteMapping("/withdraw/{email}")
@@ -56,7 +54,7 @@ public class UserController {
     /* 프로필 이미지 업로드 */
     @PostMapping("/image")
     public ResponseEntity<?> uploadImage(@RequestParam("image") MultipartFile multipartFile, @RequestParam Long userId) throws IOException {
-        if(userService.validImgFile(multipartFile)) {
+        if (userService.validImgFile(multipartFile)) {
             UserImg userImg = userImgService.uploadImage(multipartFile);
             User user = userService.getUser(userId);
             user.setUserImg(userImg);
@@ -69,7 +67,7 @@ public class UserController {
     /* 프로필 이미지 수정 */
     @PutMapping("/image")
     public ResponseEntity<?> updateImage(@RequestParam("image") MultipartFile multipartFile, @RequestParam Long userId) throws IOException {
-        if(userService.validImgFile(multipartFile)) {
+        if (userService.validImgFile(multipartFile)) {
             User user = userService.getUser(userId);
             userImgService.updateImage(multipartFile, user);
             userService.updateUser(user);
@@ -80,9 +78,16 @@ public class UserController {
 
     /* 프로필 이미지 삭제(default) */
     @DeleteMapping("/image/{userId}")
-    public ResponseEntity<BaseResponseBody> deleteImage(@PathVariable Long userId){
+    public ResponseEntity<BaseResponseBody> deleteImage(@PathVariable Long userId) {
         userImgService.deleteImage(userId);
         return ResponseEntity.status(HttpStatus.OK).body(new BaseResponseBody(200, "Success"));
     }
+
+
+//    @PostMapping("/log")
+//    public ResponseEntity<UserTimeLogRes> createUserTimeLog(@RequestBody UserTimeLogPostReq userTimeLogPostReq){
+//        System.out.println("createUserTimeLog 들어옴");
+//        return ResponseEntity.status(HttpStatus.OK).body(userService.createUserTimeLog(userTimeLogPostReq));
+//    }
 
 }
