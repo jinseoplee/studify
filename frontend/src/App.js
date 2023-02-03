@@ -15,6 +15,8 @@ import StudyHistory from "./Components/MainStudy/StudyHistory";
 import StudyMember from "./Components/MainStudy/StudyMember";
 import StudyRoungeMain from "./Components/StudyRounge/StudyRoungeMain";
 import ChartTest from "./Components/UI/ChartTest";
+import VideoRoomComponent from "./Openvidu/components/VideoRoomComponent";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -67,6 +69,7 @@ const router = createBrowserRouter([
         ],
       },
       { path: "/chart", element: <ChartTest /> },
+      { path: "/videoroom", element: <VideoRoomComponent /> },
     ],
   },
 ]);
@@ -76,14 +79,3 @@ const App = () => {
 };
 
 export default App;
-// createRoutesFromElements(
-//   <Route path="/" element={<RootLayout />}>
-//     <Route index element={<StartPage />} />
-//     <Route
-//       path="/user/signup"
-//       element={<Signup />}
-//       action={newSignupAction}
-//       errorElement={<p>잘못된 정보를 입력하셨습니다.</p>}
-//     />
-//   </Route>
-// )
