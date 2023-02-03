@@ -637,7 +637,7 @@ class VideoRoomComponent extends Component {
                 />
               </div>
               <div>
-                <label>펜의 굴기:</label>
+                <label>펜의 굵기:</label>
                 <input
                   type="number"
                   value={this.state.brushRadius}
