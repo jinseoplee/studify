@@ -10,6 +10,7 @@ import java.time.LocalTime;
 
 @NoArgsConstructor
 @Getter
+@Table(name = "user_time_log")
 @Entity
 public class UserTimeLog {
     @Id
