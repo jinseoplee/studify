@@ -1,0 +1,29 @@
+.btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 18px 28px 18px 32px;
+  gap: 11px;
+
+  position: absolute;
+  width: 168px;
+  height: 64px;
+  left: 840px;
+  top: 399px;
+
+  background: #cabbe7;
+  border-radius: 30px;
+  border: 0px;
+}
+
+.full {
+  width: 100%;
+  height: 100%;
+}
+
+.background {
+  position: flex;
+  width: 100%;
+  height: 100%;
+}

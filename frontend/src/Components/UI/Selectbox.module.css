@@ -1,0 +1,15 @@
+.CapaSelectbox {
+  width: 200px;
+  height: 45px;
+  font-size: 15px;
+  padding: 0.8em 0.5em;
+  border: 1px solid #999;
+  font-family: inherit;
+  background: url(../../assets/image/downarrow.png) no-repeat;
+  background-position: right;
+  background-size: 15px;
+  border-radius: 0px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}

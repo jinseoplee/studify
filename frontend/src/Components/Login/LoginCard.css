@@ -1,0 +1,13 @@
+.logincard {
+  background-color: #eae3f4;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  border-radius: 5px;
+  position: fixed;
+  top: 15vh;
+  left: 30%;
+  width: 40%;
+  height: auto;
+  min-height: 500px;
+  overflow: hidden;
+  font-size: larger;
+}

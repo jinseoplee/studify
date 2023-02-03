@@ -1,0 +1,60 @@
+.modalcontain {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modalBody {
+  padding: 0;
+  margin: 0;
+  background-color: #f5f5f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 250px;
+  width: 600px;
+  border: solid #8a6bcd;
+}
+.modalCloseBtn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  border: none;
+  color: rgba(0, 0, 0, 0.7);
+  background-color: transparent;
+  font-size: 20px;
+}
+.modalBtn {
+  position: absolute;
+  width: 100px;
+  height: 40px;
+  top: 55%;
+  border: none;
+  background-color: #8a6bcd;
+  color: white;
+}
+.modalStudyBody {
+  padding: 0;
+  margin: 0;
+  background-color: #f5f5f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 800px;
+  width: 900px;
+  border: solid #8a6bcd;
+  border-radius: 10px;
+}
+.modalStudyForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
