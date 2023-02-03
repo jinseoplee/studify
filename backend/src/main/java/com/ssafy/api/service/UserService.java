@@ -1,12 +1,13 @@
 package com.ssafy.api.service;
 
-import com.ssafy.api.request.UserAuthPostReq;
-import com.ssafy.api.request.UserLoginPostReq;
-import com.ssafy.api.request.UserSignupPostReq;
-import com.ssafy.api.response.UserAuthPostRes;
-import com.ssafy.api.response.UserLoginPostRes;
+import com.ssafy.api.request.user.UserAuthPostReq;
+import com.ssafy.api.request.user.UserLoginPostReq;
+import com.ssafy.api.request.user.UserSignupPostReq;
+import com.ssafy.api.response.user.UserAuthPostRes;
+import com.ssafy.api.response.user.UserLoginPostRes;
 import com.ssafy.db.entity.TempUser;
 import com.ssafy.db.entity.User;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.MessagingException;
 import java.util.Map;
@@ -21,21 +22,21 @@ public interface UserService {
      * @param tempUser
      * @return
      */
-    User insertUser(TempUser tempUser);
+    User createUser(TempUser tempUser);
 
     /**
      * 로그인
      * @param userLoginPostReq
      * @return
      */
-    UserLoginPostRes signin(UserLoginPostReq userLoginPostReq);
+    UserLoginPostRes signIn(UserLoginPostReq userLoginPostReq);
 
     /**
      * 유저 조회
-     * @param email
+     * @param id
      * @return
      */
-    User getUser(String email);
+    User getUser(Long id);
 
     /**
      * 인증메일 발송
@@ -59,13 +60,6 @@ public interface UserService {
     TempUser certificateTempUser(UserSignupPostReq authReq);
 
     /**
-     * 회원정보 변경
-     * @param userInfo
-     * @return
-     */
-    User updateUserInfo(Map<String, String> userInfo);
-
-    /**
      * 회원 비밀번호 변경
      * @param userInfo
      * @return
@@ -81,4 +75,8 @@ public interface UserService {
     void deleteTempUser(String email);
 
     boolean checkDuplicate(String email);
+
+    User updateUser(User user);
+
+    boolean validImgFile(MultipartFile multipartFile);
 }

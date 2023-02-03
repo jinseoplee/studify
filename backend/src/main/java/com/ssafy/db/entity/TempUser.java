@@ -25,30 +25,35 @@ public class TempUser {
     @Column(nullable = false)
     private String name;
 
-    @Column(name = "nickname")
-    private String nickname;
+    @Column(nullable = false)
+    private Integer generation;
+
+    @Column(nullable = false)
+    private String region;
+
+    @Column(nullable = false)
+    private Integer classNum;
 
     @Column(name = "code")
     private String code;
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
     @Builder
-    public TempUser(String email, String password, String name, String nickname, String code) {
+    public TempUser(String email, String password, String name, Integer generation, String region, Integer classNum, String code) {
         this.email = email;
         this.password = password;
         this.name = name;
-        this.nickname = nickname;
+        this.generation = generation;
+        this.region = region;
+        this.classNum = classNum;
         this.code = code;
     }
-
 
     public void setCode(String code) {
         this.code = code;
     }
+
     public void setPassword(String password) {
         this.password = password;
     }
+
 }
