@@ -146,57 +146,11 @@ Refresh Token 사용이유는 ?
 
 ### Redux사용(useSelector(), useDispacth())
 
-useSelector는 connect함수를 이용하지 않고 리덕스의 state를 조회할 수가 있습니다. useDispatch는 생성한 action을 useDispatch를 통해 발생시킬 수 있습니다.
+Redux 는 단방향 데이터 관리 방식으로 Actions을 통해 앱에서 Reducer로 이동하고,
+Reducer에서 스토어의 state 를 업데이트 및 관리합니다
+흐름을 정리하면
 
-### WebRTC란?
+> Action 객체가 dispatch 메소드에 전달 > dispatch를 통해 Reducer를 호출 > Reducer는 새로운 store를 생성
 
-- 웹 브라우저 환경 및 Android, IOS 애플리케이션에서도 사용 가능한 비디오, 음성 및 일반 데이터가 피어간에 실시간으로 전송되도록 지원하는 오픈 소스.
-- 공개 웹 표준으로 구현되며 모든 주요 브라우저에서 일반 JavaScript API로 제공한다.
-
-## WebRTC의 기술 및 프로토콜 소개
-
-### 1. ICE(Interactive Connectivity Establishment)
-
-- 브라우저가 peer를 통한 연결이 가능하도록 해주는 프레임 워크이다.
-- peer간 단순 연결 시 작동하지 않는 이유들
-  - 연결을 시도하는 방화벽을 통과해야 함
-  - 단말에 Public IP가 없다면 유일한 주소값을 할당해야 한다.
-  - 라우터가 peer간의 직접 연결을 허용하지 않을 때 데이터를 릴레이해야 하는 경우
-- ICE는 위의 작업들을 수행하기 위해 STUN과 TURN 서버 둘 다 혹은 하나의 서버 사용.
-
-### 1-1. STUN(Session Traversal Utilites for NAT) 서버
-
-- 클라이언트 자신의 Public Address(IP:PORT)를 알려준다.
-- peer간의 직접 연결을 막는 등의 라우터의 제한을 결정하는 프로토콜 (현재 다른 peer가 접근 가능한지 여부 결정)
-- 클라이언트는 인터넷을 통해 클라이언트의 Public Address와 라우터의 NAT 뒤에 있는 클라이언트가 접근 가능한지에 대한 답변을 STUN서버에 요청합니다.
-
-### 1-2. NAT(Network Address Transilation)
-
-- 단말에 공개 IP(Public IP) 주소를 할당하기 위해 사용한다.
-- 라우터는 공개 IP 주소를 갖고 있고 모든 단말들은 라우터에 연결되어 있으며 비공개 IP주소(Private IP Address)를 갖는다.
-- 요청은 단말의 비공개 주소로부터 라우터의 공개 주소와 유일한 포트를 기반으로 번역한다. 이 덕분에, 각각의 단말이 유일한 공개 IP 없이 인터넷 상에서 검색 가능하다.
-- 몇몇의 라우터들은 **Symmetric NAT**이라 불리우는 제한을 위한 NAT을 채용한다. 즉 오직 peer들이 오직 이전에 연결한 적이 있는 연결들만 허용한다. 따라서 STUN서버에 의해 공개 IP주소를 발견한다고 해도 모두가 연결을 할 수 있다는 것은 아니다. (위의 설명에 따라 STUN서버에 다른 peer가 접근 가능한지 여부를 여부를 요청하는 이유.)
-- 이를 위해 TURN이 필요함
-
-### 1-3 TURN(Traversal Using Relays around NAT) 서버
-
-- TURN 서버와 연결하고 모든 정보를 그 서버에 전달하는 것으로 Symmertric NAT제한을 우회하는 것을 의미한다.
-- 이를 위해 TURN 서버와 연결을 한 후에 모든 peer들에게 저 서버에 모든 패킷을 보내고 다시 나(TURN서버)에게 전달 해달라고 해야합니다.
-- 명백히 오버헤드가 발생해서 **이 방법은 다른 대안이 없을 경우에만** 사용해야함.
-
-### 1-4 SDP(Session Description Protocol)
-
-- 해상도나 형식, 코덱, 암호화등의 멀티미디어 컨텐츠의 연결을 설명하기 위한 표준이다.
-- 두 개의 peer가 다른 한 쪽이 데이터가 전송되고 있다는 것을 알게 해준다.
-- 기본적으로 미디어 컨텐츠 자체가 아닌 컨텐츠에 대한 메타데이터 설명이다.
-- 기술적으로 보자면 SDP는 프로토콜이 아니다. 그러나 데이터 포멧은 디바이스간의 미디어를 공유하기 위한 연결을 설명하기 위해 사용한다.
-
-### Openvidu란?
-
-- 웹 또는 모바일 환경에서 화상 회의 기능을 쉽게 추가할 수 있도록 해주는 오픈소스 멀티 플랫폼이다. OpenVidu의 핵심 기술을 WebRTC이며, 내부적으로 Kurento(WebRTC 미디어 서버 역할을 하는 클라이언트 API 세트) 기반으로 동작한다.
-- 장점으로는 모든 하위 수준의 작업들을 추상화 시켜, WebRTC, ICE Candidates, KMS등의 까다로운 기술들을 몰라도 쉽게 사용할 수 있다는 점이다.
-
-### 여기서 KURENTO란?
-
-- WebRTC 미디어 서버이자 클라이언트 API세트이면서, WWW와 스마트폰 플랫폼을 위해 비디오 애플리케이션을 간편하게 개발할 수 있도록 도와주는 기술입니다.
-- 쿠렌토 미디어 서버는 그룹간의 통신, 녹음, 방송, 시청각 흐름의 라우팅 기술을 지원하고 있습니다. 다른 미디어서버와 차별화 된 기능으로 쿠렌토는 컴퓨터 비전, 음성 분석같은 고급 미디어 처리 기능도 제공해줍니다.
+useSelector는 connect함수를 이용하지 않고 리덕스의 state를 조회할 수가 있습니다.
+useDispatch는 생성한 action을 useDispatch를 통해 발생시킬 수 있습니다.

@@ -1,0 +1,31 @@
+.studySwitchbarContainer {
+  width: 80%;
+}
+.studyHr {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  width: 100%;
+  background-color: #8a6bcd;
+  height: 1px;
+  border: 0;
+}
+.studyMenuText {
+  margin-left: 50px;
+  margin-right: 50px;
+  font-size: 30px;
+  text-decoration: none;
+  width: 180px;
+  text-align: center;
+  height: 70px;
+  line-height: 70px;
+}
+.studyMenu {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+.studyMenuText:hover {
+  background: #eae3f4;
+  color: black;
+  border-radius: 30px;
+}

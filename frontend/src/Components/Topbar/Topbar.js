@@ -14,10 +14,10 @@ const Topbar = (props) => {
           </div>
           <div className="section">
             <NavLink
-              to={props.check ? "/user/login/id" : "/openstudy"}
+              to={props.check ? "/user/login/id" : "/study/rounge"}
               className="text_link"
             >
-              오픈스터디
+              스터디 라운지
             </NavLink>
           </div>
           <div className="section">
