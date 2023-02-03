@@ -13,7 +13,9 @@ const DashBoard = () => {
   return (
     <>
       <Topbar logincheck={logincheck} />
+
       <Dashboard />
+
       <Footer />
     </>
   );

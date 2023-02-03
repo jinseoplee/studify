@@ -7,7 +7,14 @@ import Signup, { action as newSignupAction } from "./pages/Signup";
 import UserSignup from "./Components/Signup/UserSignup";
 import ResetPw from "./pages/ResetPw";
 import DashBoard from "./pages/DashBoard";
-
+import StudyMake from "./Components/DashBoard/StudyMake";
+import StudyDetail from "./Components/MainStudy/StudyDetail";
+import StudyInfo from "./Components/MainStudy/StudyInfo";
+import StudyRule from "./Components/MainStudy/StudyRule";
+import StudyHistory from "./Components/MainStudy/StudyHistory";
+import StudyMember from "./Components/MainStudy/StudyMember";
+import StudyRoungeMain from "./Components/StudyRounge/StudyRoungeMain";
+import ChartTest from "./Components/UI/ChartTest";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -40,6 +47,26 @@ const router = createBrowserRouter([
         path: "/dashboard",
         element: <DashBoard />,
       },
+      {
+        path: "/study/rounge",
+        element: <StudyRoungeMain />,
+      },
+      {
+        path: "/study/newstudy",
+        element: <StudyMake />,
+      },
+      // 중첩라우팅
+      {
+        path: "/study/:studyId",
+        element: <StudyDetail />,
+        children: [
+          { path: "info", element: <StudyInfo /> },
+          { path: "rule", element: <StudyRule /> },
+          { path: "record", element: <StudyHistory /> },
+          { path: "member", element: <StudyMember /> },
+        ],
+      },
+      { path: "/chart", element: <ChartTest /> },
     ],
   },
 ]);
