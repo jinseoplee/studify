@@ -12,9 +12,6 @@ const ResetPw = ({
   ResetPw,
 }) => {
   //이 페이지에서는 이전에 넘어온 이름, 이메일 정보를 가지고 있어야합니다.
-  console.log(Password);
-  console.log(isPassword);
-  console.log(isPasswordCheck);
   return (
     <>
       비밀번호 재설정 페이지.

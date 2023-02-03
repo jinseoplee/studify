@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import CanvasDraw from "../../draw";
-import classNames from "./PenComponent.css";
+import classNames from "../../../Style/Openvidu/PenComponent.css";
 
 export default class PenComponent extends Component {
   constructor(props) {

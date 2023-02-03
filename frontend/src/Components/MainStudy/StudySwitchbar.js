@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import SwitchStyle from "./Switchbar.module.css";
+import SwitchStyle from "../../Style/MainStudy/Switchbar.module.css";
 
 const StudySwitchbar = ({ id }) => {
   return (

@@ -3,16 +3,17 @@ import { OpenVidu } from "openvidu-browser";
 import React, { Component } from "react";
 import ChatComponent from "./chat/ChatComponent";
 import StreamComponent from "./stream/StreamComponent";
-import "./VideoRoomComponent.css";
-
 import OpenViduLayout from "../layout/openvidu-layout";
 import UserModel from "../models/user-model";
 import SidebarComponent from "./sidebar/SidebarComponent";
+import MdEditorComponent from "./md-editor/MdEditorComponent";
 import PenComponent from "./pen/PenComponent";
+import "../../Style/Openvidu//VideoRoomComponent.css";
 
 var localUser = new UserModel();
 const APPLICATION_SERVER_URL =
   process.env.NODE_ENV === "production" ? "" : "http://localhost:5000/";
+
 class VideoRoomComponent extends Component {
   constructor(props) {
     super(props);
@@ -33,6 +34,7 @@ class VideoRoomComponent extends Component {
       localUser: undefined,
       subscribers: [],
       chatDisplay: "none",
+      editorDisplay: "none",
       currentVideoDevice: undefined,
       isBlackBoard: false,
     };
@@ -47,8 +49,8 @@ class VideoRoomComponent extends Component {
     this.toggleFullscreen = this.toggleFullscreen.bind(this);
     this.screenShare = this.screenShare.bind(this);
     this.stopScreenShare = this.stopScreenShare.bind(this);
-    this.closeDialogExtension = this.closeDialogExtension.bind(this);
     this.toggleChat = this.toggleChat.bind(this);
+    this.toggleEditor = this.toggleEditor.bind(this);
     this.checkNotification = this.checkNotification.bind(this);
     this.checkSize = this.checkSize.bind(this);
     this.toggleIsBlackBoard = this.toggleIsBlackBoard.bind(this);
@@ -82,6 +84,9 @@ class VideoRoomComponent extends Component {
     window.removeEventListener("beforeunload", this.onbeforeunload);
     window.removeEventListener("resize", this.updateLayout);
     window.removeEventListener("resize", this.checkSize);
+    window.addEventListener("fullscreenchange", (e) => {
+      this.state({ isFullscreen: document.fullscreen });
+    });
     this.leaveSession();
   }
 
@@ -365,40 +370,36 @@ class VideoRoomComponent extends Component {
   }
 
   toggleFullscreen() {
-    const document = window.document;
-    const fs = document.getElementById("container");
-    if (
-      !document.fullscreenElement &&
-      !document.mozFullScreenElement &&
-      !document.webkitFullscreenElement &&
-      !document.msFullscreenElement
-    ) {
-      if (fs.requestFullscreen) {
-        fs.requestFullscreen();
-      } else if (fs.msRequestFullscreen) {
-        fs.msRequestFullscreen();
-      } else if (fs.mozRequestFullScreen) {
-        fs.mozRequestFullScreen();
-      } else if (fs.webkitRequestFullscreen) {
-        fs.webkitRequestFullscreen();
+    const { isFullscreen } = this.state;
+    this.setState({
+      isFullscreen: !isFullscreen,
+    });
+    if (!isFullscreen) {
+      const element = document.documentElement;
+      if (element.requestFullscreen) {
+        element.requestFullscreen();
+      } else if (element.mozRequestFullScreen) {
+        element.mozRequestFullScreen();
+      } else if (element.webkitRequestFullscreen) {
+        element.webkitRequestFullScreen();
+      } else if (element.msRequestFullscreen) {
+        element.msRequestFullScreen();
       }
     } else {
-      if (document.exitFullscreen) {
-        document.exitFullscreen();
-      } else if (document.msExitFullscreen) {
-        document.msExitFullscreen();
-      } else if (document.mozCancelFullScreen) {
-        document.mozCancelFullScreen();
-      } else if (document.webkitExitFullscreen) {
-        document.webkitExitFullscreen();
+      this.setState({ isFullscreen: false });
+      {
+        const document = window.document;
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        } else if (document.mozCancleFullScreen) {
+          document.mozCancleFullScreen();
+        } else if (document.webkitExitFullscreen) {
+          document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) {
+          document.msExitFullscreen();
+        }
       }
     }
-  }
-
-  toggleIsBlackBoard() {
-    if (this.state.isBlackBoard) {
-      this.setState({ isBlackBoard: false });
-    } else this.setState({ isBlackBoard: true });
   }
 
   screenShare() {
@@ -443,10 +444,6 @@ class VideoRoomComponent extends Component {
     });
   }
 
-  closeDialogExtension() {
-    this.setState({ showExtensionDialog: false });
-  }
-
   stopScreenShare() {
     this.state.session.unpublish(localUser.getStreamManager());
     this.connectWebCam();
@@ -489,6 +486,27 @@ class VideoRoomComponent extends Component {
     this.updateLayout();
   }
 
+  toggleIsBlackBoard() {
+    if (this.state.isBlackBoard) {
+      this.setState({ isBlackBoard: false });
+    } else this.setState({ isBlackBoard: true });
+  }
+
+  toggleEditor(property) {
+    let display = property;
+
+    if (display === undefined) {
+      display = this.state.editorDisplay === "none" ? "block" : "none";
+    }
+    if (display === "block") {
+      this.setState({ editorDisplay: display });
+    } else {
+      console.log("MDEditor", display);
+      this.setState({ editorDisplay: display });
+    }
+    this.updateLayout();
+  }
+
   checkNotification(event) {
     this.setState({
       messageReceived: this.state.chatDisplay === "none",
@@ -513,6 +531,7 @@ class VideoRoomComponent extends Component {
   render() {
     const localUser = this.state.localUser;
     var chatDisplay = { display: this.state.chatDisplay };
+    var editorDisplay = { display: this.state.editorDisplay };
 
     return (
       <div className="container" id="container">
@@ -541,10 +560,11 @@ class VideoRoomComponent extends Component {
             toggleFullscreen={this.toggleFullscreen}
             leaveSession={this.leaveSession}
             toggleChat={this.toggleChat}
+            toggleEditor={this.toggleEditor}
+            editorDisplay={editorDisplay}
             toggleIsBlackBoard={this.toggleIsBlackBoard}
           />
         </div>
-
         <PenComponent user={localUser} isBlackBoard={this.state.isBlackBoard} />
 
         <div id="layout" className="bounds">
@@ -574,6 +594,10 @@ class VideoRoomComponent extends Component {
                 />
               </div>
             )}
+          <MdEditorComponent
+            close={this.toggleEditor}
+            editorDisplay={this.state.editorDisplay}
+          />
         </div>
       </div>
     );

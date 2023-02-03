@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
-import Dashboardstyle from "./Dashboard.module.css";
+import Dashboardstyle from "../../Style/Dashboard/Dashboard.module.css";
 import StudyTimeRecord from "./StudyTimeRecord";
 import StudyRecordDetail from "./StudyRecordDetail";
 import StudyTodo from "./StudyTodo";

@@ -1,7 +1,7 @@
 import SlidebarMain from "../Slidebar/SlidebarMain";
 import StudyRecord from "./StudyRecord";
 import MyStudy from "./MyStudy";
-import Dashboardstyle from "./Dashboard.module.css";
+import Dashboardstyle from "../../Style/Dashboard/Dashboard.module.css";
 
 const Dashboard = () => {
   return (

@@ -68,21 +68,3 @@ const LoginId = () => {
 };
 
 export default LoginId;
-
-//밑에 action이 있어야함.
-// export const action = async ({ request }) => {
-//   const formData = await request.formData();
-//   const post = formData.get("email");
-//   try {
-//     await loginIdpass(post);
-//     //로그인 아이디패스 api.js에 생성
-//   } catch (err) {
-//     if (err.status === 422) {
-//       return err;
-//     }
-//     throw err;
-//   }
-//   //만약 아이디가 일치해서 통과했다면?
-//   //비밀번호 페이지로 이동시켜줍니다.
-//   return redirect("user/login/pw");
-// };

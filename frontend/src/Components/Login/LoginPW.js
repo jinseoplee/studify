@@ -2,7 +2,7 @@
 import React from "react";
 import ModalLogin from "../UI/ModalLogin";
 
-import "./LoginPW.css";
+// import "../../Style/Login/LoginPW.css";
 
 const LoginPW = ({
   handleSubmit,

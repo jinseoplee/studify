@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./SidebarComponent.css";
+import "../../../Style/Openvidu/SidebarComponent.css";
 
 import Mic from "@material-ui/icons/Mic";
 import MicOff from "@material-ui/icons/MicOff";
@@ -13,9 +13,9 @@ import StopScreenShare from "@material-ui/icons/StopScreenShare";
 import Tooltip from "@material-ui/core/Tooltip";
 import PowerSettingsNew from "@material-ui/icons/PowerSettingsNew";
 import QuestionAnswer from "@material-ui/icons/QuestionAnswer";
+import CreateIcon from "@material-ui/icons/Create";
 import BorderColorIcon from "@material-ui/icons/BorderColor";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
-
 import {
   ListItemText,
   ListItemIcon,
@@ -26,16 +26,60 @@ import {
 export default class SidebarComponent extends Component {
   constructor(props) {
     super(props);
-    this.state = { fullscreen: false, isBlackBoard: false };
+    this.state = { isFull: false, isBlackBoard: false };
     this.camStatusChanged = this.camStatusChanged.bind(this);
     this.micStatusChanged = this.micStatusChanged.bind(this);
     this.screenShare = this.screenShare.bind(this);
     this.stopScreenShare = this.stopScreenShare.bind(this);
-    this.toggleFullscreen = this.toggleFullscreen.bind(this);
-    this.toggleIsBlackBoard = this.toggleIsBlackBoard.bind(this);
     this.leaveSession = this.leaveSession.bind(this);
     this.toggleChat = this.toggleChat.bind(this);
+    this.toggleEditor = this.toggleEditor.bind(this);
+    this.toggleIsBlackBoard = this.toggleIsBlackBoard.bind(this);
   }
+
+  handleFullScreen = (e) => {
+    const { isFull } = this.state;
+    this.setState({
+      isFull: !isFull,
+    });
+    if (!isFull) {
+      this.openFullscreen();
+    } else {
+      this.setState({ isFull: false });
+      this.closeFullScreen();
+    }
+  };
+
+  openFullscreen = () => {
+    const element = document.documentElement;
+    if (element.requestFullscreen) {
+      element.requestFullscreen();
+    } else if (element.mozRequestFullScreen) {
+      element.mozRequestFullScreen();
+    } else if (element.webkitRequestFullscreen) {
+      element.webkitRequestFullScreen();
+    } else if (element.msRequestFullscreen) {
+      element.msRequestFullScreen();
+    }
+  };
+
+  closeFullScreen = () => {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.mozCancleFullScreen) {
+      document.mozCancleFullScreen();
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    } else if (document.msExitFullscreen) {
+      document.msExitFullscreen();
+    }
+  };
+
+  componentDidMount = () => {
+    window.addEventListener("fullscreenchange", (e) => {
+      this.setState({ isFull: document.fullscreen });
+    });
+  };
 
   micStatusChanged() {
     this.props.micStatusChanged();
@@ -53,17 +97,6 @@ export default class SidebarComponent extends Component {
     this.props.stopScreenShare();
   }
 
-  toggleFullscreen() {
-    this.setState({ fullscreen: !this.state.fullscreen });
-    this.props.toggleFullscreen();
-    // console.log(this.state.fullscreen)
-  }
-
-  toggleIsBlackBoard() {
-    this.setState({ isBlackBoard: !this.state.isBlackBoard });
-    this.props.toggleIsBlackBoard();
-  }
-
   leaveSession() {
     this.props.leaveSession();
   }
@@ -72,17 +105,27 @@ export default class SidebarComponent extends Component {
     this.props.toggleChat();
   }
 
+  toggleEditor() {
+    this.props.toggleEditor();
+  }
+
+  toggleIsBlackBoard() {
+    this.setState({ isBlackBoard: !this.state.isBlackBoard });
+    this.props.toggleIsBlackBoard();
+  }
+
   render() {
     const localUser = this.props.user;
+    const { isFull } = this.state;
+    const editorDisplay = this.props.editorDisplay.display;
     return (
       // <AppBar className="toolbar" id="header">
       <MenuList className="side">
-        <MenuItem>
+        <MenuItem onClick={this.micStatusChanged}>
           <ListItemIcon
-            color="inherit"
+            // color="inherit"
             // className="navButton"
             id="navMicButton"
-            onClick={this.micStatusChanged}
           >
             {localUser !== undefined && localUser.isAudioActive() ? (
               <Mic />
@@ -91,22 +134,20 @@ export default class SidebarComponent extends Component {
             )}
           </ListItemIcon>
           <ListItemText
-            color="inherit"
+            // color="inherit"
             // className="navButton"
             id="navMicButton"
-            onClick={this.micStatusChanged}
           >
             {localUser !== undefined && localUser.isAudioActive()
               ? "마이크 끄기"
               : "마이크 켜기"}
           </ListItemText>
         </MenuItem>
-        <MenuItem>
+        <MenuItem onClick={this.camStatusChanged}>
           <ListItemIcon
             color="inherit"
             // className="navButton"
             id="navCamButton"
-            onClick={this.camStatusChanged}
           >
             {localUser !== undefined && localUser.isVideoActive() ? (
               <Videocam />
@@ -118,19 +159,17 @@ export default class SidebarComponent extends Component {
             color="inherit"
             // className="navButton"
             id="navCamButton"
-            onClick={this.camStatusChanged}
           >
             {localUser !== undefined && localUser.isVideoActive()
               ? "카메라 끄기"
               : "카메라 켜기"}
           </ListItemText>
         </MenuItem>
-        <MenuItem>
+        <MenuItem onClick={this.screenShare}>
           <ListItemIcon
             color="inherit"
             // className="navButton"
             id="navScreenButton"
-            onClick={this.screenShare}
           >
             {localUser !== undefined && localUser.isScreenShareActive() ? (
               <PictureInPicture />
@@ -142,7 +181,6 @@ export default class SidebarComponent extends Component {
             color="inherit"
             // className="navButton"
             id="navScreenButton"
-            onClick={this.screenShare}
           >
             {localUser !== undefined && localUser.isScreenShareActive()
               ? "창 변경하기"
@@ -150,20 +188,35 @@ export default class SidebarComponent extends Component {
           </ListItemText>
         </MenuItem>
         {localUser !== undefined && localUser.isScreenShareActive() && (
-          <MenuItem>
-            <ListItemIcon onClick={this.stopScreenShare} id="navScreenButton">
+          <MenuItem onClick={this.stopScreenShare}>
+            <ListItemIcon id="navScreenButton">
               <StopScreenShare color="secondary" />
             </ListItemIcon>
-            <ListItemText onClick={this.stopScreenShare} id="navScreenButton">
-              화면 공유 중지
-            </ListItemText>
+            <ListItemText id="navScreenButton">화면 공유 중지</ListItemText>
           </MenuItem>
         )}
-        <MenuItem>
+        <MenuItem onClick={this.handleFullScreen}>
           <ListItemIcon
             color="inherit"
             // className="navButton"
-            onClick={this.toggleIsBlackBoard}
+          >
+            {localUser !== undefined && isFull ? (
+              <FullscreenExit />
+            ) : (
+              <Fullscreen />
+            )}
+          </ListItemIcon>
+          <ListItemText
+            color="inherit"
+            // className="navButton"
+          >
+            {localUser !== undefined && isFull ? "전체 화면 종료" : "전체 화면"}
+          </ListItemText>
+        </MenuItem>
+        <MenuItem onClick={this.toggleIsBlackBoard}>
+          <ListItemIcon
+            color="inherit"
+            // className="navButton"
           >
             {localUser !== undefined && this.state.isBlackBoard ? (
               <HighlightOffIcon />
@@ -174,40 +227,30 @@ export default class SidebarComponent extends Component {
           <ListItemText
             color="inherit"
             // className="navButton"
-            onClick={this.toggleIsBlackBoard}
           >
             {localUser !== undefined && this.state.isBlackBoard
               ? "칠판 끄기"
               : "칠판 키기"}
           </ListItemText>
         </MenuItem>
-        <MenuItem>
-          <ListItemIcon
-            color="inherit"
-            // className="navButton"
-            onClick={this.toggleFullscreen}
-          >
-            {localUser !== undefined && this.state.fullscreen ? (
-              <FullscreenExit />
+        <MenuItem onClick={this.toggleEditor}>
+          <ListItemIcon color="inherit" id="navEditorButton">
+            {localUser !== undefined && editorDisplay === "none" ? (
+              <CreateIcon />
             ) : (
-              <Fullscreen />
+              <CreateIcon color="secondary" />
             )}
           </ListItemIcon>
-          <ListItemText
-            color="inherit"
-            // className="navButton"
-            onClick={this.toggleFullscreen}
-          >
-            {localUser !== undefined && this.state.fullscreen
-              ? "전체 화면 종료"
-              : "전체 화면"}
+          <ListItemText color="inherit" id="navEditorButton">
+            {localUser !== undefined && editorDisplay === "none"
+              ? "편집기 열기"
+              : "편집기 끄기"}
           </ListItemText>
         </MenuItem>
-        <MenuItem>
+        <MenuItem onClick={this.toggleChat}>
           <ListItemIcon
             color="inherit"
             // className="navButton"
-            onClick={this.toggleChat}
             // id="navChatButton"
           >
             {this.props.showNotification && <div id="point" className="" />}
@@ -218,25 +261,22 @@ export default class SidebarComponent extends Component {
           <ListItemText
             color="inherit"
             // className="navButton"
-            onClick={this.toggleChat}
             // id="navChatButton"
           >
             채팅하기
           </ListItemText>
         </MenuItem>
-        <MenuItem>
+        <MenuItem onClick={this.leaveSession}>
           <ListItemIcon
             color="secondary"
             // className="navButton"
-            onClick={this.leaveSession}
             // id="navLeaveButton"
           >
-            <PowerSettingsNew />
+            <PowerSettingsNew color="#8A6BCD" />
           </ListItemIcon>
           <ListItemText
             color="secondary"
             // className="navButton"
-            onClick={this.leaveSession}
             // id="navLeaveButton"
           >
             종료하기

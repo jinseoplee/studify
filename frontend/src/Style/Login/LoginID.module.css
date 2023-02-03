@@ -1,26 +1,26 @@
-.idform {
+.loginidIdform {
   margin: 4rem;
 }
 
-.emailform {
+.loginidEmailform {
   width: 30rem;
   height: 5rem;
 }
 
-.textform {
+.loginidTextform {
   height: 2.2rem;
   width: 80%;
   font-size: large;
   border-radius: 5px;
 }
 
-.logintext {
+.loginidText {
   font-size: 20px;
   margin-bottom: 2rem;
   padding-left: 2mm;
 }
 
-.marginup {
+.loginidMarginup {
   margin-top: 0.7rem;
 }
 
@@ -29,7 +29,7 @@
   font-size: 20px;
   padding-left: 2mm;
 }
-.checkboxform {
+.loginidCheckboxform {
   position: relative;
   height: 2rem;
   width: 2rem;
@@ -38,13 +38,13 @@
   top: 0.5rem;
 }
 
-.btnform {
+.loginidBtnform {
   width: 4rem;
   height: 2rem;
   border-radius: 5px;
 }
 
-.loginbottom {
+.loginidBottom {
   /* display: flex;
   width: 25rem;
   justify-content: space-between; */
@@ -53,11 +53,11 @@
   width: 100%;
 }
 
-.text_link {
+.loginidText_link {
   color: inherit;
   text-decoration: inherit;
 }
 
-.text_link:hover {
+.loginidText_link:hover {
   color: blue;
 }

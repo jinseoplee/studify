@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import swal from "sweetalert";
 import ModalContainer from "./ModalContainer";
-import style from "./ModalLogin.module.css";
+import Modalstyle from "../../Style/UI/ModalLogin.module.css";
 
 const LoginModal = (props) => {
   const navigate = useNavigate();
@@ -78,33 +78,33 @@ const LoginModal = (props) => {
 
   return (
     <ModalContainer>
-      <div ref={modalRef} className={style.container}>
-        <button className={style.close} onClick={closeModal}>
+      <div ref={modalRef} className={Modalstyle.modalloginContainer}>
+        <button className={Modalstyle.modalloginClose} onClick={closeModal}>
           X
         </button>
-        <div className={style.title}>비밀번호 찾기 모달창</div>
+        <div className={Modalstyle.modalloginTitle}>비밀번호 찾기 모달창</div>
         <form>
-          <div className={style.inputspaceName}>
+          <div className={Modalstyle.modallogininputspaceName}>
             이름 :{" "}
             <input
               name="username"
-              className={style.inputspace}
+              className={Modalstyle.modalloginInputspace}
               type="text"
               onChange={change}
               value={userInfo.username}
             ></input>
           </div>
-          <div className={style.inputspaceEmail}>
+          <div className={Modalstyle.modalloginInputspaceEmail}>
             이메일 :{" "}
             <input
               name="email"
-              className={style.inputspace}
+              className={Modalstyle.modalloginInputspace}
               type="text"
               onChange={change}
               value={userInfo.email}
             ></input>
           </div>
-          <div className={style.loginButton}>
+          <div className={Modalstyle.modalloginLoginButton}>
             <button type="submit" onClick={check}>
               찾기
             </button>

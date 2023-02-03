@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
 import Topbar from "../Topbar/Topbar";
 import StudySwitchbar from "./StudySwitchbar";
-import StudyStyle from "./StudyDetail.module.css";
+import StudyStyle from "../../Style/MainStudy/StudyDetail.module.css";
 
 const StudyDetail = () => {
   const studyId = useSelector((state) => state.userStudyInfo.studyId);

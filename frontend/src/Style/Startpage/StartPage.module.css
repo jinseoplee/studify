@@ -1,4 +1,4 @@
-.btn {
+.startpageBtn {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -17,12 +17,12 @@
   border: 0px;
 }
 
-.full {
+.startpageFull {
   width: 100%;
   height: 100%;
 }
 
-.background {
+.startpageBackground {
   position: flex;
   width: 100%;
   height: 100%;

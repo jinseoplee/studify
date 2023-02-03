@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import Dashboardstyle from "./Dashboard.module.css";
+import Dashboardstyle from "../../Style/Dashboard/Dashboard.module.css";
 import SkillCheckBox from "../UI/SkillCheckBox";
 import SelectCapaBox from "../UI/SelectCapaBox";
 import DayCheckbox from "../UI/DayCheckbox";

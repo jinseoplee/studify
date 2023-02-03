@@ -1,6 +1,6 @@
 import ModalContainer from "../UI/ModalContainer";
-import DashModal from "./Dashboard.module.css";
-import Dashboardstyle from "./Dashboard.module.css";
+import DashModal from "../../Style/Dashboard/Dashboard.module.css";
+// import Dashboardstyle from "../../Style/Dashboard/Dashboard.module.css";
 
 const StudyTodo = ({ open, onClose }) => {
   const days = { 월: "자바스터디", 화: "자바스터디" };

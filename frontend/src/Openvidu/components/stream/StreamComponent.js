@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./StreamComponent.css";
+import "../../../Style/Openvidu/StreamComponent.css";
 import OvVideoComponent from "./OvVideo";
 
 import MicOff from "@material-ui/icons/MicOff";

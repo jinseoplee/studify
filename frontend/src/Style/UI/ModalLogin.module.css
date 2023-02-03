@@ -1,8 +1,8 @@
-.title {
+.modalloginTitle {
   margin: 10px;
 }
 
-.container {
+.modalloginContainer {
   /* 모달창 크기 */
   width: 22rem;
   height: 10rem;
@@ -25,26 +25,26 @@
 }
 
 /* 모달창 내부 X버튼 */
-.close {
+.modalloginClose {
   position: absolute;
   right: 1rem;
   top: 0.8rem;
 }
 
-.inputspace {
+.modalloginInputspace {
   width: 11rem;
   height: 1.3rem;
 }
-.inputspaceName {
+.modalloginInputspaceName {
   margin-left: 1rem;
   margin-bottom: 0.3rem;
 }
 
-.inputspaceEmail {
+.modalloginInputspaceEmail {
   margin: 0.3rem;
 }
 
-.loginButton {
+.modalloginLoginButton {
   display: flex;
   justify-content: flex-end;
   margin-right: 3rem;

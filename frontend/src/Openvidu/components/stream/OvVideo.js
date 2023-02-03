@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./StreamComponent.css";
+import "../../../Style/Openvidu/StreamComponent.css";
 
 export default class OvVideoComponent extends Component {
   constructor(props) {
@@ -36,7 +36,7 @@ export default class OvVideoComponent extends Component {
   componentDidUpdate(props) {
     if (props && !!this.videoRef) {
       this.props.user.getStreamManager().addVideoElement(this.videoRef.current);
-      console.log(this.props.user.getStreamManager())
+      console.log(this.props.user.getStreamManager());
     }
   }
 
