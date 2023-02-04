@@ -1,26 +1,28 @@
-.loginidIdform {
+.loginForm {
   margin: 4rem;
 }
 
-.loginidEmailform {
+.loginEmailform {
   width: 30rem;
   height: 5rem;
 }
 
-.loginidTextform {
+.loginTextform {
+  border-style: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   height: 2.2rem;
   width: 80%;
   font-size: large;
   border-radius: 5px;
 }
 
-.loginidText {
+.loginText {
   font-size: 20px;
   margin-bottom: 2rem;
   padding-left: 2mm;
 }
 
-.loginidMarginup {
+.loginMarginup {
   margin-top: 0.7rem;
 }
 
@@ -29,7 +31,7 @@
   font-size: 20px;
   padding-left: 2mm;
 }
-.loginidCheckboxform {
+.loginCheckboxform {
   position: relative;
   height: 2rem;
   width: 2rem;
@@ -38,26 +40,30 @@
   top: 0.5rem;
 }
 
-.loginidBtnform {
+.loginBtnform {
+  border-style: none;
+  background-color: #8a6bcd;
   width: 4rem;
   height: 2rem;
   border-radius: 5px;
+  color: white;
 }
 
-.loginidBottom {
+.loginBottom {
   /* display: flex;
   width: 25rem;
   justify-content: space-between; */
   margin-top: 2rem;
   margin-left: 2rem;
   width: 100%;
+  font-size: large;
 }
 
-.loginidText_link {
+.loginText_link {
   color: inherit;
   text-decoration: inherit;
 }
 
-.loginidText_link:hover {
+.loginText_link:hover {
   color: blue;
 }
