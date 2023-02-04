@@ -7,9 +7,11 @@ import com.ssafy.api.response.user.UserAuthPostRes;
 import com.ssafy.api.response.user.UserLoginPostRes;
 import com.ssafy.db.entity.TempUser;
 import com.ssafy.db.entity.User;
+import com.ssafy.db.entity.UserImg;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.MessagingException;
+import java.io.IOException;
 import java.util.Map;
 
 /**
@@ -19,6 +21,7 @@ public interface UserService {
 
     /**
      * 회원인증 완료 후 가입
+     *
      * @param tempUser
      * @return
      */
@@ -26,6 +29,7 @@ public interface UserService {
 
     /**
      * 로그인
+     *
      * @param userLoginPostReq
      * @return
      */
@@ -33,13 +37,15 @@ public interface UserService {
 
     /**
      * 유저 조회
-     * @param id
+     *
+     * @param email
      * @return
      */
-    User getUser(Long id);
+    User getUser(String email);
 
     /**
      * 인증메일 발송
+     *
      * @param req
      * @return
      */
@@ -47,6 +53,7 @@ public interface UserService {
 
     /**
      * 임시회원 삽입
+     *
      * @param tempUser
      * @return
      */
@@ -54,6 +61,7 @@ public interface UserService {
 
     /**
      * 사용자 메일 인증 확인
+     *
      * @param authReq
      * @return
      */
@@ -61,6 +69,7 @@ public interface UserService {
 
     /**
      * 회원 비밀번호 변경
+     *
      * @param userInfo
      * @return
      */
@@ -68,6 +77,7 @@ public interface UserService {
 
     /**
      * 회원정보 삭제
+     *
      * @param email
      */
     void deleteUser(String email);
@@ -79,4 +89,20 @@ public interface UserService {
     User updateUser(User user);
 
     boolean validImgFile(MultipartFile multipartFile);
+
+    /**
+     * 프로필 이미지 업로드
+     */
+    UserImg uploadImage(MultipartFile multipartFile) throws IOException;
+
+    /**
+     * 프로필 이미지 수정
+     */
+    UserImg updateImage(MultipartFile multipartFile, User user) throws IOException;
+
+    /**
+     * 프로필 이미지 삭제
+     */
+    void deleteImage(String email);
+
 }

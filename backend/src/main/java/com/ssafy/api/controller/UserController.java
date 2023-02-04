@@ -1,6 +1,5 @@
 package com.ssafy.api.controller;
 
-import com.ssafy.api.service.UserImgService;
 import com.ssafy.api.service.UserService;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.User;
@@ -10,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,11 +27,10 @@ public class UserController {
 
     private final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
     private final UserService userService;
-    private final UserImgService userImgService;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<? extends BaseResponseBody> getUser(@PathVariable Long id) {
-        User user = userService.getUser(id);
+    @GetMapping("/{email}")
+    public ResponseEntity<? extends BaseResponseBody> getUser(@PathVariable String email) {
+        User user = userService.getUser(email);
 
         return ResponseEntity.status(HttpStatus.OK).body(new BaseResponseBody(200, "Success"));
     }
@@ -53,10 +52,10 @@ public class UserController {
 
     /* 프로필 이미지 업로드 */
     @PostMapping("/image")
-    public ResponseEntity<?> uploadImage(@RequestParam("image") MultipartFile multipartFile, @RequestParam Long userId) throws IOException {
+    public ResponseEntity<?> uploadImage(@AuthenticationPrincipal String email, @RequestParam("image") MultipartFile multipartFile) throws IOException {
         if (userService.validImgFile(multipartFile)) {
-            UserImg userImg = userImgService.uploadImage(multipartFile);
-            User user = userService.getUser(userId);
+            User user = userService.getUser(email);
+            UserImg userImg = userService.uploadImage(multipartFile);
             user.setUserImg(userImg);
             userService.updateUser(user);
             return ResponseEntity.status(HttpStatus.OK).body(new BaseResponseBody(200, "Success"));
@@ -66,10 +65,10 @@ public class UserController {
 
     /* 프로필 이미지 수정 */
     @PutMapping("/image")
-    public ResponseEntity<?> updateImage(@RequestParam("image") MultipartFile multipartFile, @RequestParam Long userId) throws IOException {
+    public ResponseEntity<?> updateImage(@AuthenticationPrincipal String email, @RequestParam("image") MultipartFile multipartFile) throws IOException {
         if (userService.validImgFile(multipartFile)) {
-            User user = userService.getUser(userId);
-            userImgService.updateImage(multipartFile, user);
+            User user = userService.getUser(email);
+            userService.updateImage(multipartFile, user);
             userService.updateUser(user);
             return ResponseEntity.status(HttpStatus.OK).body(new BaseResponseBody(200, "Success"));
         }
@@ -77,17 +76,10 @@ public class UserController {
     }
 
     /* 프로필 이미지 삭제(default) */
-    @DeleteMapping("/image/{userId}")
-    public ResponseEntity<BaseResponseBody> deleteImage(@PathVariable Long userId) {
-        userImgService.deleteImage(userId);
+    @DeleteMapping("/image")
+    public ResponseEntity<BaseResponseBody> deleteImage(@AuthenticationPrincipal String email) {
+        userService.deleteImage(email);
         return ResponseEntity.status(HttpStatus.OK).body(new BaseResponseBody(200, "Success"));
     }
-
-
-//    @PostMapping("/log")
-//    public ResponseEntity<UserTimeLogRes> createUserTimeLog(@RequestBody UserTimeLogPostReq userTimeLogPostReq){
-//        System.out.println("createUserTimeLog 들어옴");
-//        return ResponseEntity.status(HttpStatus.OK).body(userService.createUserTimeLog(userTimeLogPostReq));
-//    }
 
 }

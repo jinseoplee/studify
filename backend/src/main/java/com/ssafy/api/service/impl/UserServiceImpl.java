@@ -11,7 +11,9 @@ import com.ssafy.common.util.MailDispatcher;
 import com.ssafy.config.security.JwtTokenProvider;
 import com.ssafy.db.entity.TempUser;
 import com.ssafy.db.entity.User;
+import com.ssafy.db.entity.UserImg;
 import com.ssafy.db.repository.TempUserRepository;
+import com.ssafy.db.repository.UserImgRepository;
 import com.ssafy.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.MessagingException;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
@@ -37,6 +40,8 @@ public class UserServiceImpl implements UserService {
     private final MailDispatcher mailDispatcher;
     private final JwtTokenProvider jwtTokenProvider;
     private final PasswordEncoder passwordEncoder;
+    private final UserImgRepository userImgRepository;
+    private final String path = "C:\\Users\\images\\";
 
     @Transactional
     @Override
@@ -73,8 +78,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Transactional
-    public User getUser(Long id) {
-        return userRepository.findById(id)
+    public User getUser(String email) {
+        return userRepository.findByEmail(email)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
     }
 
@@ -171,6 +176,51 @@ public class UserServiceImpl implements UserService {
             e.printStackTrace();
         }
         return true;
+    }
+
+    /* 프로필 이미지 업로드 */
+    public UserImg uploadImage(MultipartFile multipartFile) throws IOException {
+        UUID uuid = UUID.randomUUID();
+        String fileUrl = path + uuid.toString() + "_" + multipartFile.getOriginalFilename();
+        UserImg userImg = userImgRepository.save(
+                UserImg.builder()
+                        .name(multipartFile.getOriginalFilename())
+                        .type(multipartFile.getContentType())
+                        .fileUrl(fileUrl)
+                        .build()
+        );
+        multipartFile.transferTo(new File(fileUrl));
+
+        return userImg;
+    }
+
+    /* 프로필 이미지 수정 */
+    public UserImg updateImage(MultipartFile multipartFile, User user) throws IOException {
+        UUID uuid = UUID.randomUUID();
+        String filePath = path + uuid.toString() + "_" + multipartFile.getOriginalFilename();
+
+        UserImg userImg = userImgRepository.findById(user.getUserImg().getId()).get();
+
+        File file = new File(userImg.getFileUrl());
+        file.delete();
+
+        userImg.updateUserImg(multipartFile, filePath);
+        userImgRepository.save(userImg);
+        multipartFile.transferTo(new File(filePath));
+
+        return userImg;
+    }
+
+    /* 프로필 이미지 삭제 */
+    public void deleteImage(String email) {
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
+        UserImg userImg = userImgRepository.findById(user.getUserImg().getId()).get();
+
+        user.setUserImg(null);
+        File file = new File(userImg.getFileUrl());
+        file.delete();
+
+        userImgRepository.deleteById(userImg.getId());
     }
 
 }
