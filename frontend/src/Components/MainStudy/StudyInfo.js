@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import StudyStyle from "./StudyDetail.module.css";
+import StudyStyle from "../../Style/MainStudy/StudyDetail.module.css";
 
 const StudyInfo = () => {
   const studynum = useSelector((state) => state.userStudyInfo.studycapa);

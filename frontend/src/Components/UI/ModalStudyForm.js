@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 
-import style from "./ModalSignup.module.css";
+import Modalstyle from "./ModalSignup.module.css";
 // import axios from "axios";
 
 const ModalStudyForm = ({ open, onClose }) => {
@@ -23,9 +23,9 @@ const ModalStudyForm = ({ open, onClose }) => {
   };
   if (!open) return null;
   return (
-    <form className={style.modalcontain}>
-      <div className={style.modalStudyBody}>
-        <div className={style.modalStudyForm}>
+    <form className={Modalstyle.modalcontain}>
+      <div className={Modalstyle.modalStudyBody}>
+        <div className={Modalstyle.modalStudyForm}>
           <h2 onClick={onClose}>스터디 생성</h2>
           <br></br>
           <label>스터디명</label>
@@ -38,7 +38,7 @@ const ModalStudyForm = ({ open, onClose }) => {
             onChange={setDescription}
           ></input>
           <br></br>
-          <button className={style.modalBtn} onClick={StudySubmitHandler}>
+          <button className={Modalstyle.modalBtn} onClick={StudySubmitHandler}>
             가입
           </button>
         </div>

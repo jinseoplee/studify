@@ -1,14 +1,11 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-// import { Navigate } from "react-router-dom";
 import { codenumActions } from "../../store/SignupStore";
 import axios from "axios";
 import swal from "sweetalert";
-// import { useNavigate } from "react-router-dom";
-
 import ModalSignup from "../UI/ModalSignup";
 import logo from "../../assets/image/logo.png";
-import "./SignupForm.css";
+import "../../Style/Signup/SignupForm.css";
 
 const SignupForm = () => {
   const dispatch = useDispatch();

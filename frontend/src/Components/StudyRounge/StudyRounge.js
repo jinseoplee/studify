@@ -1,4 +1,4 @@
-import RoungeStyle from "./StudyRounge.module.css";
+import RoungeStyle from "../../Style/StudyRounge/StudyRounge.module.css";
 
 const StudyRounge = () => {
   return (

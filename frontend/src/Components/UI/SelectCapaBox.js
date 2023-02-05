@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { selectdayActions } from "../../store/StudyStore";
-import SelectStyle from "./Selectbox.module.css";
+import SelectStyle from "../../Style/UI/Selectbox.module.css";
 
 const SelectCapaBox = () => {
   const dispatch = useDispatch();

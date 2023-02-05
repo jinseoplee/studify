@@ -1,9 +1,9 @@
 import React from "react";
 
-import "./LoginCard.css";
+import LogincardStyle from "../../Style/Login/LoginCard.module.css";
 
 const LoginCard = (props) => {
-  return <div className="logincard">{props.children}</div>;
+  return <div className={LogincardStyle.logincard}>{props.children}</div>;
 };
 
 export default LoginCard;

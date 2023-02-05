@@ -1,7 +1,7 @@
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import RoungeStyle from "./StudyRounge.module.css";
+import RoungeStyle from "../../Style/StudyRounge/StudyRounge.module.css";
 
 const RoungeBanner = () => {
   const settings = {

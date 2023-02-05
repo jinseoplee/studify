@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import Dashboardstyle from "./Dashboard.module.css";
+import Dashboardstyle from "../../Style/Dashboard/Dashboard.module.css";
 import makestudy from "../../assets/image/plus.png";
 
 const MyStudy = () => {

@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import sidestyle from "./Slidebar.module.css";
+import sidestyle from "../../Style/Slidebar/Slidebar.module.css";
 import SlidebarContents from "./SlidebarContents";
 import rightarrow from "../../assets/image/rightarrow.png";
 import leftarrow from "../../assets/image/leftarrow.png";

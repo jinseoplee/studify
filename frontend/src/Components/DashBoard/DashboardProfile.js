@@ -1,4 +1,4 @@
-import Dashboardstyle from "./Dashboard.module.css";
+import Dashboardstyle from "../../Style/Dashboard/Dashboard.module.css";
 const userdummy = {
   userName: "김싸피",
   userLine: "열심히 하겠습니다",

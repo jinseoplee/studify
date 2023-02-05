@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { ResponsiveBar } from "@nivo/bar";
 
 import ModalContainer from "../UI/ModalContainer";
-import DashModal from "./Dashboard.module.css";
+import DashModal from "../../Style/Dashboard/Dashboard.module.css";
 
 const StudyRecordDetail = ({ open, onClose }) => {
   const data = useSelector((state) => state.userinfo.userTime);

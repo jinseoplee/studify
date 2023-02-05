@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import CheckStyle from "./Checkbox.module.css";
+import CheckStyle from "../../Style/UI/Checkbox.module.css";
 import { selectdayActions } from "../../store/StudyStore";
 
 const SkillCheckBox = () => {
