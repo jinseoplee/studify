@@ -1,9 +1,16 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import StartPageStyle from "../../Style/Startpage/StartPage.module.css";
 import Background from "../../assets/image/Rectangle 56.png";
 import Emoji from "../../assets/image/Female Memojis.png";
 
-const StartPage = ({ goSignup }) => {
+const StartPage = () => {
+  const navigate = useNavigate();
+
+  const goSignup = () => {
+    navigate("/user/signup");
+  };
+
   return (
     <React.Fragment>
       <div className={StartPageStyle.startpageFull}>

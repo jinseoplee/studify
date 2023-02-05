@@ -3,8 +3,8 @@
 }
 
 .loginEmailform {
-  width: 30rem;
-  height: 5rem;
+  width: 100%;
+  height: 3rem;
 }
 
 .loginTextform {
@@ -18,7 +18,7 @@
 
 .loginText {
   font-size: 20px;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   padding-left: 2mm;
 }
 
@@ -33,11 +33,11 @@
 }
 .loginCheckboxform {
   position: relative;
-  height: 2rem;
-  width: 2rem;
+  height: 1.5rem;
+  width: 1.5rem;
   margin-left: 1rem;
-  margin-top: 1rem;
-  top: 0.5rem;
+  /* margin-top: 1rem; */
+  top: 0.3rem;
 }
 
 .loginBtnform {

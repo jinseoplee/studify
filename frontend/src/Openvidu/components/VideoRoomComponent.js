@@ -276,16 +276,23 @@ class VideoRoomComponent extends Component {
   }
 
   deleteSubscriber(stream) {
+    //실험 해본 결과 remoteUsers는 현재 나 이외 보고있는 사람들을 담아줍니다.
     const remoteUsers = this.state.subscribers;
+    console.log(remoteUsers);
     const userStream = remoteUsers.filter(
       (user) => user.getStreamManager().stream === stream
     )[0];
+    //userStream은 방금 방을 나간 사람을 탐색해줍니다.
+    console.log(userStream);
     let index = remoteUsers.indexOf(userStream, 0);
+    //0번째부터 userStream 탐색.
     if (index > -1) {
       remoteUsers.splice(index, 1);
+      //splice 함수는 원본 배열에 새로운 요소를 추가하거나 기존요소를 삭제 또는 교체하여 원본 배열을 변경 하고 제거된 배열을 반환합니다.
       this.setState({
         subscribers: remoteUsers,
       });
+      //this.setState로 현재 남아있는 subscribers를 변경된 remoteUsers로 변경해줍니다.
     }
   }
 

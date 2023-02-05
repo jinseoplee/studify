@@ -1,10 +1,19 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
+
 import Topbarstyle from "../../Style/Topbar/Topbar.module.css";
 import logo from "../../assets/image/logo.png";
 import vector from "../../assets/image/vector.png";
 
-const Topbar = (props) => {
+const Topbar = () => {
+  //check가 현재 access-token이 있는지 체크해서 있으면 true 없으면 false를 반환하게 만들어주어야합니다.
+  const token = useSelector((state) => state.token.accesstoken);
+  console.log(token);
+  const check = () => {
+    if (localStorage.getItem.length === 0 ? true : false);
+  };
+
   return (
     <React.Fragment>
       <div className={Topbarstyle.topbar}>
@@ -14,7 +23,7 @@ const Topbar = (props) => {
           </div>
           <div className={Topbarstyle.section}>
             <NavLink
-              to={props.check ? "/user/login/id" : "/study/rounge"}
+              to={check ? "/user/login/id" : "/study/rounge"}
               className={Topbarstyle.text_link}
             >
               스터디 라운지
@@ -22,7 +31,7 @@ const Topbar = (props) => {
           </div>
           <div className={Topbarstyle.section}>
             <NavLink
-              to={props.check ? "/user/login/id" : "/rank"}
+              to={check ? "/user/login/id" : "/rank"}
               className={Topbarstyle.text_link}
             >
               랭킹

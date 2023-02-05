@@ -1,6 +1,5 @@
 import { useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
-import Topbar from "../Topbar/Topbar";
 import StudySwitchbar from "./StudySwitchbar";
 import StudyStyle from "../../Style/MainStudy/StudyDetail.module.css";
 
@@ -9,10 +8,7 @@ const StudyDetail = () => {
   const studyname = useSelector((state) => state.userStudyInfo.studyname);
   //   const navigate = useNavigate();
   return (
-    <div>
-      <div>
-        <Topbar />
-      </div>
+    <>
       <div className={StudyStyle.StudyDetailContainer}>
         <div className={StudyStyle.StudyDetailback}>
           <p className={StudyStyle.StudyDetailName}>{studyname}</p>
@@ -26,7 +22,7 @@ const StudyDetail = () => {
           <Outlet />
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
