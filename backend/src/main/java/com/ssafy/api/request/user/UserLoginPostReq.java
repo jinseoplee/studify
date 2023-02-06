@@ -1,4 +1,4 @@
-package com.ssafy.api.request;
+package com.ssafy.api.request.user;
 
 import lombok.Getter;
 import lombok.Setter;

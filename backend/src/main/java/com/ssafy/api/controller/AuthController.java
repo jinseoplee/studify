@@ -1,16 +1,17 @@
 package com.ssafy.api.controller;
 
-import com.ssafy.api.request.UserAuthPostReq;
-import com.ssafy.api.request.UserLoginPostReq;
-import com.ssafy.api.request.UserSignupPostReq;
-import com.ssafy.api.response.UserAuthPostRes;
-import com.ssafy.api.response.UserLoginPostRes;
+import com.ssafy.api.request.user.UserAuthPostReq;
+import com.ssafy.api.request.user.UserLoginPostReq;
+import com.ssafy.api.request.user.UserSignupPostReq;
+import com.ssafy.api.response.user.UserAuthPostRes;
+import com.ssafy.api.response.user.UserLoginPostRes;
 import com.ssafy.api.service.UserService;
 import com.ssafy.common.model.response.BaseResponseBody;
-import com.ssafy.api.util.MailDispatcher;
 import com.ssafy.db.entity.TempUser;
 import com.ssafy.db.entity.User;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,12 +22,18 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/users/auth")
 public class AuthController {
 
+    private final Logger LOGGER = LoggerFactory.getLogger(AuthController.class);
     private final UserService userService;
-    
+
     @PostMapping("/signin")
-    public ResponseEntity<UserLoginPostRes> signin(@RequestBody UserLoginPostReq userLoginPostReq) {
-        UserLoginPostRes userLoginPostRes = userService.signin(userLoginPostReq);
-        return ResponseEntity.status(200).body(userLoginPostRes);
+    public ResponseEntity<UserLoginPostRes> signIn(@RequestBody UserLoginPostReq userLoginPostReq) {
+        UserLoginPostRes userLoginPostRes = userService.signIn(userLoginPostReq);
+
+        if(userLoginPostRes.getStatusCode() == 200){
+            LOGGER.info("[signIn] 정상적으로 로그인되었습니다. email : {}, token : {}", userLoginPostRes.getEmail(), userLoginPostRes.getToken());
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(userLoginPostRes);
     }
 
     @PostMapping("/mail/register")
@@ -44,7 +51,7 @@ public class AuthController {
     @PostMapping("/signup")
     public ResponseEntity<? extends BaseResponseBody> signUp(@RequestBody UserSignupPostReq signupPostReq) {
         TempUser tempUser = userService.certificateTempUser(signupPostReq);
-        User user = userService.insertUser(tempUser);
+        User user = userService.createUser(tempUser);
         userService.deleteTempUser(tempUser.getEmail());
         return ResponseEntity.status(HttpStatus.OK).body(new BaseResponseBody(201, "Created"));
     }

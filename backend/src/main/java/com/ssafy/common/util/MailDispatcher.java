@@ -1,4 +1,4 @@
-package com.ssafy.api.util;
+package com.ssafy.common.util;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -13,7 +13,10 @@ import javax.mail.internet.MimeMessage;
 @Component
 public class MailDispatcher {
 
+    private final PasswordEncoder passwordEncoder;
     private final JavaMailSender javaMailSender;
+    private final EmailContent mailContent;
+    private final String PORT = "8080";
 
     public void sendMail(String to, String subject, String content) throws MessagingException {
 
