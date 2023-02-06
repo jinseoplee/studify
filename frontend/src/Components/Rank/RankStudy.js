@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-
+import RankStyle from "../../Style/Rank/Rank.module.css"
 
 const RankStudy = () => {
   const dummyrankstudy = [
@@ -32,16 +32,18 @@ const RankStudy = () => {
   //   console.log('여기에 스터디 내 랭킹 받아옵니다')
   //   RankStudyhandler();
   // })
+  dummyrankstudy.sort((a, b) => {
+    return b.time - a.time;
+  });
   return (
-    <div>
-      스터디 내 랭킹 페이지 입니다.
-      {/* { StudyRanking } */}
+    <div className={RankStyle.RankDetailContainer}>
+      전체 랭킹 페이지 입니다.
+      {/* { AllRanking } */}
       {dummyrankstudy.map((data, key) => (
-          <div key={key}>
-              <h4>{data.name}</h4>
-              <p>{data.time}</p>
-          </div>
-        ))}
+        <div key={key} className={RankStyle.RankNameBox}>
+          <p>{key + 1} {data.name} {data.time}</p>
+        </div>
+      ))}
     </div>
   );
 };

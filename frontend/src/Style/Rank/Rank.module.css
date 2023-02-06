@@ -1,0 +1,20 @@
+.RankDetailContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
+  background-color: #eae3f4;
+}
+
+.RankNameBox{
+  display: flex;
+  align-items: center;
+  color: white;
+  font-size: 25px;
+  background-color: #8a6bcd;
+  width: 40vw;
+  height: 4vh;
+  padding: 0 0 0 30px; 
+  margin: 10px 0 10px 0;
+}
