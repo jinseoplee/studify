@@ -32,54 +32,56 @@ public class UserController {
     public ResponseEntity<? extends BaseResponseBody> getUser(@PathVariable String email) {
         User user = userService.getUser(email);
 
-        return ResponseEntity.status(HttpStatus.OK).body(new BaseResponseBody(200, "Success"));
+        return ResponseEntity.ok().body(new BaseResponseBody(200, "Success"));
     }
 
     @PutMapping("/pass")
     public ResponseEntity<? extends BaseResponseBody> updateUserPassword(@RequestBody Map<String, String> userInfo) {
         userService.updateUserPassword(userInfo);
 
-        return ResponseEntity.status(HttpStatus.OK).body(new BaseResponseBody(200, "Success"));
+        return ResponseEntity.ok().body(new BaseResponseBody(200, "Success"));
     }
 
     @DeleteMapping("/withdraw/{email}")
     public ResponseEntity<? extends BaseResponseBody> deleteUser(@PathVariable String email) {
         userService.deleteUser(email);
 
-        return ResponseEntity.status(HttpStatus.OK).body(new BaseResponseBody(200, "Success"));
+        return ResponseEntity.ok().body(new BaseResponseBody(200, "Success"));
     }
 
 
     /* 프로필 이미지 업로드 */
     @PostMapping("/image")
-    public ResponseEntity<?> uploadImage(@AuthenticationPrincipal String email, @RequestParam("image") MultipartFile multipartFile) throws IOException {
+    public ResponseEntity<?> uploadImage(@AuthenticationPrincipal String email,
+                                         @RequestParam("image") MultipartFile multipartFile) throws IOException {
         if (userService.validImgFile(multipartFile)) {
             User user = userService.getUser(email);
             UserImg userImg = userService.uploadImage(multipartFile);
             user.setUserImg(userImg);
             userService.updateUser(user);
-            return ResponseEntity.status(HttpStatus.OK).body(new BaseResponseBody(200, "Success"));
+            return ResponseEntity.ok().body(new BaseResponseBody(200, "프로필 이미지 업로드 성공"));
         }
-        return ResponseEntity.status(HttpStatus.OK).body(new BaseResponseBody(200, "Fail"));
+        return ResponseEntity.badRequest().body(new BaseResponseBody(400, "올바른 이미지 파일이 아닙니다"));
     }
 
     /* 프로필 이미지 수정 */
     @PutMapping("/image")
-    public ResponseEntity<?> updateImage(@AuthenticationPrincipal String email, @RequestParam("image") MultipartFile multipartFile) throws IOException {
+    public ResponseEntity<?> updateImage(@AuthenticationPrincipal String email,
+                                         @RequestParam("image") MultipartFile multipartFile) throws IOException {
         if (userService.validImgFile(multipartFile)) {
             User user = userService.getUser(email);
             userService.updateImage(multipartFile, user);
             userService.updateUser(user);
-            return ResponseEntity.status(HttpStatus.OK).body(new BaseResponseBody(200, "Success"));
+            return ResponseEntity.ok().body(new BaseResponseBody(200, "프로필 이미지 업데이트 성공"));
         }
-        return ResponseEntity.status(HttpStatus.OK).body(new BaseResponseBody(200, "Fail"));
+        return ResponseEntity.badRequest().body(new BaseResponseBody(200, "올바른 이미지 파일이 아닙니다"));
     }
 
     /* 프로필 이미지 삭제(default) */
     @DeleteMapping("/image")
     public ResponseEntity<BaseResponseBody> deleteImage(@AuthenticationPrincipal String email) {
         userService.deleteImage(email);
-        return ResponseEntity.status(HttpStatus.OK).body(new BaseResponseBody(200, "Success"));
+        return ResponseEntity.ok().body(new BaseResponseBody(200, "프로필 이미지 삭제 성공"));
     }
 
 }
