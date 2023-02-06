@@ -6,13 +6,11 @@
 }
 
 .StudyDetailback {
+  height: 400px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 400px;
-  background-image: url(../../assets/image/background1.jpg);
 }
 .StudyDetailName {
   color: white;
@@ -32,22 +30,40 @@
 }
 .studyDetailInside {
   margin-top: 50px;
-  width: 60%;
+  width: 80%;
 }
+/* .studyDetailInside:active {
+  color: aqua;
+} */
+
 .studySwitchbarContainer {
   width: 80%;
 }
+
 .studyHr {
   margin-top: 50px;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
   width: 100%;
   background-color: #8a6bcd;
   height: 1px;
   border: 0;
 }
 .studyInfoContainer {
+  display: flex;
   font-size: 20px;
+  justify-content: space-around;
 }
 .studyInfoSpan {
   margin-right: 40px;
+}
+
+.studyContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+}
+
+.studyContentTitle {
+  font-size: 1.8rem;
+  margin-bottom: 30px;
 }
