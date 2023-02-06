@@ -91,6 +91,13 @@ public interface UserService {
     boolean validImgFile(MultipartFile multipartFile);
 
     /**
+     * 프로필 이미지 조회
+     * @param email
+     * @return
+     */
+    UserImg getImage(String email);
+
+    /**
      * 프로필 이미지 업로드
      */
     UserImg uploadImage(MultipartFile multipartFile) throws IOException;

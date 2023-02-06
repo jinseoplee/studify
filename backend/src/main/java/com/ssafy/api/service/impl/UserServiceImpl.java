@@ -178,6 +178,13 @@ public class UserServiceImpl implements UserService {
         return true;
     }
 
+    @Override
+    public UserImg getImage(String email) {
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
+        UserImg userImg = userImgRepository.findById(user.getUserImg().getId()).orElseThrow(() -> new IllegalArgumentException("프로필이 존재하지 않습니다."));
+        return userImg;
+    }
+
     /* 프로필 이미지 업로드 */
     public UserImg uploadImage(MultipartFile multipartFile) throws IOException {
         UUID uuid = UUID.randomUUID();
