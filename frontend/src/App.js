@@ -1,19 +1,29 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import LoginId from "./pages/LoginId";
-import LoginPw from "./pages/LoginPw";
-import MainPage from "./pages/MainPage";
-import RootLayout from "./pages/RootLayout";
-import Signup, { action as newSignupAction } from "./pages/Signup";
+import LoginId from "./pages/Login/LoginId";
+import LoginPw from "./pages/Login/LoginPw";
+import MainPage from "./pages/MainPage/MainPage";
+import RootLayout from "./pages/MainPage/RootLayout";
+import Signup, { action as newSignupAction } from "./pages/Signup/Signup";
 import UserSignup from "./Components/Signup/UserSignup";
-import ResetPw from "./pages/ResetPw";
-import DashBoard from "./pages/DashBoard";
+import ResetPw from "./pages/Login/ResetPw";
+import DashBoard from "./pages/DashBoard/DashBoard";
+//이 아래로 컴포넌트로 이동?.. 이것도 페이지 이동으로 바꿔야할거 같은데..
+import StudyMake from "./Components/DashBoard/StudyMake";
+import StudyDetails from "./pages/MainStudy/StudyDetails";
+import StudyInfo from "./Components/MainStudy/StudyInfo";
+import StudyRule from "./Components/MainStudy/StudyRule";
+import StudyHistory from "./Components/MainStudy/StudyHistory";
+import StudyMember from "./Components/MainStudy/StudyMember";
+import StudyRoungeMain from "./Components/StudyRounge/StudyRoungeMain";
+import ChartTest from "./Components/UI/ChartTest";
+import VideoRoomComponent from "./Openvidu/components/VideoRoomComponent";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
     children: [
-      { index: true, element: <MainPage /> },
+      { index: true, element: <MainPage /> }, //처음 index를 true로 만듦으로 써 <RootLayout>이 요청되었을때 MainPage가 나오게 만들었습니다.
       {
         path: "/user/signup",
         element: <Signup />,
@@ -40,6 +50,27 @@ const router = createBrowserRouter([
         path: "/dashboard",
         element: <DashBoard />,
       },
+      {
+        path: "/study/rounge",
+        element: <StudyRoungeMain />,
+      },
+      {
+        path: "/study/newstudy",
+        element: <StudyMake />,
+      },
+      // 중첩라우팅
+      {
+        path: "/study/:studyId",
+        element: <StudyDetails />,
+        children: [
+          { path: "info", element: <StudyInfo /> },
+          { path: "rule", element: <StudyRule /> },
+          { path: "record", element: <StudyHistory /> },
+          { path: "member", element: <StudyMember /> },
+        ],
+      },
+      { path: "/chart", element: <ChartTest /> },
+      { path: "/videoroom", element: <VideoRoomComponent /> },
     ],
   },
 ]);
@@ -49,14 +80,3 @@ const App = () => {
 };
 
 export default App;
-// createRoutesFromElements(
-//   <Route path="/" element={<RootLayout />}>
-//     <Route index element={<StartPage />} />
-//     <Route
-//       path="/user/signup"
-//       element={<Signup />}
-//       action={newSignupAction}
-//       errorElement={<p>잘못된 정보를 입력하셨습니다.</p>}
-//     />
-//   </Route>
-// )

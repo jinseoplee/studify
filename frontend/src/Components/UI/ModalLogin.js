@@ -3,13 +3,14 @@ import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import swal from "sweetalert";
 import ModalContainer from "./ModalContainer";
-import style from "./ModalLogin.module.css";
+import Modalstyle from "../../Style/UI/ModalLogin.module.css";
 
 const LoginModal = (props) => {
   const navigate = useNavigate();
   //모달창 닫기.
-  const closeModal = () => {
-    props.setModalOpen(false);
+
+  const modalmodal = () => {
+    props.setModal();
   };
 
   const [userInfo, setUserInfo] = useState({
@@ -23,10 +24,8 @@ const LoginModal = (props) => {
   //모달창 바깥클릭시 창을 닫히게 만들어준다.
   useEffect(() => {
     const handler = (event) => {
-      console.log(props);
       if (modalRef.current && !modalRef.current.contains(event.target)) {
-        props.setModalOpen(false);
-        console.log(props);
+        props.setModal();
       }
     };
     document.addEventListener("mousedown", handler);
@@ -78,38 +77,40 @@ const LoginModal = (props) => {
 
   return (
     <ModalContainer>
-      <div ref={modalRef} className={style.container}>
-        <button className={style.close} onClick={closeModal}>
-          X
-        </button>
-        <div className={style.title}>비밀번호 찾기 모달창</div>
-        <form>
-          <div className={style.inputspaceName}>
-            이름 :{" "}
-            <input
-              name="username"
-              className={style.inputspace}
-              type="text"
-              onChange={change}
-              value={userInfo.username}
-            ></input>
-          </div>
-          <div className={style.inputspaceEmail}>
-            이메일 :{" "}
-            <input
-              name="email"
-              className={style.inputspace}
-              type="text"
-              onChange={change}
-              value={userInfo.email}
-            ></input>
-          </div>
-          <div className={style.loginButton}>
-            <button type="submit" onClick={check}>
-              찾기
-            </button>
-          </div>
-        </form>
+      <div className={Modalstyle.modalloginFullScreen}>
+        <div ref={modalRef} className={Modalstyle.modalloginContainer}>
+          <button className={Modalstyle.modalloginClose} onClick={modalmodal}>
+            X
+          </button>
+          <div className={Modalstyle.modalloginTitle}>비밀번호 찾기 모달창</div>
+          <form>
+            <div className={Modalstyle.modallogininputspaceName}>
+              이름 :{" "}
+              <input
+                name="username"
+                className={Modalstyle.modalloginInputspace}
+                type="text"
+                onChange={change}
+                value={userInfo.username}
+              ></input>
+            </div>
+            <div className={Modalstyle.modalloginInputspaceEmail}>
+              이메일 :{" "}
+              <input
+                name="email"
+                className={Modalstyle.modalloginInputspace}
+                type="text"
+                onChange={change}
+                value={userInfo.email}
+              ></input>
+            </div>
+            <div className={Modalstyle.modalloginLoginButton}>
+              <button type="submit" onClick={check}>
+                찾기
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </ModalContainer>
   );

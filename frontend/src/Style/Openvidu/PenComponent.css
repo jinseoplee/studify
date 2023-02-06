@@ -1,0 +1,5 @@
+.drawing {
+  left: 25%;
+  z-index: 9999999;
+  position: absolute;
+}

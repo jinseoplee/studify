@@ -1,0 +1,55 @@
+.StudyRoungeContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.RoungeBannerContainer {
+  /* display: flex; */
+  width: 100%;
+  margin-top: 50px;
+}
+
+.RoungeBannerBox {
+  width: 80%;
+  height: 300px;
+  background-color: gray;
+}
+
+.RoungeBannerBox_1 {
+  width: 80%;
+  height: 400px;
+  background-image: url(../../assets/image/Banner_1.png);
+}
+
+.RoungeFilterContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 50px;
+}
+
+.RoungeListContainer {
+  width: 70%;
+  margin-top: 50px;
+}
+
+.RoungeFilterBtn {
+  width: 160px;
+  height: 64px;
+  border: 1px solid #8a6bcd;
+  border-radius: 20px;
+  background-color: white;
+  font-size: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.Banner1Title {
+  color: white;
+  font-size: 40px;
+}
