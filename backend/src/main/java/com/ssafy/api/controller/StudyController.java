@@ -51,7 +51,7 @@ public class StudyController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "스터디 수정 성공"),
             @ApiResponse(responseCode = "400", description = "존재하지 않는 리소스 접근"),
-            @ApiResponse(responseCode = "403", description = "권한이 없어 요청을 거부")
+            @ApiResponse(responseCode = "403", description = "권한이 없는 접근")
     })
     @PutMapping("/{studyId}")
     public ResponseEntity<? extends BaseResponse> updateStudyInfo(@AuthenticationPrincipal String email,
@@ -61,13 +61,20 @@ public class StudyController {
                 studyService.updateStudyInfo(email, studyId, studyInfoUpdatePutReq)));
     }
 
+    /**
+     * 스터디 삭제 API([DELETE] /api/v1/studies/{studyId})
+     */
+    @Operation(summary = "스터디 삭제")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "스터디 삭제 성공"),
+            @ApiResponse(responseCode = "400", description = "존재하지 않는 리소스 접근"),
+            @ApiResponse(responseCode = "403", description = "권한이 없는 접근")
+    })
     @DeleteMapping("/{studyId}")
-    public ResponseEntity<BaseResponseBody> deleteStudy(@PathVariable Long studyId) {
-        LOGGER.info("[deleteStudy] studyId : {}", studyId);
-
-        studyService.deleteStudy(studyId);
-
-        return ResponseEntity.ok().body(new BaseResponseBody(200, "Success"));
+    public ResponseEntity<BaseResponseBody> deleteStudy(@AuthenticationPrincipal String email,
+                                                        @PathVariable Long studyId) {
+        studyService.deleteStudy(email, studyId);
+        return ResponseEntity.ok().body(new BaseResponseBody(200, "스터디 삭제 완료"));
     }
 
     /* 스터디 생성 후 이미지 업로드 */
