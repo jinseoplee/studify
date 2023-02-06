@@ -4,7 +4,6 @@ import com.ssafy.api.request.study.StudyCreatePostReq;
 import com.ssafy.api.request.study.StudyInfoUpdatePutReq;
 import com.ssafy.api.response.study.StudyCreatePostRes;
 import com.ssafy.api.response.study.StudyRes;
-import com.ssafy.api.service.StudyImgService;
 import com.ssafy.api.service.StudyService;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.Study;
@@ -31,7 +30,6 @@ public class StudyController {
 
     private final Logger LOGGER = LoggerFactory.getLogger(StudyController.class);
     private final StudyService studyService;
-    private final StudyImgService studyImgService;
 
     /**
      * 스터디 생성
@@ -40,7 +38,7 @@ public class StudyController {
     public ResponseEntity<StudyCreatePostRes> createStudy(@AuthenticationPrincipal String email, @RequestBody StudyCreatePostReq studyCreatePostReq) {
         LOGGER.info("[createStudy] studyCreatePostReq : {}", studyCreatePostReq);
 
-        return ResponseEntity.status(HttpStatus.OK).body(studyService.createStudy(studyCreatePostReq));
+        return ResponseEntity.ok().body(studyService.createStudy(studyCreatePostReq));
     }
 
     @PutMapping("/{studyId}")
@@ -48,7 +46,7 @@ public class StudyController {
         LOGGER.info("[updateStudyInfo] studyId : {}", studyId);
         LOGGER.info("[updateStudyInfo] studyInfoUpdatePutReq : {}", studyInfoUpdatePutReq);
 
-        return ResponseEntity.status(HttpStatus.OK).body(studyService.updateStudyInfo(studyId, studyInfoUpdatePutReq));
+        return ResponseEntity.ok().body(studyService.updateStudyInfo(studyId, studyInfoUpdatePutReq));
     }
 
     @DeleteMapping("/{studyId}")
@@ -57,39 +55,40 @@ public class StudyController {
 
         studyService.deleteStudy(studyId);
 
-        return ResponseEntity.status(HttpStatus.OK).body(new BaseResponseBody(200, "Success"));
+        return ResponseEntity.ok().body(new BaseResponseBody(200, "Success"));
     }
 
-    /* 스터디 썸네일 이미지 업로드 */
-    @PostMapping("/image")
-    public ResponseEntity<?> uploadImage(@RequestParam("image") MultipartFile multipartFile, @RequestParam Long studyId) throws IOException {
-        if (studyService.validImgFile(multipartFile)) {
-            StudyImg studyImg = studyImgService.uploadImage(multipartFile);
+    /* 스터디 생성 후 이미지 업로드 */
+    @PostMapping("/image/{studyId}")
+    public ResponseEntity<?> uploadImage(@RequestParam("image") MultipartFile multipartFile, @PathVariable Long studyId) throws IOException {
+        StudyImg studyImg = studyService.uploadImage(multipartFile);
+        if (studyImg != null) {
             Study study = studyService.getStudy(studyId);
             study.setStudyImg(studyImg);
             studyService.updateStudy(study);
-            return ResponseEntity.status(HttpStatus.OK).body(new BaseResponseBody(200, "Success"));
+            return ResponseEntity.ok().body(new BaseResponseBody(200, "스터디 이미지 업데이트 성공"));
         }
-        return ResponseEntity.status(HttpStatus.OK).body(new BaseResponseBody(200, "Fail"));
+        return ResponseEntity.badRequest().body(new BaseResponseBody(400, "올바른 이미지 파일이 아닙니다"));
     }
 
-    /* 스터디 썸네일 이미지 수정 */
-    @PutMapping("/image")
-    public ResponseEntity<?> updateImage(@RequestParam("image") MultipartFile multipartFile, @RequestParam Long studyId) throws IOException {
-        if (studyService.validImgFile(multipartFile)) {
-            Study study = studyService.getStudy(studyId);
-            studyImgService.updateImage(multipartFile, study);
+    /* 스터디 이미지 수정 */
+    @PutMapping("/image/{studyId}")
+    public ResponseEntity<?> updateImage(@RequestParam("image") MultipartFile multipartFile, @PathVariable Long studyId) throws IOException {
+        Study study = studyService.getStudy(studyId);
+        StudyImg studyImg = studyService.updateImage(multipartFile, study);
+        if (studyImg != null) {
+            study.setStudyImg(studyImg);
             studyService.updateStudy(study);
-            return ResponseEntity.status(HttpStatus.OK).body(new BaseResponseBody(200, "Success"));
+            return ResponseEntity.ok().body(new BaseResponseBody(200, "스터디 이미지 업데이트 성공"));
         }
-        return ResponseEntity.status(HttpStatus.OK).body(new BaseResponseBody(200, "Fail"));
+        return ResponseEntity.badRequest().body(new BaseResponseBody(400, "올바른 이미지 파일이 아닙니다"));
     }
 
-    /* 스터디 썸네일 이미지 삭제(default) */
+    /* 스터디 이미지 삭제(default) */
     @DeleteMapping("/image/{studyId}")
     public ResponseEntity<BaseResponseBody> deleteImage(@PathVariable Long studyId) {
-        studyImgService.deleteImage(studyId);
-        return ResponseEntity.status(HttpStatus.OK).body(new BaseResponseBody(200, "Success"));
+        studyService.deleteImage(studyId);
+        return ResponseEntity.ok().body(new BaseResponseBody(200, "스터디 이미지 삭제 성공"));
     }
 
 }
