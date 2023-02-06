@@ -19,12 +19,9 @@ public interface StudyService {
     StudyRes createStudy(StudyCreatePostReq studyCreatePostReq);
 
     /**
-     * 스터디 정보 수정
-     *
-     * @param studyInfoUpdatePutReq
-     * @return StudyRes
+     * 스터디 수정
      */
-    StudyRes updateStudyInfo(Long studyId, StudyInfoUpdatePutReq studyInfoUpdatePutReq);
+    StudyRes updateStudyInfo(String email, Long studyId, StudyInfoUpdatePutReq studyInfoUpdatePutReq);
 
     /**
      * 스터디 삭제

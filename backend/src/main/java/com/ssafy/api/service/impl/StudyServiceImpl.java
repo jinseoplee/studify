@@ -4,6 +4,7 @@ import com.ssafy.api.request.study.StudyCreatePostReq;
 import com.ssafy.api.request.study.StudyInfoUpdatePutReq;
 import com.ssafy.api.response.study.StudyRes;
 import com.ssafy.api.service.StudyService;
+import com.ssafy.common.exception.AccessDeniedException;
 import com.ssafy.common.util.FileValidator;
 import com.ssafy.db.entity.Study;
 import com.ssafy.db.entity.StudyImg;
@@ -43,15 +44,22 @@ public class StudyServiceImpl implements StudyService {
         return new StudyRes(createdStudy);
     }
 
+    /**
+     * 스터디 수정
+     */
     @Override
-    public StudyRes updateStudyInfo(Long studyId, StudyInfoUpdatePutReq studyInfoUpdatePutReq) {
-        Study foundStudy = studyRepository.findById(studyId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 스터디입니다."));
+    public StudyRes updateStudyInfo(String email, Long studyId, StudyInfoUpdatePutReq studyInfoUpdatePutReq) {
+        Study foundStudy = studyRepository.findById(studyId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 스터디입니다."));
 
-        LOGGER.info("[updateStudyInfo] study before change : {}", foundStudy);
+        // 스터디 생성자와 이메일이 일치하는지 확인
+        if (!foundStudy.getCreatedBy().equals(email)) {
+            throw new AccessDeniedException("권한이 없습니다");
+        }
+
         foundStudy.changeInfo(studyInfoUpdatePutReq);
-        LOGGER.info("[updateStudyInfo] study after change : {}", foundStudy);
-
         Study changedStudy = studyRepository.save(foundStudy);
+        LOGGER.info("[updateStudyInfo] 스터디(id : {}) 정보 수정 완료", changedStudy.getId());
 
         return new StudyRes(changedStudy);
     }
