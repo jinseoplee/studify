@@ -50,7 +50,7 @@ public class StudyServiceImpl implements StudyService {
     @Override
     public StudyRes updateStudyInfo(String email, Long studyId, StudyInfoUpdatePutReq studyInfoUpdatePutReq) {
         Study foundStudy = studyRepository.findById(studyId)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 스터디입니다."));
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 스터디입니다"));
 
         // 스터디 생성자와 이메일이 일치하는지 확인
         if (!foundStudy.getCreatedBy().equals(email)) {
@@ -59,16 +59,26 @@ public class StudyServiceImpl implements StudyService {
 
         foundStudy.changeInfo(studyInfoUpdatePutReq);
         Study changedStudy = studyRepository.save(foundStudy);
-        LOGGER.info("[updateStudyInfo] 스터디(id : {}) 정보 수정 완료", changedStudy.getId());
+        LOGGER.info("[updateStudyInfo] 스터디(id : {}) 수정 완료", changedStudy.getId());
 
         return new StudyRes(changedStudy);
     }
 
+    /**
+     * 스터디 삭제
+     */
     @Override
-    public void deleteStudy(Long studyId) {
-        studyRepository.deleteById(studyId);
+    public void deleteStudy(String email, Long studyId) {
+        Study foundStudy = studyRepository.findById(studyId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 스터디입니다"));
 
-        LOGGER.info("[deleteStudy] study({}) has been deleted", studyId);
+        // 스터디 생성자와 이메일이 일치하는지 확인
+        if (!foundStudy.getCreatedBy().equals(email)) {
+            throw new AccessDeniedException("권한이 없습니다");
+        }
+
+        studyRepository.delete(foundStudy);
+        LOGGER.info("[deleteStudy] 스터디(id : {}) 삭제 완료", studyId);
     }
 
     @Override

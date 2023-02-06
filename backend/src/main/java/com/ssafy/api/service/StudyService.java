@@ -25,11 +25,8 @@ public interface StudyService {
 
     /**
      * 스터디 삭제
-     *
-     * @param studyId
-     * @return void
      */
-    void deleteStudy(Long studyId);
+    void deleteStudy(String email, Long studyId);
 
     boolean validImgFile(MultipartFile multipartFile);
 
