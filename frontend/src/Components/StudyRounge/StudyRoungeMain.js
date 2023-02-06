@@ -4,7 +4,7 @@ import Topbar from "../Topbar/Topbar";
 import RoungeBanner from "./RoungeBanner";
 import StudyRounge from "./StudyRounge";
 import RoungeList from "./RoungeList";
-import RoungeStyle from "./StudyRounge.module.css";
+import RoungeStyle from "../../Style/StudyRounge/StudyRounge.module.css";
 
 const StudyRoungeMain = () => {
   return (

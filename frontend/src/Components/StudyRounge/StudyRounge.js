@@ -1,7 +1,7 @@
 import { useState } from "react";
-import ToggleButton from "../UI/ToggleButton";
-import RoungeStyle from "./StudyRounge.module.css";
-import Checkbox from "../UI/Checkbox";
+// import ToggleButton from "../UI/ToggleButton";
+import RoungeStyle from "../../Style/StudyRounge/StudyRounge.module.css";
+import SkillCheckBox from "../UI/SkillCheckBox";
 
 const StudyRounge = () => {
   const selectSkill = [
@@ -14,7 +14,7 @@ const StudyRounge = () => {
   ];
   return (
     <div>
-      <Checkbox props={selectSkill} />
+      <SkillCheckBox props={selectSkill} />
     </div>
   );
 };
