@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -43,12 +44,21 @@ public class StudyController {
         return ResponseEntity.ok(new BaseResponse<StudyRes>(200, "스터티 생성 완료", studyService.createStudy(studyCreatePostReq)));
     }
 
+    /**
+     * 스터디 수정 API([PUT] /api/v1/studies/{studyId})
+     */
+    @Operation(summary = "스터디 수정")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "스터디 수정 성공"),
+            @ApiResponse(responseCode = "400", description = "존재하지 않는 리소스 접근"),
+            @ApiResponse(responseCode = "403", description = "권한이 없어 요청을 거부")
+    })
     @PutMapping("/{studyId}")
-    public ResponseEntity<StudyRes> updateStudyInfo(@PathVariable Long studyId, @RequestBody StudyInfoUpdatePutReq studyInfoUpdatePutReq) {
-        LOGGER.info("[updateStudyInfo] studyId : {}", studyId);
-        LOGGER.info("[updateStudyInfo] studyInfoUpdatePutReq : {}", studyInfoUpdatePutReq);
-
-        return ResponseEntity.ok().body(studyService.updateStudyInfo(studyId, studyInfoUpdatePutReq));
+    public ResponseEntity<? extends BaseResponse> updateStudyInfo(@AuthenticationPrincipal String email,
+                                                                  @PathVariable Long studyId,
+                                                                  @RequestBody StudyInfoUpdatePutReq studyInfoUpdatePutReq) {
+        return ResponseEntity.ok(new BaseResponse<StudyRes>(200, "스터디 수정 완료",
+                studyService.updateStudyInfo(email, studyId, studyInfoUpdatePutReq)));
     }
 
     @DeleteMapping("/{studyId}")
