@@ -2,18 +2,19 @@ package com.ssafy.api.controller;
 
 import com.ssafy.api.request.study.StudyCreatePostReq;
 import com.ssafy.api.request.study.StudyInfoUpdatePutReq;
-import com.ssafy.api.response.study.StudyCreatePostRes;
 import com.ssafy.api.response.study.StudyRes;
 import com.ssafy.api.service.StudyService;
+import com.ssafy.common.model.response.BaseResponse;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.Study;
 import com.ssafy.db.entity.StudyImg;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,23 +23,24 @@ import java.io.IOException;
 /**
  * 스터디 관련 API 요청 처리를 위한 컨트롤러 정의
  */
-@CrossOrigin("*")
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/v1/study")
+@RequestMapping("/api/v1/studies")
 public class StudyController {
 
     private final Logger LOGGER = LoggerFactory.getLogger(StudyController.class);
     private final StudyService studyService;
 
     /**
-     * 스터디 생성
+     * 스터디 생성 API([POST] /api/v1/studies)
      */
+    @Operation(summary = "스터디 생성")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "스터디 생성 성공")
+    })
     @PostMapping
-    public ResponseEntity<StudyCreatePostRes> createStudy(@AuthenticationPrincipal String email, @RequestBody StudyCreatePostReq studyCreatePostReq) {
-        LOGGER.info("[createStudy] studyCreatePostReq : {}", studyCreatePostReq);
-
-        return ResponseEntity.ok().body(studyService.createStudy(studyCreatePostReq));
+    public ResponseEntity<? extends BaseResponse> createStudy(@RequestBody StudyCreatePostReq studyCreatePostReq) {
+        return ResponseEntity.ok(new BaseResponse<StudyRes>(200, "스터티 생성 완료", studyService.createStudy(studyCreatePostReq)));
     }
 
     @PutMapping("/{studyId}")

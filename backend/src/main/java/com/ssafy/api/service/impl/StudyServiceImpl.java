@@ -2,7 +2,6 @@ package com.ssafy.api.service.impl;
 
 import com.ssafy.api.request.study.StudyCreatePostReq;
 import com.ssafy.api.request.study.StudyInfoUpdatePutReq;
-import com.ssafy.api.response.study.StudyCreatePostRes;
 import com.ssafy.api.response.study.StudyRes;
 import com.ssafy.api.service.StudyService;
 import com.ssafy.common.util.FileValidator;
@@ -37,18 +36,11 @@ public class StudyServiceImpl implements StudyService {
      * 스터디 생성
      */
     @Override
-    public StudyCreatePostRes createStudy(StudyCreatePostReq studyCreatePostReq) {
-        Study study = studyRepository.save(studyCreatePostReq.toEntity());
+    public StudyRes createStudy(StudyCreatePostReq studyCreatePostReq) {
+        Study createdStudy = studyRepository.save(studyCreatePostReq.toEntity());
+        LOGGER.info("[createStudy] 스터디(id : {}) 생성 완료", createdStudy.getId());
 
-        LOGGER.info("[createStudy] 스터디(id : {}) 생성 완료)", study.getId());
-
-        StudyCreatePostRes studyRes = StudyCreatePostRes.builder()
-                .statusCode(200)
-                .message("Success")
-                .study(study)
-                .build();
-
-        return studyRes;
+        return new StudyRes(createdStudy);
     }
 
     @Override
@@ -61,13 +53,7 @@ public class StudyServiceImpl implements StudyService {
 
         Study changedStudy = studyRepository.save(foundStudy);
 
-        StudyRes studyRes = StudyRes.builder()
-                .statusCode(200)
-                .message("Success")
-                .study(changedStudy)
-                .build();
-
-        return studyRes;
+        return new StudyRes(changedStudy);
     }
 
     @Override
