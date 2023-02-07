@@ -4,6 +4,9 @@ import com.ssafy.api.service.UserService;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.User;
 import com.ssafy.db.entity.UserImg;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,19 +58,14 @@ public class UserController {
         return ResponseEntity.ok().body(new BaseResponseBody(200, "Success"));
     }
 
-    /* 프로필 이미지 조회 */
-    @GetMapping("/image")
-    public ResponseEntity<?> getImage(@AuthenticationPrincipal String email) throws IOException {
-        UserImg userImg = userService.getImage(email);
-        Resource resource = new FileSystemResource(userImg.getFileUrl());
-        HttpHeaders header = new HttpHeaders();
-        Path filePath = Paths.get(userImg.getFileUrl());
-        header.add("Content-Type", Files.probeContentType(filePath));
-
-        return new ResponseEntity<Resource>(resource, header, HttpStatus.OK);
-    }
-
-    /* 프로필 이미지 업로드 */
+    /**
+     * 프로필 이미지 업로드 API([POST] /api/v1/users/image)
+     */
+    @Operation(summary = "프로필 이미지 업로드")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "프로필 이미지 업로드 성공"),
+            @ApiResponse(responseCode = "400", description = "올바르지 않은 파일")
+    })
     @PostMapping("/image")
     public ResponseEntity<?> uploadImage(@AuthenticationPrincipal String email,
                                          @RequestParam("image") MultipartFile multipartFile) throws IOException {
@@ -81,7 +79,30 @@ public class UserController {
         return ResponseEntity.badRequest().body(new BaseResponseBody(400, "올바른 이미지 파일이 아닙니다"));
     }
 
-    /* 프로필 이미지 수정 */
+    /**
+     * 프로필 이미지 조회 API([GET] /api/v1/users/image)
+     */
+    @Operation(summary = "프로필 이미지 조회")
+    @ApiResponse(responseCode = "200", description = "프로필 이미지 조회 성공")
+    @GetMapping("/image")
+    public ResponseEntity<?> getImage(@AuthenticationPrincipal String email) throws IOException {
+        UserImg userImg = userService.getImage(email);
+        Resource resource = new FileSystemResource(userImg.getFileUrl());
+        HttpHeaders header = new HttpHeaders();
+        Path filePath = Paths.get(userImg.getFileUrl());
+        header.add("Content-Type", Files.probeContentType(filePath));
+
+        return new ResponseEntity<Resource>(resource, header, HttpStatus.OK);
+    }
+
+    /**
+     * 프로필 이미지 수정 API([PUT] /api/v1/users/image)
+     */
+    @Operation(summary = "프로필 이미지 수정")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "프로필 이미지 수정 성공"),
+            @ApiResponse(responseCode = "400", description = "올바르지 않은 파일")
+    })
     @PutMapping("/image")
     public ResponseEntity<?> updateImage(@AuthenticationPrincipal String email,
                                          @RequestParam("image") MultipartFile multipartFile) throws IOException {
@@ -91,10 +112,14 @@ public class UserController {
             userService.updateUser(user);
             return ResponseEntity.ok().body(new BaseResponseBody(200, "프로필 이미지 업데이트 성공"));
         }
-        return ResponseEntity.badRequest().body(new BaseResponseBody(200, "올바른 이미지 파일이 아닙니다"));
+        return ResponseEntity.badRequest().body(new BaseResponseBody(400, "올바른 이미지 파일이 아닙니다"));
     }
 
-    /* 프로필 이미지 삭제(default) */
+    /**
+     * 프로필 이미지 삭제 API([DELETE] /api/v1/users/image)
+     */
+    @Operation(summary = "프로필 이미지 삭제")
+    @ApiResponse(responseCode = "200", description = "프로필 이미지 삭제 성공")
     @DeleteMapping("/image")
     public ResponseEntity<BaseResponseBody> deleteImage(@AuthenticationPrincipal String email) {
         userService.deleteImage(email);
