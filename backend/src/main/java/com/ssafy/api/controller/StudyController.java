@@ -65,6 +65,19 @@ public class StudyController {
     }
 
     /**
+     * 스터디 조회 API([GET] /api/v1/studies)
+     */
+    @Operation(summary = "스터디 조회")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "스터디 조회 성공"),
+            @ApiResponse(responseCode = "400", description = "존재하지 않는 리소스 접근")
+    })
+    @GetMapping("/{studyId}")
+    public ResponseEntity<? extends BaseResponse> findByUserId(@PathVariable Long studyId) {
+        return ResponseEntity.ok(new BaseResponse<StudyRes>(200, "스터디 조회 성공", studyService.findByStudyId(studyId)));
+    }
+
+    /**
      * 스터디 수정 API([PUT] /api/v1/studies/{studyId})
      */
     @Operation(summary = "스터디 수정")

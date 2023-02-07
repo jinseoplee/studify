@@ -55,6 +55,17 @@ public class StudyServiceImpl implements StudyService {
     }
 
     /**
+     * 스터디 조회
+     */
+    @Override
+    public StudyRes findByStudyId(Long studyId) {
+        Study foundStudy = studyRepository.findById(studyId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 스터디입니다"));
+
+        return new StudyRes(foundStudy);
+    }
+
+    /**
      * 스터디 수정
      */
     @Override

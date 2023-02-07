@@ -30,6 +30,11 @@ public interface StudyService {
     List<StudyRes> findAll();
 
     /**
+     * 스터디 조회
+     */
+    StudyRes findByStudyId(Long studyId);
+
+    /**
      * 스터디 삭제
      */
     void deleteStudy(String email, Long studyId);
