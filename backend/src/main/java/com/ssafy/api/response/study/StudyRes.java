@@ -2,8 +2,6 @@ package com.ssafy.api.response.study;
 
 import com.ssafy.db.entity.Study;
 import com.ssafy.db.entity.User;
-import com.ssafy.db.entity.UserStudy;
-import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 
 import java.util.List;

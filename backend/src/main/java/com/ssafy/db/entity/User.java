@@ -42,7 +42,7 @@ public class User extends BaseTimeEntity implements UserDetails {
     private Integer generation; // 기수
 
     @Column(nullable = false)
-    private String classNum; // 반
+    private Integer classNum; // 반
 
     @Column(nullable = false)
     private String name; // 이름

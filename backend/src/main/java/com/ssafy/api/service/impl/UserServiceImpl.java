@@ -248,4 +248,13 @@ public class UserServiceImpl implements UserService {
         );
     }
 
+    /* 사용자 공부 시간 기록 수정 */
+    @Override
+    public UserTimeLog updateUserTimeLog(LocalDate day, Long diff, String email) {
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
+        UserTimeLog savedUserTimeLog = userTimeLogRepository.findByUserAndDay(user, day).orElseThrow(() -> new IllegalArgumentException("공부 기록이 존재하지 않습니다."));;
+        savedUserTimeLog.setStudyTime(savedUserTimeLog.getStudyTime() + diff);
+        return userTimeLogRepository.save(savedUserTimeLog);
+    }
+
 }

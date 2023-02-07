@@ -147,4 +147,18 @@ public class UserController {
                 userService.createUserTimeLog(day, diff, email)));
     }
 
+    /**
+     * 사용자 공부 시간 기록 수정 API([PUT] /api/v1/users/log)
+     */
+    @Operation(summary = "사용자 공부 시간 기록 수정")
+    @ApiResponse(responseCode = "200", description = "사용자 공부 시간 기록 수정 성공")
+    @PutMapping("/log")
+    public ResponseEntity<? extends BaseResponse> updateUserTimeLog(@AuthenticationPrincipal String email, @RequestBody UserTimeLogReq userTimeLogReq) {
+        Long diff = (userTimeLogReq.getEndTime() - userTimeLogReq.getStartTime()) / 1000;
+        Instant startInstant = Instant.ofEpochMilli(userTimeLogReq.getStartTime());
+        LocalDate day = LocalDateTime.ofInstant(startInstant, ZoneId.systemDefault()).toLocalDate();
+        return ResponseEntity.ok(new BaseResponse<UserTimeLog>(200, "사용자 공부 시간 기록 수정 성공",
+                userService.updateUserTimeLog(day, diff, email)));
+    }
+
 }
