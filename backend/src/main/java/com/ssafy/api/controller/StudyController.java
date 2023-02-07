@@ -110,18 +110,14 @@ public class StudyController {
         return ResponseEntity.ok().body(new BaseResponseBody(200, "스터디 삭제 완료"));
     }
 
-    @GetMapping("/image/{studyId}")
-    public ResponseEntity<?> getImage(@PathVariable Long studyId) throws IOException {
-        StudyImg studyImg = studyService.getImage(studyId);
-        Resource resource = new FileSystemResource(studyImg.getFileUrl());
-        HttpHeaders header = new HttpHeaders();
-        Path filePath = Paths.get(studyImg.getFileUrl());
-        header.add("Content-Type", Files.probeContentType(filePath));
-
-        return new ResponseEntity<Resource>(resource, header, HttpStatus.OK);
-    }
-
-    /* 스터디 생성 후 이미지 업로드 */
+    /**
+     * 스터디 이미지 업로드 API([POST] /api/v1/studies/image/{studyId})
+     */
+    @Operation(summary = "스터디 이미지 업로드")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "스터디 이미지 업로드 성공"),
+            @ApiResponse(responseCode = "400", description = "올바르지 않은 파일")
+    })
     @PostMapping("/image/{studyId}")
     public ResponseEntity<?> uploadImage(@RequestParam("image") MultipartFile multipartFile, @PathVariable Long studyId) throws IOException {
         StudyImg studyImg = studyService.uploadImage(multipartFile);
@@ -134,7 +130,30 @@ public class StudyController {
         return ResponseEntity.badRequest().body(new BaseResponseBody(400, "올바른 이미지 파일이 아닙니다"));
     }
 
-    /* 스터디 이미지 수정 */
+    /**
+     * 스터디 이미지 조회 API([GET] /api/v1/studies/image/{studyId})
+     */
+    @Operation(summary = "스터디 이미지 조회")
+    @ApiResponse(responseCode = "200", description = "스터디 이미지 조회 성공")
+    @GetMapping("/image/{studyId}")
+    public ResponseEntity<?> getImage(@PathVariable Long studyId) throws IOException {
+        StudyImg studyImg = studyService.getImage(studyId);
+        Resource resource = new FileSystemResource(studyImg.getFileUrl());
+        HttpHeaders header = new HttpHeaders();
+        Path filePath = Paths.get(studyImg.getFileUrl());
+        header.add("Content-Type", Files.probeContentType(filePath));
+
+        return new ResponseEntity<Resource>(resource, header, HttpStatus.OK);
+    }
+
+    /**
+     * 스터디 이미지 수정 API([PUT] /api/v1/studies/image/{studyId})
+     */
+    @Operation(summary = "스터디 이미지 수정")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "스터디 이미지 수정 성공"),
+            @ApiResponse(responseCode = "400", description = "올바르지 않은 파일")
+    })
     @PutMapping("/image/{studyId}")
     public ResponseEntity<?> updateImage(@RequestParam("image") MultipartFile multipartFile, @PathVariable Long studyId) throws IOException {
         Study study = studyService.getStudy(studyId);
@@ -147,7 +166,11 @@ public class StudyController {
         return ResponseEntity.badRequest().body(new BaseResponseBody(400, "올바른 이미지 파일이 아닙니다"));
     }
 
-    /* 스터디 이미지 삭제(default) */
+    /**
+     * 스터디 이미지 삭제 API([DELETE] /api/v1/studies/image/{studyId})
+     */
+    @Operation(summary = "스터디 이미지 삭제")
+    @ApiResponse(responseCode = "200", description = "스터디 이미지 삭제 성공")
     @DeleteMapping("/image/{studyId}")
     public ResponseEntity<BaseResponseBody> deleteImage(@PathVariable Long studyId) {
         studyService.deleteImage(studyId);
