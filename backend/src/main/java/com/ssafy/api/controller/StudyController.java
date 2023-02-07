@@ -75,6 +75,16 @@ public class StudyController {
     }
 
     /**
+     * 기수별 스터디 조회 API([GET] /api/v1/studies/generation)
+     */
+    @Operation(summary = "스터디 조회")
+    @ApiResponse(responseCode = "200", description = "스터디 조회 성공")
+    @GetMapping("/generation")
+    public ResponseEntity<? extends BaseResponse> findByCondition(@AuthenticationPrincipal String email) {
+        return ResponseEntity.ok(new BaseResponse<List<StudyRes>>(200, "스터디 조회 성공", studyService.findByGeneration(email)));
+    }
+
+    /**
      * 스터디 수정 API([PUT] /api/v1/studies/{studyId})
      */
     @Operation(summary = "스터디 수정")

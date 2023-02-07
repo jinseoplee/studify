@@ -65,12 +65,10 @@ public class StudyServiceImpl implements StudyService {
      */
     @Override
     public List<StudyRes> findByGeneration(String email) {
-        User foundUser = userRepository.findByEmail(email)
+        User savedUser = userRepository.findByEmail(email)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다"));
 
-        int generation = foundUser.getGeneration();
-
-        return studyRepository.findByGeneration(generation).stream().map(StudyRes::new).collect(Collectors.toList());
+        return studyRepository.findByGeneration(savedUser.getGeneration()).stream().map(StudyRes::new).collect(Collectors.toList());
     }
 
     /**
