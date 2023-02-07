@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalTime;
 
 @NoArgsConstructor
 @Getter
@@ -21,14 +20,21 @@ public class UserTimeLog {
     private LocalDate day;
 
     @Column(nullable = false)
-    private LocalTime study_time;
+    private Long studyTime;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    public void setUser(User user){
+    @Builder
+    public UserTimeLog(LocalDate day, Long studyTime, User user) {
+        this.day = day;
+        this.studyTime = studyTime;
         this.user = user;
+    }
+
+    public void setStudyTime(long studyTime) {
+        this.studyTime = studyTime;
     }
 
 }

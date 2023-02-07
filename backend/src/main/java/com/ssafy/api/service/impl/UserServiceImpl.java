@@ -5,6 +5,7 @@ import com.ssafy.api.request.user.UserLoginPostReq;
 import com.ssafy.api.request.user.UserSignupPostReq;
 import com.ssafy.api.response.user.UserAuthPostRes;
 import com.ssafy.api.response.user.UserLoginPostRes;
+import com.ssafy.api.response.user.UserTimeLogRes;
 import com.ssafy.api.service.UserService;
 import com.ssafy.common.util.FileValidator;
 import com.ssafy.common.util.MailDispatcher;
@@ -12,9 +13,11 @@ import com.ssafy.config.security.JwtTokenProvider;
 import com.ssafy.db.entity.TempUser;
 import com.ssafy.db.entity.User;
 import com.ssafy.db.entity.UserImg;
+import com.ssafy.db.entity.UserTimeLog;
 import com.ssafy.db.repository.TempUserRepository;
 import com.ssafy.db.repository.UserImgRepository;
 import com.ssafy.db.repository.UserRepository;
+import com.ssafy.db.repository.UserTimeLogRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -25,6 +28,7 @@ import javax.mail.MessagingException;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDate;
 import java.util.Map;
 import java.util.UUID;
 
@@ -41,6 +45,7 @@ public class UserServiceImpl implements UserService {
     private final JwtTokenProvider jwtTokenProvider;
     private final PasswordEncoder passwordEncoder;
     private final UserImgRepository userImgRepository;
+    private final UserTimeLogRepository userTimeLogRepository;
     private final String path = "C:\\Users\\images\\";
 
     @Transactional
@@ -228,6 +233,19 @@ public class UserServiceImpl implements UserService {
         file.delete();
 
         userImgRepository.deleteById(userImg.getId());
+    }
+
+    /* 사용자 공부 시간 기록 생성 */
+    @Override
+    public UserTimeLog createUserTimeLog(LocalDate day, Long diff, String email) {
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
+        return userTimeLogRepository.save(
+                UserTimeLog.builder()
+                        .day(day)
+                        .studyTime(diff)
+                        .user(user)
+                        .build()
+        );
     }
 
 }

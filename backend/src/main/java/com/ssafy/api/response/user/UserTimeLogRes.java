@@ -6,19 +6,18 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 
 @Getter
 public class UserTimeLogRes extends BaseResponseBody {
 
     private LocalDate day;
-    private LocalTime studyTime;
+    private Long studyTime;
 
     @Builder
     public UserTimeLogRes(Integer statusCode, String message, UserTimeLog userTimeLog) {
         super(statusCode, message);
         this.day = userTimeLog.getDay();
-        this.studyTime = userTimeLog.getStudy_time();
+        this.studyTime = userTimeLog.getStudyTime();
     }
 
 }

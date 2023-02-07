@@ -1,9 +1,12 @@
 package com.ssafy.api.controller;
 
+import com.ssafy.api.request.user.UserTimeLogReq;
 import com.ssafy.api.service.UserService;
+import com.ssafy.common.model.response.BaseResponse;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.User;
 import com.ssafy.db.entity.UserImg;
+import com.ssafy.db.entity.UserTimeLog;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -23,6 +26,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Map;
 
 /**
@@ -124,6 +131,20 @@ public class UserController {
     public ResponseEntity<BaseResponseBody> deleteImage(@AuthenticationPrincipal String email) {
         userService.deleteImage(email);
         return ResponseEntity.ok().body(new BaseResponseBody(200, "프로필 이미지 삭제 성공"));
+    }
+
+    /**
+     * 사용자 공부 시간 기록 생성 API([POST] /api/v1/users/log)
+     */
+    @Operation(summary = "사용자 공부 시간 기록 생성")
+    @ApiResponse(responseCode = "200", description = "사용자 공부 시간 기록 생성 성공")
+    @PostMapping("/log")
+    public ResponseEntity<? extends BaseResponse> createUserTimeLog(@AuthenticationPrincipal String email, @RequestBody UserTimeLogReq userTimeLogReq) {
+        Long diff = (userTimeLogReq.getEndTime() - userTimeLogReq.getStartTime()) / 1000;
+        Instant startInstant = Instant.ofEpochMilli(userTimeLogReq.getStartTime());
+        LocalDate day = LocalDateTime.ofInstant(startInstant, ZoneId.systemDefault()).toLocalDate();
+        return ResponseEntity.ok(new BaseResponse<UserTimeLog>(200, "사용자 공부 시간 기록 생성 성공",
+                userService.createUserTimeLog(day, diff, email)));
     }
 
 }

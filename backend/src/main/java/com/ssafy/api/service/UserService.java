@@ -8,10 +8,12 @@ import com.ssafy.api.response.user.UserLoginPostRes;
 import com.ssafy.db.entity.TempUser;
 import com.ssafy.db.entity.User;
 import com.ssafy.db.entity.UserImg;
+import com.ssafy.db.entity.UserTimeLog;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.MessagingException;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Map;
 
 /**
@@ -92,6 +94,7 @@ public interface UserService {
 
     /**
      * 프로필 이미지 조회
+     *
      * @param email
      * @return
      */
@@ -111,5 +114,10 @@ public interface UserService {
      * 프로필 이미지 삭제
      */
     void deleteImage(String email);
+
+    /**
+     * 사용자 공부 기록 생성
+     */
+    UserTimeLog createUserTimeLog(LocalDate day, Long diff, String email);
 
 }
