@@ -19,7 +19,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * 스터디 관련 비즈니스 로직 처리를 위한 서비스 구현 정의
@@ -42,6 +44,14 @@ public class StudyServiceImpl implements StudyService {
         LOGGER.info("[createStudy] 스터디(id : {}) 생성 완료", createdStudy.getId());
 
         return new StudyRes(createdStudy);
+    }
+
+    /**
+     * 스터디 목록 조회
+     */
+    @Override
+    public List<StudyRes> findAll() {
+        return studyRepository.findAll().stream().map(StudyRes::new).collect(Collectors.toList());
     }
 
     /**

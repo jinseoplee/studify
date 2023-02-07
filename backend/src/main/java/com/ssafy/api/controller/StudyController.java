@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * 스터디 관련 API 요청 처리를 위한 컨트롤러 정의
@@ -42,6 +43,18 @@ public class StudyController {
     @PostMapping
     public ResponseEntity<? extends BaseResponse> createStudy(@RequestBody StudyCreatePostReq studyCreatePostReq) {
         return ResponseEntity.ok(new BaseResponse<StudyRes>(200, "스터티 생성 완료", studyService.createStudy(studyCreatePostReq)));
+    }
+
+    /**
+     * 스터디 목록 조회 API([GET] /api/v1/studies)
+     */
+    @Operation(summary = "스터디 목록 조회")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "스터디 목록 조회 성공")
+    })
+    @GetMapping
+    public ResponseEntity<? extends BaseResponse> findAll() {
+        return ResponseEntity.ok(new BaseResponse<List<StudyRes>>(200, "스터디 목록 조회 성공", studyService.findAll()));
     }
 
     /**

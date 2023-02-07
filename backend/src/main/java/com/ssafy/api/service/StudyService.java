@@ -8,6 +8,7 @@ import com.ssafy.db.entity.StudyImg;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * 스터디 관련 비즈니스 로직 처리를 위한 서비스 인터페이스 정의
@@ -22,6 +23,11 @@ public interface StudyService {
      * 스터디 수정
      */
     StudyRes updateStudyInfo(String email, Long studyId, StudyInfoUpdatePutReq studyInfoUpdatePutReq);
+
+    /**
+     * 스터디 목록 조회
+     */
+    List<StudyRes> findAll();
 
     /**
      * 스터디 삭제
