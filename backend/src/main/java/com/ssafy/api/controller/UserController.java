@@ -1,6 +1,5 @@
 package com.ssafy.api.controller;
 
-import com.ssafy.api.response.user.UserImgRes;
 import com.ssafy.api.service.UserService;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.User;
@@ -26,7 +25,7 @@ import java.util.Map;
 /**
  * 유저 관련 API 요청 처리를 위한 컨트롤러 정의
  */
-@CrossOrigin
+@CrossOrigin("*")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1/users")
@@ -56,24 +55,15 @@ public class UserController {
         return ResponseEntity.ok().body(new BaseResponseBody(200, "Success"));
     }
 
+    /* 프로필 이미지 조회 */
     @GetMapping("/image")
     public ResponseEntity<?> getImage(@AuthenticationPrincipal String email) throws IOException {
         UserImg userImg = userService.getImage(email);
         Resource resource = new FileSystemResource(userImg.getFileUrl());
-
-        // 로컬 서버에 저장된 이미지가 있는 경우 로직 처리
         HttpHeaders header = new HttpHeaders();
-        Path filePath = null;
-        try {
-            filePath = Paths.get(userImg.getFileUrl());
-            // 인풋으로 들어온 파일명 .png / .jpg 에 맞게 헤더 타입 설정
-            header.add("Content-Type", Files.probeContentType(filePath));
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
+        Path filePath = Paths.get(userImg.getFileUrl());
+        header.add("Content-Type", Files.probeContentType(filePath));
 
-        // 이미지 리턴 실시 [브라우저에서 get 주소 확인 가능]
         return new ResponseEntity<Resource>(resource, header, HttpStatus.OK);
     }
 
