@@ -41,17 +41,22 @@ public interface StudyService {
     Study updateStudy(Study study);
 
     /**
-     * 스터디 썸네일 이미지 업로드
+     * 스터디 이미지 조회
+     */
+    StudyImg getImage(Long studyId);
+
+    /**
+     * 스터디 이미지 업로드
      */
     StudyImg uploadImage(MultipartFile multipartFile) throws IOException;
 
     /**
-     * 스터디 썸네일 이미지 수정
+     * 스터디 이미지 수정
      */
     StudyImg updateImage(MultipartFile multipartFile, Study study) throws IOException;
 
     /**
-     * 스터디 썸네일 이미지 삭제
+     * 스터디 이미지 삭제
      */
     void deleteImage(Long studyId);
 

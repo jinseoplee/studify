@@ -14,12 +14,19 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 /**
@@ -88,6 +95,17 @@ public class StudyController {
                                                         @PathVariable Long studyId) {
         studyService.deleteStudy(email, studyId);
         return ResponseEntity.ok().body(new BaseResponseBody(200, "스터디 삭제 완료"));
+    }
+
+    @GetMapping("/image/{studyId}")
+    public ResponseEntity<?> getImage(@PathVariable Long studyId) throws IOException {
+        StudyImg studyImg = studyService.getImage(studyId);
+        Resource resource = new FileSystemResource(studyImg.getFileUrl());
+        HttpHeaders header = new HttpHeaders();
+        Path filePath = Paths.get(studyImg.getFileUrl());
+        header.add("Content-Type", Files.probeContentType(filePath));
+
+        return new ResponseEntity<Resource>(resource, header, HttpStatus.OK);
     }
 
     /* 스터디 생성 후 이미지 업로드 */

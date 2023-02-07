@@ -117,6 +117,13 @@ public class StudyServiceImpl implements StudyService {
         return studyRepository.save(study);
     }
 
+    @Override
+    public StudyImg getImage(Long studyId) {
+        Study study = studyRepository.findById(studyId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
+        StudyImg studyImg = studyImgRepository.findById(study.getStudyImg().getId()).orElseThrow(() -> new IllegalArgumentException("프로필이 존재하지 않습니다."));
+        return studyImg;
+    }
+
     /* 스터디 썸네일 이미지 업로드 */
     @Override
     public StudyImg uploadImage(MultipartFile multipartFile) throws IOException {
