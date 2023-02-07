@@ -40,6 +40,11 @@ public interface StudyService {
     List<StudyRes> findByRegion(String email);
 
     /**
+     * 유저 반에 해당하는 스터디 목록 조회
+     */
+    List<StudyRes> findByClassNum(String email);
+
+    /**
      * 스터디 조회
      */
     StudyRes findByStudyId(Long studyId);

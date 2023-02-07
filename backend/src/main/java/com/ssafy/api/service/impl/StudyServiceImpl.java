@@ -83,6 +83,17 @@ public class StudyServiceImpl implements StudyService {
     }
 
     /**
+     * 유저 반에 해당하는 스터디 목록 조회
+     */
+    @Override
+    public List<StudyRes> findByClassNum(String email) {
+        User savedUser = userRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다"));
+
+        return studyRepository.findByClassNum(savedUser.getClassNum()).stream().map(StudyRes::new).collect(Collectors.toList());
+    }
+
+    /**
      * 스터디 조회
      */
     @Override
