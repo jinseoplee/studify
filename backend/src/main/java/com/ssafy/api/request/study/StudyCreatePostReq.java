@@ -1,8 +1,8 @@
 package com.ssafy.api.request.study;
 
 import com.ssafy.db.entity.Study;
+import com.ssafy.db.entity.User;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.util.List;
 
@@ -10,7 +10,6 @@ import java.util.List;
  * 스터디 생성 API ([POST] /api/v1/studies) 요청에 필요한 리퀘스트 바디 정의
  */
 @Getter
-@Setter
 public class StudyCreatePostReq {
 
     private String title;
@@ -25,7 +24,13 @@ public class StudyCreatePostReq {
 
     private boolean isPublic;
 
-    public Study toEntity() {
+    private int generation;
+
+    private String region;
+
+    private int classNum;
+
+    public Study toEntity(User user) {
         return Study.builder()
                 .title(title)
                 .description(description)
@@ -33,6 +38,9 @@ public class StudyCreatePostReq {
                 .day(day)
                 .category(category)
                 .isPublic(isPublic)
+                .generation(user.getGeneration())
+                .region(user.getRegion())
+                .classNum(user.getClassNum())
                 .build();
     }
 

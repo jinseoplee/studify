@@ -1,6 +1,8 @@
 package com.ssafy.api.response.study;
 
 import com.ssafy.db.entity.Study;
+import com.ssafy.db.entity.User;
+import com.ssafy.db.entity.UserStudy;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 
@@ -12,7 +14,6 @@ import java.util.List;
 @Getter
 public class StudyRes {
 
-    @Schema(name = "스터디 id")
     private Long id;
 
     private String title; // 스터디 제목
@@ -21,13 +22,15 @@ public class StudyRes {
 
     private String createdBy; // 스터디 생성자
 
-    private int headcount; // 참여 인원
+    private int headcount; // 참여자 수
 
     private int capacity; // 정원
 
     private List<String> day; // 요일
 
     private List<String> category; // 카테고리
+
+    private List<User> user; // 참여 인원
 
     private boolean isPublic; // 공개 여부
 
