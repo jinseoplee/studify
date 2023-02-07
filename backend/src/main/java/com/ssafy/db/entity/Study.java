@@ -3,6 +3,7 @@ package com.ssafy.db.entity;
 import com.ssafy.api.request.study.StudyInfoUpdatePutReq;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -12,6 +13,7 @@ import java.util.List;
 /**
  * 스터디 모델 정의
  */
+@NoArgsConstructor
 @Getter
 @Setter
 @Table(name = "study")
@@ -29,7 +31,7 @@ public class Study extends BaseEntity {
     private String description; // 스터디 설명
 
     @Column(nullable = false)
-    private Integer headcount; // 참여 인원
+    private Integer headcount; // 참여자 수
 
     @Column(nullable = false)
     private Integer capacity; // 정원
@@ -45,12 +47,22 @@ public class Study extends BaseEntity {
     @Column(nullable = false)
     private boolean isPublic; // 공개 여부
 
+    @Column(nullable = false)
+    private Integer generation; // 기수
+
+    @Column(nullable = false)
+    private String region; // 지역
+
+    @Column(nullable = false)
+    private Integer classNum; // 반
+
     @OneToOne
     @JoinColumn(name = "study_img_id", referencedColumnName = "study_img_id")
     private StudyImg studyImg;
 
     @Builder
-    public Study(String title, String description, Integer capacity, List<String> day, List<String> category, boolean isPublic) {
+    public Study(String title, String description, Integer capacity, List<String> day, List<String> category,
+                 boolean isPublic, Integer generation, String region, Integer classNum) {
         this.title = title;
         this.description = description;
         this.headcount = 1;
@@ -58,6 +70,9 @@ public class Study extends BaseEntity {
         this.day = day;
         this.category = category;
         this.isPublic = isPublic;
+        this.generation = generation;
+        this.region = region;
+        this.classNum = classNum;
     }
 
     /**

@@ -8,8 +8,10 @@ import com.ssafy.common.exception.AccessDeniedException;
 import com.ssafy.common.util.FileValidator;
 import com.ssafy.db.entity.Study;
 import com.ssafy.db.entity.StudyImg;
+import com.ssafy.db.entity.User;
 import com.ssafy.db.repository.StudyImgRepository;
 import com.ssafy.db.repository.StudyRepository;
+import com.ssafy.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,6 +33,7 @@ import java.util.stream.Collectors;
 public class StudyServiceImpl implements StudyService {
 
     private final Logger LOGGER = LoggerFactory.getLogger(StudyServiceImpl.class);
+    private final UserRepository userRepository;
     private final StudyRepository studyRepository;
     private final StudyImgRepository studyImgRepository;
     private final String path = "C:\\Users\\images\\study\\";
@@ -39,8 +42,11 @@ public class StudyServiceImpl implements StudyService {
      * 스터디 생성
      */
     @Override
-    public StudyRes createStudy(StudyCreatePostReq studyCreatePostReq) {
-        Study createdStudy = studyRepository.save(studyCreatePostReq.toEntity());
+    public StudyRes createStudy(String email, StudyCreatePostReq studyCreatePostReq) {
+        User savedUser = userRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다"));
+
+        Study createdStudy = studyRepository.save(studyCreatePostReq.toEntity(savedUser));
         LOGGER.info("[createStudy] 스터디(id : {}) 생성 완료", createdStudy.getId());
 
         return new StudyRes(createdStudy);
@@ -52,6 +58,19 @@ public class StudyServiceImpl implements StudyService {
     @Override
     public List<StudyRes> findAll() {
         return studyRepository.findAll().stream().map(StudyRes::new).collect(Collectors.toList());
+    }
+
+    /**
+     * 기수별 스터디 조회
+     */
+    @Override
+    public List<StudyRes> findByGeneration(String email) {
+        User foundUser = userRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다"));
+
+        int generation = foundUser.getGeneration();
+
+        return studyRepository.findByGeneration(generation).stream().map(StudyRes::new).collect(Collectors.toList());
     }
 
     /**

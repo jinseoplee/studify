@@ -44,21 +44,18 @@ public class StudyController {
      * 스터디 생성 API([POST] /api/v1/studies)
      */
     @Operation(summary = "스터디 생성")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "스터디 생성 성공")
-    })
+    @ApiResponse(responseCode = "200", description = "스터디 생성 성공")
     @PostMapping
-    public ResponseEntity<? extends BaseResponse> createStudy(@RequestBody StudyCreatePostReq studyCreatePostReq) {
-        return ResponseEntity.ok(new BaseResponse<StudyRes>(200, "스터티 생성 완료", studyService.createStudy(studyCreatePostReq)));
+    public ResponseEntity<? extends BaseResponse> createStudy(@AuthenticationPrincipal String email,
+                                                              @RequestBody StudyCreatePostReq studyCreatePostReq) {
+        return ResponseEntity.ok(new BaseResponse<StudyRes>(200, "스터티 생성 완료", studyService.createStudy(email, studyCreatePostReq)));
     }
 
     /**
      * 스터디 목록 조회 API([GET] /api/v1/studies)
      */
     @Operation(summary = "스터디 목록 조회")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "스터디 목록 조회 성공")
-    })
+    @ApiResponse(responseCode = "200", description = "스터디 목록 조회 성공")
     @GetMapping
     public ResponseEntity<? extends BaseResponse> findAll() {
         return ResponseEntity.ok(new BaseResponse<List<StudyRes>>(200, "스터디 목록 조회 성공", studyService.findAll()));

@@ -17,7 +17,7 @@ public interface StudyService {
     /**
      * 스터디 생성
      */
-    StudyRes createStudy(StudyCreatePostReq studyCreatePostReq);
+    StudyRes createStudy(String email, StudyCreatePostReq studyCreatePostReq);
 
     /**
      * 스터디 수정
@@ -28,6 +28,11 @@ public interface StudyService {
      * 스터디 목록 조회
      */
     List<StudyRes> findAll();
+
+    /**
+     * 기수별 스터디 조회
+     */
+    List<StudyRes> findByGeneration(String email);
 
     /**
      * 스터디 조회
