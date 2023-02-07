@@ -12,7 +12,9 @@ import "../../Style/Openvidu//VideoRoomComponent.css";
 
 var localUser = new UserModel();
 const APPLICATION_SERVER_URL =
-  process.env.NODE_ENV === "production" ? "" : "http://localhost:5000/";
+  process.env.NODE_ENV === "production" ? "" : "#";
+// process.env.NODE_ENV === "production" ? "" : "http://localhost:5000";
+const OPENVIDU_SERVER_SECRET = "studify";
 
 class VideoRoomComponent extends Component {
   constructor(props) {
@@ -21,10 +23,10 @@ class VideoRoomComponent extends Component {
     this.layout = new OpenViduLayout();
     let sessionName = this.props.sessionName
       ? this.props.sessionName
-      : "Studyroom1";
+      : "Studyroom";
     let userName = this.props.user
       ? this.props.user
-      : "User" + Math.floor(Math.random() * 100);
+      : "User" + Math.floor(Math.random() * 10000);
     this.remotes = [];
     this.localUserAccessAllowed = false;
     this.state = {
@@ -105,7 +107,7 @@ class VideoRoomComponent extends Component {
         this.subscribeToStreamCreated();
         await this.connectToSession();
       }
-    );
+      );
   }
 
   async connectToSession() {
@@ -126,7 +128,7 @@ class VideoRoomComponent extends Component {
         if (this.props.error) {
           this.props.error({
             error: error.error,
-            messgae: error.message,
+            message: error.message,
             code: error.code,
             status: error.status,
           });
@@ -146,7 +148,7 @@ class VideoRoomComponent extends Component {
         if (this.props.error) {
           this.props.error({
             error: error.error,
-            messgae: error.message,
+            message: error.message,
             code: error.code,
             status: error.status,
           });
@@ -155,7 +157,7 @@ class VideoRoomComponent extends Component {
         console.log(
           "There was an error connecting to the session:",
           error.code,
-          error.message
+          error.message,
         );
       });
   }
@@ -244,8 +246,8 @@ class VideoRoomComponent extends Component {
     this.setState({
       session: undefined,
       subscribers: [],
-      mySessionId: "Studyroom1",
-      myUserName: "OpenVidu_User" + Math.floor(Math.random() * 100),
+      mySessionId: "Studyroom" + Math.floor(Math.random() * 10000),
+      myUserName: "User" + Math.floor(Math.random() * 10000),
       localUser: undefined,
     });
     if (this.props.leaveSession) {
@@ -536,6 +538,7 @@ class VideoRoomComponent extends Component {
   }
 
   render() {
+    // const mySessionId = this.state.mySessionId
     const localUser = this.state.localUser;
     var chatDisplay = { display: this.state.chatDisplay };
     var editorDisplay = { display: this.state.editorDisplay };
@@ -625,31 +628,71 @@ class VideoRoomComponent extends Component {
    * Visit https://docs.openvidu.io/en/stable/application-server to learn
    * more about the integration of OpenVidu in your application server.
    */
-  async getToken() {
-    const sessionId = await this.createSession(this.state.mySessionId);
-    return await this.createToken(sessionId);
+  getToken() {
+    return this.createSession(this.state.mySessionId).then(sessionId =>
+      this.createToken(sessionId),
+    )
   }
 
-  async createSession(sessionId) {
-    const response = await axios.post(
-      APPLICATION_SERVER_URL + "api/sessions",
-      { customSessionId: sessionId },
-      {
-        headers: { "Content-Type": "application/json" },
-      }
-    );
-    return response.data; // The sessionId
+  createSession(sessionId) {
+    return new Promise((resolve, reject) => {
+      const data = JSON.stringify({ customSessionId: sessionId })
+      axios
+        .post(`${APPLICATION_SERVER_URL}/openvidu/api/sessions`, data, {
+          headers: {
+            Authorization: `Basic ${btoa(
+              `OPENVIDUAPP:${OPENVIDU_SERVER_SECRET}`,
+            )}`,
+            'Content-Type': 'application/json',
+          },
+        })
+        .then(response => {
+          resolve(response.data.id)
+        })
+        .catch(response => {
+          const error = { ...response }
+          if (error?.response?.status === 409) {
+            resolve(sessionId)
+          } else {
+            console.warn(
+              `No connection to OpenVidu Server. This may be a certificate error at ${APPLICATION_SERVER_URL} OPENVIDU_SERVER_SECRET:${OPENVIDU_SERVER_SECRET}`,
+            )
+            if (
+              window.confirm(
+                `No connection to OpenVidu Server. This may be a certificate error at "${APPLICATION_SERVER_URL}"\n\nClick OK to navigate and accept it. ` +
+                  `If no certificate warning is shown, then check that your OpenVidu Server is up and running at "${APPLICATION_SERVER_URL}"`,
+              )
+            ) {
+              window.location.assign(
+                `${APPLICATION_SERVER_URL}/accept-certificate`,
+              )
+            }
+          }
+        })
+    })
   }
 
-  async createToken(sessionId) {
-    const response = await axios.post(
-      APPLICATION_SERVER_URL + "api/sessions/" + sessionId + "/connections",
-      {},
-      {
-        headers: { "Content-Type": "application/json" },
-      }
-    );
-    return response.data; // The token
+  createToken(sessionId) {
+    return new Promise((resolve, reject) => {
+      const data = {}
+      axios
+        .post(
+          `${APPLICATION_SERVER_URL}/openvidu/api/sessions/${sessionId}/connection`,
+          data,
+          {
+            headers: {
+              Authorization: `Basic ${btoa(
+                `OPENVIDUAPP:${OPENVIDU_SERVER_SECRET}`,
+              )}`,
+              'Content-Type': 'application/json',
+            },
+          },
+        )
+        .then(response => {
+          resolve(response.data.token)
+        })
+        .catch(error => reject(error))
+    })
   }
 }
 export default VideoRoomComponent;
