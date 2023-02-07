@@ -16,6 +16,7 @@ import StudyHistory from "./Components/MainStudy/StudyHistory";
 import StudyMember from "./Components/MainStudy/StudyMember";
 import StudyRoungeMain from "./Components/StudyRounge/StudyRoungeMain";
 import ChartTest from "./Components/UI/ChartTest";
+import ProfileMain from "./Components/Profile/ProfileMain";
 import VideoRoomComponent from "./Openvidu/components/VideoRoomComponent";
 
 const router = createBrowserRouter([
@@ -71,6 +72,7 @@ const router = createBrowserRouter([
       },
       { path: "/chart", element: <ChartTest /> },
       { path: "/videoroom", element: <VideoRoomComponent /> },
+      { path: "/userprofile", element: <ProfileMain /> },
     ],
   },
 ]);
