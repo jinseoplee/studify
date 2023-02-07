@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import RankStyle from "../../Style/Rank/Rank.module.css";
+import RankPodium from "./RankPodium";
 
 const RankAll = () => {
   const dummyrankall = [
@@ -62,15 +63,18 @@ const RankAll = () => {
   return (
     <div className={RankStyle.RankDetailContainer}>
       {/* { AllRanking } */}
-      {dummyrankall.map((data, key) => (
-        <div key={key} className={RankStyle.RankNameBox}>
-          <div>
-            <span>{key + 1}</span>
-            <span>{data.name}</span>
-            <span>{data.time}</span>
+      <RankPodium data={dummyrankall} />
+      <div className={RankStyle.RankBarContainer}>
+        {dummyrankall.map((data, key) => (
+          <div key={key} className={RankStyle.RankNameBox}>
+            <div>
+              <span>{key + 1}</span>
+              <span>{data.name}</span>
+              <span>{data.time}</span>
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 };

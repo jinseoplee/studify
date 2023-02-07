@@ -1,11 +1,11 @@
 .RankDetailContainer {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
   white-space: nowrap;
   background-color: #eae3f4;
-  padding: 5vh 0 5vh 0;
+  padding: 5vh 5vw 5vh 5vw;
 }
 
 .RankNameBox{
@@ -34,4 +34,34 @@
 .RankSwitchBarLink {
   color: inherit;
   text-decoration: inherit;
+}
+
+.RankPodiumContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap-reverse;
+}
+
+.RankFirst {
+  background-color: #3ea6b7;
+  height: 220px;
+  width: 120px;
+}
+
+.RankSecond {
+  background-color: #73bdc9;
+  height: 170px;
+  width: 120px;
+}
+
+.RankThird {
+  background-color: #8ec9d3;
+  height: 120px;
+  width: 120px;
+
+}
+.RankPodiumDetailContainer {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
 }
