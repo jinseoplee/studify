@@ -11,8 +11,13 @@ import java.util.List;
 public interface StudyRepository extends JpaRepository<Study, Long> {
 
     /**
-     * 기수를 입력받아 스터디 조회
+     * 유저 기수에 해당하는 스터디 목록 조회
      */
     List<Study> findByGeneration(Integer generation);
+
+    /**
+     * 유저 지역에 해당하는 스터디 목록 조회
+     */
+    List<Study> findByRegion(String region);
 
 }

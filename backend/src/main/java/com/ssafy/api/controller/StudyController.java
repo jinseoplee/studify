@@ -75,13 +75,23 @@ public class StudyController {
     }
 
     /**
-     * 기수별 스터디 조회 API([GET] /api/v1/studies/generation)
+     * 유저 기수에 해당하는 스터디 조회 API([GET] /api/v1/studies/generation)
      */
-    @Operation(summary = "스터디 조회")
+    @Operation(summary = "유저 기수에 해당하는 스터디 조회")
     @ApiResponse(responseCode = "200", description = "스터디 조회 성공")
     @GetMapping("/generation")
-    public ResponseEntity<? extends BaseResponse> findByCondition(@AuthenticationPrincipal String email) {
+    public ResponseEntity<? extends BaseResponse> findByGeneration(@AuthenticationPrincipal String email) {
         return ResponseEntity.ok(new BaseResponse<List<StudyRes>>(200, "스터디 조회 성공", studyService.findByGeneration(email)));
+    }
+
+    /**
+     * 유저 지역에 해당하는 스터디 조회 API([GET] /api/v1/studies/region)
+     */
+    @Operation(summary = "유저 지역에 해당하는 스터디 조회")
+    @ApiResponse(responseCode = "200", description = "스터디 조회 성공")
+    @GetMapping("/region")
+    public ResponseEntity<? extends BaseResponse> findByRegion(@AuthenticationPrincipal String email) {
+        return ResponseEntity.ok(new BaseResponse<List<StudyRes>>(200, "스터디 조회 성공", studyService.findByRegion(email)));
     }
 
     /**

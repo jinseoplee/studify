@@ -30,9 +30,14 @@ public interface StudyService {
     List<StudyRes> findAll();
 
     /**
-     * 기수별 스터디 조회
+     * 유저 기수에 해당하는 스터디 목록 조회
      */
     List<StudyRes> findByGeneration(String email);
+
+    /**
+     * 유저 지역에 해당하는 스터디 목록 조회
+     */
+    List<StudyRes> findByRegion(String email);
 
     /**
      * 스터디 조회

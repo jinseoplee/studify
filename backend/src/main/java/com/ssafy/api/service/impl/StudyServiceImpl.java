@@ -61,7 +61,7 @@ public class StudyServiceImpl implements StudyService {
     }
 
     /**
-     * 기수별 스터디 조회
+     * 유저 기수에 해당하는 스터디 목록 조회
      */
     @Override
     public List<StudyRes> findByGeneration(String email) {
@@ -69,6 +69,17 @@ public class StudyServiceImpl implements StudyService {
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다"));
 
         return studyRepository.findByGeneration(savedUser.getGeneration()).stream().map(StudyRes::new).collect(Collectors.toList());
+    }
+
+    /**
+     * 유저 지역에 해당하는 스터디 목록 조회
+     */
+    @Override
+    public List<StudyRes> findByRegion(String email) {
+        User savedUser = userRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다"));
+
+        return studyRepository.findByRegion(savedUser.getRegion()).stream().map(StudyRes::new).collect(Collectors.toList());
     }
 
     /**
