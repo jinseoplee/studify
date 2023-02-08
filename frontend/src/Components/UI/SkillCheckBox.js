@@ -22,7 +22,7 @@ const SkillCheckBox = () => {
   dispatch(selectdayActions.changeskill(checkSkill));
   return (
     <div className={CheckStyle.StudyMakeFlex}>
-      {data?.map((data, key) => (
+      {data.map((data, key) => (
         <div key={key} className={CheckStyle.StudyMakeFlex}>
           <input
             type="checkbox"

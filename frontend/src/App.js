@@ -14,10 +14,9 @@ import StudyInfo from "./Components/MainStudy/StudyInfo";
 import StudyRule from "./Components/MainStudy/StudyRule";
 import StudyHistory from "./Components/MainStudy/StudyHistory";
 import StudyMember from "./Components/MainStudy/StudyMember";
-import StudyRoungeMain from "./Components/StudyRounge/StudyRoungeMain";
+import StudyRoungeMain from "./pages/StudyRounge/StudyRounge";
 import ChartTest from "./Components/UI/ChartTest";
 import VideoRoomComponent from "./Openvidu/components/VideoRoomComponent";
-import OpenStudy from "./pages/OpenStudy/OpenStudy";
 
 const router = createBrowserRouter([
   {
@@ -72,12 +71,6 @@ const router = createBrowserRouter([
       },
       { path: "/chart", element: <ChartTest /> },
       { path: "/videoroom", element: <VideoRoomComponent /> },
-      {
-        path: "/openstudy",
-        element: <OpenStudy />,
-        errorElement: <p>이 오픈스터디는 존재하지않습니다.</p>,
-        children: [],
-      },
     ],
   },
 ]);
