@@ -16,6 +16,9 @@ const SignupForm = () => {
   const [Password, setPassword] = useState("");
   const [PasswordCheck, setPasswordCheck] = useState("");
   const [Name, setName] = useState("");
+  const [region, setRegion] = useState("");
+  const [generation, setGeneration] = useState("");
+  const [clssNum, setClassnum] = useState("");
 
   //오류 메시지 상태저장
   const [emailMessage, setEmailMessage] = useState("");
@@ -25,9 +28,19 @@ const SignupForm = () => {
   //유효성 검사
   const [isEmail, setIsEmail] = useState(false);
   const [openModal, setOpenModal] = useState(false);
-  // const [checkJson, setCheckJson] = useState(false);
   const [isPassword, setIsPassword] = useState(false);
   const [isPasswordCheck, setIsPasswordCheck] = useState(false);
+
+  const geneChange = (e) => {
+    setGeneration(e.target.value);
+  };
+  const regionChange = (e) => {
+    setRegion(e.target.value);
+  };
+
+  const changeClassHandler = (e) => {
+    setClassnum(e.target.value);
+  };
 
   const onNameHandler = (event) => {
     setName(event.currentTarget.value);
@@ -45,6 +58,9 @@ const SignupForm = () => {
         name: Name,
         nickname: "test",
         domain: `${window.location.host}`,
+        region: region,
+        generation: generation,
+        clssNum: clssNum,
       });
       setOpenModal(true);
       console.log(response);
@@ -100,7 +116,7 @@ const SignupForm = () => {
       <form onSubmit={OnSubmitHandler} className="signupform-div">
         <img alt="logo" src={logo} className="signup-logo"></img>
         <div className="signup-input-div">
-          <label className="signupform-label">Email </label>
+          <label className="signupform-label">이메일 </label>
           <div>
             <input
               type="email"
@@ -117,7 +133,7 @@ const SignupForm = () => {
             </p>
           </div>
 
-          <label className="signupform-label">Password</label>
+          <label className="signupform-label">비밀번호</label>
           <div>
             <input
               type="password"
@@ -133,7 +149,7 @@ const SignupForm = () => {
               )}
             </p>
           </div>
-          <label className="signupform-label">Password Check</label>
+          <label className="signupform-label">비밀번호 확인</label>
           <div>
             <input
               type="password"
@@ -151,7 +167,7 @@ const SignupForm = () => {
               )}
             </p>
           </div>
-          <label className="signupform-label">Name </label>
+          <label className="signupform-label">이름</label>
           <div>
             <input
               type="name"
@@ -160,7 +176,52 @@ const SignupForm = () => {
               className="signup-input"
             ></input>
           </div>
-
+          <div>
+            <label className="signupform-label">지역</label>
+            <select onChange={regionChange} className="ClassSelectbox">
+              <option value="">-- 선택하세요 --</option>
+              <option key="3" value="서울">
+                서울
+              </option>
+              <option key="4" value="대전">
+                대전
+              </option>
+              <option key="5" value="구미">
+                구미
+              </option>
+              <option key="6" value="부울경">
+                부울경
+              </option>
+              <option key="7" value="광주">
+                광주
+              </option>
+            </select>
+          </div>
+          <div>
+            <label className="signupform-label">기수</label>
+            <select onChange={geneChange} className="ClassSelectbox">
+              <option value="">-- 선택하세요 --</option>
+              <option key="8기" value="8">
+                8기
+              </option>
+              <option key="9기" value="9">
+                9기
+              </option>
+              <option key="10기" value="10">
+                10기 (예정)
+              </option>
+            </select>
+          </div>
+          <div className="signup-input-div">
+            <label className="signupform-label">반</label>
+            <div>
+              <input
+                type="number"
+                className="signup-input"
+                onChange={changeClassHandler}
+              ></input>
+            </div>
+          </div>
           <br></br>
           <button
             type="submit"
