@@ -1,11 +1,11 @@
 package com.ssafy.api.service.impl;
 
 import com.ssafy.api.request.user.UserAuthPostReq;
+import com.ssafy.api.request.user.UserDetailPutReq;
 import com.ssafy.api.request.user.UserLoginPostReq;
 import com.ssafy.api.request.user.UserSignupPostReq;
 import com.ssafy.api.response.user.UserAuthPostRes;
 import com.ssafy.api.response.user.UserLoginPostRes;
-import com.ssafy.api.response.user.UserTimeLogRes;
 import com.ssafy.api.service.UserService;
 import com.ssafy.common.util.FileValidator;
 import com.ssafy.common.util.MailDispatcher;
@@ -146,6 +146,16 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
+    /* 사용자 정보 수정 */
+    @Override
+    public User updateUserDetail(UserDetailPutReq userDetailPutReq, String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
+        user.setName(userDetailPutReq.getName());
+        user.setClassNum(userDetailPutReq.getClassNum());
+        return userRepository.save(user);
+    }
+
 
     @Override
     public void deleteUser(String email) {
@@ -163,11 +173,13 @@ public class UserServiceImpl implements UserService {
         tempUserRepository.deleteById(email);
     }
 
+    /* 프로필 이미지 관련하여 사용 - 수정할 예정 */
     @Override
     public User updateUser(User user) {
         return userRepository.save(user);
     }
 
+    /* 이미지 파일 검증 */
     @Override
     public boolean validImgFile(MultipartFile multipartFile) {
         try (InputStream inputStream = multipartFile.getInputStream()) {
@@ -183,6 +195,7 @@ public class UserServiceImpl implements UserService {
         return true;
     }
 
+    /* 프로필 이미지 조회 */
     @Override
     public UserImg getImage(String email) {
         User user = userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
@@ -252,7 +265,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserTimeLog updateUserTimeLog(LocalDate day, Long diff, String email) {
         User user = userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
-        UserTimeLog savedUserTimeLog = userTimeLogRepository.findByUserAndDay(user, day).orElseThrow(() -> new IllegalArgumentException("공부 기록이 존재하지 않습니다."));;
+        UserTimeLog savedUserTimeLog = userTimeLogRepository.findByUserAndDay(user, day).orElseThrow(() -> new IllegalArgumentException("공부 기록이 존재하지 않습니다."));
         savedUserTimeLog.setStudyTime(savedUserTimeLog.getStudyTime() + diff);
         return userTimeLogRepository.save(savedUserTimeLog);
     }

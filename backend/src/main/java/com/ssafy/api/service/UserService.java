@@ -1,6 +1,7 @@
 package com.ssafy.api.service;
 
 import com.ssafy.api.request.user.UserAuthPostReq;
+import com.ssafy.api.request.user.UserDetailPutReq;
 import com.ssafy.api.request.user.UserLoginPostReq;
 import com.ssafy.api.request.user.UserSignupPostReq;
 import com.ssafy.api.response.user.UserAuthPostRes;
@@ -38,7 +39,7 @@ public interface UserService {
     UserLoginPostRes signIn(UserLoginPostReq userLoginPostReq);
 
     /**
-     * 유저 조회
+     * 사용자 조회
      *
      * @param email
      * @return
@@ -70,7 +71,7 @@ public interface UserService {
     TempUser certificateTempUser(UserSignupPostReq authReq);
 
     /**
-     * 회원 비밀번호 변경
+     * 사용자 비밀번호 변경
      *
      * @param userInfo
      * @return
@@ -78,7 +79,15 @@ public interface UserService {
     User updateUserPassword(Map<String, String> userInfo);
 
     /**
-     * 회원정보 삭제
+     * 사용자 정보 수정
+     * @param userDetailPutReq
+     * @param email
+     * @return
+     */
+    User updateUserDetail(UserDetailPutReq userDetailPutReq, String email);
+
+    /**
+     * 사용자 정보 삭제
      *
      * @param email
      */
