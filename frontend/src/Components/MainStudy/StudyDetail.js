@@ -14,14 +14,27 @@ const StudyDetail = () => {
     backgroundImage: `url(${dummyimg})`,
   };
   //   const navigate = useNavigate();
+  let url = "http://localhost:3000/videoroom";
+  const joinSession = () => {
+    //이것을 이용해서 오픈비두 창으로 보내주면 될것같은데?
+    window.open(url, "_blank", "noopener noreferrer");
+  };
   return (
     <>
       <div className={StudyStyle.StudyDetailContainer}>
+<<<<<<< HEAD
         <div style={imgstyle}>
           <div className={StudyStyle.StudyDetailback}>
             <p className={StudyStyle.StudyDetailName}>{studyname}</p>
             <button className={StudyStyle.StudyBtn}>참여하기</button>
           </div>
+=======
+        <div className={StudyStyle.StudyDetailback}>
+          <p className={StudyStyle.StudyDetailName}>{studyname}</p>
+          <button className={StudyStyle.StudyBtn} onClick={joinSession}>
+            참여하기
+          </button>
+>>>>>>> feature/front/study-rounge
         </div>
         <div className={StudyStyle.studySwitchbarContainer}>
           <StudySwitchbar id={studyId} />

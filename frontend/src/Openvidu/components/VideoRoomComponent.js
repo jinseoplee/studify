@@ -11,8 +11,7 @@ import PenComponent from "./pen/PenComponent";
 import "../../Style/Openvidu//VideoRoomComponent.css";
 
 var localUser = new UserModel();
-const APPLICATION_SERVER_URL =
-  process.env.NODE_ENV === "production" ? "" : "#";
+const APPLICATION_SERVER_URL = process.env.NODE_ENV === "production" ? "" : "#";
 // process.env.NODE_ENV === "production" ? "" : "http://localhost:5000";
 const OPENVIDU_SERVER_SECRET = "studify";
 
@@ -253,6 +252,7 @@ class VideoRoomComponent extends Component {
     if (this.props.leaveSession) {
       this.props.leaveSession();
     }
+    window.close();
   }
   camStatusChanged() {
     localUser.setVideoActive(!localUser.isVideoActive());
@@ -629,52 +629,52 @@ class VideoRoomComponent extends Component {
    * more about the integration of OpenVidu in your application server.
    */
   getToken() {
-    return this.createSession(this.state.mySessionId).then(sessionId =>
-      this.createToken(sessionId),
-    )
+    return this.createSession(this.state.mySessionId).then((sessionId) =>
+      this.createToken(sessionId)
+    );
   }
 
   createSession(sessionId) {
     return new Promise((resolve, reject) => {
-      const data = JSON.stringify({ customSessionId: sessionId })
+      const data = JSON.stringify({ customSessionId: sessionId });
       axios
         .post(`${APPLICATION_SERVER_URL}/openvidu/api/sessions`, data, {
           headers: {
             Authorization: `Basic ${btoa(
-              `OPENVIDUAPP:${OPENVIDU_SERVER_SECRET}`,
+              `OPENVIDUAPP:${OPENVIDU_SERVER_SECRET}`
             )}`,
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
         })
-        .then(response => {
-          resolve(response.data.id)
+        .then((response) => {
+          resolve(response.data.id);
         })
-        .catch(response => {
-          const error = { ...response }
+        .catch((response) => {
+          const error = { ...response };
           if (error?.response?.status === 409) {
-            resolve(sessionId)
+            resolve(sessionId);
           } else {
             console.warn(
-              `No connection to OpenVidu Server. This may be a certificate error at ${APPLICATION_SERVER_URL} OPENVIDU_SERVER_SECRET:${OPENVIDU_SERVER_SECRET}`,
-            )
+              `No connection to OpenVidu Server. This may be a certificate error at ${APPLICATION_SERVER_URL} OPENVIDU_SERVER_SECRET:${OPENVIDU_SERVER_SECRET}`
+            );
             if (
               window.confirm(
                 `No connection to OpenVidu Server. This may be a certificate error at "${APPLICATION_SERVER_URL}"\n\nClick OK to navigate and accept it. ` +
-                  `If no certificate warning is shown, then check that your OpenVidu Server is up and running at "${APPLICATION_SERVER_URL}"`,
+                  `If no certificate warning is shown, then check that your OpenVidu Server is up and running at "${APPLICATION_SERVER_URL}"`
               )
             ) {
               window.location.assign(
-                `${APPLICATION_SERVER_URL}/accept-certificate`,
-              )
+                `${APPLICATION_SERVER_URL}/accept-certificate`
+              );
             }
           }
-        })
-    })
+        });
+    });
   }
 
   createToken(sessionId) {
     return new Promise((resolve, reject) => {
-      const data = {}
+      const data = {};
       axios
         .post(
           `${APPLICATION_SERVER_URL}/openvidu/api/sessions/${sessionId}/connection`,
@@ -682,17 +682,17 @@ class VideoRoomComponent extends Component {
           {
             headers: {
               Authorization: `Basic ${btoa(
-                `OPENVIDUAPP:${OPENVIDU_SERVER_SECRET}`,
+                `OPENVIDUAPP:${OPENVIDU_SERVER_SECRET}`
               )}`,
-              'Content-Type': 'application/json',
+              "Content-Type": "application/json",
             },
-          },
+          }
         )
-        .then(response => {
-          resolve(response.data.token)
+        .then((response) => {
+          resolve(response.data.token);
         })
-        .catch(error => reject(error))
-    })
+        .catch((error) => reject(error));
+    });
   }
 }
 export default VideoRoomComponent;

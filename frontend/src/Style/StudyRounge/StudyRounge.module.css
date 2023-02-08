@@ -27,11 +27,11 @@
 
 .RoungeFilterContainer {
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   align-items: center;
   justify-content: center;
   width: 100%;
-  margin-top: 50px;
+  /* margin-top: 50px; */
 }
 
 .RoungeListContainer {
@@ -43,20 +43,51 @@
   margin-top: 50px;
 }
 
-.RoungeFilterBtn {
-  width: 160px;
+.RoungeFilterFBtn {
+  width: 144px;
   height: 64px;
   border: 1px solid #8a6bcd;
   border-radius: 20px;
   background-color: white;
   font-size: 20px;
-  margin-left: 20px;
-  margin-right: 20px;
+  margin: 20px;
+}
+
+.RoungeFilterTBtn {
+  width: 144px;
+  height: 64px;
+  border: 3px solid #8a6bcd;
+  border-radius: 20px;
+  background-color: white;
+  font-size: 20px;
+  margin: 20px;
+}
+
+.RoungeFilterTBtn > img {
+  margin-top: 2px;
+  width: 50px;
+  height: 50px;
+}
+
+.RoungeFilterFBtn > img {
+  margin-top: 2px;
+  width: 50px;
+  height: 50px;
 }
 
 .Banner1Title {
   color: white;
   font-size: 40px;
+}
+
+.RoungeCheckBox {
+  position: relative;
+  height: 20px;
+  width: 20px;
+  margin-left: 0.5rem;
+  margin-right: 3rem;
+  /* margin-top: 1rem; */
+  top: 0.3rem;
 }
 
 .RoungeFilterBox {

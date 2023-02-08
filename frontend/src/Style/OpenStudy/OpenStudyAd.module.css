@@ -1,0 +1,37 @@
+body {
+  /* background: #eee; */
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  color: #000;
+  margin: 0;
+  padding: 0;
+}
+
+.adSize {
+  width: 100%;
+}
+
+.mySwiper {
+  width: 80%;
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 80%;
+  height: auto;
+  object-fit: cover;
+  overflow: hidden;
+}

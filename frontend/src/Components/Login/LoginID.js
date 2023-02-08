@@ -1,17 +1,25 @@
 //아이디를 확인해주는 컴포넌트입니다.
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
+import { loginActions } from "../../store/LoginStore";
 import axios from "axios";
 import swal from "sweetalert";
 import { Link } from "react-router-dom";
 import LoginCard from "./LoginCard";
+import ModalLogin from "../UI/ModalLogin";
 import LoginStyle from "../../Style/Login/Login.module.css";
 
 const LoginID = () => {
   const [email, setEmail] = useState("");
   //쿠키 이름이 useremail입니다.
+  const dispatch = useDispatch();
+
+  const [password, setPassword] = useState("");
+  //처음에 모달창을 꺼놓기 위해 초기값을 false로 줍니다.
+  const [modalOpen, setModalOpen] = useState(false);
 
   //아이디 저장 체크박스 유무를 알려줍니다.
   const [isRemember, setIsRemember] = useState(false);
@@ -28,14 +36,21 @@ const LoginID = () => {
     }
   }, [cookies.useremail]);
 
-  const handleChange = (event) => {
+  const handleChangeId = (event) => {
     setEmail(event.target.value);
+  };
+
+  const handleChangePw = (event) => {
+    setPassword(event.target.value);
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.get(`/api/v1/users/${email}`);
+      const response = await axios.post(`/api/v1/users/auth/signin`, {
+        email: email,
+        password: password,
+      });
       //axios post요청으로 보내야합니다.
       console.log(response);
       if (isRemember) {
@@ -44,33 +59,63 @@ const LoginID = () => {
         removeCookie("useremail");
       }
       localStorage.setItem("email", email);
+      dispatch(loginActions.saveToken(response.data.token));
       //이메일을 로컬 스토리지에 저장..
-      navigate("/user/login/pw");
+      navigate("/dashboard");
     } catch (err) {
       console.log(err);
       swal("아이디가 잘못 입력 되었습니다. 다시입력해주세요");
     }
   };
 
+  //모달창을 열어주는 함수입니다.
+  const showModal = () => {
+    setModalOpen(true);
+  };
+
+  //모달창을 닫아주는 함수입니다.
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
   //체크박스가 바뀌는 것을 확인해줍니다.
   const togglecheck = (event) => {
     setIsRemember(event.target.checked); //체크박스를 이벤트 부분으로 확인.
   };
+  const findPw = () => {
+    showModal();
+  };
+
+  const notFindPw = () => {
+    closeModal();
+  };
   return (
     <LoginCard>
       <form onSubmit={handleSubmit} className={LoginStyle.loginForm}>
-        <h2 className={LoginStyle.loginText}>로그인(이메일)</h2>
+        <h2 className={LoginStyle.loginText}>로그인</h2>
         <div className={LoginStyle.loginEmailform}>
           <input
             type="text"
             id="email"
             value={email}
             name="email"
-            onChange={handleChange}
+            onChange={handleChangeId}
             className={LoginStyle.loginTextform}
             placeholder="test@test.com"
           />
         </div>
+        <label className={LoginStyle.loginEmailform}>
+          <input
+            type="password"
+            name="email"
+            value={password}
+            onChange={handleChangePw}
+            className={LoginStyle.loginTextform}
+            placeholder="비밀번호를 입력해주세요"
+          />
+        </label>
+        <br />
+        <br />
         <fieldset>
           <input
             type="checkbox"
@@ -86,6 +131,8 @@ const LoginID = () => {
           <Link to="/user/signup" className={LoginStyle.loginText_link}>
             회원가입
           </Link>
+          <div onClick={findPw}>비밀번호를 잊어버리셨나요?</div>
+          {modalOpen && <ModalLogin setModal={notFindPw}></ModalLogin>}
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <button type="submit" className={LoginStyle.loginBtnform}>
             {">>>"}
