@@ -1,11 +1,22 @@
 import React from "react";
+import OpenStudyAd from "../StudyRounge/StudyRoungeAd";
+import openstudyStyle from "../../Style/OpenStudy/OpenStudy.module.css";
 
-const OpenStudy = (props) => {
+const Openstudy = () => {
   return (
-    <div>
-      <div>오픈스터디 공간입니다.</div>
-    </div>
+    <>
+      <OpenStudyAd />
+      <div className={openstudyStyle.filterButton}>
+        <button>Python</button>
+        <button>Java</button>
+        <button>JavaScript</button>
+        <button>C++</button>
+        <button>Vue</button>
+        <button>React</button>
+        <button>etc</button>
+      </div>
+    </>
   );
 };
 
-export default OpenStudy;
+export default Openstudy;

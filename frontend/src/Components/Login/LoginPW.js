@@ -64,8 +64,6 @@ const LoginPW = () => {
   //back에서는 for문으로 찾아주는건가?..
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(password);
-    console.log(localStorage.getItem("email"));
     try {
       const response = await axios.post(`/api/v1/users/auth/signin`, {
         email: localStorage.getItem("email"),

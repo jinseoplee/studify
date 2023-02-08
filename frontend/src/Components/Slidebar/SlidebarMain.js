@@ -18,12 +18,12 @@ const SlidebarMain = ({ width = 400, children }) => {
       setOpen(false);
     }
   };
-  const handleClose = async (event) => {
+  const handleClose = (event) => {
     let sideArea = side.current;
     let sideChildren = side.current.contains(event.target);
     if (isOpen && (!sideArea || !sideChildren)) {
-      await setX(width);
-      await setOpen(false);
+      setX(width);
+      setOpen(false);
     }
   };
 
