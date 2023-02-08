@@ -14,8 +14,9 @@ const StudyRoungeMain = () => {
       <h1>스터디 라운지</h1>
 
       <RoungeBanner />
-
-      <StudyRounge />
+      <div>
+        <StudyRounge />
+      </div>
 
       <RoungeList />
     </div>

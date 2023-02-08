@@ -1,0 +1,71 @@
+.RankDetailContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  white-space: nowrap;
+  background-color: #eae3f4;
+  padding: 5vh 5vw 5vh 5vw;
+}
+
+.RankNameBox{
+  display: flex;
+  align-items: center;
+  color: white;
+  font-size: 20px;
+  background-color: #8a6bcd;
+  width: 600px;
+  height: 50px;
+  padding: 0 0 0 30px; 
+  margin: 10px 0 10px 0;
+}
+
+.RankMainContainer {
+  margin: 10vh 5vw 10vh 5vw;
+}
+
+.RankSwitchBarContainer {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 20px;
+  margin: 0 20px 10px 0;
+}
+
+.RankSwitchBarLink {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+.RankPodiumContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap-reverse;
+  justify-content: center;
+  background-color: #8a6bcd;
+  width: 500px;
+  height: 410px;
+}
+
+.RankFirst {
+  background-color: #3ea6b7;
+  height: 220px;
+  width: 120px;
+}
+
+.RankSecond {
+  background-color: #73bdc9;
+  height: 170px;
+  width: 120px;
+}
+
+.RankThird {
+  background-color: #8ec9d3;
+  height: 120px;
+  width: 120px;
+
+}
+.RankPodiumDetail {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+}
