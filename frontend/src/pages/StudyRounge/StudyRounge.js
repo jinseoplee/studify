@@ -21,7 +21,6 @@ const StudyRoungeMain = () => {
       <OpenStudyAd />
       <hr />
       <StudyRounge />
-      <RoungeList />
       <Footer />
     </>
   );

@@ -11,7 +11,7 @@ import PenComponent from "./pen/PenComponent";
 import "../../Style/Openvidu//VideoRoomComponent.css";
 
 var localUser = new UserModel();
-const APPLICATION_SERVER_URL = process.env.NODE_ENV === "production" ? "" : "#";
+const APPLICATION_SERVER_URL = process.env.NODE_ENV === "production" ? "" : "http://localhost:5000";
 // process.env.NODE_ENV === "production" ? "" : "http://localhost:5000";
 const OPENVIDU_SERVER_SECRET = "studify";
 
@@ -252,6 +252,7 @@ class VideoRoomComponent extends Component {
     if (this.props.leaveSession) {
       this.props.leaveSession();
     }
+    window.close();
   }
   camStatusChanged() {
     localUser.setVideoActive(!localUser.isVideoActive());
