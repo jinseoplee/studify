@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import ProfileStyle from "../../Style/Profile/Profile.module.css";
 import badgesample from "../../assets/image/badge_first.png";
 
@@ -12,7 +14,12 @@ const ProfileBody = () => {
         />
       </div>
       <div className={ProfileStyle.profileBadge}>
-        <p>뱃지 목록</p>
+        <div className={ProfileStyle.profilebadgeside}>
+          <p>뱃지 목록</p>
+          <Link to="/badge" className={ProfileStyle.profilelink}>
+            <p>+</p>
+          </Link>
+        </div>
         <div className={ProfileStyle.badgeBox}>
           <img
             src={badgesample}
