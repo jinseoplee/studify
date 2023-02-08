@@ -14,6 +14,7 @@ body {
 .mySwiper {
   width: 80%;
   overflow: hidden;
+  margin-bottom: 2rem;
 }
 
 .swiper-slide {

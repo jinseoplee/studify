@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const studyRoungeList = { skillList: [], studySelect: [] };
 
 const studyRoungeSlice = createSlice({
-  name: "selectstudy",
+  name: "selectStudy",
   initialState: studyRoungeList,
   reducers: {
     changeskillList(state, action) {
