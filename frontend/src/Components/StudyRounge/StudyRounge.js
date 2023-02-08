@@ -1,22 +1,3 @@
-<<<<<<< HEAD
-import { useState } from "react";
-// import ToggleButton from "../UI/ToggleButton";
-import RoungeStyle from "../../Style/StudyRounge/StudyRounge.module.css";
-import SkillCheckBox from "../UI/SkillCheckBox";
-
-const StudyRounge = () => {
-  const selectSkill = [
-    { id: "python", title: "Python" },
-    { id: "java", title: "Java" },
-    { id: "jacascript", title: "Javascript" },
-    { id: "cpp", title: "C++" },
-    { id: "vue", title: "Vue" },
-    { id: "react", title: "React" },
-  ];
-  return (
-    <div>
-      <SkillCheckBox props={selectSkill} />
-=======
 import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -160,7 +141,6 @@ const StudyRounge = () => {
       <button onClick={filterStudy}>검색</button>
       </div>
       <RoungeList checkFilter={checkFilter} />
->>>>>>> feature/front/study-rounge
     </div>
   );
 };
