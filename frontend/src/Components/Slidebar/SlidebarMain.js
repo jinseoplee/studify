@@ -20,10 +20,12 @@ const SlidebarMain = ({ width = 400, children }) => {
   };
   const handleClose = (event) => {
     let sideArea = side.current;
-    let sideChildren = side.current.contains(event.target);
-    if (isOpen && (!sideArea || !sideChildren)) {
-      setX(width);
-      setOpen(false);
+    if (sideArea !== null) {
+      let sideChildren = side.current.contains(event.target);
+      if (isOpen && (!sideArea || !sideChildren)) {
+        setX(width);
+        setOpen(false);
+      }
     }
   };
 
