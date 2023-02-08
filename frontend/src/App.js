@@ -16,6 +16,7 @@ import StudyHistory from "./Components/MainStudy/StudyHistory";
 import StudyMember from "./Components/MainStudy/StudyMember";
 import StudyRoungeMain from "./Components/StudyRounge/StudyRoungeMain";
 import ChartTest from "./Components/UI/ChartTest";
+import ProfileMain from "./Components/Profile/ProfileMain";
 import VideoRoomComponent from "./Openvidu/components/VideoRoomComponent";
 import Ranking from "./pages/Rank/Ranking";
 import RankAll from "./Components/Rank/RankAll"
@@ -82,6 +83,7 @@ const router = createBrowserRouter([
           { path: "study", element: <RankStudy /> },
         ],
       },
+      { path: "/userprofile", element: <ProfileMain /> },
     ],
   },
 ]);
