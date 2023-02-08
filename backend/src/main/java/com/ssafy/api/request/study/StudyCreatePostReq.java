@@ -16,7 +16,7 @@ public class StudyCreatePostReq {
 
     private String description;
 
-    private int capacity;
+    private Integer capacity;
 
     private List<String> day;
 
@@ -24,11 +24,11 @@ public class StudyCreatePostReq {
 
     private boolean isPublic;
 
-    private int generation;
+    private Integer generation;
 
     private String region;
 
-    private int classNum;
+    private Integer classNum;
 
     public Study toEntity(User user) {
         return Study.builder()

@@ -20,9 +20,9 @@ public class StudyRes {
 
     private String createdBy; // 스터디 생성자
 
-    private int headcount; // 참여자 수
+    private Integer headcount; // 참여자 수
 
-    private int capacity; // 정원
+    private Integer capacity; // 정원
 
     private List<String> day; // 요일
 
