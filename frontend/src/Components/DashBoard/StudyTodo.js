@@ -14,8 +14,8 @@ const StudyTodo = ({ open, onClose }) => {
 
   const dayyy = ["월", "화"];
   const dayjson = JSON.stringify(days);
-  console.log(days);
-  console.log(dayjson);
+  // console.log(days);
+  // console.log(dayjson);
   if (!open) return null;
   return (
     <ModalContainer>

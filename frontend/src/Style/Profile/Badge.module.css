@@ -1,0 +1,11 @@
+.BadgeContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.BadgeHr {
+  width: 95vw;
+  border: solid 1px #8a6bcd;
+}

@@ -20,7 +20,7 @@ const StudyRecordDetail = ({ open, onClose }) => {
               indexBy="day"
               layout="horizontal"
               margin={{ top: 50, right: 60, bottom: 50, left: 80 }}
-              padding={0.8}
+              padding={0.5}
               valueScale={{ type: "linear" }}
               colors="#CABBE7"
               animate={true}

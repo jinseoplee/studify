@@ -1,3 +1,9 @@
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+
+import { Link } from "react-router-dom";
+import axios from "axios";
+
 import Dashboardstyle from "../../Style/Dashboard/Dashboard.module.css";
 const userdummy = {
   userName: "김싸피",
@@ -7,12 +13,53 @@ const userdummy = {
 };
 
 const DashboardProfile = () => {
+  const [userName, setUserName] = useState("");
+  const userToken = useSelector((state) => state.token.accesstoken);
+  useEffect(() => {
+    axios
+      .get("http://192.168.31.27:8080/api/v1/users", {
+        headers: {
+          "X-Auth-Token":
+            "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoYXNzYWZ5QHNzYWZ5LmNvbSIsImlhdCI6MTY3NTc1Njc2NywiZXhwIjoxNjc1NzYwMzY3fQ.-55KyMW_jdC1DBrKYQXkkHy8_EfLy3D-H36K7fOWDnU",
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+        setUserName(res.data.name);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
+  // useEffect(() => {
+  //   axios
+  //     .get("http://192.168.31.155:8080/api/v1/users/image", {
+  //       headers: {
+  //         "X-Auth-Token":
+  //           "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzc2FmeUBzc2FmeS5jb20iLCJpYXQiOjE2NzU3Mjc5NDUsImV4cCI6MTY3NTczMTU0NX0.eCEP_mSrmTDYMr8IPVvXjG5MjYqZCK2ahj_pSVPgK3E",
+  //       },
+  //       responseType: "blob",
+  //     })
+  //     .then((res) => {
+  //       let objectURL = URL.createObjectURL(res.data);
+  //       setMyImage(objectURL);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, []);
   return (
     <div className={Dashboardstyle.dashboardProfileContainer}>
-      <div className={Dashboardstyle.dashboardProfilePic}>프로필 사진</div>
-      <div className={Dashboardstyle.dashboardProfileName}>
-        {userdummy.userName}
-      </div>
+      <Link to="/userprofile">
+        <div className={Dashboardstyle.dashboardProfilePic}>
+          <img
+            src={``}
+            style={{ width: "192px", height: "192px" }}
+            alt="profileimg"
+          ></img>
+        </div>
+      </Link>
+      <div className={Dashboardstyle.dashboardProfileName}>{userName}</div>
       <div className={Dashboardstyle.dashboardProfileFollow}>팔로잉</div>
       <div className={Dashboardstyle.dashboardProfileLine}>
         {userdummy.userLine}
