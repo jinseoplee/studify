@@ -2,6 +2,7 @@ package com.ssafy.api.controller;
 
 import com.ssafy.api.request.user.UserDetailPutReq;
 import com.ssafy.api.request.user.UserTimeLogReq;
+import com.ssafy.api.response.user.UserInfoRes;
 import com.ssafy.api.response.user.UserTimeLogRes;
 import com.ssafy.api.service.UserService;
 import com.ssafy.common.model.response.BaseResponse;
@@ -68,22 +69,22 @@ public class UserController {
     }
 
     /**
-     * 사용자 정보 조회 API([GET] /api/v1/users/detail)
+     * 사용자 정보 조회 API([GET] /api/v1/users)
      */
     @Operation(summary = "사용자 정보 조회")
     @ApiResponse(responseCode = "200", description = "사용자 정보 조회")
-    @GetMapping("/detail")
+    @GetMapping
     public ResponseEntity<? extends BaseResponse> findUserDetail(@AuthenticationPrincipal String email) {
-        return ResponseEntity.ok(new BaseResponse<User>(200, "사용자 정보 조회 성공",
-                userService.getUser(email)));
+        return ResponseEntity.ok(new BaseResponse<UserInfoRes>(200, "사용자 정보 조회 성공",
+                userService.findByEmail(email)));
     }
 
     /**
-     * 사용자 정보 수정 API([POST] /api/v1/users/detail)
+     * 사용자 정보 수정 API([POST] /api/v1/users/{userId})
      */
     @Operation(summary = "사용자 정보 수정")
     @ApiResponse(responseCode = "200", description = "사용자 정보 수정")
-    @PutMapping("/detail")
+    @PutMapping("/{studyId}")
     public ResponseEntity<?> updateUserDetail(@AuthenticationPrincipal String email, @RequestBody UserDetailPutReq userDetailPutReq) {
         return ResponseEntity.ok(new BaseResponse<User>(200, "사용자 정보 수정 성공",
                 userService.updateUserDetail(userDetailPutReq, email)));

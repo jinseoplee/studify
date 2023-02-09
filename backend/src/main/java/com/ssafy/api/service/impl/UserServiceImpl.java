@@ -5,6 +5,7 @@ import com.ssafy.api.request.user.UserDetailPutReq;
 import com.ssafy.api.request.user.UserLoginPostReq;
 import com.ssafy.api.request.user.UserSignupPostReq;
 import com.ssafy.api.response.user.UserAuthPostRes;
+import com.ssafy.api.response.user.UserInfoRes;
 import com.ssafy.api.response.user.UserLoginPostRes;
 import com.ssafy.api.service.UserService;
 import com.ssafy.common.util.FileValidator;
@@ -14,10 +15,7 @@ import com.ssafy.db.entity.TempUser;
 import com.ssafy.db.entity.User;
 import com.ssafy.db.entity.UserImg;
 import com.ssafy.db.entity.UserTimeLog;
-import com.ssafy.db.repository.TempUserRepository;
-import com.ssafy.db.repository.UserImgRepository;
-import com.ssafy.db.repository.UserRepository;
-import com.ssafy.db.repository.UserTimeLogRepository;
+import com.ssafy.db.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,6 +49,7 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserImgRepository userImgRepository;
     private final UserTimeLogRepository userTimeLogRepository;
+    private final UserStudyRepository userStudyRepository;
     private final String path = "C:\\Users\\images\\users";
 
     @Transactional
@@ -61,14 +60,7 @@ public class UserServiceImpl implements UserService {
                 .name(tempUser.getName())
                 .password(tempUser.getPassword())
                 .build();
-        // default 이미지 설정
-        user.setUserImg(userImgRepository.save(
-                UserImg.builder()
-                        .name("default.png")
-                        .type("image/png")
-                        .fileUrl(path + "default.png")
-                        .build()
-        ));
+
         return userRepository.save(user);
     }
 
@@ -161,6 +153,21 @@ public class UserServiceImpl implements UserService {
 
         return userRepository.save(user);
     }
+
+
+    /**
+     * 사용자 정보 조회
+     */
+    @Override
+    public UserInfoRes findByEmail(String email) {
+        User foundUser = userRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
+
+        UserInfoRes userInfoRes = new UserInfoRes(foundUser);
+        userInfoRes.setStudies(userStudyRepository.findAllByUserId(foundUser.getId()));
+        return userInfoRes;
+    }
+
 
     /* 사용자 정보 수정 */
     @Override

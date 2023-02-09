@@ -50,7 +50,7 @@ public class User extends BaseTimeEntity implements UserDetails {
 
     @Column(nullable = false)
     @ColumnDefault("0")
-    private Long totalTime; // 누적 공부 시간
+    private Long totalTime;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToMany(mappedBy = "user")

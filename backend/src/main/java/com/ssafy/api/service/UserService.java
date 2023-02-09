@@ -5,7 +5,9 @@ import com.ssafy.api.request.user.UserDetailPutReq;
 import com.ssafy.api.request.user.UserLoginPostReq;
 import com.ssafy.api.request.user.UserSignupPostReq;
 import com.ssafy.api.response.user.UserAuthPostRes;
+import com.ssafy.api.response.user.UserInfoRes;
 import com.ssafy.api.response.user.UserLoginPostRes;
+import com.ssafy.api.response.user.UserRes;
 import com.ssafy.db.entity.TempUser;
 import com.ssafy.db.entity.User;
 import com.ssafy.db.entity.UserImg;
@@ -70,6 +72,11 @@ public interface UserService {
      * @return
      */
     TempUser certificateTempUser(UserSignupPostReq authReq);
+
+    /**
+     * 사용자 정보 조회
+     */
+    UserInfoRes findByEmail(String email);
 
     /**
      * 사용자 비밀번호 변경
