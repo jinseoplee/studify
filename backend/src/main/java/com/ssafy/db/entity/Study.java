@@ -56,6 +56,9 @@ public class Study extends BaseEntity {
     @Column(nullable = false)
     private Integer classNum; // 반
 
+    @OneToMany(mappedBy = "study")
+    private List<UserStudy> users = new ArrayList<>();
+
     @OneToOne
     @JoinColumn(name = "study_img_id", referencedColumnName = "study_img_id")
     private StudyImg studyImg;

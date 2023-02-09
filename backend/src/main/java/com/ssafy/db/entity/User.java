@@ -5,12 +5,13 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.ColumnDefault;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * 유저 모델 정의
@@ -46,9 +47,9 @@ public class User extends BaseTimeEntity implements UserDetails {
     @Column(nullable = false)
     private String name; // 이름
 
-    @Column(nullable = false)
-    @ColumnDefault("0")
-    private Long totalTime;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @OneToMany(mappedBy = "user")
+    private List<UserStudy> studies = new ArrayList<>();
 
     @OneToOne
     @JoinColumn(name = "user_img_id", referencedColumnName = "user_img_id")
@@ -65,20 +66,16 @@ public class User extends BaseTimeEntity implements UserDetails {
         this.userImg = userImg;
     }
 
-    public void setTotalTime(Long totalTime) {
-        this.totalTime = totalTime;
-    }
-
     public void updatePassword(String password) {
         this.password = password;
     }
-
 
     /**
      * 계정이 가지고 있는 권한 목록을 리턴
      *
      * @return null
      */
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
@@ -89,6 +86,7 @@ public class User extends BaseTimeEntity implements UserDetails {
      *
      * @return email
      */
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Override
     public String getUsername() {
         return this.email;
@@ -99,6 +97,7 @@ public class User extends BaseTimeEntity implements UserDetails {
      *
      * @return true
      */
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Override
     public boolean isAccountNonExpired() {
         return true;
@@ -109,6 +108,7 @@ public class User extends BaseTimeEntity implements UserDetails {
      *
      * @return true
      */
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Override
     public boolean isAccountNonLocked() {
         return true;
@@ -119,6 +119,7 @@ public class User extends BaseTimeEntity implements UserDetails {
      *
      * @return true
      */
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
@@ -129,6 +130,7 @@ public class User extends BaseTimeEntity implements UserDetails {
      *
      * @return true
      */
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Override
     public boolean isEnabled() {
         return true;
