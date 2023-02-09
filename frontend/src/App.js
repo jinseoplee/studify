@@ -14,6 +14,7 @@ import StudyInfo from "./Components/MainStudy/StudyInfo";
 import StudyRule from "./Components/MainStudy/StudyRule";
 import StudyHistory from "./Components/MainStudy/StudyHistory";
 import StudyMember from "./Components/MainStudy/StudyMember";
+import StudyUpdate from "./Components/MainStudy/StudyUpdate";
 import StudyRoungeMain from "./pages/StudyRounge/StudyRounge";
 import ChartTest from "./Components/UI/ChartTest";
 import ProfileMain from "./Components/Profile/ProfileMain";
@@ -87,6 +88,7 @@ const router = createBrowserRouter([
         ],
       },
       { path: "/userprofile", element: <ProfileMain /> },
+      { path: "/study/:studyId/update", element: <StudyUpdate /> },
       { path: "/userprofile/edit", element: <ProfileEdit /> },
     ],
   },

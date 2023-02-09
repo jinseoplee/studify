@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 
 import SlidebarMain from "../Slidebar/SlidebarMain";
 import StudyRecord from "./StudyRecord";
+import SlidebarMain from "../Slidebar/SlidebarMain";
 import MyStudy from "./MyStudy";
 import axios from "axios";
 import Dashboardstyle from "../../Style/Dashboard/Dashboard.module.css";
@@ -50,7 +51,7 @@ const Dashboard = () => {
       {myImage}
       <div>
         <StudyRecord />
-        <MyStudy />
+        <MyStudy studies={studies} />
       </div>
     </div>
   );

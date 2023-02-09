@@ -24,7 +24,7 @@ const ProfileMain = () => {
 
   useEffect(() => {
     axios
-      .get("http://192.168.31.27:8080/api/v1/users", {
+      .get("http://192.168.31.155:8080/api/v1/users/detail", {
         headers: {
           "X-Auth-Token": userToken,
         },
@@ -50,6 +50,7 @@ const ProfileMain = () => {
       .then((res) => {
         let objectURL = URL.createObjectURL(res.data);
         setMyImage(objectURL);
+        console.log(res.data);
       })
       .catch((err) => {
         console.log(err);

@@ -84,7 +84,7 @@ const StudyRounge = () => {
   };
 
   const filterStudy = () => {
-    if (checkFilter == false) {
+    if (checkFilter === false) {
       setCheckFilter(true);
     } else {
       setCheckFilter(false);

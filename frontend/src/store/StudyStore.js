@@ -1,6 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const studyList = { userDay: [], studySkill: [], studyCapa: 3 };
+const studyList = {
+  userDay: [],
+  studySkill: [],
+  studyCapa: 3,
+  studyNum: "",
+  studyM: "",
+};
 // const studyTimeList = { daysList: [] };
 
 const studySlice = createSlice({
@@ -15,6 +21,12 @@ const studySlice = createSlice({
     },
     changecapa(state, action) {
       state.studyCapa = action.payload;
+    },
+    changestudynum(state, action) {
+      state.studyNum = action.payload;
+    },
+    changestudyM(state, action) {
+      state.studyM = action.payload;
     },
   },
 });

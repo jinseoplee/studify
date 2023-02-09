@@ -26,12 +26,12 @@ const ProfileImg = ({ open, onClose, email }) => {
       formData.append("image", e.target.files[0]);
       console.log(formData);
       await axios({
-        method: "post",
+        method: "put",
         url: "http://192.168.31.155:8080/api/v1/users/image",
         data: formData,
         headers: {
           "X-Auth-Token":
-            "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzc2FmeUBzc2FmeS5jb20iLCJpYXQiOjE2NzU4MjIzMDgsImV4cCI6MTY3NTgyNTkwOH0.MBiAKSv9JWIn4GAr305Bbt5ZmNHQ_tsJdCwsvwwd4vc",
+            "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzc2FmeUBzc2FmeS5jb20iLCJpYXQiOjE2NzU4NDEzOTksImV4cCI6MTY3NTg0NDk5OX0.eLiBTDxwnO5F4bYbSZUL1I5ctHDRYYZTneiLKg2TJ6U",
           "Content-Type": "multipart/form-data",
         },
       });
@@ -40,7 +40,7 @@ const ProfileImg = ({ open, onClose, email }) => {
 
   const saveUserPic = async () => {
     await axios
-      .post(
+      .put(
         "http://192.168.31.155:8080/api/v1/users/image",
         {
           image: fileImg,
@@ -48,7 +48,7 @@ const ProfileImg = ({ open, onClose, email }) => {
         {
           headers: {
             "X-Auth-Token":
-              "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzc2FmeUBzc2FmeS5jb20iLCJpYXQiOjE2NzU4MTU5MzcsImV4cCI6MTY3NTgxOTUzN30.9majUA7fvLS5ZU_-S62yeBRB0ndY1TIhxiR6jfwlezY",
+              "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzc2FmeUBzc2FmeS5jb20iLCJpYXQiOjE2NzU4NDEzOTksImV4cCI6MTY3NTg0NDk5OX0.eLiBTDxwnO5F4bYbSZUL1I5ctHDRYYZTneiLKg2TJ6U",
             "Content-Type": "multipart/form-data",
           },
         },
