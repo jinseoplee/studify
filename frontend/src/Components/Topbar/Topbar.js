@@ -65,7 +65,7 @@ const Topbar = () => {
           </div>
           {haveToken && (
             <div className={Topbarstyle.section}>
-              <Link to="/rank" className={Topbarstyle.text_link}>
+              <Link to="/ranking" className={Topbarstyle.text_link}>
                 랭킹
               </Link>
             </div>

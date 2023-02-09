@@ -19,8 +19,9 @@ import ChartTest from "./Components/UI/ChartTest";
 import ProfileMain from "./Components/Profile/ProfileMain";
 import VideoRoomComponent from "./Openvidu/components/VideoRoomComponent";
 import Ranking from "./pages/Rank/Ranking";
-import RankAll from "./Components/Rank/RankAll"
+import RankAll from "./Components/Rank/RankAll";
 import RankStudy from "./Components/Rank/RankStudy";
+import ProfileEdit from "./Components/Profile/ProfileEdit";
 
 const router = createBrowserRouter([
   {
@@ -67,6 +68,7 @@ const router = createBrowserRouter([
         path: "/study/:studyId",
         element: <StudyDetails />,
         children: [
+          { index: true, element: <StudyInfo /> },
           { path: "info", element: <StudyInfo /> },
           { path: "rule", element: <StudyRule /> },
           { path: "record", element: <StudyHistory /> },
@@ -79,11 +81,13 @@ const router = createBrowserRouter([
         path: "/ranking",
         element: <Ranking />,
         children: [
+          { index: true, element: <RankAll /> },
           { path: "all", element: <RankAll /> },
           { path: "study", element: <RankStudy /> },
         ],
       },
       { path: "/userprofile", element: <ProfileMain /> },
+      { path: "/userprofile/edit", element: <ProfileEdit /> },
     ],
   },
 ]);

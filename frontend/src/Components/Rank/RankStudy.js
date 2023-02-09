@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import RankStyle from "../../Style/Rank/Rank.module.css";
+import RankPodium from "./RankPodium";
+import Pagination from "../UI/Pagination";
 
 const RankStudy = () => {
+  // const [rank, setRank] = useState([]);
+  const [limit, setLimit] = useState(5);
+  const [page, setPage] = useState(1);
+  const offset = (page - 1) * limit;
   const dummyrankstudy = [
     {
       name: "김싸피",
@@ -37,16 +43,25 @@ const RankStudy = () => {
   });
   return (
     <div className={RankStyle.RankDetailContainer}>
-      {/* { AllRanking } */}
-      {dummyrankstudy.map((data, key) => (
-        <div key={key} className={RankStyle.RankNameBox}>
-          <div>
-            <span>{key + 1}</span>
-            <span>{data.name}</span>
-            <span>{data.time}</span>
-          </div>
+      <div className={RankStyle.RankContentContainter}>
+        {/* { AllRanking } */}
+        <RankPodium data={dummyrankstudy} />
+        <div className={RankStyle.RankBarContainer}>
+          {dummyrankstudy.slice(offset, offset + limit).map((data, key) => (
+            <div key={key} className={RankStyle.RankNameBox}>
+              <span>{key + offset + 1}</span>
+              <span>{data.name}</span>
+              <span>{data.time}</span>
+            </div>
+          ))}
         </div>
-      ))}
+      </div>
+      <Pagination
+        total={dummyrankstudy.length}
+        limit={limit}
+        page={page}
+        setPage={setPage}
+      />
     </div>
   );
 };
