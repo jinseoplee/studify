@@ -58,7 +58,9 @@ const LoginID = () => {
       } else {
         removeCookie("useremail");
       }
-      localStorage.setItem("email", email);
+      sessionStorage.setItem("email", response.data.email);
+      sessionStorage.setItem("name", response.data.name);
+      sessionStorage.setItem("token", response.data.token);
       dispatch(loginActions.saveToken(response.data.token));
       //이메일을 로컬 스토리지에 저장..
       navigate("/dashboard");

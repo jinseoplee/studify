@@ -1,14 +1,22 @@
 .RankDetailContainer {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
   white-space: nowrap;
   background-color: #eae3f4;
   padding: 5vh 5vw 5vh 5vw;
+  width: 80vw;
+  height: 55vh;
 }
 
-.RankNameBox{
+.RankContentContainter {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+}
+
+.RankNameBox {
   display: flex;
   align-items: center;
   color: white;
@@ -16,7 +24,7 @@
   background-color: #8a6bcd;
   width: 600px;
   height: 50px;
-  padding: 0 0 0 30px; 
+  padding: 0 0 0 30px;
   margin: 10px 0 10px 0;
 }
 
@@ -43,29 +51,34 @@
   justify-content: center;
   background-color: #8a6bcd;
   width: 500px;
-  height: 410px;
+  height: 290px;
+  margin: 10px 0 10px 0;
 }
 
 .RankFirst {
   background-color: #3ea6b7;
-  height: 220px;
-  width: 120px;
+  height: 200px;
+  width: 100px;
 }
 
 .RankSecond {
   background-color: #73bdc9;
-  height: 170px;
-  width: 120px;
+  height: 150px;
+  width: 100px;
 }
 
 .RankThird {
   background-color: #8ec9d3;
-  height: 120px;
-  width: 120px;
-
+  height: 100px;
+  width: 100px;
 }
+
 .RankPodiumDetail {
   display: flex;
   flex-direction: column-reverse;
   align-items: center;
 }
+/* 
+.RankPagination {
+  justify-content: center;
+} */

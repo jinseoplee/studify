@@ -39,7 +39,16 @@ const SignupForm = () => {
   };
 
   const changeClassHandler = (e) => {
-    setClassnum(e.target.value);
+    console.log(e.target.value);
+    if (e.target.value < 0) {
+      swal("잘못된 반 입력입니다. 다시 입력해주세요.");
+      setClassnum(0);
+    } else if (e.target.value > 20) {
+      swal("잘못된 반 입력입니다. 다시 입력해주세요.");
+      setClassnum(20);
+    } else {
+      setClassnum(e.target.value);
+    }
   };
 
   const onNameHandler = (event) => {
@@ -219,6 +228,7 @@ const SignupForm = () => {
                 type="number"
                 className="signup-input"
                 onChange={changeClassHandler}
+                value={clssNum}
               ></input>
             </div>
           </div>

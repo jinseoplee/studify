@@ -22,19 +22,11 @@ const StudyDetail = () => {
   return (
     <>
       <div className={StudyStyle.StudyDetailContainer}>
-<<<<<<< HEAD
-        <div style={imgstyle}>
-          <div className={StudyStyle.StudyDetailback}>
-            <p className={StudyStyle.StudyDetailName}>{studyname}</p>
-            <button className={StudyStyle.StudyBtn}>참여하기</button>
-          </div>
-=======
         <div className={StudyStyle.StudyDetailback}>
           <p className={StudyStyle.StudyDetailName}>{studyname}</p>
           <button className={StudyStyle.StudyBtn} onClick={joinSession}>
             참여하기
           </button>
->>>>>>> feature/front/study-rounge
         </div>
         <div className={StudyStyle.studySwitchbarContainer}>
           <StudySwitchbar id={studyId} />
