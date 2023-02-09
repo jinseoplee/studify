@@ -17,18 +17,18 @@ const ProfileMain = () => {
 
   useEffect(() => {
     axios
-      .get("http://192.168.31.27:8080/api/v1/users", {
+      .get("http://192.168.31.155:8080/api/v1/users/detail", {
         headers: {
           "X-Auth-Token":
-            "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoYXNzYWZ5QHNzYWZ5LmNvbSIsImlhdCI6MTY3NTc1Njc2NywiZXhwIjoxNjc1NzYwMzY3fQ.-55KyMW_jdC1DBrKYQXkkHy8_EfLy3D-H36K7fOWDnU",
+            "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzc2FmeUBzc2FmeS5jb20iLCJpYXQiOjE2NzU4NDEzOTksImV4cCI6MTY3NTg0NDk5OX0.eLiBTDxwnO5F4bYbSZUL1I5ctHDRYYZTneiLKg2TJ6U",
         },
       })
       .then((res) => {
-        console.log(res.data);
-        setUserEmail(res.data.email);
-        setUserName(res.data.name);
-        setUserGeneration(res.data.generation);
-        setUserRegion(res.data.region);
+        console.log(res.data.content);
+        setUserEmail(res.data.content.email);
+        setUserName(res.data.content.name);
+        setUserGeneration(res.data.content.generation);
+        setUserRegion(res.data.content.region);
       })
       .catch((err) => {
         console.log(err);
@@ -37,13 +37,14 @@ const ProfileMain = () => {
       .get("http://192.168.31.155:8080/api/v1/users/image", {
         headers: {
           "X-Auth-Token":
-            "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzc2FmeUBzc2FmeS5jb20iLCJpYXQiOjE2NzU4MjA2NzIsImV4cCI6MTY3NTgyNDI3Mn0.BU9-My_ISc6ZL1pxnM2bh33pmdbOqVst8T8D3Xm9yus",
+            "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzc2FmeUBzc2FmeS5jb20iLCJpYXQiOjE2NzU4NDEzOTksImV4cCI6MTY3NTg0NDk5OX0.eLiBTDxwnO5F4bYbSZUL1I5ctHDRYYZTneiLKg2TJ6U",
         },
         responseType: "blob",
       })
       .then((res) => {
         let objectURL = URL.createObjectURL(res.data);
         setMyImage(objectURL);
+        console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -52,6 +53,7 @@ const ProfileMain = () => {
 
   //모달 관련
   const [openImgModal, setOpenImgModal] = useState(false);
+
   return (
     <div>
       <Topbar />

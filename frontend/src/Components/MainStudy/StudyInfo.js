@@ -24,7 +24,7 @@ const StudyInfo = () => {
       </div>
       <hr className={StudyStyle.studyHr}></hr>
       <div>
-        <p className={StudyStyle.studyContentTitle}>소개글</p>
+        <p className={StudyStyle.studyContentTitle}>공지사항</p>
         <p>{studydes}</p>
       </div>
     </div>

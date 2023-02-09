@@ -7,9 +7,6 @@ const StudySwitchbar = ({ id }) => {
       <NavLink to="info" className={SwitchStyle.studyMenuText}>
         소개
       </NavLink>
-      <NavLink to="rule" className={SwitchStyle.studyMenuText}>
-        이용수칙
-      </NavLink>
 
       <NavLink to="record" className={SwitchStyle.studyMenuText}>
         활동 기록

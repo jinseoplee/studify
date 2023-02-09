@@ -1,22 +1,3 @@
-<<<<<<< HEAD
-import { useState } from "react";
-// import ToggleButton from "../UI/ToggleButton";
-import RoungeStyle from "../../Style/StudyRounge/StudyRounge.module.css";
-import SkillCheckBox from "../UI/SkillCheckBox";
-
-const StudyRounge = () => {
-  const selectSkill = [
-    { id: "python", title: "Python" },
-    { id: "java", title: "Java" },
-    { id: "jacascript", title: "Javascript" },
-    { id: "cpp", title: "C++" },
-    { id: "vue", title: "Vue" },
-    { id: "react", title: "React" },
-  ];
-  return (
-    <div>
-      <SkillCheckBox props={selectSkill} />
-=======
 import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -87,7 +68,6 @@ const StudyRounge = () => {
     },
   ];
 
-
   const handleSingleCheck = (checked, id) => {
     if (checked) {
       setCheckViewStudy((prev) => [...prev, id]);
@@ -97,70 +77,70 @@ const StudyRounge = () => {
   };
 
   const filterStudy = () => {
-    if (checkFilter == false) {
+    if (checkFilter === false) {
       setCheckFilter(true);
     } else {
       setCheckFilter(false);
     }
-  }
-  
+  };
+
   //해당 배열이 존재하는 경우에는? className을 새로줘서 button의 border에 색을 주어서 처리하면 내가 눌렀다는 걸 알지 않을까?
   useEffect(() => {
     dispatch(selectstudyActions.changestudySelect(checkViewStudy));
     dispatch(selectstudyActions.changeskillList(checkSkill));
-  },[checkViewStudy,checkSkill])
+  }, [checkViewStudy, checkSkill]);
   return (
     <div>
       <div>
-
-      <div className={RoungeStyle.RoungeFilterContainer}>
-        {data.map((data, key) => (
-          <div key={key}>
-            <button
-              name={`select-${data.skill}`}
-              onClick={() => {
-                !checkSkill.includes(data.skill)
-                  ? setCheckSkill((checkSkill) => [...checkSkill, data.skill])
-                  : setCheckSkill(
-                      checkSkill.filter((button) => button !== data.skill)
-                    );
-              }}
-              id={data.skill}
-              className={
-                checkSkill.includes(data.skill)
-                  ? `${RoungeStyle.RoungeFilterTBtn}`
-                  : `${RoungeStyle.RoungeFilterFBtn}`
-              }
-            >
-              <img
-                src={require(`../../assets/image/stack/${data.skill}.PNG`)}
+        <div className={RoungeStyle.RoungeFilterContainer}>
+          {data.map((data, key) => (
+            <div key={key}>
+              <button
+                name={`select-${data.skill}`}
+                onClick={() => {
+                  !checkSkill.includes(data.skill)
+                    ? setCheckSkill((checkSkill) => [...checkSkill, data.skill])
+                    : setCheckSkill(
+                        checkSkill.filter((button) => button !== data.skill)
+                      );
+                }}
                 id={data.skill}
-              />
-            </button>
-          </div>
-        ))}
-      </div>
-      <div className={RoungeStyle.RoungeFilterContainer}>
-        {studyViewData.map((data, key) => (
-          <div key={key}>
-            <label htmlFor={data.checkStudy}>{data.checkStudy}</label>
-            <input
-              type="checkbox"
-              name={`select-${data.id}`}
-              onChange={(e) =>
-                handleSingleCheck(e.target.checked, data.checkStudy)
-              }
-              checked={checkViewStudy.includes(data.checkStudy) ? true : false}
-              // id="chk_top"
-              id={data.checkStudy}
-            ></input>
-          </div>
-        ))}
-      </div>
-      <button onClick={filterStudy}>검색</button>
+                className={
+                  checkSkill.includes(data.skill)
+                    ? `${RoungeStyle.RoungeFilterTBtn}`
+                    : `${RoungeStyle.RoungeFilterFBtn}`
+                }
+              >
+                <img
+                  src={require(`../../assets/image/stack/${data.skill}.PNG`)}
+                  id={data.skill}
+                />
+              </button>
+            </div>
+          ))}
+        </div>
+        <div className={RoungeStyle.RoungeFilterContainer}>
+          {studyViewData.map((data, key) => (
+            <div key={key}>
+              <label htmlFor={data.checkStudy}>{data.checkStudy}</label>
+              <input
+                type="checkbox"
+                name={`select-${data.id}`}
+                onChange={(e) =>
+                  handleSingleCheck(e.target.checked, data.checkStudy)
+                }
+                checked={
+                  checkViewStudy.includes(data.checkStudy) ? true : false
+                }
+                // id="chk_top"
+                id={data.checkStudy}
+              ></input>
+            </div>
+          ))}
+        </div>
+        <button onClick={filterStudy}>검색</button>
       </div>
       <RoungeList checkFilter={checkFilter} />
->>>>>>> feature/front/study-rounge
     </div>
   );
 };

@@ -9,8 +9,8 @@ import vector from "../../assets/image/vector.png";
 const Topbar = () => {
   //check가 현재 access-token이 있는지 체크해서 있으면 true 없으면 false를 반환하게 만들어주어야합니다.
   const token = useSelector((state) => state.token.accesstoken);
-  console.log(token.length);
-  console.log(token);
+  // console.log(token.length);
+  // console.log(token);
 
   const check = () => {
     console.log("나 동작해?");

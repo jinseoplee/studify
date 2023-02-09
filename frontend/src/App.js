@@ -14,12 +14,13 @@ import StudyInfo from "./Components/MainStudy/StudyInfo";
 import StudyRule from "./Components/MainStudy/StudyRule";
 import StudyHistory from "./Components/MainStudy/StudyHistory";
 import StudyMember from "./Components/MainStudy/StudyMember";
+import StudyUpdate from "./Components/MainStudy/StudyUpdate";
 import StudyRoungeMain from "./pages/StudyRounge/StudyRounge";
 import ChartTest from "./Components/UI/ChartTest";
 import ProfileMain from "./Components/Profile/ProfileMain";
 import VideoRoomComponent from "./Openvidu/components/VideoRoomComponent";
 import Ranking from "./pages/Rank/Ranking";
-import RankAll from "./Components/Rank/RankAll"
+import RankAll from "./Components/Rank/RankAll";
 import RankStudy from "./Components/Rank/RankStudy";
 
 const router = createBrowserRouter([
@@ -84,6 +85,7 @@ const router = createBrowserRouter([
         ],
       },
       { path: "/userprofile", element: <ProfileMain /> },
+      { path: "/study/:studyId/update", element: <StudyUpdate /> },
     ],
   },
 ]);
