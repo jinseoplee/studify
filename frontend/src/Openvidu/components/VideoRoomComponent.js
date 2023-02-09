@@ -11,7 +11,7 @@ import PenComponent from "./pen/PenComponent";
 import "../../Style/Openvidu//VideoRoomComponent.css";
 
 var localUser = new UserModel();
-const APPLICATION_SERVER_URL = process.env.NODE_ENV === "production" ? "" : "#";
+const APPLICATION_SERVER_URL = process.env.NODE_ENV === "production" ? "" : "https://open-vidu.p-e.kr:8443";
 // process.env.NODE_ENV === "production" ? "" : "http://localhost:5000";
 const OPENVIDU_SERVER_SECRET = "studify";
 

@@ -79,6 +79,7 @@ const router = createBrowserRouter([
         path: "/ranking",
         element: <Ranking />,
         children: [
+          { index: true, element: <RankAll />},
           { path: "all", element: <RankAll /> },
           { path: "study", element: <RankStudy /> },
         ],

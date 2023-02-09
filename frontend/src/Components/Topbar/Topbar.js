@@ -38,7 +38,7 @@ const Topbar = () => {
           </div>
           {check && (
             <div className={Topbarstyle.section}>
-              <NavLink to="/rank" className={Topbarstyle.text_link}>
+              <NavLink to="/ranking" className={Topbarstyle.text_link}>
                 랭킹
               </NavLink>
             </div>

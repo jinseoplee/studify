@@ -1,24 +1,32 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.contentWrapper{
+  flex: 1;
+}
+
 .startpageBtn {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 18px 28px 18px 32px;
-  gap: 11px;
-  
-
   position: absolute;
   width: 180px;
   height: 64px;
-  right: 1vw;
-  top: 5vh;
-  font-size: 20px;
+  right: 20px;
+  top: 40px;
+  font-size: 1.3rem;
   color: white;
   background: #8a6bcd;
   border-radius: 30px;
   border: 0px;
+  margin: 50px 0 0 0;
 }
 
 .startpageFull {
+  position: relative;
   width: 100%;
   height: 100%;
 }
@@ -28,27 +36,57 @@
   height: 100%;
 }
 
+.StartPageImg {
+  width: 40%;
+  height: 40%;
+}
+
 .StartPageSignupContent {
   display: flex;
   position: absolute;
-  width: 20vw;
-  height: 20vh;
-  align-items: end;
+  width: 600px;
+  height: 300px;
+  align-items: flex-end;
   flex-direction: column;
-  font-size: 30px;
-  right: 17vw;
-  top: 6vh;
+  font-size: 1.5rem;
+  right: 300px;
+  top: 40px;
 }
-
-/* .StartPageImg {
-  width: 40%;
-  height: 40%;
-} */
 
 .StartPageSignup {
   display: flex;
   flex-direction: row;
   position: absolute;
   right: 5vw;
-  top: 35vh;
+  top: 30vh;
+}
+
+.StartPageStudyroomContent {
+  display: flex;
+  width: 800px;
+  height: 300px;
+  flex-direction: column;
+  font-size: 1.5rem;
+  margin: 50px 0 0 50px;
+}
+
+.StartPageStudyroom {
+  display: flex;
+  flex-direction: row;
+  margin: 150px 0 0 50px;
+}
+
+.StartPageMyStudyContent {
+  display: flex;
+  width: 600px;
+  height: 300px;
+  flex-direction: column;
+  font-size: 1.5rem;
+  margin: 50px 0 0 0;
+}
+
+.StartPageMyStudy {
+  display: flex;
+  flex-direction: row-reverse;
+  margin: 150px 50px 150px 0;
 }

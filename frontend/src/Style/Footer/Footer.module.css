@@ -1,8 +1,8 @@
 .bottombar {
-  position: relative;
+  /* position: relative; */
   border: #cabbe7 solid 3px;
   /* background-color: #cabbe7; */
-  height: 12vh;
+  height: 150px;
   width: 100vw;
-  transform: translateY(0%);
+  /* transform: translateY(-100%); */
 }
