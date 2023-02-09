@@ -52,6 +52,17 @@ public class StudyController {
     }
 
     /**
+     * 스터디 참여 API([POST] /api/v1/studies/{studyId})
+     */
+    @Operation(summary = "스터디 참여")
+    @ApiResponse()
+    @PostMapping("/{studyId}")
+    public ResponseEntity<? extends BaseResponse> joinStudy(@AuthenticationPrincipal String email,
+                                                            @PathVariable Long studyId) {
+        return ResponseEntity.ok(new BaseResponse<StudyRes>(200, "스터디 참여 완료", studyService.joinStudy(email, studyId)));
+    }
+
+    /**
      * 스터디 목록 조회 API([GET] /api/v1/studies)
      */
     @Operation(summary = "스터디 목록 조회")
@@ -72,36 +83,6 @@ public class StudyController {
     @GetMapping("/{studyId}")
     public ResponseEntity<? extends BaseResponse> findByUserId(@PathVariable Long studyId) {
         return ResponseEntity.ok(new BaseResponse<StudyRes>(200, "스터디 조회 성공", studyService.findByStudyId(studyId)));
-    }
-
-    /**
-     * 유저 기수에 해당하는 스터디 조회 API([GET] /api/v1/studies/generation)
-     */
-    @Operation(summary = "유저 기수에 해당하는 스터디 조회")
-    @ApiResponse(responseCode = "200", description = "스터디 조회 성공")
-    @GetMapping("/generation")
-    public ResponseEntity<? extends BaseResponse> findByGeneration(@AuthenticationPrincipal String email) {
-        return ResponseEntity.ok(new BaseResponse<List<StudyRes>>(200, "스터디 조회 성공", studyService.findByGeneration(email)));
-    }
-
-    /**
-     * 유저 지역에 해당하는 스터디 조회 API([GET] /api/v1/studies/region)
-     */
-    @Operation(summary = "유저 지역에 해당하는 스터디 조회")
-    @ApiResponse(responseCode = "200", description = "스터디 조회 성공")
-    @GetMapping("/region")
-    public ResponseEntity<? extends BaseResponse> findByRegion(@AuthenticationPrincipal String email) {
-        return ResponseEntity.ok(new BaseResponse<List<StudyRes>>(200, "스터디 조회 성공", studyService.findByRegion(email)));
-    }
-
-    /**
-     * 유저 반에 해당하는 스터디 조회 API([GET] /api/v1/studies/class)
-     */
-    @Operation(summary = "유저 반에 해당하는 스터디 조회")
-    @ApiResponse(responseCode = "200", description = "스터디 조회 성공")
-    @GetMapping("/class")
-    public ResponseEntity<? extends BaseResponse> findByClassNum(@AuthenticationPrincipal String email) {
-        return ResponseEntity.ok(new BaseResponse<List<StudyRes>>(200, "스터디 조회 성공", studyService.findByClassNum(email)));
     }
 
     /**

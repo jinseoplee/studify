@@ -90,8 +90,11 @@ public class Study extends BaseEntity {
         this.isPublic = studyInfoUpdatePutReq.isPublic();
     }
 
-    public void setStudyImg(StudyImg studyImg) {
-        this.studyImg = studyImg;
+    /**
+     * 참여자 수 증가
+     */
+    public void increaseHeadcount() {
+        this.headcount += 1;
     }
 
 }

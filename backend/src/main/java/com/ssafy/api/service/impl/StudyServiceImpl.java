@@ -9,15 +9,18 @@ import com.ssafy.common.util.FileValidator;
 import com.ssafy.db.entity.Study;
 import com.ssafy.db.entity.StudyImg;
 import com.ssafy.db.entity.User;
+import com.ssafy.db.entity.UserStudy;
 import com.ssafy.db.repository.StudyImgRepository;
 import com.ssafy.db.repository.StudyRepository;
 import com.ssafy.db.repository.UserRepository;
+import com.ssafy.db.repository.UserStudyRepository;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -35,21 +38,59 @@ public class StudyServiceImpl implements StudyService {
     private final Logger LOGGER = LoggerFactory.getLogger(StudyServiceImpl.class);
     private final UserRepository userRepository;
     private final StudyRepository studyRepository;
+    private final UserStudyRepository userStudyRepository;
     private final StudyImgRepository studyImgRepository;
     private final String path = "C:\\Users\\images\\study\\";
 
     /**
      * 스터디 생성
      */
+    @Transactional
     @Override
     public StudyRes createStudy(String email, StudyCreatePostReq studyCreatePostReq) {
-        User savedUser = userRepository.findByEmail(email)
+        User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다"));
 
-        Study createdStudy = studyRepository.save(studyCreatePostReq.toEntity(savedUser));
-        LOGGER.info("[createStudy] 스터디(id : {}) 생성 완료", createdStudy.getId());
+        Study newStudy = studyRepository.save(studyCreatePostReq.toEntity(user));
 
-        return new StudyRes(createdStudy);
+        userStudyRepository.save(new UserStudy(user, newStudy));
+
+        StudyRes studyRes = new StudyRes(newStudy);
+        studyRes.setUsers(userStudyRepository.findAllByStudyId(newStudy.getId()));
+        LOGGER.info("[createStudy] 스터디(id : {}) 생성 완료", studyRes.getId());
+
+        return studyRes;
+    }
+
+    /**
+     * 스터디 참여
+     */
+    @Transactional
+    @Override
+    public StudyRes joinStudy(String email, Long studyId) {
+        User foundUser = userRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
+
+        Study foundStudy = studyRepository.findById(studyId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 스터디입니다."));
+
+        // 참여자 수가 정원보다 같거나 클 경우 예외를 발생
+        if (foundStudy.getHeadcount() >= foundStudy.getCapacity()) {
+            throw new IllegalArgumentException("인원이 초과하였습니다.");
+        }
+
+        // 이미 참여한 스터디일 경우 예외를 발생
+        if (userStudyRepository.existsByUserIdAndStudyId(foundUser.getId(), foundStudy.getId())) {
+            throw new IllegalArgumentException("이미 참여한 스터디입니다.");
+        }
+
+        foundStudy.increaseHeadcount(); // 참여자 수 증가
+        UserStudy userStudy = userStudyRepository.save(new UserStudy(foundUser, foundStudy));
+        LOGGER.info("[joinStudy] {} 스터디(id : {}) 참가 완료", email, studyId);
+
+        StudyRes studyRes = new StudyRes(foundStudy);
+        studyRes.setUsers(userStudyRepository.findAllByStudyId(studyId));
+        return studyRes;
     }
 
     /**
@@ -61,39 +102,6 @@ public class StudyServiceImpl implements StudyService {
     }
 
     /**
-     * 유저 기수에 해당하는 스터디 목록 조회
-     */
-    @Override
-    public List<StudyRes> findByGeneration(String email) {
-        User savedUser = userRepository.findByEmail(email)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다"));
-
-        return studyRepository.findByGeneration(savedUser.getGeneration()).stream().map(StudyRes::new).collect(Collectors.toList());
-    }
-
-    /**
-     * 유저 지역에 해당하는 스터디 목록 조회
-     */
-    @Override
-    public List<StudyRes> findByRegion(String email) {
-        User savedUser = userRepository.findByEmail(email)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다"));
-
-        return studyRepository.findByRegion(savedUser.getRegion()).stream().map(StudyRes::new).collect(Collectors.toList());
-    }
-
-    /**
-     * 유저 반에 해당하는 스터디 목록 조회
-     */
-    @Override
-    public List<StudyRes> findByClassNum(String email) {
-        User savedUser = userRepository.findByEmail(email)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다"));
-
-        return studyRepository.findByClassNum(savedUser.getClassNum()).stream().map(StudyRes::new).collect(Collectors.toList());
-    }
-
-    /**
      * 스터디 조회
      */
     @Override
@@ -101,7 +109,9 @@ public class StudyServiceImpl implements StudyService {
         Study foundStudy = studyRepository.findById(studyId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 스터디입니다"));
 
-        return new StudyRes(foundStudy);
+        StudyRes studyRes = new StudyRes(foundStudy);
+        studyRes.setUsers(userStudyRepository.findAllByStudyId(studyId));
+        return studyRes;
     }
 
     /**

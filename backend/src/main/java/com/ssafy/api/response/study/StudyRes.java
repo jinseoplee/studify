@@ -2,8 +2,10 @@ package com.ssafy.api.response.study;
 
 import com.ssafy.db.entity.Study;
 import com.ssafy.db.entity.User;
+import com.ssafy.db.entity.UserStudy;
 import lombok.Getter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,7 +30,7 @@ public class StudyRes {
 
     private List<String> category; // 카테고리
 
-    private List<User> user; // 참여 인원
+    private List<User> users; // 참여 인원
 
     private boolean isPublic; // 공개 여부
 
@@ -42,6 +44,14 @@ public class StudyRes {
         this.day = study.getDay();
         this.category = study.getCategory();
         this.isPublic = study.isPublic();
+    }
+
+    public void setUsers(List<UserStudy> userStudies) {
+        List<User> users = new ArrayList<>();
+        for (int i = 0; i < userStudies.size(); i++) {
+            users.add(userStudies.get(i).getUser());
+        }
+        this.users = users;
     }
 
 }

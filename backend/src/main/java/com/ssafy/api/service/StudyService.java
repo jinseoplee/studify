@@ -20,9 +20,9 @@ public interface StudyService {
     StudyRes createStudy(String email, StudyCreatePostReq studyCreatePostReq);
 
     /**
-     * 스터디 수정
+     * 스터디 참여
      */
-    StudyRes updateStudyInfo(String email, Long studyId, StudyInfoUpdatePutReq studyInfoUpdatePutReq);
+    StudyRes joinStudy(String email, Long studyId);
 
     /**
      * 스터디 목록 조회
@@ -30,24 +30,14 @@ public interface StudyService {
     List<StudyRes> findAll();
 
     /**
-     * 유저 기수에 해당하는 스터디 목록 조회
-     */
-    List<StudyRes> findByGeneration(String email);
-
-    /**
-     * 유저 지역에 해당하는 스터디 목록 조회
-     */
-    List<StudyRes> findByRegion(String email);
-
-    /**
-     * 유저 반에 해당하는 스터디 목록 조회
-     */
-    List<StudyRes> findByClassNum(String email);
-
-    /**
      * 스터디 조회
      */
     StudyRes findByStudyId(Long studyId);
+
+    /**
+     * 스터디 수정
+     */
+    StudyRes updateStudyInfo(String email, Long studyId, StudyInfoUpdatePutReq studyInfoUpdatePutReq);
 
     /**
      * 스터디 삭제
