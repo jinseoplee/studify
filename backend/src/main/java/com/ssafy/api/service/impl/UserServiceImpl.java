@@ -259,6 +259,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserTimeLog createUserTimeLog(LocalDate day, Long diff, String email) {
         User user = userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
+        // 누적 공부 시간 계산
+        user.setTotalTime(user.getTotalTime() + diff);
         return userTimeLogRepository.save(
                 UserTimeLog.builder()
                         .day(day)
@@ -274,6 +276,8 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
         UserTimeLog savedUserTimeLog = userTimeLogRepository.findByUserAndDay(user, day).orElseThrow(() -> new IllegalArgumentException("공부 기록이 존재하지 않습니다."));
         savedUserTimeLog.setStudyTime(savedUserTimeLog.getStudyTime() + diff);
+        // 누적 공부 시간 계산
+        user.setTotalTime(user.getTotalTime() + diff);
         return userTimeLogRepository.save(savedUserTimeLog);
     }
 

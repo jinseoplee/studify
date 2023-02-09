@@ -2,6 +2,7 @@ package com.ssafy.api.controller;
 
 import com.ssafy.api.request.user.UserDetailPutReq;
 import com.ssafy.api.request.user.UserTimeLogReq;
+import com.ssafy.api.response.user.UserTimeLogRes;
 import com.ssafy.api.service.UserService;
 import com.ssafy.common.model.response.BaseResponse;
 import com.ssafy.common.model.response.BaseResponseBody;
@@ -162,11 +163,11 @@ public class UserController {
     @Operation(summary = "사용자 공부 시간 기록 생성")
     @ApiResponse(responseCode = "200", description = "사용자 공부 시간 기록 생성 성공")
     @PostMapping("/log")
-    public ResponseEntity<? extends BaseResponse> createUserTimeLog(@AuthenticationPrincipal String email, @RequestBody UserTimeLogReq userTimeLogReq) {
+    public ResponseEntity<?> createUserTimeLog(@AuthenticationPrincipal String email, @RequestBody UserTimeLogReq userTimeLogReq) {
         Long diff = (userTimeLogReq.getEndTime() - userTimeLogReq.getStartTime()) / 1000;
         Instant startInstant = Instant.ofEpochMilli(userTimeLogReq.getStartTime());
         LocalDate day = LocalDateTime.ofInstant(startInstant, ZoneId.systemDefault()).toLocalDate();
-        return ResponseEntity.ok(new BaseResponse<UserTimeLog>(200, "사용자 공부 시간 기록 생성 성공",
+        return ResponseEntity.ok().body(new UserTimeLogRes(200, "사용자 공부 시간 기록 생성 성공",
                 userService.createUserTimeLog(day, diff, email)));
     }
 
@@ -176,11 +177,11 @@ public class UserController {
     @Operation(summary = "사용자 공부 시간 기록 수정")
     @ApiResponse(responseCode = "200", description = "사용자 공부 시간 기록 수정 성공")
     @PutMapping("/log")
-    public ResponseEntity<? extends BaseResponse> updateUserTimeLog(@AuthenticationPrincipal String email, @RequestBody UserTimeLogReq userTimeLogReq) {
+    public ResponseEntity<?> updateUserTimeLog(@AuthenticationPrincipal String email, @RequestBody UserTimeLogReq userTimeLogReq) {
         Long diff = (userTimeLogReq.getEndTime() - userTimeLogReq.getStartTime()) / 1000;
         Instant startInstant = Instant.ofEpochMilli(userTimeLogReq.getStartTime());
         LocalDate day = LocalDateTime.ofInstant(startInstant, ZoneId.systemDefault()).toLocalDate();
-        return ResponseEntity.ok(new BaseResponse<UserTimeLog>(200, "사용자 공부 시간 기록 수정 성공",
+        return ResponseEntity.ok().body(new UserTimeLogRes(200, "사용자 공부 시간 기록 수정 성공",
                 userService.updateUserTimeLog(day, diff, email)));
     }
 

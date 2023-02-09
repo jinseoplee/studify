@@ -5,13 +5,12 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 /**
  * 유저 모델 정의
@@ -47,6 +46,10 @@ public class User extends BaseTimeEntity implements UserDetails {
     @Column(nullable = false)
     private String name; // 이름
 
+    @Column(nullable = false)
+    @ColumnDefault("0")
+    private Long totalTime;
+
     @OneToOne
     @JoinColumn(name = "user_img_id", referencedColumnName = "user_img_id")
     private UserImg userImg; // 유저 이미지
@@ -62,9 +65,14 @@ public class User extends BaseTimeEntity implements UserDetails {
         this.userImg = userImg;
     }
 
+    public void setTotalTime(Long totalTime) {
+        this.totalTime = totalTime;
+    }
+
     public void updatePassword(String password) {
         this.password = password;
     }
+
 
     /**
      * 계정이 가지고 있는 권한 목록을 리턴
