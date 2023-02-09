@@ -16,7 +16,7 @@
   margin-top: auto;
 }
 
-.RankNameBox{
+.RankNameBox {
   display: flex;
   align-items: center;
   color: white;
@@ -24,7 +24,7 @@
   background-color: #8a6bcd;
   width: 600px;
   height: 50px;
-  padding: 0 0 0 30px; 
+  padding: 0 0 0 30px;
   margin: 10px 0 10px 0;
 }
 
@@ -71,7 +71,6 @@
   background-color: #8ec9d3;
   height: 100px;
   width: 100px;
-
 }
 
 .RankPodiumDetail {
@@ -79,3 +78,7 @@
   flex-direction: column-reverse;
   align-items: center;
 }
+/* 
+.RankPagination {
+  justify-content: center;
+} */

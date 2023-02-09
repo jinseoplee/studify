@@ -1,16 +1,17 @@
 import ProfileStyle from "../../Style/Profile/Profile.module.css";
 
-const ProfileUserInfo = ({ username, usergene, userregion }) => {
+const ProfileUserInfo = ({ username, usergene, userregion, userClassNum }) => {
   return (
-    <div className={ProfileStyle.UserInfoContainer}>
-      <p className={ProfileStyle.profileUserName}>{username}</p>
-      <div>
-        <span>{usergene}기</span>
-        <span>{userregion}</span>
+    <>
+      <div className={ProfileStyle.UserInfoContainer}>
+        <div className={ProfileStyle.profileUserName}>{username}</div>
+        <div>
+          <div>기수 : {usergene}기</div>
+          <div>지역 : {userregion}</div>
+          <div>반 : {userClassNum}</div>
+        </div>
       </div>
-
-      <p>자기소개 글</p>
-    </div>
+    </>
   );
 };
 
