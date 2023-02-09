@@ -119,12 +119,9 @@ export default class SidebarComponent extends Component {
     const { isFull } = this.state;
     const editorDisplay = this.props.editorDisplay.display;
     return (
-      // <AppBar className="toolbar" id="header">
       <MenuList className="side">
         <MenuItem onClick={this.micStatusChanged}>
           <ListItemIcon
-            // color="inherit"
-            // className="navButton"
             id="navMicButton"
           >
             {localUser !== undefined && localUser.isAudioActive() ? (
@@ -134,8 +131,6 @@ export default class SidebarComponent extends Component {
             )}
           </ListItemIcon>
           <ListItemText
-            // color="inherit"
-            // className="navButton"
             id="navMicButton"
           >
             {localUser !== undefined && localUser.isAudioActive()
@@ -146,7 +141,6 @@ export default class SidebarComponent extends Component {
         <MenuItem onClick={this.camStatusChanged}>
           <ListItemIcon
             color="inherit"
-            // className="navButton"
             id="navCamButton"
           >
             {localUser !== undefined && localUser.isVideoActive() ? (
@@ -157,7 +151,6 @@ export default class SidebarComponent extends Component {
           </ListItemIcon>
           <ListItemText
             color="inherit"
-            // className="navButton"
             id="navCamButton"
           >
             {localUser !== undefined && localUser.isVideoActive()
@@ -168,7 +161,6 @@ export default class SidebarComponent extends Component {
         <MenuItem onClick={this.screenShare}>
           <ListItemIcon
             color="inherit"
-            // className="navButton"
             id="navScreenButton"
           >
             {localUser !== undefined && localUser.isScreenShareActive() ? (
@@ -179,7 +171,6 @@ export default class SidebarComponent extends Component {
           </ListItemIcon>
           <ListItemText
             color="inherit"
-            // className="navButton"
             id="navScreenButton"
           >
             {localUser !== undefined && localUser.isScreenShareActive()
@@ -198,7 +189,6 @@ export default class SidebarComponent extends Component {
         <MenuItem onClick={this.handleFullScreen}>
           <ListItemIcon
             color="inherit"
-            // className="navButton"
           >
             {localUser !== undefined && isFull ? (
               <FullscreenExit />
@@ -208,7 +198,6 @@ export default class SidebarComponent extends Component {
           </ListItemIcon>
           <ListItemText
             color="inherit"
-            // className="navButton"
           >
             {localUser !== undefined && isFull ? "전체 화면 종료" : "전체 화면"}
           </ListItemText>
@@ -216,7 +205,6 @@ export default class SidebarComponent extends Component {
         <MenuItem onClick={this.toggleIsBlackBoard}>
           <ListItemIcon
             color="inherit"
-            // className="navButton"
           >
             {localUser !== undefined && this.state.isBlackBoard ? (
               <HighlightOffIcon />
@@ -226,7 +214,6 @@ export default class SidebarComponent extends Component {
           </ListItemIcon>
           <ListItemText
             color="inherit"
-            // className="navButton"
           >
             {localUser !== undefined && this.state.isBlackBoard
               ? "칠판 끄기"
@@ -250,8 +237,6 @@ export default class SidebarComponent extends Component {
         <MenuItem onClick={this.toggleChat}>
           <ListItemIcon
             color="inherit"
-            // className="navButton"
-            // id="navChatButton"
           >
             {this.props.showNotification && <div id="point" className="" />}
             <Tooltip title="Chat">
@@ -260,8 +245,6 @@ export default class SidebarComponent extends Component {
           </ListItemIcon>
           <ListItemText
             color="inherit"
-            // className="navButton"
-            // id="navChatButton"
           >
             채팅하기
           </ListItemText>
@@ -269,15 +252,11 @@ export default class SidebarComponent extends Component {
         <MenuItem onClick={this.leaveSession}>
           <ListItemIcon
             color="secondary"
-            // className="navButton"
-            // id="navLeaveButton"
           >
             <PowerSettingsNew color="#8A6BCD" />
           </ListItemIcon>
           <ListItemText
             color="secondary"
-            // className="navButton"
-            // id="navLeaveButton"
           >
             종료하기
           </ListItemText>

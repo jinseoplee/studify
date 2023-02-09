@@ -4,7 +4,7 @@ import MDEditor from '@uiw/react-md-editor';
 export default class MdEditor extends Component {
   constructor(props) {
     super(props);
-    this.state = { message: "" }
+    this.state = { message: "**Hello world!!!**" }
     this.handleChange = this.handleChange.bind(this);
   }
   handleChange(event) {

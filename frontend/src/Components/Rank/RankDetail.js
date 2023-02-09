@@ -4,14 +4,14 @@ import RankStyle from "../../Style/Rank/Rank.module.css";
 
 const RankDetail = () => {
   return (
-    <>
+    <div className={RankStyle.wrapper}>
       <div className={RankStyle.RankMainContainer}>
         <div className={RankStyle.RankSwitchBarContainer}>
           <RankSwitchbar />
         </div>
-        <Outlet />
+      <Outlet />
       </div>
-    </>
+    </div>
   );
 };
 

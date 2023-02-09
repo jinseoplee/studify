@@ -7,7 +7,6 @@ import Signup, { action as newSignupAction } from "./pages/Signup/Signup";
 import UserSignup from "./Components/Signup/UserSignup";
 import ResetPw from "./pages/Login/ResetPw";
 import DashBoard from "./pages/DashBoard/DashBoard";
-//이 아래로 컴포넌트로 이동?.. 이것도 페이지 이동으로 바꿔야할거 같은데..
 import StudyMake from "./Components/DashBoard/StudyMake";
 import StudyDetails from "./pages/MainStudy/StudyDetails";
 import StudyInfo from "./Components/MainStudy/StudyInfo";
