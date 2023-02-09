@@ -19,6 +19,8 @@ import com.ssafy.db.repository.UserImgRepository;
 import com.ssafy.db.repository.UserRepository;
 import com.ssafy.db.repository.UserTimeLogRepository;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,6 +41,7 @@ import java.util.UUID;
 @Service
 public class UserServiceImpl implements UserService {
 
+    private final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
     private final UserRepository userRepository;
     private final TempUserRepository tempUserRepository;
     private final MailDispatcher mailDispatcher;
@@ -60,24 +63,28 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
+    /**
+     * 로그인
+     */
     @Transactional
     @Override
     public UserLoginPostRes signIn(UserLoginPostReq userLoginPostReq) {
+        // 회원가입한 이메일인지 확인
+        User user = userRepository.findByEmail(userLoginPostReq.getEmail())
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 이메일입니다."));
 
-        User user = userRepository.findByEmail(userLoginPostReq.getEmail()).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 이메일입니다."));
-
-        // 비밀번호 비교 수행
+        // 비밀번호 일치 확인
         if (!passwordEncoder.matches(userLoginPostReq.getPassword(), user.getPassword())) {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
 
         UserLoginPostRes userLoginPostRes = UserLoginPostRes.builder()
                 .statusCode(200)
-                .message("Success")
+                .message("success")
                 .token(jwtTokenProvider.createToken(userLoginPostReq.getEmail()))
-                .email(user.getEmail())
-                .name(user.getName())
                 .build();
+
+        LOGGER.info("[signIn] {}", userLoginPostReq.getEmail());
 
         return userLoginPostRes;
     }

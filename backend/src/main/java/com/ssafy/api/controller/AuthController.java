@@ -25,13 +25,12 @@ public class AuthController {
     private final Logger LOGGER = LoggerFactory.getLogger(AuthController.class);
     private final UserService userService;
 
+    /**
+     * 로그인
+     */
     @PostMapping("/signin")
-    public ResponseEntity<UserLoginPostRes> signIn(@RequestBody UserLoginPostReq userLoginPostReq) {
+    public ResponseEntity<? extends BaseResponseBody> signIn(@RequestBody UserLoginPostReq userLoginPostReq) {
         UserLoginPostRes userLoginPostRes = userService.signIn(userLoginPostReq);
-
-        if(userLoginPostRes.getStatusCode() == 200){
-            LOGGER.info("[signIn] 정상적으로 로그인되었습니다. email : {}, token : {}", userLoginPostRes.getEmail(), userLoginPostRes.getToken());
-        }
 
         return ResponseEntity.status(HttpStatus.OK).body(userLoginPostRes);
     }
