@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -47,6 +48,10 @@ public class User extends BaseTimeEntity implements UserDetails {
     @Column(nullable = false)
     private String name; // 이름
 
+    @Column(nullable = false)
+    @ColumnDefault("0")
+    private Long totalTime; // 누적 공부 시간
+
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToMany(mappedBy = "user")
     private List<UserStudy> studies = new ArrayList<>();
@@ -60,10 +65,6 @@ public class User extends BaseTimeEntity implements UserDetails {
         this.email = email;
         this.password = password;
         this.name = name;
-    }
-
-    public void setUserImg(UserImg userImg) {
-        this.userImg = userImg;
     }
 
     public void updatePassword(String password) {

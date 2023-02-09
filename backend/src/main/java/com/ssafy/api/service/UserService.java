@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.mail.MessagingException;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -80,6 +81,7 @@ public interface UserService {
 
     /**
      * 사용자 정보 수정
+     *
      * @param userDetailPutReq
      * @param email
      * @return
@@ -133,5 +135,10 @@ public interface UserService {
      * 사용자 공부 시간 기록 수정
      */
     UserTimeLog updateUserTimeLog(LocalDate day, Long diff, String email);
+
+    /**
+     * 사용자 랭킹 집계(매일 0시 기준)
+     */
+    List<User> findAllUserRank();
 
 }

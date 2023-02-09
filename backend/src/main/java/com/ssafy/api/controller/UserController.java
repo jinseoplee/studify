@@ -8,7 +8,6 @@ import com.ssafy.common.model.response.BaseResponse;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.User;
 import com.ssafy.db.entity.UserImg;
-import com.ssafy.db.entity.UserTimeLog;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -32,6 +31,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -183,6 +183,17 @@ public class UserController {
         LocalDate day = LocalDateTime.ofInstant(startInstant, ZoneId.systemDefault()).toLocalDate();
         return ResponseEntity.ok().body(new UserTimeLogRes(200, "사용자 공부 시간 기록 수정 성공",
                 userService.updateUserTimeLog(day, diff, email)));
+    }
+
+    /**
+     * 사용자 랭킹 집계 및 조회 API([GET] /api/v1/users/rank)
+     */
+    @Operation(summary = "사용자 랭킹 집계 및 조회")
+    @ApiResponse(responseCode = "200", description = "사용자 랭킹 집계 및 조회 성공")
+    @GetMapping("/rank")
+    public ResponseEntity<?> findAllUserRank() {
+        return ResponseEntity.ok(new BaseResponse<List<User>>(200, "사용자 랭킹 집계 및 조회 성공",
+                userService.findAllUserRank()));
     }
 
 }

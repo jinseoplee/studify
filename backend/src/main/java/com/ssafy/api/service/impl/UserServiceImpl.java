@@ -21,6 +21,7 @@ import com.ssafy.db.repository.UserTimeLogRepository;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,6 +32,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -49,7 +51,7 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserImgRepository userImgRepository;
     private final UserTimeLogRepository userTimeLogRepository;
-    private final String path = "C:\\Users\\images\\";
+    private final String path = "C:\\Users\\images\\users";
 
     @Transactional
     @Override
@@ -59,7 +61,14 @@ public class UserServiceImpl implements UserService {
                 .name(tempUser.getName())
                 .password(tempUser.getPassword())
                 .build();
-
+        // default 이미지 설정
+        user.setUserImg(userImgRepository.save(
+                UserImg.builder()
+                        .name("default.png")
+                        .type("image/png")
+                        .fileUrl(path + "default.png")
+                        .build()
+        ));
         return userRepository.save(user);
     }
 
@@ -279,6 +288,12 @@ public class UserServiceImpl implements UserService {
         // 누적 공부 시간 계산
         user.setTotalTime(user.getTotalTime() + diff);
         return userTimeLogRepository.save(savedUserTimeLog);
+    }
+
+    /* 사용자 랭킹 집계 및 조회 */
+    @Override
+    public List<User> findAllUserRank() {
+        return userRepository.findAll(Sort.by(Sort.Direction.DESC, "totalTime"));
     }
 
 }
