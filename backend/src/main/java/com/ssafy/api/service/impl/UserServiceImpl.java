@@ -60,7 +60,6 @@ public class UserServiceImpl implements UserService {
                 .name(tempUser.getName())
                 .password(tempUser.getPassword())
                 .build();
-
         return userRepository.save(user);
     }
 
@@ -222,7 +221,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserImg getImage(String email) {
         User user = userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
-        UserImg userImg = userImgRepository.findById(user.getUserImg().getId()).orElseThrow(() -> new IllegalArgumentException("프로필이 존재하지 않습니다."));
+        UserImg userImg = (user.getUserImg() != null) ? userImgRepository.findById(user.getUserImg().getId()).get() : null;
+        if (userImg == null) {
+            userImg = UserImg.builder()
+                    .name("default.png")
+                    .type("image/png")
+                    .fileUrl("./src/main/resources/static/images/default.png")
+                    .build();
+        }
         return userImg;
     }
 
