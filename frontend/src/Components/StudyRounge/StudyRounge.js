@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { selectstudyActions } from "../../store/StudyRounge";
 
 import RoungeStyle from "../../Style/StudyRounge/StudyRounge.module.css";
@@ -11,6 +12,7 @@ const StudyRounge = () => {
   const [checkSkill, setCheckSkill] = useState([]);
   const [checkViewStudy, setCheckViewStudy] = useState([]);
   const [checkFilter, setCheckFilter] = useState(false);
+  const navigate = useNavigate();
   const data = [
     {
       id: 0,
@@ -49,22 +51,27 @@ const StudyRounge = () => {
     },
   ];
 
+  //그럼 여기서 나의 정보를 가지고 있어야합니다.
   const studyViewData = [
     {
       id: 100, //우리반 스터디인지 확인하는 아이디(100번)
-      checkStudy: "우리반",
+      name: "우리반 보기",
+      checkStudy: 1,
     },
     {
       id: 101, //공개스터디만
+      name: "공개스터디 보기",
       checkStudy: "공개",
     },
     {
       id: 102, //기수만
-      checkStudy: "같은기수",
+      name: "같은기수 보기",
+      checkStudy: 8,
     },
     {
       id: 103, //우리지역만
-      checkStudy: "같은자역",
+      name: "같은지역 보기",
+      checkStudy: "대전",
     },
   ];
 
@@ -89,6 +96,15 @@ const StudyRounge = () => {
     dispatch(selectstudyActions.changestudySelect(checkViewStudy));
     dispatch(selectstudyActions.changeskillList(checkSkill));
   }, [checkViewStudy, checkSkill]);
+
+  let myId = 0;
+
+  const goDetailPage = () => {
+    //여기서 해당 스터디에 해당하는 id 부분으로 가야합니다. 즉
+    // navigate(`/study/${id}`);
+    navigate(`/study/1`);
+  };
+
   return (
     <div>
       <div>
@@ -122,7 +138,7 @@ const StudyRounge = () => {
         <div className={RoungeStyle.RoungeFilterContainer}>
           {studyViewData.map((data, key) => (
             <div key={key}>
-              <label htmlFor={data.checkStudy}>{data.checkStudy}</label>
+              <label htmlFor={data.name}>{data.name}</label>
               <input
                 type="checkbox"
                 name={`select-${data.id}`}
@@ -140,7 +156,9 @@ const StudyRounge = () => {
         </div>
         <button onClick={filterStudy}>검색</button>
       </div>
-      <RoungeList checkFilter={checkFilter} />
+      <div onClick={goDetailPage}>
+        <RoungeList checkFilter={checkFilter} id={myId} />
+      </div>
     </div>
   );
 };

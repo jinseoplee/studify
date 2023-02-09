@@ -8,27 +8,39 @@ import Dashboardstyle from "../../Style/Dashboard/Dashboard.module.css";
 
 const DashboardProfile = () => {
   const [userName, setUserName] = useState("");
-  const [studies, setMyStudies] = useState(null);
   const userToken = useSelector((state) => state.token.accesstoken);
-
+  useEffect(() => {
+    axios
+      .get("/api/v1/users", {
+        headers: {
+          "X-Auth-Token": userToken,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+        setUserName(res.data.name);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
   // useEffect(() => {
   //   axios
-  //     .get("api/v1/users", {
+  //     .get("http://192.168.31.155:8080/api/v1/users/image", {
   //       headers: {
-  //         "X-Auth-Token": `${userToken}`,
+  //         "X-Auth-Token":
+  //           "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzc2FmeUBzc2FmeS5jb20iLCJpYXQiOjE2NzU3Mjc5NDUsImV4cCI6MTY3NTczMTU0NX0.eCEP_mSrmTDYMr8IPVvXjG5MjYqZCK2ahj_pSVPgK3E",
   //       },
+  //       responseType: "blob",
   //     })
   //     .then((res) => {
-  //       console.log(res.data.content);
-  //       console.log(res.data.content.studies);
-  //       setMyStudies(res.data.content.studies);
-  //       setUserName(res.data.name);
+  //       let objectURL = URL.createObjectURL(res.data);
+  //       setMyImage(objectURL);
   //     })
   //     .catch((err) => {
   //       console.log(err);
   //     });
   // }, []);
-
   return (
     <div className={Dashboardstyle.dashboardProfileContainer}>
       <Link to="/userprofile">

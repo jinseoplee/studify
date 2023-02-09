@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import RankStyle from "../../Style/Rank/Rank.module.css"
+import RankStyle from "../../Style/Rank/Rank.module.css";
 
 const RankSwitchbar = () => {
   return (

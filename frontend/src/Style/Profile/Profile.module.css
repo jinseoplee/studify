@@ -50,7 +50,7 @@
   width: 200px;
   height: 200px;
   border-radius: 100px;
-  background-color: blue;
+  /* background-color: blue; */
 }
 .profileUserName {
   margin-top: 30px;
@@ -60,7 +60,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 }
+
+.UserInfoSetting {
+  margin-top: 16px;
+  margin-left: 92vw;
+}
+
 .badgeBox {
   display: flex;
   flex-direction: column;

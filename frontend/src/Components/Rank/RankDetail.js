@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import RankSwitchbar from "./RankSwitchbar";
-import RankStyle from "../../Style/Rank/Rank.module.css"
+import RankStyle from "../../Style/Rank/Rank.module.css";
 
 const RankDetail = () => {
   return (

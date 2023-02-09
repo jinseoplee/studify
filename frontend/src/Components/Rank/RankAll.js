@@ -6,7 +6,7 @@ import Pagination from "../UI/Pagination";
 
 const RankAll = () => {
   // const [rank, setRank] = useState([]);
-  const [limit, setLimit] = useState(7);
+  const [limit, setLimit] = useState(5);
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
   const dummyrankall = [
@@ -67,23 +67,25 @@ const RankAll = () => {
   });
   return (
     <div className={RankStyle.RankDetailContainer}>
-      {/* { AllRanking } */}
-      <RankPodium data={dummyrankall} />
-      <div className={RankStyle.RankBarContainer}>
-        {dummyrankall.slice(offset, offset + limit).map((data, key) => (
-          <div key={key} className={RankStyle.RankNameBox}>
-            <span>{key + offset + 1}</span>
-            <span>{data.name}</span>
-            <span>{data.time}</span>
-          </div>
-        ))}
+      <div className={RankStyle.RankContentContainter}>
+        {/* { AllRanking } */}
+        <RankPodium data={dummyrankall} />
+        <div className={RankStyle.RankBarContainer}>
+          {dummyrankall.slice(offset, offset + limit).map((data, key) => (
+            <div key={key} className={RankStyle.RankNameBox}>
+              <span>{key + offset + 1}</span>
+              <span>{data.name}</span>
+              <span>{data.time}</span>
+            </div>
+          ))}
+        </div>
+      </div>
       <Pagination
         total={dummyrankall.length}
         limit={limit}
         page={page}
         setPage={setPage}
       />
-      </div>
     </div>
   );
 };
