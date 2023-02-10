@@ -12,7 +12,7 @@ const RankAll = () => {
   const RankAllhandler = async () => {
     try {
       const response = await axios.get(
-        "https://i8b108.p.ssafy.io/api/v1/users/rank"
+        "/api/v1/users/rank"
       );
       setAllRanking(response.data.content);
     } catch (err) {
