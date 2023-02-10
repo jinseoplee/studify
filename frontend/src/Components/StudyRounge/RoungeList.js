@@ -9,13 +9,20 @@ const RoungeList = (props) => {
   const token = useSelector((state) => state.token.accesstoken);
   const [data, setData] = useState([]);
   let search = props.checkFilter;
+  console.log(filterUser);
 
+  console.log(filterUser);
   useEffect(() => {
+    const skill = filterSkill.join(",");
+
     try {
       const response = axios
         .get(`/api/v1/studies`, {
-          params: { skill: filterSkill, user: filterUser },
           headers: { "X-AUTH-TOKEN": token },
+          params: {
+            category: skill,
+            //기수 지역 반
+          },
         })
         .then(function (response) {
           setData(response.data.content);
@@ -46,8 +53,7 @@ const RoungeList = (props) => {
       region: "구미",
     },
   ];
-  console.log(props);
-  console.log(data);
+
   return (
     <div className={RoungeStyle.RoungeListContainer}>
       <h3>리스트</h3>

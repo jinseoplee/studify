@@ -12,7 +12,7 @@ import { useRef } from "react";
 const StudyRounge = () => {
   const dispatch = useDispatch();
   const [checkSkill, setCheckSkill] = useState([]);
-  const [checkViewStudy, setCheckViewStudy] = useState([]);
+  const [checkViewStudy, setCheckViewStudy] = useState(" ");
   const [checkFilter, setCheckFilter] = useState(false);
   const [selectedId, setSeletedId] = useState(0);
   const navigate = useNavigate();
@@ -59,38 +59,45 @@ const StudyRounge = () => {
   //그럼 여기서 나의 정보를 가지고 있어야합니다.
   const studyViewData = [
     {
-      id: 100, //우리반 스터디인지 확인하는 아이디(100번)
+      id: 100, //기수만
+      name: "같은기수 보기",
+      checkStudy: 108,
+    },
+    {
+      id: 101, //우리지역만
+      name: "같은지역 보기",
+      checkStudy: "daejeon",
+    },
+    {
+      id: 102, //우리반 스터디인지 확인하는 아이디(100번)
       name: "우리반 보기",
       checkStudy: 1,
     },
     {
-      id: 101, //공개스터디만
+      id: 103, //공개스터디만
       name: "공개스터디 보기",
-      checkStudy: "공개",
-    },
-    {
-      id: 102, //기수만
-      name: "같은기수 보기",
-      checkStudy: 8,
-    },
-    {
-      id: 103, //우리지역만
-      name: "같은지역 보기",
-      checkStudy: "대전",
+      checkStudy: true,
     },
   ];
 
   const handleSingleCheck = (checked, id) => {
     if (checked) {
-      setCheckViewStudy((prev) => [...prev, id]);
+      setCheckViewStudy((prev) => prev + id + ",");
     } else {
-      setCheckViewStudy(checkViewStudy.filter((el) => el !== id));
+      setCheckViewStudy((prev) => {
+        if (prev === undefined) {
+          setCheckViewStudy("");
+        } else {
+          const str = id + ",";
+          setCheckViewStudy(checkViewStudy.replace(str, ""));
+        }
+      });
     }
   };
 
   const filterStudy = () => {
     if (checkFilter === false) {
-      setCheckFilter(true);
+      setCheckFilter(true); //이부분 문자열로 변경
     } else {
       setCheckFilter(false);
     }
@@ -119,6 +126,8 @@ const StudyRounge = () => {
     //여기서 해당 스터디에 해당하는 id 부분으로 가야합니다. 즉
     // navigate(`/study/${id}`);
     console.log(selectedId);
+    // if(checkViewStudy)
+    setCheckViewStudy(checkViewStudy.slice(0, -1));
     navigate(`/study/${selectedId}`);
   };
 
@@ -163,7 +172,7 @@ const StudyRounge = () => {
                   handleSingleCheck(e.target.checked, data.checkStudy)
                 }
                 checked={
-                  checkViewStudy.includes(data.checkStudy) ? true : false
+                  checkViewStudy?.includes(data.checkStudy) ? true : false
                 }
                 // id="chk_top"
                 id={data.checkStudy}

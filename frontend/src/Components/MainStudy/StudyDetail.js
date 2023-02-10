@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet, Link, useNavigate } from "react-router-dom";
 import StudySwitchbar from "./StudySwitchbar";
@@ -48,6 +48,25 @@ const StudyDetail = () => {
         swal("삭제할 수 없는 스터디입니다");
       });
   };
+  const joinStudyHandler = () => {
+    console.log(studyId);
+    axios
+      .post(
+        `/api/v1/studies/${studyId}`,
+        {},
+        {
+          headers: {
+            "X-Auth-Token": `${userToken}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   useEffect(() => {
     axios
@@ -57,8 +76,8 @@ const StudyDetail = () => {
         },
       })
       .then((res) => {
-        console.log(res.data);
-        setStudyData(res.data);
+        console.log(res);
+        setStudyData(res.data.content);
       })
       .catch((err) => {
         console.log(err);
@@ -75,7 +94,10 @@ const StudyDetail = () => {
               {studydata.title}
             </p>
             <button className={StudyStyle.StudyBtn} onClick={joinSession}>
-              참여하기
+              비디오 참여하기
+            </button>
+            <button className={StudyStyle.StudyBtn} onClick={joinStudyHandler}>
+              스터디방 가입
             </button>
             <button className={StudyStyle.StudyBtn} onClick={outStudyHandler}>
               나가기
@@ -94,7 +116,7 @@ const StudyDetail = () => {
           <hr className={StudyStyle.studyHr}></hr>
         </div>
         <div className={StudyStyle.studyDetailInside}>
-          <Outlet />
+          <Outlet study={studydata} />
         </div>
       </div>
     </>
