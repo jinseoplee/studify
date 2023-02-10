@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import StudyStyle from "../../Style/MainStudy/StudyDetail.module.css";
 
-const StudyInfo = () => {
+const StudyInfo = ({ study }) => {
   const studynum = useSelector((state) => state.userStudyInfo.studycapa);
   const studyday = useSelector((state) => state.userStudyInfo.days);
   const studyskill = useSelector((state) => state.userStudyInfo.skills);
@@ -25,7 +25,7 @@ const StudyInfo = () => {
       <hr className={StudyStyle.studyHr}></hr>
       <div>
         <p className={StudyStyle.studyContentTitle}>공지사항</p>
-        <p>{studydes}</p>
+        <p>{study}</p>
       </div>
     </div>
   );

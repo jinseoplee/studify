@@ -9,7 +9,6 @@ import "../../Style/Signup/SignupForm.css";
 
 const SignupForm = () => {
   const dispatch = useDispatch();
-  // const navigate = useNavigate();
 
   //이메일, 비밀번호, 비밀번호 확인
   const [Email, setEmail] = useState("");
@@ -65,11 +64,10 @@ const SignupForm = () => {
         email: Email,
         password: Password,
         name: Name,
-        nickname: "test",
         domain: `${window.location.host}`,
         region: region,
         generation: generation,
-        clssNum: clssNum,
+        classNum: clssNum,
       });
       setOpenModal(true);
       console.log(response);

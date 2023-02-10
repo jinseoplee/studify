@@ -4,11 +4,6 @@ import Dashboardstyle from "../../Style/Dashboard/Dashboard.module.css";
 import makestudy from "../../assets/image/plus.png";
 import { selectdayActions } from "../../store/StudyStore";
 
-const dummy = [
-  { studyname: "첫번째 스터디", studyId: 1, studySkill: "python", member: [] },
-  { studyname: "두번째 스터디", studyId: 2, studySkill: "java", member: [] },
-];
-
 const MyStudy = ({ studies }) => {
   const dispatch = useDispatch();
 

@@ -1,13 +1,16 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import Dashboardstyle from "../../Style/Dashboard/Dashboard.module.css";
 import SkillCheckBox from "../UI/SkillCheckBox";
 import SelectCapaBox from "../UI/SelectCapaBox";
 import DayCheckbox from "../UI/DayCheckbox";
 import Topbar from "../Topbar/Topbar";
 import axios from "axios";
+import swal from "sweetalert";
 
 const StudyMake = () => {
+  const navigate = useNavigate();
   const [Title, setTitle] = useState("");
   const [Description, setDescription] = useState("");
   const Capacity = useSelector((state) => state.selectday.studyCapa);
@@ -56,8 +59,10 @@ const StudyMake = () => {
           }
         );
         console.log(response);
+        navigate("/dashboard");
       } catch (err) {
         console.log(err);
+        swal("스터디 생성이 실패했습니다.");
       }
     }
   };
