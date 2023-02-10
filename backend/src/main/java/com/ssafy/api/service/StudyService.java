@@ -25,6 +25,11 @@ public interface StudyService {
     StudyRes joinStudy(String email, Long studyId);
 
     /**
+     * 스터디 나가기
+     */
+    void leaveStudy(String email, Long studyId);
+
+    /**
      * 스터디 목록 조회
      */
     List<StudyRes> findAll();

@@ -25,6 +25,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -91,6 +92,30 @@ public class StudyServiceImpl implements StudyService {
         StudyRes studyRes = new StudyRes(foundStudy);
         studyRes.setUsers(userStudyRepository.findAllByStudyId(studyId));
         return studyRes;
+    }
+
+    /**
+     * 스터디 나가기
+     */
+    @Transactional
+    @Override
+    public void leaveStudy(String email, Long studyId) {
+        User foundUser = userRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
+
+        Study foundStudy = studyRepository.findById(studyId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 스터디입니다."));
+
+        UserStudy userStudy = userStudyRepository.findByUserIdAndStudyId(foundUser.getId(), foundStudy.getId())
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 리소스입니다."));
+
+        // 스터디를 나가는 사용자가 호스트일 경우 스터디를 없앰
+        if(email.equals(foundStudy.getCreatedBy())){
+            studyRepository.delete(foundStudy);
+        }
+
+        userStudyRepository.delete(userStudy);
+        LOGGER.info("[leaveStudy] {} 스터디(id : {}) 떠나기 완료", email, studyId);
     }
 
     /**

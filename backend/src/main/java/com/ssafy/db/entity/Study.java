@@ -1,5 +1,6 @@
 package com.ssafy.db.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ssafy.api.request.study.StudyInfoUpdatePutReq;
 import lombok.Builder;
 import lombok.Getter;
@@ -47,15 +48,19 @@ public class Study extends BaseEntity {
     @Column(nullable = false)
     private boolean isPublic; // 공개 여부
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(nullable = false)
     private Integer generation; // 기수
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(nullable = false)
     private String region; // 지역
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(nullable = false)
     private Integer classNum; // 반
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToMany(mappedBy = "study")
     private List<UserStudy> users = new ArrayList<>();
 

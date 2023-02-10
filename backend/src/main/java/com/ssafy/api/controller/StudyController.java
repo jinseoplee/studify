@@ -32,6 +32,7 @@ import java.util.List;
 /**
  * 스터디 관련 API 요청 처리를 위한 컨트롤러 정의
  */
+@CrossOrigin("*")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1/studies")
@@ -61,6 +62,22 @@ public class StudyController {
                                                             @PathVariable Long studyId) {
         return ResponseEntity.ok(new BaseResponse<StudyRes>(200, "스터디 참여 완료", studyService.joinStudy(email, studyId)));
     }
+
+    /**
+     * 스터디 나가기 API([DELETE] /api/v1/studies/leave/{studyId})
+     */
+    @Operation(summary = "스터디 나가기")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "스터디 떠나기 성공"),
+            @ApiResponse(responseCode = "400", description = "존재하지 않는 리소스 접근")
+    })
+    @DeleteMapping("/leave/{studyId}")
+    public ResponseEntity<? extends BaseResponseBody> leaveStudy(@AuthenticationPrincipal String email,
+                                                                 @PathVariable Long studyId) {
+        studyService.leaveStudy(email, studyId);
+        return ResponseEntity.ok(new BaseResponseBody(200, "스터디 떠나기 완료"));
+    }
+
 
     /**
      * 스터디 목록 조회 API([GET] /api/v1/studies)
