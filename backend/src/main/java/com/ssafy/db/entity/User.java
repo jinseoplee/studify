@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -42,24 +43,32 @@ public class User extends BaseTimeEntity implements UserDetails {
     private Integer generation; // 기수
 
     @Column(nullable = false)
-    private String classNum; // 반
+    private Integer classNum; // 반
 
     @Column(nullable = false)
     private String name; // 이름
+
+    @Column(nullable = false)
+    @ColumnDefault("0")
+    private Long totalTime;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @OneToMany(mappedBy = "user")
+    private List<UserStudy> studies = new ArrayList<>();
 
     @OneToOne
     @JoinColumn(name = "user_img_id", referencedColumnName = "user_img_id")
     private UserImg userImg; // 유저 이미지
 
     @Builder
-    public User(String email, String password, String name) {
+    public User(String email, String password, String region, Integer generation, Integer classNum, String name, Long totalTime) {
         this.email = email;
         this.password = password;
+        this.region = region;
+        this.generation = generation;
+        this.classNum = classNum;
         this.name = name;
-    }
-
-    public void setUserImg(UserImg userImg) {
-        this.userImg = userImg;
+        this.totalTime = totalTime;
     }
 
     public void updatePassword(String password) {
@@ -71,6 +80,7 @@ public class User extends BaseTimeEntity implements UserDetails {
      *
      * @return null
      */
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
@@ -81,6 +91,7 @@ public class User extends BaseTimeEntity implements UserDetails {
      *
      * @return email
      */
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Override
     public String getUsername() {
         return this.email;
@@ -91,6 +102,7 @@ public class User extends BaseTimeEntity implements UserDetails {
      *
      * @return true
      */
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Override
     public boolean isAccountNonExpired() {
         return true;
@@ -101,6 +113,7 @@ public class User extends BaseTimeEntity implements UserDetails {
      *
      * @return true
      */
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Override
     public boolean isAccountNonLocked() {
         return true;
@@ -111,6 +124,7 @@ public class User extends BaseTimeEntity implements UserDetails {
      *
      * @return true
      */
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
@@ -121,6 +135,7 @@ public class User extends BaseTimeEntity implements UserDetails {
      *
      * @return true
      */
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Override
     public boolean isEnabled() {
         return true;

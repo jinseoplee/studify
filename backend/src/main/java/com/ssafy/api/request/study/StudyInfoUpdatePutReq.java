@@ -18,7 +18,7 @@ public class StudyInfoUpdatePutReq {
 
     private String description; // 스터디 설명
 
-    private int capacity; // 인원
+    private Integer capacity; // 인원
 
     private List<String> day; // 요일
 

@@ -1,17 +1,23 @@
 package com.ssafy.api.service;
 
 import com.ssafy.api.request.user.UserAuthPostReq;
+import com.ssafy.api.request.user.UserDetailPutReq;
 import com.ssafy.api.request.user.UserLoginPostReq;
 import com.ssafy.api.request.user.UserSignupPostReq;
 import com.ssafy.api.response.user.UserAuthPostRes;
+import com.ssafy.api.response.user.UserInfoRes;
 import com.ssafy.api.response.user.UserLoginPostRes;
+import com.ssafy.api.response.user.UserRes;
 import com.ssafy.db.entity.TempUser;
 import com.ssafy.db.entity.User;
 import com.ssafy.db.entity.UserImg;
+import com.ssafy.db.entity.UserTimeLog;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.MessagingException;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -36,7 +42,7 @@ public interface UserService {
     UserLoginPostRes signIn(UserLoginPostReq userLoginPostReq);
 
     /**
-     * 유저 조회
+     * 사용자 조회
      *
      * @param email
      * @return
@@ -68,7 +74,12 @@ public interface UserService {
     TempUser certificateTempUser(UserSignupPostReq authReq);
 
     /**
-     * 회원 비밀번호 변경
+     * 사용자 정보 조회
+     */
+    UserInfoRes findByEmail(String email);
+
+    /**
+     * 사용자 비밀번호 변경
      *
      * @param userInfo
      * @return
@@ -76,7 +87,16 @@ public interface UserService {
     User updateUserPassword(Map<String, String> userInfo);
 
     /**
-     * 회원정보 삭제
+     * 사용자 정보 수정
+     *
+     * @param userDetailPutReq
+     * @param email
+     * @return
+     */
+    User updateUserDetail(UserDetailPutReq userDetailPutReq, String email);
+
+    /**
+     * 사용자 정보 삭제
      *
      * @param email
      */
@@ -89,6 +109,14 @@ public interface UserService {
     User updateUser(User user);
 
     boolean validImgFile(MultipartFile multipartFile);
+
+    /**
+     * 프로필 이미지 조회
+     *
+     * @param email
+     * @return
+     */
+    UserImg getImage(String email);
 
     /**
      * 프로필 이미지 업로드
@@ -104,5 +132,20 @@ public interface UserService {
      * 프로필 이미지 삭제
      */
     void deleteImage(String email);
+
+    /**
+     * 사용자 공부 시간 기록 생성
+     */
+    UserTimeLog createUserTimeLog(LocalDate day, Long diff, String email);
+
+    /**
+     * 사용자 공부 시간 기록 수정
+     */
+    UserTimeLog updateUserTimeLog(LocalDate day, Long diff, String email);
+
+    /**
+     * 사용자 랭킹 집계(매일 0시 기준)
+     */
+    List<User> findAllUserRank();
 
 }

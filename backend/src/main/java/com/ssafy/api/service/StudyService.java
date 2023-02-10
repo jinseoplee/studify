@@ -2,42 +2,52 @@ package com.ssafy.api.service;
 
 import com.ssafy.api.request.study.StudyCreatePostReq;
 import com.ssafy.api.request.study.StudyInfoUpdatePutReq;
-import com.ssafy.api.response.study.StudyCreatePostRes;
 import com.ssafy.api.response.study.StudyRes;
 import com.ssafy.db.entity.Study;
 import com.ssafy.db.entity.StudyImg;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * 스터디 관련 비즈니스 로직 처리를 위한 서비스 인터페이스 정의
  */
 public interface StudyService {
-
     /**
      * 스터디 생성
-     *
-     * @param studyCreatePostReq
-     * @return StudyCreatePostRes
      */
-    StudyCreatePostRes createStudy(StudyCreatePostReq studyCreatePostReq);
+    StudyRes createStudy(String email, StudyCreatePostReq studyCreatePostReq);
 
     /**
-     * 스터디 정보 수정
-     *
-     * @param studyInfoUpdatePutReq
-     * @return StudyRes
+     * 스터디 참여
      */
-    StudyRes updateStudyInfo(Long studyId, StudyInfoUpdatePutReq studyInfoUpdatePutReq);
+    StudyRes joinStudy(String email, Long studyId);
+
+    /**
+     * 스터디 나가기
+     */
+    void leaveStudy(String email, Long studyId);
+
+    /**
+     * 스터디 목록 조회
+     */
+    List<StudyRes> findAll();
+
+    /**
+     * 스터디 조회
+     */
+    StudyRes findByStudyId(Long studyId);
+
+    /**
+     * 스터디 수정
+     */
+    StudyRes updateStudyInfo(String email, Long studyId, StudyInfoUpdatePutReq studyInfoUpdatePutReq);
 
     /**
      * 스터디 삭제
-     *
-     * @param studyId
-     * @return void
      */
-    void deleteStudy(Long studyId);
+    void deleteStudy(String email, Long studyId);
 
     boolean validImgFile(MultipartFile multipartFile);
 
@@ -46,17 +56,22 @@ public interface StudyService {
     Study updateStudy(Study study);
 
     /**
-     * 스터디 썸네일 이미지 업로드
+     * 스터디 이미지 조회
+     */
+    StudyImg getImage(Long studyId);
+
+    /**
+     * 스터디 이미지 업로드
      */
     StudyImg uploadImage(MultipartFile multipartFile) throws IOException;
 
     /**
-     * 스터디 썸네일 이미지 수정
+     * 스터디 이미지 수정
      */
     StudyImg updateImage(MultipartFile multipartFile, Study study) throws IOException;
 
     /**
-     * 스터디 썸네일 이미지 삭제
+     * 스터디 이미지 삭제
      */
     void deleteImage(Long studyId);
 

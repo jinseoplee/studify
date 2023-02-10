@@ -13,7 +13,7 @@ import java.util.List;
 @Getter
 public class StudyCreatePostRes extends BaseResponseBody {
 
-    private long id; // 스터디 번호
+    private Long id; // 스터디 번호
 
     private String title; // 스터디 제목
 
@@ -21,7 +21,7 @@ public class StudyCreatePostRes extends BaseResponseBody {
 
     private String host; // 스터디 주최자
 
-    private int capacity; // 인원
+    private Integer capacity; // 인원
 
     private List<String> day; // 요일
 
