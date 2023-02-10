@@ -1,5 +1,6 @@
 .dashboardContainer {
   display: flex;
+  width: 100vw;
 }
 .dashboardProfileContainer {
   display: flex;
@@ -40,32 +41,33 @@
 .StudyRecordContainer {
   margin-top: 50px;
   margin-left: 50px;
-  width: 820px;
+  width: 55vw;
+  /* width: 820px; */
   height: 336px;
 }
 .StudyRecordbox {
   display: flex;
   align-items: center;
-  width: 1128px;
+  width: 55vw;
   height: 304px;
   background-color: #ededed;
 }
 .StudyRecordTime {
-  width: 744px;
+  width: 65%;
   height: 256px;
   background-color: white;
   margin-left: 24px;
   border-radius: 15px;
 }
 .StudyRecordStrick {
-  width: 314px;
+  width: 29%;
   height: 257px;
   background-color: white;
   margin-left: 24px;
   border-radius: 15px;
 }
 .MyStudycontainer {
-  width: 1128px;
+  width: 55vw;
   height: 376;
   margin-top: 50px;
   margin-left: 50px;
@@ -74,7 +76,7 @@
 .MyStudybox {
   display: flex;
   align-items: center;
-  width: 1128px;
+  width: 100%;
   height: 376px;
   background-color: #ededed;
 }
@@ -82,7 +84,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 280px;
+  width: 26%;
   height: 280px;
   background-color: white;
   margin-left: 24px;
@@ -92,15 +94,17 @@
   height: 100px;
 }
 .MyStudyList {
-  width: 700px;
+  width: 65%;
   height: 280px;
   background-color: white;
   margin-left: 40px;
+  display: flex;
+  align-items: center;
 }
 .StudyMakeContainer {
   display: flex;
   flex-direction: column;
-  width: 1000px;
+  width: 50vw;
 }
 .StudyMakeTitle {
   margin-top: 88px;
@@ -205,4 +209,46 @@
 .StudyTodoList {
   background-color: gray;
   margin-top: 20px;
+}
+.MyStudyListItem {
+  height: 240px;
+  width: 240px;
+  background-color: #d0d0d0;
+  margin: 10px;
+}
+.StudyMakeSelect {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+
+  font-family: "Noto Sansf KR", sans-serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+  line-height: 1.1;
+  text-align: center;
+
+  color: #444;
+  background-color: #fff;
+
+  padding: 0.6em 1.4em 0.5em 0.8em;
+  margin-top: 25px;
+  margin-left: 70px;
+
+  width: 350px;
+  border: 1px solid #8a6bcd;
+  border-radius: 1em;
+  box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.04);
+}
+
+.StudyMakeSelect:hover {
+  border: 1px solid #b29ae3;
+  cursor: pointer;
+}
+
+.StudyMakeSelect:focus {
+  border-color: #aaa;
+  box-shadow: 0 0 1px 3px #b29ae3;
+  box-shadow: 0 0 0 3px -moz-mac-focusring;
+  color: #222;
+  outline: none;
 }

@@ -1,7 +1,5 @@
 .bottombar {
-  position: relative;
-  background-color: bisque;
-  bottom: 0;
-  height: auto;
-  width: 100%;
+  border: #cabbe7 solid 3px;
+  height: 150px;
+  width: 100vw;
 }

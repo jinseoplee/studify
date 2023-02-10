@@ -9,18 +9,22 @@ const StudyInfo = () => {
   return (
     <div>
       <div className={StudyStyle.studyInfoContainer}>
-        <p>
-          <span>인 원 : {studynum} </span>
-          <span>일 정 : {studyday}</span>
-        </p>
-        <p>
-          <span>기술 스택 : {studyskill} </span>
-          <span>스터디장 : </span>
-        </p>
+        <div className={StudyStyle.studyContent}>
+          <p>인 원 : {studynum} </p>
+          <br></br>
+          <br></br>
+          <p>기술 스택 : {studyskill} </p>
+        </div>
+        <div className={StudyStyle.studyContent}>
+          <p>일 정 : {studyday}</p>
+          <br></br>
+          <br></br>
+          <p>스터디장 : </p>
+        </div>
       </div>
       <hr className={StudyStyle.studyHr}></hr>
       <div>
-        <p>소개글</p>
+        <p className={StudyStyle.studyContentTitle}>공지사항</p>
         <p>{studydes}</p>
       </div>
     </div>

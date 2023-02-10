@@ -14,6 +14,8 @@ const StudyMake = () => {
   const days = useSelector((state) => state.selectday.userDay);
   const skills = useSelector((state) => state.selectday.studySkill);
   const [isPublic, setIsPublic] = useState(false);
+  const token = useSelector((state) => state.token.accesstoken);
+  console.log(token);
 
   const enteredTitleIsvalid = Title.trim() !== "";
   const checkSkill = skills.length !== 0;
@@ -38,18 +40,19 @@ const StudyMake = () => {
     } else {
       try {
         const response = await axios.post(
-          "http://192.168.31.27:8080/api/v1/study",
+          "/api/v1/studies",
           {
-            // userid: "유저pk",
-            // thumbnailUrl:
-            //   "https://www.google.com/url?sa=i&url=https%3A%2F%2Fcanadablog.tistory.com%2F139&psig=AOvVaw13fpUadImITUBRotyFE_3Z&ust=1675209858482000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCNCqpJbB8PwCFQAAAAAdAAAAABAE",
             title: Title,
             description: Description,
-            host: "jjjp9966@gmail.com",
             capacity: Capacity,
             day: days,
             category: skills,
             public: isPublic,
+          },
+          {
+            headers: {
+              "X-AUTH-TOKEN": token,
+            },
           }
         );
         console.log(response);

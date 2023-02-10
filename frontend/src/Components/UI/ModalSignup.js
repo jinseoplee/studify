@@ -1,6 +1,7 @@
 import Modalstyle from "../../Style/UI/ModalSignup.module.css";
 import { useNavigate } from "react-router-dom";
 import ModalContainer from "./ModalContainer";
+import swal from "sweetalert";
 import axios from "axios";
 
 const ModalSignup = ({ open, onClose, userEmail }) => {
@@ -14,11 +15,12 @@ const ModalSignup = ({ open, onClose, userEmail }) => {
       console.log(response);
     } catch (err) {
       console.error(err);
+      swal("아직 인증이 완료되지않았습니다. 이메일을 확인해주세요");
     }
   };
   return (
     <ModalContainer>
-      <div onClick={onClose} className={Modalstyle.modalcontain}>
+      <div onClick={getUserInfoHandler} className={Modalstyle.modalcontain}>
         <div className={Modalstyle.modalBody}>
           <p className={Modalstyle.modalCloseBtn}>X</p>
           <p>인증 메일이 발송되었습니다</p>

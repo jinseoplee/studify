@@ -5,6 +5,7 @@ import tokensaveReducer from "./LoginStore";
 import studyStoreReducer from "./StudyStore";
 import userStoreReducer from "./UserStore";
 import userStudyReducer from "./UserStudyStore";
+import userSelectStudyReducer from "./StudyRounge";
 
 const store = configureStore({
   reducer: {
@@ -13,6 +14,7 @@ const store = configureStore({
     selectday: studyStoreReducer,
     userinfo: userStoreReducer,
     userStudyInfo: userStudyReducer,
+    selectStudy: userSelectStudyReducer,
   },
 
   //   reducer: counterSlice.reducer,

@@ -6,13 +6,11 @@
 }
 
 .StudyDetailback {
+  height: 400px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 400px;
-  background-image: url(../../assets/image/background1.jpg);
 }
 .StudyDetailName {
   color: white;
@@ -32,22 +30,136 @@
 }
 .studyDetailInside {
   margin-top: 50px;
-  width: 60%;
+  width: 80%;
 }
+/* .studyDetailInside:active {
+  color: aqua;
+} */
+
 .studySwitchbarContainer {
   width: 80%;
 }
+
 .studyHr {
   margin-top: 50px;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
   width: 100%;
   background-color: #8a6bcd;
   height: 1px;
   border: 0;
 }
 .studyInfoContainer {
+  display: flex;
   font-size: 20px;
+  justify-content: space-around;
 }
 .studyInfoSpan {
   margin-right: 40px;
+}
+
+.studyContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+}
+
+.studyContentTitle {
+  font-size: 1.8rem;
+  margin-bottom: 30px;
+}
+
+.studyUpdateContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.studyUpdatesecondContainer {
+  display: flex;
+  flex-direction: column;
+  width: 50vw;
+}
+
+.studyUpdatebox {
+  margin-bottom: 30px;
+  margin-left: 18px;
+}
+
+.studyUpdateLabel {
+  font-size: 30px;
+  margin-bottom: 15px;
+}
+.StudyUpdateTitle {
+  width: 752px;
+  height: 48px;
+  border-radius: 25px;
+  /* box-shadow: 5px 5px 5px gray; */
+  border: 1px solid rgb(189, 188, 188);
+  padding-left: 10px;
+  font-size: 20px;
+}
+.StudyUpdateSelect {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+
+  font-family: "Noto Sansf KR", sans-serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+  line-height: 1.1;
+  text-align: center;
+
+  color: #444;
+  background-color: #fff;
+
+  padding: 0.6em 1.4em 0.5em 0.8em;
+  margin-top: 25px;
+  margin-left: 70px;
+
+  width: 350px;
+  border: 1px solid #8a6bcd;
+  border-radius: 1em;
+  box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.04);
+}
+.StudyUpdateSelect:hover {
+  border: 1px solid #b29ae3;
+  cursor: pointer;
+}
+
+.StudyUpdateSelect:focus {
+  border-color: #aaa;
+  box-shadow: 0 0 1px 3px #b29ae3;
+  box-shadow: 0 0 0 3px -moz-mac-focusring;
+  color: #222;
+  outline: none;
+}
+.StudyUpdatePublic {
+  width: 100px;
+  height: 40px;
+  border: solid 3px #8a6bcd;
+  border-radius: 20px;
+  margin-left: 10px;
+  margin-bottom: 20px;
+  text-align: center;
+  line-height: 37px;
+  cursor: pointer;
+  font-size: 18px;
+}
+.StudyUpdatePublic:hover {
+  background-color: #8a6bcd;
+  color: white;
+}
+.StudyUpdateDescription {
+  width: 752px;
+  height: 240px;
+  border: 1px solid rgb(189, 188, 188);
+  border-radius: 20px;
+  /* box-shadow: 5px 5px 5px gray; */
+  padding: 10px;
+  font-size: 20px;
+}
+.StudyUpdateH {
+  margin-top: 88px;
+  font-size: 44px;
+  font: bold;
 }

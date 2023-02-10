@@ -34,7 +34,7 @@ const DayCheckbox = () => {
             checked={checkItems.includes(data.title) ? true : false}
             id={data.title}
           ></input>
-          <label for={data.title}>{data.title}</label>
+          <label htmlFor={data.title}>{data.title}</label>
         </div>
       ))}
     </div>
