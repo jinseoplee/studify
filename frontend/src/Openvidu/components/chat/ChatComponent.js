@@ -20,6 +20,7 @@ export default class ChatComponent extends Component {
     this.handlePressKey = this.handlePressKey.bind(this);
     this.close = this.close.bind(this);
     this.sendMessage = this.sendMessage.bind(this);
+    this.viewSplitLine = this.viewSplitLine.bind(this);
   }
 
   componentDidMount() {
@@ -60,11 +61,12 @@ export default class ChatComponent extends Component {
 
   sendMessage() {
     console.log(this.state.message);
+    console.log(this.viewSplitLine(this.state.message));
     if (this.props.user && this.state.message) {
       let message = this.state.message.replace(/ +(?= )/g, "");
       if (message !== "" && message !== " ") {
         const data = {
-          message: message,
+          message: this.viewSplitLine(this.state.message).props.dangerouslySetInnerHTML.__html,
           nickname: this.props.user.getNickname(),
           streamId: this.props.user.getStreamManager().stream.streamId,
         };
@@ -88,6 +90,33 @@ export default class ChatComponent extends Component {
 
   close() {
     this.props.close(undefined);
+  }
+
+  viewSplitLine(content) {
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+    // 링크를 감지하여 a 태그로 감싸기
+    const replace = (content) => {
+      const convertContent = content.replace(urlRegex, function (url) {
+        return '<a href="' + url + '" target="_blank">' + url + "</a>";
+        // return `&lt;a href="${url}" target="_blank"{&gt;}${url}&lt;/a&gt;`
+      });
+
+      const htmlArr = [];
+      convertContent.split("\n").forEach(function (text) {
+        const textHtml = text;
+        // textHtml = textHtml.replaceAll("&gt;", ">");
+        // textHtml = textHtml.replaceAll("&lt;", "<");
+        htmlArr.push(textHtml);
+        // console.log(htmlArr)
+      });
+
+      // return { __html: htmlArr.join("") };
+      return htmlArr.join("");
+    };
+
+    return (
+        <div dangerouslySetInnerHTML={ {__html: replace(content)} }></div>
+    );
   }
 
   render() {
@@ -128,7 +157,7 @@ export default class ChatComponent extends Component {
                   </div>
                   <div className="msg-content">
                     <span className="triangle" />
-                    <p className="text">{data.message}</p>
+                    <div className="text" dangerouslySetInnerHTML={{__html: data.message}}></div>
                   </div>
                 </div>
               </div>
@@ -137,7 +166,7 @@ export default class ChatComponent extends Component {
 
           <div id="messageInput">
             <input
-              placeholder="Send a messge"
+              placeholder="Send a message"
               id="chatInput"
               value={this.state.message}
               onChange={this.handleChange}
