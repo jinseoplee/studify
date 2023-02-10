@@ -3,16 +3,21 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { selectstudyActions } from "../../store/StudyRounge";
+import { selectdayActions } from "../../store/StudyStore";
 
 import RoungeStyle from "../../Style/StudyRounge/StudyRounge.module.css";
 import RoungeList from "./RoungeList";
+import { useRef } from "react";
 
 const StudyRounge = () => {
   const dispatch = useDispatch();
   const [checkSkill, setCheckSkill] = useState([]);
   const [checkViewStudy, setCheckViewStudy] = useState([]);
   const [checkFilter, setCheckFilter] = useState(false);
+  const [selectedId, setSeletedId] = useState(0);
   const navigate = useNavigate();
+  const mounted = useRef(false);
+
   const data = [
     {
       id: 0,
@@ -97,12 +102,24 @@ const StudyRounge = () => {
     dispatch(selectstudyActions.changeskillList(checkSkill));
   }, [checkViewStudy, checkSkill]);
 
-  let myId = 0;
+  const idselect = (id) => {
+    setSeletedId(id);
+  };
+
+  useEffect(() => {
+    if (!mounted.current) {
+      mounted.current = true;
+    } else {
+      dispatch(selectdayActions.changestudynum(selectedId));
+      goDetailPage();
+    }
+  }, [selectedId]);
 
   const goDetailPage = () => {
     //여기서 해당 스터디에 해당하는 id 부분으로 가야합니다. 즉
     // navigate(`/study/${id}`);
-    navigate(`/study/1`);
+    console.log(selectedId);
+    navigate(`/study/${selectedId}`);
   };
 
   return (
@@ -156,9 +173,7 @@ const StudyRounge = () => {
         </div>
         <button onClick={filterStudy}>검색</button>
       </div>
-      <div onClick={goDetailPage}>
-        <RoungeList checkFilter={checkFilter} id={myId} />
-      </div>
+      <RoungeList checkFilter={checkFilter} idselect={idselect} />
     </div>
   );
 };

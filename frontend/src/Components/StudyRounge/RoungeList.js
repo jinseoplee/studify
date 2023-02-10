@@ -52,33 +52,32 @@ const RoungeList = (props) => {
     <div className={RoungeStyle.RoungeListContainer}>
       <h3>리스트</h3>
       <div className={RoungeStyle.Listcontainer}>
-        {data?.map(
-          (study, key) => (
-            localStorage.setItem("studyId", study.id),
-            (
-              <div key={key} className={RoungeStyle.StudyListcard}>
-                <div className={RoungeStyle.StudyListcardheader}>
-                  <img
-                    src="https://images6.alphacoders.com/312/thumb-1920-312773.jpg"
-                    alt="rover"
-                  />
+        {data?.map((study, key) => (
+          <div
+            key={key}
+            className={RoungeStyle.StudyListcard}
+            onClick={() => props.idselect(study.id)}
+          >
+            <div className={RoungeStyle.StudyListcardheader}>
+              <img
+                src="https://images6.alphacoders.com/312/thumb-1920-312773.jpg"
+                alt="rover"
+              />
+            </div>
+            <div className={RoungeStyle.StudyListCardbody}>
+              <span className={RoungeStyle.Studytag}>{study.skill}</span>
+              <h4>{study.title}</h4>
+              {study.category.map((skill, num) => (
+                <div key={num}>
+                  <span>{skill}</span>
                 </div>
-                <div className={RoungeStyle.StudyListCardbody}>
-                  <span className={RoungeStyle.Studytag}>{study.skill}</span>
-                  <h4>{study.title}</h4>
-                  {study.category.map((skill, num) => (
-                    <div key={num}>
-                      <span>{skill}</span>
-                    </div>
-                  ))}
-                  <span>{study.region}</span>
-                  <span>{study.class}</span>
-                  <span>{study.description}</span>
-                </div>
-              </div>
-            )
-          )
-        )}
+              ))}
+              <span>{study.region}</span>
+              <span>{study.class}</span>
+              <span>{study.description}</span>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

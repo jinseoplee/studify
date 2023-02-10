@@ -51,9 +51,7 @@ const RankAll = () => {
   const RankAllhandler = async () => {
     // event.preventDefault();
     try {
-      const response = await axios.get(
-        "api/v1/users/rank"
-      );
+      const response = await axios.get("/api/v1/users/rank");
       console.log(response.data.content);
       setAllRanking(response.data.content);
     } catch (err) {
@@ -68,8 +66,8 @@ const RankAll = () => {
   //   return b.totalTime - a.totalTime;
   // });
 
-  return ( 
-    <>{typeof(AllRanking)}</>
+  return (
+    <>{typeof AllRanking}</>
     // <div className={RankStyle.RankDetailContainer}>
     //   <div className={RankStyle.RankContentContainter}>
     //     <RankPodium data={AllRanking} />
