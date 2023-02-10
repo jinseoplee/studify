@@ -34,16 +34,14 @@ public class SecurityConfig {
         http
                 .httpBasic().disable() // REST API는 UI를 사용하지 않으므로 기본 설정을 비활성화
                 .csrf().disable() // REST API는 csrf 보안이 필요 없으므로 비활성화
-                .cors().configurationSource(corsConfigurationSource())
 
-                .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // JWT token 인증 방식은 세션이 필요 없으므로 비활성화
 
                 .and()
                 .authorizeRequests()
                 .antMatchers("/api/v1/users/**").permitAll()
-                .antMatchers("/api/v1/study/**").authenticated()
+                .antMatchers("/api/v1/studies/**").authenticated()
 
                 .and()
                 .exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint())
@@ -54,19 +52,6 @@ public class SecurityConfig {
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
-    }
-
-    @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration config = new CorsConfiguration();
-        config.addAllowedOrigin("*");
-        config.addAllowedHeader("*");
-        config.addAllowedMethod("*");
-        config.setAllowCredentials(true);
-
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", config);
-        return source;
     }
 
 }
