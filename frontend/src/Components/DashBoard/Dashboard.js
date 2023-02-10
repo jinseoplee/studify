@@ -25,7 +25,7 @@ const Dashboard = () => {
         console.log(err);
       });
   }, []);
-  console.log(studies);
+
   return (
     <div className={Dashboardstyle.dashboardContainer}>
       <SlidebarMain width={400} />

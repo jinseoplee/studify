@@ -8,43 +8,63 @@ import Dashboardstyle from "../../Style/Dashboard/Dashboard.module.css";
 
 const DashboardProfile = () => {
   const [userName, setUserName] = useState("");
-  const [studies, setMyStudies] = useState(null);
+  const [myImage, setMyImage] = useState("");
   const userToken = useSelector((state) => state.token.accesstoken);
+  let [userInfo, setUserInfo] = useState("");
 
-  // useEffect(() => {
-  //   axios
-  //     .get("api/v1/users", {
-  //       headers: {
-  //         "X-Auth-Token": `${userToken}`,
-  //       },
-  //     })
-  //     .then((res) => {
-  //       console.log(res.data.content);
-  //       console.log(res.data.content.studies);
-  //       setMyStudies(res.data.content.studies);
-  //       setUserName(res.data.name);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, []);
+  useEffect(() => {
+    axios
+      .get("api/v1/users", {
+        headers: {
+          "X-Auth-Token": `${userToken}`,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+        setUserInfo(res.data.content);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    axios
+      .get("api/v1/users/image", {
+        headers: {
+          "X-Auth-Token": userToken,
+        },
+        responseType: "blob",
+      })
+      .then((res) => {
+        let objectURL = URL.createObjectURL(res.data);
+        setMyImage(objectURL);
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   return (
     <div className={Dashboardstyle.dashboardProfileContainer}>
       <Link to="/userprofile">
-        <div className={Dashboardstyle.dashboardProfilePic}>
+        <div className={Dashboardstyle.dashboardProfilePicbox}>
           <img
-            src={``}
-            style={{ width: "192px", height: "192px" }}
+            src={`${myImage}`}
             alt="profileimg"
+            className={Dashboardstyle.dashboardProfilePic}
           ></img>
         </div>
       </Link>
-      <div className={Dashboardstyle.dashboardProfileName}>{userName}</div>
-      <div className={Dashboardstyle.dashboardProfileFollow}>팔로잉</div>
+      <div className={Dashboardstyle.dashboardProfileName}>{userInfo.name}</div>
+      <div className={Dashboardstyle.dashboardProfileLine}>
+        {userInfo.generation}기
+      </div>
+      <div className={Dashboardstyle.dashboardProfileLine}>
+        {userInfo.region} {userInfo.classNum}반
+      </div>
       <div className={Dashboardstyle.dashboardProfileLine}></div>
       <div className={Dashboardstyle.dashboardProfileSkill}>
-        <h4>유저 스킬</h4>
+        <h4>공부중!</h4>
+
         <br></br>
       </div>
       <div className={Dashboardstyle.dashboardProfileBadge}>

@@ -18,7 +18,6 @@ const StudyMake = () => {
   const skills = useSelector((state) => state.selectday.studySkill);
   const [isPublic, setIsPublic] = useState(false);
   const token = useSelector((state) => state.token.accesstoken);
-  console.log(token);
 
   const enteredTitleIsvalid = Title.trim() !== "";
   const checkSkill = skills.length !== 0;
