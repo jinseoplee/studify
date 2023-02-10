@@ -57,9 +57,14 @@ public class UserServiceImpl implements UserService {
     public User createUser(TempUser tempUser) {
         User user = User.builder()
                 .email(tempUser.getEmail())
-                .name(tempUser.getName())
                 .password(tempUser.getPassword())
+                .generation(tempUser.getGeneration())
+                .region(tempUser.getRegion())
+                .classNum(tempUser.getClassNum())
+                .name(tempUser.getName())
+                .totalTime(0L)
                 .build();
+
         return userRepository.save(user);
     }
 
@@ -109,7 +114,6 @@ public class UserServiceImpl implements UserService {
         String code = UUID.randomUUID().toString();
         /* 현재 시간 생성 */
         String content = mailDispatcher.buildAuthMailContent(req.getName(), req.getDomain(), code);
-        System.out.println(content);
 
         /* 메일 전송 */
         mailDispatcher.sendMail(req.getEmail(), "Studify 회원가입 인증", content);
@@ -118,6 +122,9 @@ public class UserServiceImpl implements UserService {
                 .email(req.getEmail())
                 .password(req.getPassword())
                 .name(req.getName())
+                .generation(req.getGeneration())
+                .region(req.getRegion())
+                .classNum(req.getClassNum())
                 .code(code)
                 .build();
     }

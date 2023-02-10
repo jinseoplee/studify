@@ -61,10 +61,14 @@ public class User extends BaseTimeEntity implements UserDetails {
     private UserImg userImg; // 유저 이미지
 
     @Builder
-    public User(String email, String password, String name) {
+    public User(String email, String password, String region, Integer generation, Integer classNum, String name, Long totalTime) {
         this.email = email;
         this.password = password;
+        this.region = region;
+        this.generation = generation;
+        this.classNum = classNum;
         this.name = name;
+        this.totalTime = totalTime;
     }
 
     public void updatePassword(String password) {
