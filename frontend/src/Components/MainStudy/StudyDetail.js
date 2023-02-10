@@ -32,7 +32,7 @@ const StudyDetail = () => {
   const outStudyHandler = () => {
     console.log("스터디 삭제");
     axios
-      .delete(`api/v1/studies/leave/${studyId}`, {
+      .delete(`/api/v1/studies/leave/${studyId}`, {
         headers: {
           "X-Auth-Token": `${userToken}`,
         },
@@ -47,7 +47,7 @@ const StudyDetail = () => {
 
   useEffect(() => {
     axios
-      .get(`api/v1/studies/${studyId}`, {
+      .get(`/api/v1/studies/${studyId}`, {
         headers: {
           "X-Auth-Token": `${userToken}`,
         },

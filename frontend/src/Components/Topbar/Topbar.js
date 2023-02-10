@@ -58,7 +58,7 @@ const Topbar = () => {
               </Link>
             )}
             {!haveToken && (
-              <Link to="/user/login/id" className={Topbarstyle.text_link}>
+              <Link to="/user/login" className={Topbarstyle.text_link}>
                 스터디 라운지
               </Link>
             )}
@@ -72,7 +72,7 @@ const Topbar = () => {
           )}
           {!haveToken && (
             <div className={Topbarstyle.section}>
-              <Link to="/user/login/id" className={Topbarstyle.text_link}>
+              <Link to="/user/login" className={Topbarstyle.text_link}>
                 랭킹
               </Link>
             </div>
@@ -90,7 +90,7 @@ const Topbar = () => {
           {!haveToken && (
             <>
               <img className={Topbarstyle.vector} src={vector} alt="로그인" />
-              <Link to="/user/login/id" className={Topbarstyle.text_link}>
+              <Link to="/user/login" className={Topbarstyle.text_link}>
                 로그인
               </Link>
             </>

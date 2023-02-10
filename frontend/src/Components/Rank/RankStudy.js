@@ -27,7 +27,7 @@ const RankStudy = () => {
   const RankStudyhandler = async (event) => {
     // event.preventDefault();
     try {
-      const response = await axios.get('http://192.168.31.155:8080/api/v1/users/rank');
+      const response = await axios.get('/api/v1/users/rank');
       console.log(response.data.content);
       setStudyRanking(response.data.content)
     } catch (err) {

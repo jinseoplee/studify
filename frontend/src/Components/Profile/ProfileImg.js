@@ -27,7 +27,7 @@ const ProfileImg = ({ open, onClose, email }) => {
       console.log(formData);
       await axios({
         method: "put",
-        url: "http://192.168.31.155:8080/api/v1/users/image",
+        url: "/api/v1/users/image",
         data: formData,
         headers: {
           "X-Auth-Token":
@@ -41,7 +41,7 @@ const ProfileImg = ({ open, onClose, email }) => {
   const saveUserPic = async () => {
     await axios
       .put(
-        "http://192.168.31.155:8080/api/v1/users/image",
+        "/api/v1/users/image",
         {
           image: fileImg,
         },

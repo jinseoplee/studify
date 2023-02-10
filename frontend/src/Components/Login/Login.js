@@ -12,7 +12,7 @@ import LoginCard from "./LoginCard";
 import ModalLogin from "../UI/ModalLogin";
 import LoginStyle from "../../Style/Login/Login.module.css";
 
-const LoginID = () => {
+const Login = () => {
   const [email, setEmail] = useState("");
   //쿠키 이름이 useremail입니다.
   const dispatch = useDispatch();
@@ -145,4 +145,4 @@ const LoginID = () => {
   );
 };
 
-export default LoginID;
+export default Login;

@@ -52,7 +52,7 @@ const RankAll = () => {
     // event.preventDefault();
     try {
       const response = await axios.get(
-        "http://192.168.31.155:8080/api/v1/users/rank"
+        "api/v1/users/rank"
       );
       console.log(response.data.content);
       setAllRanking(response.data.content);

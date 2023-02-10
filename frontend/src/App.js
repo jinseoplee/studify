@@ -1,6 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import LoginId from "./pages/Login/LoginId";
-import LoginPw from "./pages/Login/LoginPw";
+import LoginPage from "./pages/Login/Login";
 import MainPage from "./pages/MainPage/MainPage";
 import RootLayout from "./pages/MainPage/RootLayout";
 import Signup, { action as newSignupAction } from "./pages/Signup/Signup";
@@ -16,7 +15,7 @@ import StudyMember from "./Components/MainStudy/StudyMember";
 import StudyUpdate from "./Components/MainStudy/StudyUpdate";
 import StudyRoungeMain from "./pages/StudyRounge/StudyRounge";
 import ChartTest from "./Components/UI/ChartTest";
-import ProfileMain from "./Components/Profile/ProfileMain";
+import ProfilePage from "./pages/Profile/ProfileMain";
 import VideoRoomComponent from "./Openvidu/components/VideoRoomComponent";
 import Ranking from "./pages/Rank/Ranking";
 import RankAll from "./Components/Rank/RankAll";
@@ -40,12 +39,8 @@ const router = createBrowserRouter([
         element: <UserSignup />,
       },
       {
-        path: "/user/login/id",
-        element: <LoginId />,
-      },
-      {
-        path: "/user/login/pw",
-        element: <LoginPw />,
+        path: "/user/login",
+        element: <LoginPage />,
       },
       {
         path: "/user/resetpw",
@@ -86,9 +81,9 @@ const router = createBrowserRouter([
           { path: "study", element: <RankStudy /> },
         ],
       },
-      { path: "/userprofile", element: <ProfileMain /> },
-      { path: "/study/:studyId/update", element: <StudyUpdate /> },
+      { path: "/userprofile", element: <ProfilePage />, },
       { path: "/userprofile/edit", element: <ProfileEdit /> },
+      { path: "/study/:studyId/update", element: <StudyUpdate /> },
     ],
   },
 ]);

@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-import Topbar from "../Topbar/Topbar";
-import Footer from "../Footer/Footer";
+
 import ProfileBody from "./ProfileBody";
 import ProfileUserInfo from "./ProfileUserInfo";
-import ProfileImg from "./ProfileImg";
 import ProfileStyle from "../../Style/Profile/Profile.module.css";
 import setting from "../../assets/image/setting.png";
 import { useNavigate } from "react-router-dom";
@@ -24,7 +22,7 @@ const ProfileMain = () => {
 
   useEffect(() => {
     axios
-      .get("http://192.168.31.155:8080/api/v1/users/detail", {
+      .get("api/v1/users/detail", {
         headers: {
           "X-Auth-Token": userToken,
         },
@@ -41,7 +39,7 @@ const ProfileMain = () => {
         console.log(err);
       });
     axios
-      .get("http://192.168.31.155:8080/api/v1/users/image", {
+      .get("api/v1/users/image", {
         headers: {
           "X-Auth-Token": userToken,
         },
@@ -65,12 +63,6 @@ const ProfileMain = () => {
   // const [openImgModal, setOpenImgModal] = useState(false);
   return (
     <div>
-      <Topbar />
-      <ProfileImg
-      // open={openImgModal}
-      // onClose={() => setOpenImgModal(false)}
-      // email={userEmail}
-      />
       <div className={ProfileStyle.profileBackground}>
         <img
           src={setting}
@@ -97,7 +89,6 @@ const ProfileMain = () => {
           <ProfileBody />
         </div>
       </div>
-      <Footer />
     </div>
   );
 };

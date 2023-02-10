@@ -21,7 +21,7 @@ const Profile = () => {
 
   useEffect(() => {
     axios
-      .get("http://192.168.31.27:8080/api/v1/users", {
+      .get("/api/v1/users", {
         headers: {
           "X-Auth-Token": userToken,
         },
@@ -37,7 +37,7 @@ const Profile = () => {
         console.log(err);
       });
     axios
-      .get("http://192.168.31.155:8080/api/v1/users/image", {
+      .get("/api/v1/users/image", {
         headers: {
           "X-Auth-Token": userToken,
         },

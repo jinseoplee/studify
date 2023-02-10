@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 
 import SlidebarMain from "../Slidebar/SlidebarMain";
 import StudyRecord from "./StudyRecord";
-import SlidebarMain from "../Slidebar/SlidebarMain";
 import MyStudy from "./MyStudy";
 import axios from "axios";
 import Dashboardstyle from "../../Style/Dashboard/Dashboard.module.css";
@@ -29,7 +28,7 @@ const Dashboard = () => {
     //이미지 통신을 다시 한번 보내기
     console.log("이미지 통신 시작");
     axios
-      .get("http://192.168.31.155:8080/api/v1/users/image", {
+      .get("api/v1/users/image", {
         headers: {
           "X-Auth-Token": userToken,
         },
@@ -51,7 +50,7 @@ const Dashboard = () => {
       {myImage}
       <div>
         <StudyRecord />
-        <MyStudy studies={studies} />
+        {/* <MyStudy studies={studies} /> */}
       </div>
     </div>
   );

@@ -11,7 +11,6 @@ const RoungeList = (props) => {
   let search = props.checkFilter;
 
   useEffect(() => {
-    //처음에 얘가 동작이 되면 안돼..
     try {
       const response = axios
         .get(`/api/v1/studies`, {
@@ -21,7 +20,6 @@ const RoungeList = (props) => {
         .then(function (response) {
           setData(response.data.content);
         });
-      //필터링 된 목록들을 가져오는 api입니다.
       setData(response.data); //데이터를 우선 전부 가져옵니다.
     } catch (err) {
       console.log(err);
