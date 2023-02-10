@@ -4,7 +4,7 @@
   height: 100%;
 }
 
-.contentWrapper{
+.contentWrapper {
   flex: 1;
 }
 
@@ -17,7 +17,7 @@
   height: 64px;
   right: 20px;
   top: 40px;
-  font-size: 1.3rem;
+  font-size: 1.8rem;
   color: white;
   background: #8a6bcd;
   border-radius: 30px;
@@ -48,7 +48,7 @@
   height: 300px;
   align-items: flex-end;
   flex-direction: column;
-  font-size: 1.5rem;
+  font-size: 1.9rem;
   right: 300px;
   top: 40px;
 }
@@ -66,7 +66,7 @@
   width: 800px;
   height: 300px;
   flex-direction: column;
-  font-size: 1.5rem;
+  font-size: 1.9rem;
   margin: 50px 0 0 50px;
 }
 
@@ -81,7 +81,7 @@
   width: 600px;
   height: 300px;
   flex-direction: column;
-  font-size: 1.5rem;
+  font-size: 1.9rem;
   margin: 50px 0 0 0;
 }
 

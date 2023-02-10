@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Outlet, Link, useNavigate } from "react-router-dom";
+import { Outlet, Link, useNavigate, useOutletContext } from "react-router-dom";
 import StudySwitchbar from "./StudySwitchbar";
 import settingpng from "../../assets/image/settings.png";
 import StudyStyle from "../../Style/MainStudy/StudyDetail.module.css";
@@ -11,6 +11,7 @@ import swal from "sweetalert";
 const StudyDetail = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  // const outletData = { studyData: studydata };
 
   const studyId = useSelector((state) => state.selectday.studyNum);
   const studyM = useSelector((state) => state.selectday.studyM);
@@ -50,11 +51,15 @@ const StudyDetail = () => {
   };
   const joinStudyHandler = () => {
     axios
-      .post(`/api/v1/studies/${studyId}`, {
-        headers: {
-          "X-Auth-Token": `${userToken}`,
-        },
-      })
+      .post(
+        `/api/v1/studies/${studyId}`,
+        {},
+        {
+          headers: {
+            "X-Auth-Token": `${userToken}`,
+          },
+        }
+      )
       .then((res) => {
         console.log(res);
       })
@@ -111,7 +116,7 @@ const StudyDetail = () => {
           <hr className={StudyStyle.studyHr}></hr>
         </div>
         <div className={StudyStyle.studyDetailInside}>
-          <Outlet study={studydata} />
+          <Outlet />
         </div>
       </div>
     </>

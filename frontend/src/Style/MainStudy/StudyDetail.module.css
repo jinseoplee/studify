@@ -163,3 +163,12 @@
   font-size: 44px;
   font: bold;
 }
+
+.StudyUpdateSubmit {
+  width: 152px;
+  height: 56px;
+  background-color: #8a6bcd;
+  color: white;
+  font-size: large;
+  border: 0px;
+}

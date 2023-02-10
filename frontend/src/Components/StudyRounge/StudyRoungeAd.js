@@ -29,6 +29,7 @@ const StudyRoungeAd = () => {
         pagination={{
           clickable: true,
         }}
+        loop={true}
         navigation={true}
         modules={[Autoplay, Pagination, Navigation]}
         className={openstudyAdStyle.mySwiper}

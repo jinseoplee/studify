@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import { useOutletContext } from "react-router-dom";
 import StudyStyle from "../../Style/MainStudy/StudyDetail.module.css";
 
 const StudyInfo = ({ study }) => {
@@ -6,6 +7,7 @@ const StudyInfo = ({ study }) => {
   const studyday = useSelector((state) => state.userStudyInfo.days);
   const studyskill = useSelector((state) => state.userStudyInfo.skills);
   const studydes = useSelector((state) => state.userStudyInfo.description);
+
   return (
     <div>
       <div className={StudyStyle.studyInfoContainer}>
