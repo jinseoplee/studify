@@ -14,8 +14,6 @@ const RankAll = () => {
       const response = await axios.get(
         "http://192.168.31.155:8080/api/v1/users/rank"
       );
-      console.log(response)
-      console.log(response.data.content);
       setAllRanking(response.data.content);
     } catch (err) {
       console.log(err);
@@ -28,6 +26,7 @@ const RankAll = () => {
   // AllRanking?.sort((a, b) => {
   //   return b.totalTime - a.totalTime;
   // });
+
 
   return ( 
     <div className={RankStyle.RankDetailContainer}>
