@@ -56,6 +56,10 @@ public class User extends BaseTimeEntity implements UserDetails {
     @OneToMany(mappedBy = "user")
     private List<UserStudy> studies = new ArrayList<>();
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @OneToMany(mappedBy = "user")
+    private List<UserBadge> badges = new ArrayList<>();
+
     @OneToOne
     @JoinColumn(name = "user_img_id", referencedColumnName = "user_img_id")
     private UserImg userImg; // 유저 이미지
