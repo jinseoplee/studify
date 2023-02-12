@@ -48,7 +48,7 @@ const router = createBrowserRouter([
         element: <ResetPw />,
       },
       {
-        path: "/dashboard",
+        path: "/mainpage",
         element: <DashBoard />,
       },
       {

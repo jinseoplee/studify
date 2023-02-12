@@ -50,7 +50,7 @@ const Topbar = () => {
       <div className={Topbarstyle.topbar}>
         <div className={Topbarstyle.topbar_left}>
           <div className={Topbarstyle.section}>
-            <img className="logo" src={logo} alt="logo" onClick={gotoMain} />
+            <img className={Topbarstyle.logo} src={logo} alt="logo" onClick={gotoMain}  />
           </div>
           <div className={Topbarstyle.section}>
             {haveToken && (
