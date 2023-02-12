@@ -120,14 +120,14 @@ const StudyRounge = () => {
     setSeletedId(id);
   };
 
-  // useEffect(() => {
-  //   if (!mounted.current) {
-  //     mounted.current = true;
-  //   } else {
-  //     dispatch(selectdayActions.changestudynum(selectedId));
-  //     goDetailPage();
-  //   }
-  // }, [selectedId]);
+  useEffect(() => {
+    if (!mounted.current) {
+      mounted.current = true;
+    } else {
+      dispatch(selectdayActions.changestudynum(selectedId));
+      goDetailPage();
+    }
+  }, [selectedId]);
 
   const goDetailPage = () => {
     //여기서 해당 스터디에 해당하는 id 부분으로 가야합니다. 즉
@@ -140,7 +140,7 @@ const StudyRounge = () => {
   return (
     <>
       <div className={RoungeStyle.Container}>
-        <div className={RoungeStyle.leftContanier}>
+        <span className={RoungeStyle.leftContanier}>
           <div className={RoungeStyle.RoungeSkillContainer}>
             {data.map((data, key) => (
               <div key={key} className={RoungeStyle.RoungeFilterBtn}>
@@ -188,7 +188,7 @@ const StudyRounge = () => {
               </div>
             ))}
           </div>
-        </div>
+        </span>
         <div className={RoungeStyle.rightContainer}>
           <button onClick={filterStudy} className={RoungeStyle.RoungeSearchBtn}>
             검색

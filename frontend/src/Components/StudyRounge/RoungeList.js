@@ -73,7 +73,6 @@ const RoungeList = (props) => {
 
   return (
     <div className={RoungeStyle.RoungeListContainer}>
-      <h3>리스트</h3>
       <div className={RoungeStyle.Listcontainer}>
         {dummystudy
           ?.map((study, key) => (
@@ -105,9 +104,13 @@ const RoungeList = (props) => {
           .slice(0, viewList)}
       </div>
       {moreButton && (
-        <button className={RoungeStyle.moreButton} onClick={moreStudyList}>
-          더보기
-        </button>
+        <div className={RoungeStyle.buttonContainer}>
+          <div className={RoungeStyle.buttonLine}>
+            <button className={RoungeStyle.moreButton} onClick={moreStudyList}>
+              더보기
+            </button>
+          </div>
+        </div>
       )}
     </div>
   );

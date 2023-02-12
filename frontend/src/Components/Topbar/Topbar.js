@@ -14,7 +14,7 @@ const Topbar = () => {
   const token = useSelector((state) => state.token.accesstoken);
   const dispatch = useDispatch();
   const [haveToken, setHaveToken] = useState(false);
-  console.log(token);
+  console.log(sessionStorage.getItem("persist:root"));
 
   useEffect(() => {
     if (token === " ") {
