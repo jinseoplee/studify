@@ -10,5 +10,5 @@ COPY . .
 
 RUN npm run build
 
-ENTRYPOINT sudo docker cp studify-frontend:/app/build /var/www/html
+ENTRYPOINT docker cp studify-frontend:/app/build /var/www/html
 
