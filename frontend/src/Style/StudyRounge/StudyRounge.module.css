@@ -25,7 +25,29 @@
   background-image: url(../../assets/image/Banner_1.png);
 }
 
-.RoungeFilterContainer {
+/* @media only screen and (max-width: 1000px) {
+  button {
+    display: none;
+  }
+} */
+
+.Container {
+  display: flex;
+  width: 100%;
+}
+
+.leftContanier {
+  display: flex;
+  width: 90%;
+  flex-direction: column;
+}
+
+.rightContainer {
+  display: flex;
+  width: 10%;
+}
+
+.RoungeSkillContainer {
   display: flex;
   /* flex-direction: column; */
   align-items: center;
@@ -34,45 +56,75 @@
   /* margin-top: 50px; */
 }
 
+.RoungeInfoContainer {
+  display: flex;
+  /* flex-direction: column; */
+  /* align-items: center; */
+  justify-content: center;
+  width: 100%;
+  /* margin-top: 50px; */
+}
+
+.RoungeInfoBox {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
 .RoungeListContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100%;
-  margin-top: 50px;
+  margin: 1rem;
+}
+
+.RoungeFilterBtn {
+  margin: 0.5rem;
 }
 
 .RoungeFilterFBtn {
-  width: 144px;
-  height: 64px;
+  width: 100%;
+  height: 100%;
   border: 1px solid #8a6bcd;
   border-radius: 20px;
   background-color: white;
   font-size: 20px;
-  margin: 20px;
+  margin: 1rem;
 }
 
 .RoungeFilterTBtn {
-  width: 144px;
-  height: 64px;
+  width: 100%;
+  height: 100%;
   border: 3px solid #8a6bcd;
   border-radius: 20px;
   background-color: white;
   font-size: 20px;
-  margin: 20px;
+  margin: 1rem;
 }
 
 .RoungeFilterTBtn > img {
   margin-top: 2px;
-  width: 50px;
-  height: 50px;
+  width: 4vw;
+  height: 7vh;
 }
 
 .RoungeFilterFBtn > img {
   margin-top: 2px;
-  width: 50px;
-  height: 50px;
+  width: 4vw;
+  height: 7vh;
+}
+
+.RoungeSearchBtn {
+  width: 3.5vw;
+  height: 4vh;
+  font-size: 14px;
+}
+
+@media (max-width: 3.5vw) {
+  .RoungeSearchBtn {
+    font-size: (14 * 0.2vw) px;
+  }
 }
 
 .Banner1Title {
@@ -146,4 +198,8 @@
   opacity: 1;
   transform: scale(1.03) translateZ(0);
   cursor: pointer;
+}
+
+.moreButton {
+  margin: 1rem;
 }

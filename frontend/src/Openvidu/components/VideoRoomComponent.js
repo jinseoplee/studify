@@ -29,6 +29,7 @@ class VideoRoomComponent extends Component {
       : "User" + Math.floor(Math.random() * 10000);
     this.remotes = [];
     this.localUserAccessAllowed = false;
+    console.log(sessionName);
     this.state = {
       mySessionId: sessionName,
       myUserName: userName,

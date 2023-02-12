@@ -61,22 +61,26 @@ const StudyRounge = () => {
     {
       id: 100, //기수만
       name: "같은기수 보기",
-      checkStudy: 108,
+      checkStudy: 8,
+      query: `generation=8`, //`generation
     },
     {
       id: 101, //우리지역만
       name: "같은지역 보기",
       checkStudy: "daejeon",
+      query: "region=daejeon",
     },
     {
       id: 102, //우리반 스터디인지 확인하는 아이디(100번)
       name: "우리반 보기",
-      checkStudy: 1,
+      checkStudy: 8,
+      query: "classNum=8",
     },
     {
       id: 103, //공개스터디만
       name: "공개스터디 보기",
       checkStudy: true,
+      query: "public=true",
     },
   ];
 
@@ -96,8 +100,11 @@ const StudyRounge = () => {
   };
 
   const filterStudy = () => {
+    if (checkViewStudy.charAt(checkViewStudy.length - 1) === ",") {
+      setCheckViewStudy(checkViewStudy.slice(0, -1));
+    }
     if (checkFilter === false) {
-      setCheckFilter(true); //이부분 문자열로 변경
+      setCheckFilter(true);
     } else {
       setCheckFilter(false);
     }
@@ -113,77 +120,83 @@ const StudyRounge = () => {
     setSeletedId(id);
   };
 
-  useEffect(() => {
-    if (!mounted.current) {
-      mounted.current = true;
-    } else {
-      dispatch(selectdayActions.changestudynum(selectedId));
-      goDetailPage();
-    }
-  }, [selectedId]);
+  // useEffect(() => {
+  //   if (!mounted.current) {
+  //     mounted.current = true;
+  //   } else {
+  //     dispatch(selectdayActions.changestudynum(selectedId));
+  //     goDetailPage();
+  //   }
+  // }, [selectedId]);
 
   const goDetailPage = () => {
     //여기서 해당 스터디에 해당하는 id 부분으로 가야합니다. 즉
     // navigate(`/study/${id}`);
     console.log(selectedId);
     // if(checkViewStudy)
-    setCheckViewStudy(checkViewStudy.slice(0, -1));
     navigate(`/study/${selectedId}`);
   };
 
   return (
-    <div>
-      <div>
-        <div className={RoungeStyle.RoungeFilterContainer}>
-          {data.map((data, key) => (
-            <div key={key}>
-              <button
-                name={`select-${data.skill}`}
-                onClick={() => {
-                  !checkSkill.includes(data.skill)
-                    ? setCheckSkill((checkSkill) => [...checkSkill, data.skill])
-                    : setCheckSkill(
-                        checkSkill.filter((button) => button !== data.skill)
-                      );
-                }}
-                id={data.skill}
-                className={
-                  checkSkill.includes(data.skill)
-                    ? `${RoungeStyle.RoungeFilterTBtn}`
-                    : `${RoungeStyle.RoungeFilterFBtn}`
-                }
-              >
-                <img
-                  src={require(`../../assets/image/stack/${data.skill}.PNG`)}
+    <>
+      <div className={RoungeStyle.Container}>
+        <div className={RoungeStyle.leftContanier}>
+          <div className={RoungeStyle.RoungeSkillContainer}>
+            {data.map((data, key) => (
+              <div key={key} className={RoungeStyle.RoungeFilterBtn}>
+                <button
+                  name={`select-${data.skill}`}
+                  onClick={() => {
+                    !checkSkill.includes(data.skill)
+                      ? setCheckSkill((checkSkill) => [
+                          ...checkSkill,
+                          data.skill,
+                        ])
+                      : setCheckSkill(
+                          checkSkill.filter((button) => button !== data.skill)
+                        );
+                  }}
                   id={data.skill}
-                />
-              </button>
-            </div>
-          ))}
+                  className={
+                    checkSkill.includes(data.skill)
+                      ? `${RoungeStyle.RoungeFilterTBtn}`
+                      : `${RoungeStyle.RoungeFilterFBtn}`
+                  }
+                >
+                  <img
+                    src={require(`../../assets/image/stack/${data.skill}.PNG`)}
+                    id={data.skill}
+                  />
+                </button>
+              </div>
+            ))}
+          </div>
+          <div className={RoungeStyle.RoungeInfoContainer}>
+            {studyViewData.map((data, key) => (
+              <div key={key} className={RoungeStyle.RoungeInfoBox}>
+                <label htmlFor={data.name}>{data.name}</label>
+                <input
+                  type="checkbox"
+                  name={`select-${data.id}`}
+                  onChange={(e) =>
+                    handleSingleCheck(e.target.checked, data.query)
+                  }
+                  checked={checkViewStudy?.includes(data.query) ? true : false}
+                  // id="chk_top"
+                  id={data.checkStudy}
+                ></input>
+              </div>
+            ))}
+          </div>
         </div>
-        <div className={RoungeStyle.RoungeFilterContainer}>
-          {studyViewData.map((data, key) => (
-            <div key={key}>
-              <label htmlFor={data.name}>{data.name}</label>
-              <input
-                type="checkbox"
-                name={`select-${data.id}`}
-                onChange={(e) =>
-                  handleSingleCheck(e.target.checked, data.checkStudy)
-                }
-                checked={
-                  checkViewStudy?.includes(data.checkStudy) ? true : false
-                }
-                // id="chk_top"
-                id={data.checkStudy}
-              ></input>
-            </div>
-          ))}
+        <div className={RoungeStyle.rightContainer}>
+          <button onClick={filterStudy} className={RoungeStyle.RoungeSearchBtn}>
+            검색
+          </button>
         </div>
-        <button onClick={filterStudy}>검색</button>
       </div>
       <RoungeList checkFilter={checkFilter} idselect={idselect} />
-    </div>
+    </>
   );
 };
 
