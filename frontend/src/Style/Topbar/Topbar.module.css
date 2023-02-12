@@ -24,14 +24,20 @@
 }
 
 .vector {
-  margin-right: 1rem;
+  position: absolute;
+  right: 55px;
+  top: 27px;
 }
 
 .text_link {
-  color: inherit;
+  color: #8A6BCD;
   text-decoration: inherit;
 }
 
 .text_link:hover {
-  color: blue;
+  color: #cabbe7;
+}
+
+.logintext {
+  margin: 0 10px 0 0;
 }
