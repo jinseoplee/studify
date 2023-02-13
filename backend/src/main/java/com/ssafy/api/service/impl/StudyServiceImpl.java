@@ -108,6 +108,7 @@ public class StudyServiceImpl implements StudyService {
 
         // 스터디를 나가는 사용자가 호스트일 경우 스터디를 없앰
         if (email.equals(foundStudy.getCreatedBy())) {
+            userStudyRepository.deleteByStudyId(studyId);
             studyRepository.delete(foundStudy);
         }
 
