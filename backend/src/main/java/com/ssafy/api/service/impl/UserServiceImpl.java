@@ -204,7 +204,7 @@ public class UserServiceImpl implements UserService {
         tempUserRepository.deleteById(email);
     }
 
-    /* 프로필 이미지 관련하여 사용 - 수정할 예정 */
+    /* 프로필 이미지 관련하여 사용 */
     @Override
     public User updateUser(User user) {
         return userRepository.save(user);

@@ -12,7 +12,7 @@ public interface BadgeService {
     void createTimeBadge(String email);
 
     // 출석 일수에 따른 뱃지 생성
-
+    void createDayBadge(String email);
 
     // 랭킹 순위에 따른 뱃지 생성
 
