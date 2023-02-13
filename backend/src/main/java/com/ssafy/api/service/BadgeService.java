@@ -1,8 +1,5 @@
 package com.ssafy.api.service;
 
-import com.ssafy.db.entity.Badge;
-import com.ssafy.db.entity.User;
-
 /**
  * 뱃지 관련 비즈니스 로직 처리를 위한 서비스 인터페이스 정의
  */
@@ -15,5 +12,6 @@ public interface BadgeService {
     void createDayBadge(String email);
 
     // 랭킹 순위에 따른 뱃지 생성
+    void createRankBadge();
 
 }

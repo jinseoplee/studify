@@ -9,6 +9,8 @@ import com.ssafy.db.repository.UserBadgeRepository;
 import com.ssafy.db.repository.UserRepository;
 import com.ssafy.db.repository.UserTimeLogRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -105,6 +107,41 @@ public class BadgeServiceImpl implements BadgeService {
                 userBadgeRepository.save(userBadge);
             }
         }
+    }
+
+    @Override
+    @Scheduled(cron = "0 0 0 1 * *", zone = "Asia/Seoul")
+    public void createRankBadge() {
+        List<User> userList8 = userRepository.findAllByGeneration(8, Sort.by(Sort.Direction.DESC, "totalTime"));
+
+        if (userList8.size() > 0 && userList8.get(0).getTotalTime() != 0 && !userBadgeRepository.existsByUserIdAndBadgeId(userList8.get(0).getId(), badgeRepository.findByName("1st").get().getId())) {
+            UserBadge userBadge = new UserBadge(userList8.get(0), badgeRepository.findByName("1st").get());
+            userBadgeRepository.save(userBadge);
+        }
+        if (userList8.size() > 1 && userList8.get(1).getTotalTime() != 0 && !userBadgeRepository.existsByUserIdAndBadgeId(userList8.get(1).getId(), badgeRepository.findByName("2nd").get().getId())) {
+            UserBadge userBadge = new UserBadge(userList8.get(1), badgeRepository.findByName("2nd").get());
+            userBadgeRepository.save(userBadge);
+        }
+        if (userList8.size() > 2 && userList8.get(2).getTotalTime() != 0 && !userBadgeRepository.existsByUserIdAndBadgeId(userList8.get(2).getId(), badgeRepository.findByName("3rd").get().getId())) {
+            UserBadge userBadge = new UserBadge(userList8.get(2), badgeRepository.findByName("3rd").get());
+            userBadgeRepository.save(userBadge);
+        }
+
+        List<User> userList9 = userRepository.findAllByGeneration(9, Sort.by(Sort.Direction.DESC, "totalTime"));
+
+        if (userList9.size() > 0 && userList9.get(0).getTotalTime() != 0 && !userBadgeRepository.existsByUserIdAndBadgeId(userList9.get(0).getId(), badgeRepository.findByName("1st").get().getId())) {
+            UserBadge userBadge = new UserBadge(userList9.get(0), badgeRepository.findByName("1st").get());
+            userBadgeRepository.save(userBadge);
+        }
+        if (userList9.size() > 1 && userList9.get(1).getTotalTime() != 0 && !userBadgeRepository.existsByUserIdAndBadgeId(userList9.get(1).getId(), badgeRepository.findByName("2nd").get().getId())) {
+            UserBadge userBadge = new UserBadge(userList9.get(1), badgeRepository.findByName("2nd").get());
+            userBadgeRepository.save(userBadge);
+        }
+        if (userList9.size() > 2 && userList9.get(2).getTotalTime() != 0 && !userBadgeRepository.existsByUserIdAndBadgeId(userList9.get(2).getId(), badgeRepository.findByName("3rd").get().getId())) {
+            UserBadge userBadge = new UserBadge(userList9.get(2), badgeRepository.findByName("3rd").get());
+            userBadgeRepository.save(userBadge);
+        }
+
     }
 
 }
