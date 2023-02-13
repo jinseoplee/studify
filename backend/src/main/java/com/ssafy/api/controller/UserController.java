@@ -4,11 +4,13 @@ import com.ssafy.api.request.user.UserDetailPutReq;
 import com.ssafy.api.request.user.UserTimeLogReq;
 import com.ssafy.api.response.user.UserInfoRes;
 import com.ssafy.api.response.user.UserTimeLogRes;
+import com.ssafy.api.service.BadgeService;
 import com.ssafy.api.service.UserService;
 import com.ssafy.common.model.response.BaseResponse;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.User;
 import com.ssafy.db.entity.UserImg;
+import com.ssafy.db.entity.UserTimeLog;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -46,6 +48,7 @@ public class UserController {
 
     private final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
     private final UserService userService;
+    private final BadgeService badgeService;
 
     @GetMapping("/{email}")
     public ResponseEntity<? extends BaseResponseBody> getUser(@PathVariable String email) {
@@ -168,8 +171,10 @@ public class UserController {
         Long diff = (userTimeLogReq.getEndTime() - userTimeLogReq.getStartTime()) / 1000;
         Instant startInstant = Instant.ofEpochMilli(userTimeLogReq.getStartTime());
         LocalDate day = LocalDateTime.ofInstant(startInstant, ZoneId.systemDefault()).toLocalDate();
-        return ResponseEntity.ok().body(new UserTimeLogRes(200, "사용자 공부 시간 기록 생성 성공",
-                userService.createUserTimeLog(day, diff, email)));
+        UserTimeLog userTimeLog = userService.createUserTimeLog(day, diff, email);
+        badgeService.createTimeBadge(email);
+        badgeService.createDayBadge(email);
+        return ResponseEntity.ok().body(new BaseResponse<UserTimeLog>(200, "사용자 공부 시간 기록 생성 성공", userTimeLog));
     }
 
     /**
@@ -182,8 +187,10 @@ public class UserController {
         Long diff = (userTimeLogReq.getEndTime() - userTimeLogReq.getStartTime()) / 1000;
         Instant startInstant = Instant.ofEpochMilli(userTimeLogReq.getStartTime());
         LocalDate day = LocalDateTime.ofInstant(startInstant, ZoneId.systemDefault()).toLocalDate();
-        return ResponseEntity.ok().body(new UserTimeLogRes(200, "사용자 공부 시간 기록 수정 성공",
-                userService.updateUserTimeLog(day, diff, email)));
+        UserTimeLog userTimeLog = userService.updateUserTimeLog(day, diff, email);
+        badgeService.createTimeBadge(email);
+        badgeService.createDayBadge(email);
+        return ResponseEntity.ok().body(new BaseResponse<UserTimeLog>(200, "사용자 공부 시간 기록 수정 성공", userTimeLog));
     }
 
     /**
@@ -195,6 +202,22 @@ public class UserController {
     public ResponseEntity<?> findAllUserRank() {
         return ResponseEntity.ok(new BaseResponse<List<User>>(200, "사용자 랭킹 집계 및 조회 성공",
                 userService.findAllUserRank()));
+    }
+
+    /**
+     * 랭킹 내 프로필 이미지 조회 API([GET] /api/v1/users/rank/image)
+     */
+    @Operation(summary = "랭킹 내 프로필 이미지 조회")
+    @ApiResponse(responseCode = "200", description = "랭킹 내 프로필 이미지 조회 성공")
+    @GetMapping("/rank/image")
+    public ResponseEntity<?> getUserRankImage(@RequestParam String email) throws IOException {
+        UserImg userImg = userService.getImage(email);
+        Resource resource = new FileSystemResource(userImg.getFileUrl());
+        HttpHeaders header = new HttpHeaders();
+        Path filePath = Paths.get(userImg.getFileUrl());
+        header.add("Content-Type", Files.probeContentType(filePath));
+
+        return new ResponseEntity<Resource>(resource, header, HttpStatus.OK);
     }
 
 }

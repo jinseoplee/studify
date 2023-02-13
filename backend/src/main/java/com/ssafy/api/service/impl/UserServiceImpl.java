@@ -50,6 +50,7 @@ public class UserServiceImpl implements UserService {
     private final UserImgRepository userImgRepository;
     private final UserTimeLogRepository userTimeLogRepository;
     private final UserStudyRepository userStudyRepository;
+    private final UserBadgeRepository userBadgeRepository;
     private final String path = "C:\\Users\\images\\users";
 
     @Transactional
@@ -171,6 +172,7 @@ public class UserServiceImpl implements UserService {
 
         UserInfoRes userInfoRes = new UserInfoRes(foundUser);
         userInfoRes.setStudies(userStudyRepository.findAllByUserId(foundUser.getId()));
+        userInfoRes.setBadges(userBadgeRepository.findAllByUserId(foundUser.getId()));
         return userInfoRes;
     }
 
@@ -202,7 +204,7 @@ public class UserServiceImpl implements UserService {
         tempUserRepository.deleteById(email);
     }
 
-    /* 프로필 이미지 관련하여 사용 - 수정할 예정 */
+    /* 프로필 이미지 관련하여 사용 */
     @Override
     public User updateUser(User user) {
         return userRepository.save(user);
