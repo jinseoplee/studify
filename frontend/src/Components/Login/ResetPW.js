@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
+
 const ResetPw = () => {
   //이 페이지에서는 이전에 넘어온 이름, 이메일 정보를 가지고 있어야합니다.
   const navigate = useNavigate();
@@ -54,7 +55,7 @@ const ResetPw = () => {
       localStorage.removeItem("findname");
       localStorage.removeItem("findemail");
       //만약 정보가 맞으면?
-      navigate("/user/login/pw"); //이 부분이 애매하네..
+      navigate("/user/login"); //이 부분이 애매하네..
       //컴포넌트만 바꿔 끼우는 거라 useLocation은 현재 내 페이지에 있는 값을 가져오는 것이다.
       //redirect를 쓴적이 없어 가지고 있지 않을까? 라는 생각.
       //useLocation은 현재 페이지에 있는 것을 가져오는 것이라 모달창으로 띄운것을 가져오지 못했다.

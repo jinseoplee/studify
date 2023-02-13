@@ -58,7 +58,7 @@ const StudyMake = () => {
           }
         );
         console.log(response);
-        navigate("/dashboard");
+        navigate("/mainpage");
       } catch (err) {
         console.log(err);
         swal("스터디 생성이 실패했습니다.");

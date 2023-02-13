@@ -16,7 +16,6 @@ const StudyRoungeMain = () => {
 
       {/* <RoungeBanner /> */}
       <OpenStudyAd />
-      <hr />
       <StudyRounge />
       <Footer />
     </>

@@ -11,9 +11,7 @@ const RoungeList = (props) => {
   const [viewList, setViewList] = useState(4); //처음에 2개만 보여준다고 우선 가정.
   const [moreButton, setMoreButton] = useState(true); //더보기 버튼 보여줄 것인지 안보여줄 것인지 확인.
   let search = props.checkFilter;
-  console.log(filterUser);
 
-  console.log(filterUser);
   useEffect(() => {
     const skill = filterSkill.join(",");
 
@@ -43,6 +41,7 @@ const RoungeList = (props) => {
       description: "파이썬을 함께할 팀원을 모집합니다!",
       region: "대전",
       class: "1",
+      generation : "9",
     },
     {
       title: "두번째 스터디",
@@ -50,6 +49,7 @@ const RoungeList = (props) => {
       description: "자바스터디 함께할 팀원을 모집합니다!",
       region: "서울",
       class: "5",
+      generation : "8",
     },
     {
       title: "세번째 스터디",
@@ -57,6 +57,7 @@ const RoungeList = (props) => {
       description: "프론트엔드 함께할 팀원을 모집합니다!",
       region: "구미",
       class: "3",
+      generation : "9"
     },
     {
       title: "네번째 스터디",
@@ -64,6 +65,7 @@ const RoungeList = (props) => {
       description: "프론트엔드 함께할 팀원을 모집합니다!",
       region: "구미",
       class: "3",
+      generation : "8"
     },
     {
       title: "다섯번째 스터디",
@@ -71,6 +73,7 @@ const RoungeList = (props) => {
       description: "프론트엔드 함께할 팀원을 모집합니다!",
       region: "구미",
       class: "3",
+      generation : "9"
     },
     {
       title: "여섯번째 스터디",
@@ -78,6 +81,7 @@ const RoungeList = (props) => {
       description: "프론트엔드 함께할 팀원을 모집합니다!",
       region: "구미",
       class: "3",
+      generation : "9"
     },
     {
       title: "일곱번째 스터디",
@@ -85,6 +89,7 @@ const RoungeList = (props) => {
       description: "프론트엔드 함께할 팀원을 모집합니다!",
       region: "구미",
       class: "3",
+      generation : "9"
     },
     {
       title: "여덟번째 스터디",
@@ -92,6 +97,7 @@ const RoungeList = (props) => {
       description: "프론트엔드 함께할 팀원을 모집합니다!",
       region: "구미",
       class: "3",
+      generation : "9"
     },
     {
       title: "아홉번째 스터디",
@@ -99,6 +105,7 @@ const RoungeList = (props) => {
       description: "프론트엔드 함께할 팀원을 모집합니다!",
       region: "구미",
       class: "3",
+      generation : "9"
     },
     {
       title: "열번째 스터디",
@@ -106,6 +113,7 @@ const RoungeList = (props) => {
       description: "프론트엔드 함께할 팀원을 모집합니다!",
       region: "구미",
       class: "3",
+      generation : "9"
     },
     {
       title: "열한번째 스터디",
@@ -113,6 +121,7 @@ const RoungeList = (props) => {
       description: "프론트엔드 함께할 팀원을 모집합니다!",
       region: "구미",
       class: "3",
+      generation : "9"
     },
     {
       title: "열둘번째 스터디",
@@ -120,6 +129,7 @@ const RoungeList = (props) => {
       description: "프론트엔드 함께할 팀원을 모집합니다!",
       region: "구미",
       class: "3",
+      generation : "9"
     },
     {
       title: "열세번째 스터디",
@@ -127,6 +137,7 @@ const RoungeList = (props) => {
       description: "프론트엔드 함께할 팀원을 모집합니다!",
       region: "구미",
       class: "3",
+      generation : "9"
     },
     {
       title: "열네번째 스터디",
@@ -134,6 +145,7 @@ const RoungeList = (props) => {
       description: "프론트엔드 함께할 팀원을 모집합니다!",
       region: "구미",
       class: "3",
+      generation : "9"
     },
     {
       title: "열다섯번째 스터디",
@@ -141,6 +153,7 @@ const RoungeList = (props) => {
       description: "프론트엔드 함께할 팀원을 모집합니다!",
       region: "구미",
       class: "3",
+      generation : "9"
     },
   ];
 
@@ -172,8 +185,11 @@ const RoungeList = (props) => {
                 />
               </div>
               <div className={RoungeStyle.StudyListCardbody}>
-                <h3>{study.title}</h3>
-                <b>사용 기술</b>
+                <div className={RoungeStyle.Studytitle}>
+                  <h3>{study.title}</h3>
+                  <h4>{study.generation}기 {study.region}</h4>
+                </div>
+                <b className={RoungeStyle.usingSkill}>사용 기술</b>
                 <div className={RoungeStyle.StudySkill}>
                   {study.category.map((skill, num) => (
                     <span key={num} className={RoungeStyle.Studytag}>
@@ -181,9 +197,9 @@ const RoungeList = (props) => {
                     </span>
                   ))}
                 </div>
-                <div>
-                  {study.region + " "} {study.class}반
-                </div>
+                {/* <div>
+                  {study.region} {study.class}반
+                </div> */}
                 <h4>소개 글</h4>
                 <div>{study.description}</div>
               </div>

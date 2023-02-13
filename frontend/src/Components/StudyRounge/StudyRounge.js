@@ -130,10 +130,7 @@ const StudyRounge = () => {
   }, [selectedId]);
 
   const goDetailPage = () => {
-    //여기서 해당 스터디에 해당하는 id 부분으로 가야합니다. 즉
-    // navigate(`/study/${id}`);
     console.log(selectedId);
-    // if(checkViewStudy)
     navigate(`/study/${selectedId}`);
   };
 
@@ -164,7 +161,7 @@ const StudyRounge = () => {
                   }
                 >
                   <img
-                    src={require(`../../assets/image/stack/${data.skill}.png`)}
+                    src={require(`../../assets/image/stack/${data.skill}.PNG`)}
                     id={data.skill}
                   />
                   <div className={RoungeStyle.RoungeFilterText}>

@@ -16,7 +16,7 @@ import StudyUpdate from "./Components/MainStudy/StudyUpdate";
 import StudyRoungeMain from "./pages/StudyRounge/StudyRounge";
 import ChartTest from "./Components/UI/ChartTest";
 import ProfilePage from "./pages/Profile/ProfileMain";
-import VideoRoomComponent from "./Openvidu/components/VideoRoomComponent";
+import VideoRoom from "./pages/ViedeoRoom/VideoRoom";
 import Ranking from "./pages/Rank/Ranking";
 import RankAll from "./Components/Rank/RankAll";
 import RankGenerations from "./Components/Rank/RankGenerations";
@@ -76,7 +76,7 @@ const router = createBrowserRouter([
         ],
       },
       { path: "/chart", element: <ChartTest /> },
-      { path: "/videoroom", element: <VideoRoomComponent /> },
+      { path: "/videoroom", element: <VideoRoom /> },
       {
         path: "/ranking",
         element: <Ranking />,

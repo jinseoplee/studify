@@ -28,7 +28,7 @@ const StudyDetail = () => {
   };
 
   //오픈 비두 참가
-  let url = "http://localhost:3000/videoroom";
+  let url = "/videoroom";
   const joinSession = () => {
     window.open(url, "_blank", "noopener noreferrer");
   };
