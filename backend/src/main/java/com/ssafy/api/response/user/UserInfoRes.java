@@ -1,8 +1,6 @@
 package com.ssafy.api.response.user;
 
-import com.ssafy.db.entity.Study;
-import com.ssafy.db.entity.User;
-import com.ssafy.db.entity.UserStudy;
+import com.ssafy.db.entity.*;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -26,6 +24,8 @@ public class UserInfoRes {
 
     private List<Study> studies;
 
+    private List<Badge> badges;
+
     public UserInfoRes(User user) {
         this.email = user.getEmail();
         this.generation = user.getGeneration();
@@ -40,6 +40,14 @@ public class UserInfoRes {
             studies.add(userStudies.get(i).getStudy());
         }
         this.studies = studies;
+    }
+
+    public void setBadges(List<UserBadge> userBadges) {
+        List<Badge> badges = new ArrayList<>();
+        for (int i = 0; i < userBadges.size(); i++) {
+            badges.add(userBadges.get(i).getBadge());
+        }
+        this.badges = badges;
     }
 
 }

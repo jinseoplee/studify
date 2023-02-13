@@ -27,7 +27,7 @@ public class StudyCreatePostRes extends BaseResponseBody {
 
     private List<String> category; // 카테고리
 
-    private boolean isPublic; // 공개 여부
+    private Boolean isPublic; // 공개 여부
 
     @Builder
     public StudyCreatePostRes(Integer statusCode, String message, Study study) {
@@ -37,7 +37,7 @@ public class StudyCreatePostRes extends BaseResponseBody {
         this.description = study.getDescription();
         this.capacity = study.getCapacity();
         this.day = study.getDay();
-        this.isPublic = study.isPublic();
+        this.isPublic = study.getIsPublic();
     }
 
 }

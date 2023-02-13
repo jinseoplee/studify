@@ -32,7 +32,7 @@ public class StudyRes {
 
     private List<User> users; // 참여 인원
 
-    private boolean isPublic; // 공개 여부
+    private Boolean isPublic; // 공개 여부
 
     public StudyRes(Study study) {
         this.id = study.getId();
@@ -43,7 +43,7 @@ public class StudyRes {
         this.capacity = study.getCapacity();
         this.day = study.getDay();
         this.category = study.getCategory();
-        this.isPublic = study.isPublic();
+        this.isPublic = study.getIsPublic();
     }
 
     public void setUsers(List<UserStudy> userStudies) {

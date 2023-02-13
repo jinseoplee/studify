@@ -10,10 +10,7 @@ import com.ssafy.db.entity.Study;
 import com.ssafy.db.entity.StudyImg;
 import com.ssafy.db.entity.User;
 import com.ssafy.db.entity.UserStudy;
-import com.ssafy.db.repository.StudyImgRepository;
-import com.ssafy.db.repository.StudyRepository;
-import com.ssafy.db.repository.UserRepository;
-import com.ssafy.db.repository.UserStudyRepository;
+import com.ssafy.db.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +22,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -39,6 +35,7 @@ public class StudyServiceImpl implements StudyService {
     private final Logger LOGGER = LoggerFactory.getLogger(StudyServiceImpl.class);
     private final UserRepository userRepository;
     private final StudyRepository studyRepository;
+    private final QStudyRepositorySupport qStudyRepositorySupport;
     private final UserStudyRepository userStudyRepository;
     private final StudyImgRepository studyImgRepository;
     private final String path = "C:\\Users\\images\\study\\";
@@ -110,7 +107,8 @@ public class StudyServiceImpl implements StudyService {
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 리소스입니다."));
 
         // 스터디를 나가는 사용자가 호스트일 경우 스터디를 없앰
-        if(email.equals(foundStudy.getCreatedBy())){
+        if (email.equals(foundStudy.getCreatedBy())) {
+            userStudyRepository.deleteByStudyId(studyId);
             studyRepository.delete(foundStudy);
         }
 
@@ -122,8 +120,9 @@ public class StudyServiceImpl implements StudyService {
      * 스터디 목록 조회
      */
     @Override
-    public List<StudyRes> findAll() {
-        return studyRepository.findAll().stream().map(StudyRes::new).collect(Collectors.toList());
+    public List<StudyRes> findByCondition(Integer generation, String region, Integer classNum, Boolean isPublic) {
+        return qStudyRepositorySupport.findByCondition(generation, region, classNum, isPublic).stream()
+                .map(StudyRes::new).collect(Collectors.toList());
     }
 
     /**

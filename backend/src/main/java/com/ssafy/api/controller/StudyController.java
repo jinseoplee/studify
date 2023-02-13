@@ -85,8 +85,13 @@ public class StudyController {
     @Operation(summary = "스터디 목록 조회")
     @ApiResponse(responseCode = "200", description = "스터디 목록 조회 성공")
     @GetMapping
-    public ResponseEntity<? extends BaseResponse> findAll() {
-        return ResponseEntity.ok(new BaseResponse<List<StudyRes>>(200, "스터디 목록 조회 성공", studyService.findAll()));
+    public ResponseEntity<? extends BaseResponse> findByCondition(@RequestParam(required = false) List<String> category,
+                                                                  @RequestParam(required = false) Integer generation,
+                                                                  @RequestParam(required = false) String region,
+                                                                  @RequestParam(name = "classnum",required = false) Integer classNum,
+                                                                  @RequestParam(required = false) Boolean isPublic) {
+        return ResponseEntity.ok(new BaseResponse<List<StudyRes>>(200, "스터디 목록 조회 성공",
+                studyService.findByCondition(generation, region, classNum, isPublic)));
     }
 
     /**

@@ -16,4 +16,6 @@ public interface UserStudyRepository extends JpaRepository<UserStudy, Long> {
 
     boolean existsByUserIdAndStudyId(Long userId, Long studyId);
 
+    void deleteByStudyId(Long studyId);
+
 }
