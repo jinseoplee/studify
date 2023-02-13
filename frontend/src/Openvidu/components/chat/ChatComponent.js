@@ -39,9 +39,6 @@ export default class ChatComponent extends Component {
           const userImg = document.getElementById(
             "userImg-" + (this.state.messageList.length - 1)
           );
-          const video = document.getElementById("video-" + data.streamId);
-          const avatar = userImg.getContext("2d");
-          avatar.drawImage(video, 200, 120, 285, 285, 0, 0, 60, 60);
           this.props.messageReceived();
         }, 50);
         this.setState({ messageList: messageList });
@@ -144,18 +141,11 @@ export default class ChatComponent extends Component {
                     : " right")
                 }
               >
-                <canvas
-                  id={"userImg-" + i}
-                  width="60"
-                  height="60"
-                  className="user-img"
-                />
                 <div className="msg-detail">
                   <div className="msg-info">
                     <p> {data.nickname}</p>
                   </div>
                   <div className="msg-content">
-                    <span className="triangle" />
                     <div
                       className="text"
                       dangerouslySetInnerHTML={{ __html: data.message }}
@@ -174,7 +164,7 @@ export default class ChatComponent extends Component {
               onChange={this.handleChange}
               onKeyPress={this.handlePressKey}
             />
-            <Tooltip title="Send message">
+            <Tooltip title="메시지 보내기">
               <Fab size="small" id="sendButton" onClick={this.sendMessage}>
                 <Send />
               </Fab>

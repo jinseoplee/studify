@@ -1,19 +1,22 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, Link, useNavigate } from "react-router-dom";
 import StudySwitchbar from "./StudySwitchbar";
 import settingpng from "../../assets/image/settings.png";
 import StudyStyle from "../../Style/MainStudy/StudyDetail.module.css";
 import { selectdayActions } from "../../store/StudyStore";
+import axios from "axios";
+import swal from "sweetalert";
 
 const StudyDetail = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const studyId = useSelector((state) => state.selectday.studyNum);
   const studyM = useSelector((state) => state.selectday.studyM);
   const studyname = useSelector((state) => state.userStudyInfo.studyname);
   const userToken = useSelector((state) => state.token.accesstoken);
+  const [studydata, setStudyData] = useState([]);
   const [dummyimg, setImg] = useState(
     "https://cdn.pixabay.com/photo/2013/10/27/17/14/snowfall-201496_960_720.jpg"
   );
@@ -22,15 +25,14 @@ const StudyDetail = () => {
     height: "400px",
     backgroundImage: `url(${dummyimg})`,
   };
-  //   const navigate = useNavigate();
-  // let url = "http://localhost:3000/videoroom";
-  // const joinSession = () => {
-  //   //이것을 이용해서 오픈비두 창으로 보내주면 될것같은데?
-  //   window.open(url, "_blank", "noopener noreferrer");
-  // };
+
+  //오픈 비두 참가
+  let url = "http://localhost:3000/videoroom";
+  const joinSession = () => {
+    window.open(url, "_blank", "noopener noreferrer");
+  };
 
   const outStudyHandler = () => {
-    console.log("스터디 삭제");
     axios
       .delete(`/api/v1/studies/leave/${studyId}`, {
         headers: {
@@ -39,9 +41,11 @@ const StudyDetail = () => {
       })
       .then((res) => {
         console.log(res);
+        navigate("/dashboard");
       })
       .catch((err) => {
         console.log(err);
+        swal("삭제할 수 없는 스터디입니다");
       });
   };
 
@@ -53,12 +57,13 @@ const StudyDetail = () => {
         },
       })
       .then((res) => {
-        console.log(res);
+        console.log(res.data);
+        setStudyData(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
-  });
+  }, []);
 
   return (
     <>
@@ -67,9 +72,11 @@ const StudyDetail = () => {
           <div className={StudyStyle.StudyDetailback}>
             <p className={StudyStyle.StudyDetailName}>
               {studyId}
-              {studyname}
+              {studydata.title}
             </p>
-            <button className={StudyStyle.StudyBtn}>참여하기</button>
+            <button className={StudyStyle.StudyBtn} onClick={joinSession}>
+              참여하기
+            </button>
             <button className={StudyStyle.StudyBtn} onClick={outStudyHandler}>
               나가기
             </button>

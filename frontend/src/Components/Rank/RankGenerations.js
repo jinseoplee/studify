@@ -31,9 +31,9 @@ const RankAll = () => {
   return ( 
     <div className={RankStyle.RankDetailContainer}>
       <div className={RankStyle.RankContentContainter}>
-        <RankPodium data={AllRanking} />
+        <RankPodium data={AllRanking?.filter(data => data.generation === 8)} />
         <div className={RankStyle.RankBarContainer}>
-          {AllRanking?.slice(offset, offset + limit)?.map((data, key) => (
+          {AllRanking?.filter(data => data.generation === 8)?.slice(offset, offset + limit)?.map((data, key) => (
             <div key={key} className={RankStyle.RankNameBox}>
               <span>{key + offset + 1}</span>
               <span>{data?.name}</span>
@@ -43,7 +43,7 @@ const RankAll = () => {
         </div>
       </div>
       <Pagination
-        total={AllRanking.length}
+        total={AllRanking?.filter(data => data.generation === 8).length}
         limit={limit}
         page={page}
         setPage={setPage}
