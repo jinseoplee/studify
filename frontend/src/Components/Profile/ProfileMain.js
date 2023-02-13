@@ -18,7 +18,7 @@ const ProfileMain = () => {
 
   useEffect(() => {
     axios
-      .get("/api/v1/users/detail", {
+      .get("/api/v1/users", {
         headers: {
           "X-Auth-Token": userToken,
         },
