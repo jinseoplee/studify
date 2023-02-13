@@ -22,7 +22,7 @@ public class StudyCreatePostReq {
 
     private List<String> category;
 
-    private boolean isPublic;
+    private Boolean isPublic;
 
     private Integer generation;
 

@@ -24,6 +24,6 @@ public class StudyInfoUpdatePutReq {
 
     private List<String> category; // 카테고리
 
-    private boolean isPublic; // 공개 여부
+    private Boolean isPublic; // 공개 여부
 
 }
