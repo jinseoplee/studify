@@ -30,7 +30,7 @@ public class EmailContent {
             "      감사합니다. \n" +
             "    </p>\n" +
             "    <div>\n" +
-            "      <a href=\"https://i8b108.p.ssafy.io/users/signup/CODE\" \n" +
+            "      <a href=\"https://i8b108.p.ssafy.io/user/signup/CODE\" \n" +
             "        class=\"certificate\"\n" +
             "        style=\"display: inline-block;\n" +
             "        color:white; \n" +
