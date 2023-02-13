@@ -7,6 +7,7 @@
   font-size: 2.8rem;
   align-items: center;
   text-align: center;
+  background-color: white;
 }
 .topbar_left {
   display: flex;
@@ -23,15 +24,26 @@
   margin-left: 1rem;
 }
 
-.vector {
-  margin-right: 1rem;
-}
-
 .text_link {
-  color: inherit;
+  color: #8A6BCD;
   text-decoration: inherit;
 }
 
 .text_link:hover {
-  color: blue;
+  color: #cabbe7;
+}
+
+.logintext {
+  position: absolute;
+  margin: 0 0 0 85px;
+}
+
+.logouttext {
+  position: absolute;
+  margin: 0 0 0 75px;
+}
+
+.login {
+  display: flex;
+  align-items: center;
 }

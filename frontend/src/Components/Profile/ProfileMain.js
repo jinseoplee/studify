@@ -18,7 +18,11 @@ const ProfileMain = () => {
 
   useEffect(() => {
     axios
+<<<<<<< HEAD
       .get("api/v1/users", {
+=======
+      .get("/api/v1/users/detail", {
+>>>>>>> 2cf37defd63cbb7a382f7ca31eb968ab72499a95
         headers: {
           "X-Auth-Token": userToken,
         },
@@ -32,7 +36,7 @@ const ProfileMain = () => {
         console.log(err);
       });
     axios
-      .get("api/v1/users/image", {
+      .get("/api/v1/users/image", {
         headers: {
           "X-Auth-Token": userToken,
         },

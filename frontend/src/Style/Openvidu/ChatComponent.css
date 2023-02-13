@@ -6,12 +6,14 @@
 }
 
 #chatToolbar {
-  height: 30px;
+  display: flex;
+  height: 40px;
   background-color: #3d3d3d;
   box-sizing: border-box;
   font-weight: bold;
-  font-size: 14px;
-  text-align: center;
+  font-size: 15px;
+  justify-content: center;
+  align-items: center;
   padding-top: 4px;
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
@@ -25,7 +27,7 @@
 }
 
 #chatComponent {
-  background-color: #b8b8b8;
+  background-color: #eae3f4;
   position: absolute;
   z-index: 99999;
   top: 0;
@@ -40,7 +42,7 @@
 
 .message-wrap {
   padding: 0 15px;
-  height: calc(100% - 80px);
+  height: calc(100% - 30px);
   overflow: auto;
 }
 
@@ -57,8 +59,9 @@
 }
 
 .msg-detail {
-  width: calc(100% - 65px);
+  width: calc(100% - 30px);
   display: inline-block;
+  margin-top: 10px !important;
 }
 
 .msg-detail p {
@@ -73,24 +76,16 @@
 }
 
 .msg-content {
+  display: flex;
   position: relative;
-  margin-top: 5px;
+  margin-top: 5px !important;
   border-radius: 5px;
-  padding: 8px;
+  padding: 10px !important;
   color: #000000;
   width: auto;
   max-width: 80%;
-}
-
-span.triangle {
-  border-radius: 2px;
-  height: 8px;
-  width: 8px;
-  top: 12px;
-  display: block;
-  -webkit-transform: rotate(45deg);
-  transform: rotate(45deg);
-  position: absolute;
+  height: auto;
+  align-items: center;
 }
 
 .text {
@@ -105,23 +100,12 @@ span.triangle {
 }
 
 .message.left .msg-detail {
-  padding-left: 65px;
-}
-
-.message.left .user-img {
-  left: -5px;
-  border: 1px solid #f0f0f094;
+  padding-left: 30px;
 }
 
 .message.left .msg-detail .msg-content {
-  background-color: #f0f0f0;
+  background-color: #dacfed;
   float: left;
-}
-.message.left .msg-detail .msg-content span.triangle {
-  background-color: #f0f0f0;
-  border-bottom-width: 0;
-  border-left-width: 0;
-  left: -5px;
 }
 
 /* End message from other user */
@@ -131,20 +115,10 @@ span.triangle {
 .message.right .msg-detail .msg-info {
   text-align: right;
 }
-.message.right .user-img {
-  right: -5px;
-  border: 1px solid #c8ffe8ab;
-}
 
 .message.right .msg-detail .msg-content {
-  background-color: #c8ffe8;
+  background-color: #8a6bcd90;
   float: right;
-}
-.message.right .msg-detail .msg-content span.triangle {
-  background-color: #c8ffe8;
-  border-bottom-width: 0;
-  border-left-width: 0;
-  right: -5px;
 }
 
 /* End my messages */
@@ -153,10 +127,11 @@ span.triangle {
   position: absolute;
   bottom: 0px;
   width: 100%;
-  background-color: #ffffff;
+  background-color: #dacfed;
   text-align: center;
   padding: 10px 0px;
   height: 30px;
+  color: #000000;
   border-bottom-left-radius: 6px;
   border-bottom-right-radius: 6px;
 }
@@ -165,24 +140,25 @@ span.triangle {
   height: 100%;
   border: none;
   outline: none;
-  font-size: 14px;
-  margin-left: -6%;
+  font-size: 15px;
+  margin-left: -3%;
   color: #000000;
+  background-color: #dacfed;
+}
+
+#messageInput input::placeholder {
+  color: black;
+  font-size: 15px;
+  /* font-weight: bold; */
 }
 
 #sendButton {
-  background-color: #81e9b0;
+  background-color: #8a6bcd;
   position: absolute;
   right: 10px;
-  top: 0;
-  bottom: 0;
+  top: 5px;
   margin: auto;
-  border: 1px solid #7ae2a9;
   box-shadow: none !important;
-}
-#sendButton {
-  margin-left: 3px !important;
-  margin-bottom: 2px !important;
 }
 
 ::-webkit-scrollbar {

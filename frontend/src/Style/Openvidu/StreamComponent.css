@@ -37,6 +37,10 @@
   height: 100%;
 }
 
+.streamComponent {
+  height: 100%;
+}
+
 video {
   -o-object-fit: cover;
   object-fit: cover;
@@ -76,7 +80,7 @@ video {
   background-color: #000000c4;
   position: absolute;
   bottom: 45px;
-  right: 1px;
+  right: 50px;
   z-index: 1000;
   color: #ffffff;
 }
