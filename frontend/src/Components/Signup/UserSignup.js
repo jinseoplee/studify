@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 const UserSignup = () => {
   const codenum = useSelector((state) => state.codenum.userCode);
   const origincode = window.location.pathname;
-  const codd = origincode.slice(38);
+  const codd = origincode.slice(13);
   useEffect(() => {
     console.log("보내기 준비");
     console.log(codd);
