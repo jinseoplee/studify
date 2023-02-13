@@ -11,9 +11,7 @@ const RankAll = () => {
   const offset = (page - 1) * limit;
   const RankAllhandler = async () => {
     try {
-      const response = await axios.get(
-        "http://192.168.31.155:8080/api/v1/users/rank"
-      );
+      const response = await axios.get("/api/v1/users/rank");
       setAllRanking(response.data.content);
     } catch (err) {
       console.log(err);
@@ -27,8 +25,7 @@ const RankAll = () => {
   //   return b.totalTime - a.totalTime;
   // });
 
-
-  return ( 
+  return (
     <div className={RankStyle.RankDetailContainer}>
       <div className={RankStyle.RankContentContainter}>
         <RankPodium data={AllRanking} />

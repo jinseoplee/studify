@@ -1,9 +1,13 @@
 import { Link } from "react-router-dom";
 
 import ProfileStyle from "../../Style/Profile/Profile.module.css";
-import badgesample from "../../assets/image/badge_first.png";
+import BadgeStyle from "../../Style/Profile/Badge.module.css";
+import babypic from "../../assets/image/baby.png";
+import birdfirst from "../../assets/image/bird1level.png";
+import { useState } from "react";
 
-const ProfileBody = () => {
+const ProfileBody = ({ userbadge }) => {
+  const [userGit, setUserGit] = useState(null);
   return (
     <div className={ProfileStyle.ProfileUserContainer}>
       <div className={ProfileStyle.profileStreak}>
@@ -21,11 +25,22 @@ const ProfileBody = () => {
           </Link>
         </div>
         <div className={ProfileStyle.badgeBox}>
-          <img
-            src={badgesample}
-            alt="뱃지1"
-            style={{ width: "100px", height: "100px" }}
-          />
+          <div className={BadgeStyle.BadgeBox}>
+            {userbadge.map((badge) => (
+              <div key={badge.id} className={BadgeStyle.BadgeMyList}>
+                {badge.name === "신입" && (
+                  <img alt="baby" src={babypic} style={{ width: "90px" }}></img>
+                )}
+                {badge.name === "출석 1단계" && (
+                  <img
+                    alt="bird1"
+                    src={birdfirst}
+                    style={{ width: "90px" }}
+                  ></img>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>

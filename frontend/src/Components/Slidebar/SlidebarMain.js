@@ -27,12 +27,12 @@ const SlidebarMain = ({ width = 400, children }) => {
     }
   };
 
-  useEffect(() => {
-    window.addEventListener("click", handleClose);
-    return () => {
-      window.removeEventListener("click", handleClose);
-    };
-  });
+  // useEffect(() => {
+  //   window.addEventListener("click", handleClose);
+  //   return () => {
+  //     window.removeEventListener("click", handleClose);
+  //   };
+  // });
   return (
     <div className={sidestyle.Slidecontainer}>
       <div

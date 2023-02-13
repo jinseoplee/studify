@@ -26,26 +26,6 @@ const RoungeList = (props) => {
     }
   }, [search]); //상위에서 반응이 온다면?
 
-  const dummystudy = [
-    {
-      title: "첫번째 스터디",
-      skill: ["python", "java"],
-      description: "파이썬을 함께할 팀원을 모집합니다!",
-      region: "대전",
-    },
-    {
-      title: "두번째 스터디",
-      skill: ["python", "java"],
-      description: "자바스터디 함께할 팀원을 모집합니다!",
-      region: "서울",
-    },
-    {
-      title: "세번째 스터디",
-      skill: ["python", "vue"],
-      description: "프론트엔드 함께할 팀원을 모집합니다!",
-      region: "구미",
-    },
-  ];
   console.log(props);
   console.log(data);
   return (

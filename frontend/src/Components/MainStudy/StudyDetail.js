@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Outlet, Link, useNavigate } from "react-router-dom";
+import { Outlet, Link, useNavigate, useOutletContext } from "react-router-dom";
 import StudySwitchbar from "./StudySwitchbar";
 import settingpng from "../../assets/image/settings.png";
 import StudyStyle from "../../Style/MainStudy/StudyDetail.module.css";
@@ -11,6 +11,7 @@ import swal from "sweetalert";
 const StudyDetail = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  // const outletData = { studyData: studydata };
 
   const studyId = useSelector((state) => state.selectday.studyNum);
   const studyM = useSelector((state) => state.selectday.studyM);
@@ -48,6 +49,25 @@ const StudyDetail = () => {
         swal("삭제할 수 없는 스터디입니다");
       });
   };
+  const joinStudyHandler = () => {
+    axios
+      .post(
+        `/api/v1/studies/${studyId}`,
+        {},
+        {
+          headers: {
+            "X-Auth-Token": `${userToken}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+        swal("삭제할 수 없는 스터디입니다");
+      });
+  };
 
   useEffect(() => {
     axios
@@ -57,8 +77,8 @@ const StudyDetail = () => {
         },
       })
       .then((res) => {
-        console.log(res.data);
-        setStudyData(res.data);
+        console.log(res);
+        setStudyData(res.data.content);
       })
       .catch((err) => {
         console.log(err);
@@ -75,7 +95,10 @@ const StudyDetail = () => {
               {studydata.title}
             </p>
             <button className={StudyStyle.StudyBtn} onClick={joinSession}>
-              참여하기
+              비디오 참여하기
+            </button>
+            <button className={StudyStyle.StudyBtn} onClick={joinStudyHandler}>
+              스터디방 가입
             </button>
             <button className={StudyStyle.StudyBtn} onClick={outStudyHandler}>
               나가기
