@@ -164,7 +164,7 @@ const StudyRounge = () => {
                   }
                 >
                   <img
-                    src={require(`../../assets/image/stack/${data.skill}.png`)}
+                    src={require(`../../assets/image/stack/${data.skill}.PNG`)}
                     id={data.skill}
                   />
                   <div className={RoungeStyle.RoungeFilterText}>
