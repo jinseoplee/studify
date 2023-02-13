@@ -46,7 +46,7 @@ public class Study extends BaseEntity {
     private List<String> category = new ArrayList<>(); // 카테고리
 
     @Column(nullable = false)
-    private boolean isPublic; // 공개 여부
+    private Boolean isPublic; // 공개 여부
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(nullable = false)
@@ -92,7 +92,7 @@ public class Study extends BaseEntity {
         this.capacity = studyInfoUpdatePutReq.getCapacity();
         this.day = studyInfoUpdatePutReq.getDay();
         this.category = studyInfoUpdatePutReq.getCategory();
-        this.isPublic = studyInfoUpdatePutReq.isPublic();
+        this.isPublic = studyInfoUpdatePutReq.getIsPublic();
     }
 
     /**
