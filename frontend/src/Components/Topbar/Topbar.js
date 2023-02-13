@@ -5,7 +5,8 @@ import { loginActions } from "../../store/LoginStore";
 
 import Topbarstyle from "../../Style/Topbar/Topbar.module.css";
 import logo from "../../assets/image/logo.png";
-import vector from "../../assets/image/vector.png";
+import vector1 from "../../assets/image/vector1.png";
+import vector2 from "../../assets/image/vector2.png";
 import { useEffect } from "react";
 
 const Topbar = () => {
@@ -89,7 +90,7 @@ const Topbar = () => {
             <>
               <Link to="/" className={Topbarstyle.text_link} onClick={logout}>
                 <div className={Topbarstyle.login}>
-                  <img src={vector} alt="로그아웃" />
+                  <img src={vector1} alt="로그아웃" />
                   <p className={Topbarstyle.logouttext}>로그아웃</p>
                 </div>
               </Link>
@@ -99,8 +100,8 @@ const Topbar = () => {
             <>
               <Link to="/user/login" className={Topbarstyle.text_link}>
                 <div className={Topbarstyle.login}>
-                  <img src={vector} alt="로그인" />
-                  <p className={Topbarstyle.logintext}>로그인</p>
+                  <img src={vector2} alt="로그인" className={Topbarstyle.loginbtn} />
+                  {/* <p className={Topbarstyle.logintext}>로그인</p> */}
                 </div>
               </Link>
             </>
