@@ -38,7 +38,7 @@ public class StudyServiceImpl implements StudyService {
     private final QStudyRepositorySupport qStudyRepositorySupport;
     private final UserStudyRepository userStudyRepository;
     private final StudyImgRepository studyImgRepository;
-    private final String path = "C:\\Users\\images\\study\\";
+    private final String path = "/src/img/study/";
 
     /**
      * 스터디 생성

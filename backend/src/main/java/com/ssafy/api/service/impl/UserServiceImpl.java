@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
     private final UserTimeLogRepository userTimeLogRepository;
     private final UserStudyRepository userStudyRepository;
     private final UserBadgeRepository userBadgeRepository;
-    private final String path = "C:\\Users\\images\\users";
+    private final String path = "/src/img/profile/";
 
     @Transactional
     @Override
