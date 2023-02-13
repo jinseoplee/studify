@@ -66,7 +66,8 @@ export default class ChatComponent extends Component {
       let message = this.state.message.replace(/ +(?= )/g, "");
       if (message !== "" && message !== " ") {
         const data = {
-          message: this.viewSplitLine(this.state.message).props.dangerouslySetInnerHTML.__html,
+          message: this.viewSplitLine(this.state.message).props
+            .dangerouslySetInnerHTML.__html,
           nickname: this.props.user.getNickname(),
           streamId: this.props.user.getStreamManager().stream.streamId,
         };
@@ -114,9 +115,7 @@ export default class ChatComponent extends Component {
       return htmlArr.join("");
     };
 
-    return (
-        <div dangerouslySetInnerHTML={ {__html: replace(content)} }></div>
-    );
+    return <div dangerouslySetInnerHTML={{ __html: replace(content) }}></div>;
   }
 
   render() {
@@ -157,7 +156,10 @@ export default class ChatComponent extends Component {
                   </div>
                   <div className="msg-content">
                     <span className="triangle" />
-                    <div className="text" dangerouslySetInnerHTML={{__html: data.message}}></div>
+                    <div
+                      className="text"
+                      dangerouslySetInnerHTML={{ __html: data.message }}
+                    ></div>
                   </div>
                 </div>
               </div>
@@ -166,7 +168,7 @@ export default class ChatComponent extends Component {
 
           <div id="messageInput">
             <input
-              placeholder="Send a message"
+              placeholder="메시지를 입력해주세요"
               id="chatInput"
               value={this.state.message}
               onChange={this.handleChange}
