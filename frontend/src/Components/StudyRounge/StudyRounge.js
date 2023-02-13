@@ -164,9 +164,12 @@ const StudyRounge = () => {
                   }
                 >
                   <img
-                    src={require(`../../assets/image/stack/${data.skill}.PNG`)}
+                    src={require(`../../assets/image/stack/${data.skill}.png`)}
                     id={data.skill}
                   />
+                  <div className={RoungeStyle.RoungeFilterText}>
+                    {data.skill}
+                  </div>
                 </button>
               </div>
             ))}
@@ -174,17 +177,22 @@ const StudyRounge = () => {
           <div className={RoungeStyle.RoungeInfoContainer}>
             {studyViewData.map((data, key) => (
               <div key={key} className={RoungeStyle.RoungeInfoBox}>
-                <label htmlFor={data.name}>{data.name}</label>
-                <input
-                  type="checkbox"
-                  name={`select-${data.id}`}
-                  onChange={(e) =>
-                    handleSingleCheck(e.target.checked, data.query)
-                  }
-                  checked={checkViewStudy?.includes(data.query) ? true : false}
-                  // id="chk_top"
-                  id={data.checkStudy}
-                ></input>
+                <fieldset>
+                  <label htmlFor={data.id}>{data.name}</label>
+
+                  <input
+                    type="checkbox"
+                    name={`select-${data.id}`}
+                    onChange={(e) =>
+                      handleSingleCheck(e.target.checked, data.query)
+                    }
+                    checked={
+                      checkViewStudy?.includes(data.query) ? true : false
+                    }
+                    // id="chk_top"
+                    id={data.id}
+                  ></input>
+                </fieldset>
               </div>
             ))}
           </div>

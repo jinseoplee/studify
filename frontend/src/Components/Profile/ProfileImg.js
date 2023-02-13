@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 import filesample from "../../assets/image/file.png";
 import ModalContainer from "../UI/ModalContainer";
@@ -8,6 +9,7 @@ import ModalStyle from "../../Style/Profile/Profile.module.css";
 const ProfileImg = ({ open, onClose, email }) => {
   const [fileImg, setFileImage] = useState(`${filesample}`);
   const fileInput = useRef(null);
+  const token = useSelector((state) => state.token.accesstoken);
 
   const handleButtonClick = (e) => {
     fileInput.current.click();
@@ -30,8 +32,7 @@ const ProfileImg = ({ open, onClose, email }) => {
         url: "/api/v1/users/image",
         data: formData,
         headers: {
-          "X-Auth-Token":
-            "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzc2FmeUBzc2FmeS5jb20iLCJpYXQiOjE2NzU4NDEzOTksImV4cCI6MTY3NTg0NDk5OX0.eLiBTDxwnO5F4bYbSZUL1I5ctHDRYYZTneiLKg2TJ6U",
+          "X-Auth-Token": token,
           "Content-Type": "multipart/form-data",
         },
       });

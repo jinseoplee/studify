@@ -10,7 +10,7 @@ const UserSignup = () => {
     console.log("보내기 준비");
     console.log(codd);
     axios
-      .post("http://192.168.31.27:8080/api/v1/users/auth/signup", {
+      .post("/api/v1/users/auth/signup", {
         code: codd,
       })
       .then((res) => {

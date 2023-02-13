@@ -46,7 +46,7 @@ const RoungeList = (props) => {
     },
     {
       title: "두번째 스터디",
-      category: ["python", "java"],
+      category: ["javascript", "java"],
       description: "자바스터디 함께할 팀원을 모집합니다!",
       region: "서울",
       class: "5",
@@ -142,7 +142,6 @@ const RoungeList = (props) => {
       region: "구미",
       class: "3",
     },
-
   ];
 
   const moreStudyList = () => {
@@ -173,16 +172,20 @@ const RoungeList = (props) => {
                 />
               </div>
               <div className={RoungeStyle.StudyListCardbody}>
-                <span className={RoungeStyle.Studytag}>{study.skill}</span>
-                <h4>{study.title}</h4>
-                {study.category.map((skill, num) => (
-                  <div key={num}>
-                    <span>{skill}</span>
-                  </div>
-                ))}
-                <span>{study.region}</span>
-                <span>{study.class}</span>
-                <span>{study.description}</span>
+                <h3>{study.title}</h3>
+                <b>사용 기술</b>
+                <div className={RoungeStyle.StudySkill}>
+                  {study.category.map((skill, num) => (
+                    <span key={num} className={RoungeStyle.Studytag}>
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+                <div>
+                  {study.region + " "} {study.class}반
+                </div>
+                <h4>소개 글</h4>
+                <div>{study.description}</div>
               </div>
             </div>
           ))

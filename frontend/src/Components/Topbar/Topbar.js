@@ -14,7 +14,7 @@ const Topbar = () => {
   const token = useSelector((state) => state.token.accesstoken);
   const dispatch = useDispatch();
   const [haveToken, setHaveToken] = useState(false);
-  console.log(sessionStorage.getItem("persist:root"));
+  console.log(token);
 
   useEffect(() => {
     if (token === " ") {
@@ -41,7 +41,7 @@ const Topbar = () => {
       navigate("/");
     } else {
       //토큰이 있다면?
-      navigate("/dashboard");
+      navigate("/mainpage");
     }
   };
 
@@ -50,7 +50,12 @@ const Topbar = () => {
       <div className={Topbarstyle.topbar}>
         <div className={Topbarstyle.topbar_left}>
           <div className={Topbarstyle.section}>
-            <img className={Topbarstyle.logo} src={logo} alt="logo" onClick={gotoMain}  />
+            <img
+              className={Topbarstyle.logo}
+              src={logo}
+              alt="logo"
+              onClick={gotoMain}
+            />
           </div>
           <div className={Topbarstyle.section}>
             {haveToken && (
