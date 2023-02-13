@@ -28,7 +28,7 @@ const StudyDetail = () => {
   };
 
   //오픈 비두 참가
-  let url = "http://localhost:3000/videoroom";
+  let url = "https://i8b108.p.ssafy.io/videoroom";
   const joinSession = () => {
     window.open(url, "_blank", "noopener noreferrer");
   };
@@ -42,7 +42,7 @@ const StudyDetail = () => {
       })
       .then((res) => {
         console.log(res);
-        navigate("/dashboard");
+        navigate("/mainpage");
       })
       .catch((err) => {
         console.log(err);
