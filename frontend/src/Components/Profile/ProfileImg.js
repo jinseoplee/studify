@@ -9,6 +9,7 @@ const ProfileImg = ({ open, onClose, email }) => {
   const userToken = useSelector((state) => state.token.accesstoken);
   const [fileImg, setFileImage] = useState(`${filesample}`);
   const fileInput = useRef(null);
+  const token = useSelector((state) => state.token.accesstoken);
 
   const handleButtonClick = (e) => {
     fileInput.current.click();
@@ -31,8 +32,7 @@ const ProfileImg = ({ open, onClose, email }) => {
         url: "/api/v1/users/image",
         data: formData,
         headers: {
-          "X-Auth-Token":
-            userToken,
+          "X-Auth-Token": token,
           "Content-Type": "multipart/form-data",
         },
       });

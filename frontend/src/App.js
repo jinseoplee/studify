@@ -21,6 +21,7 @@ import Ranking from "./pages/Rank/Ranking";
 import RankAll from "./Components/Rank/RankAll";
 import RankGenerations from "./Components/Rank/RankGenerations";
 import ProfileEdit from "./Components/Profile/ProfileEdit";
+import StudyExplain from "./pages/StudyRounge/StudyExplain";
 
 const router = createBrowserRouter([
   {
@@ -47,7 +48,7 @@ const router = createBrowserRouter([
         element: <ResetPw />,
       },
       {
-        path: "/dashboard",
+        path: "/mainpage",
         element: <DashBoard />,
       },
       {
@@ -57,6 +58,10 @@ const router = createBrowserRouter([
       {
         path: "/study/newstudy",
         element: <StudyMake />,
+      },
+      {
+        path: "/study/explain",
+        element: <StudyExplain />,
       },
       // 중첩라우팅
       {
@@ -81,7 +86,7 @@ const router = createBrowserRouter([
           { path: "generations", element: <RankGenerations /> },
         ],
       },
-      { path: "/userprofile", element: <ProfilePage />, },
+      { path: "/userprofile", element: <ProfilePage /> },
       { path: "/userprofile/edit", element: <ProfileEdit /> },
       { path: "/study/:studyId/update", element: <StudyUpdate /> },
     ],

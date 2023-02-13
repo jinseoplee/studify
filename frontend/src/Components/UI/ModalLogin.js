@@ -84,7 +84,7 @@ const LoginModal = (props) => {
           </button>
           <div className={Modalstyle.modalloginTitle}>비밀번호 찾기 모달창</div>
           <form>
-            <div className={Modalstyle.modallogininputspaceName}>
+            <div className={Modalstyle.modalInputspaceName}>
               이름 :{" "}
               <input
                 name="username"
@@ -105,7 +105,11 @@ const LoginModal = (props) => {
               ></input>
             </div>
             <div className={Modalstyle.modalloginLoginButton}>
-              <button type="submit" onClick={check}>
+              <button
+                type="submit"
+                onClick={check}
+                className={Modalstyle.modalFindBtn}
+              >
                 찾기
               </button>
             </div>

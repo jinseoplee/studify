@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet, Link, useNavigate, useOutletContext } from "react-router-dom";
 import StudySwitchbar from "./StudySwitchbar";
@@ -117,7 +117,7 @@ const StudyDetail = () => {
           <hr className={StudyStyle.studyHr}></hr>
         </div>
         <div className={StudyStyle.studyDetailInside}>
-          <Outlet />
+          <Outlet study={studydata} />
         </div>
       </div>
     </>

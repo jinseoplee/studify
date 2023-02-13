@@ -4,11 +4,18 @@
   justify-content: space-between;
   top: 0;
   width: 100%;
+<<<<<<< HEAD
   font-size: 2.8rem;
   align-items: center;
   text-align: center;
   background-color: white;
+=======
+  align-items: center;
+  text-align: center;
+  overflow: hidden;
+>>>>>>> 132e22be29918e3d9e3daac1b37d7507be408da9
 }
+
 .topbar_left {
   display: flex;
   align-items: center;
@@ -16,17 +23,25 @@
 
 .section {
   margin-right: 5rem;
-  display: inline-flex;
+  display: flex;
   align-items: center;
 }
 
 .logo {
   margin-left: 1rem;
+  width: 280px;
+  height: 100px;
 }
 
 .text_link {
   color: #8A6BCD;
   text-decoration: inherit;
+  font-size: 22px;
+}
+@media (max-width: 1200px) {
+  .text_link {
+    font-size: 12px;
+  }
 }
 
 .text_link:hover {
