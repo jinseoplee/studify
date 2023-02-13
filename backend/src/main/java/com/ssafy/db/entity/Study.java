@@ -29,6 +29,7 @@ public class Study extends BaseEntity {
     @Column(nullable = false)
     private String title; // 스터디 제목
 
+    @Column(columnDefinition = "LONGTEXT")
     private String description; // 스터디 설명
 
     @Column(nullable = false)
