@@ -19,13 +19,13 @@ const ProfileImg = ({ open, onClose, email }) => {
 
   const onChangeImg = async (e) => {
     e.preventDefault();
-    // console.log(e.target.files);
+    console.log(e.target.files);
 
     if (e.target.files) {
       // const uploadFile = e.target.files[0];
       const formData = new FormData();
       formData.append("image", e.target.files[0]);
-      console.log(formData);
+      console.log(formData.get('image'));
       await axios({
         method: "put",
         url: "/api/v1/users/image",

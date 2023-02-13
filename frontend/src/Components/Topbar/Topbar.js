@@ -82,16 +82,20 @@ const Topbar = () => {
           {haveToken && (
             <>
               <Link to="/" className={Topbarstyle.text_link} onClick={logout}>
-              <img className={Topbarstyle.vector} src={vector} alt="로그아웃" />
-                로그아웃
+                <div className={Topbarstyle.login}>
+                  <img src={vector} alt="로그아웃" />
+                  <p className={Topbarstyle.logouttext}>로그아웃</p>
+                </div>
               </Link>
             </>
           )}
           {!haveToken && (
             <>
               <Link to="/user/login" className={Topbarstyle.text_link}>
-              <img className={Topbarstyle.vector} src={vector} alt="로그인" />
-                <p className={Topbarstyle.logintext}>로그인</p>
+                <div className={Topbarstyle.login}>
+                  <img src={vector} alt="로그인" />
+                  <p className={Topbarstyle.logintext}>로그인</p>
+                </div>
               </Link>
             </>
           )}

@@ -8,8 +8,8 @@ const RankSwitchbar = () => {
         전체
       </Link>
       &nbsp;&nbsp;|&nbsp;&nbsp;
-      <Link to="study" className={RankStyle.RankSwitchBarLink}>
-        스터디
+      <Link to="generations" className={RankStyle.RankSwitchBarLink}>
+        기수
       </Link>
     </div>
   );
