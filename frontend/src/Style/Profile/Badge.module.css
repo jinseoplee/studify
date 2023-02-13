@@ -9,3 +9,11 @@
   width: 95vw;
   border: solid 1px #8a6bcd;
 }
+
+.BadgeBox {
+  display: flex;
+}
+.BadgeMyList {
+  width: 100px;
+  margin-right: 30px;
+}

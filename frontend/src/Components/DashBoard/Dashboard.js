@@ -12,9 +12,9 @@ const Dashboard = () => {
 
   useEffect(() => {
     axios
-      .get("api/v1/users", {
+      .get("/api/v1/users", {
         headers: {
-          "X-Auth-Token": `${userToken}`,
+          "X-Auth-Token": userToken,
         },
       })
       .then((res) => {
@@ -25,7 +25,6 @@ const Dashboard = () => {
         console.log(err);
       });
   }, []);
-  console.log(studies);
   return (
     <div className={Dashboardstyle.dashboardContainer}>
       <SlidebarMain width={400} />

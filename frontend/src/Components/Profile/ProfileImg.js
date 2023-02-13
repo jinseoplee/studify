@@ -1,13 +1,15 @@
 import { useRef, useState } from "react";
 import axios from "axios";
-
+import { useSelector } from "react-redux";
 import filesample from "../../assets/image/file.png";
 import ModalContainer from "../UI/ModalContainer";
 import ModalStyle from "../../Style/Profile/Profile.module.css";
 
 const ProfileImg = ({ open, onClose, email }) => {
+  const userToken = useSelector((state) => state.token.accesstoken);
   const [fileImg, setFileImage] = useState(`${filesample}`);
   const fileInput = useRef(null);
+  const token = useSelector((state) => state.token.accesstoken);
 
   const handleButtonClick = (e) => {
     fileInput.current.click();
@@ -18,20 +20,19 @@ const ProfileImg = ({ open, onClose, email }) => {
 
   const onChangeImg = async (e) => {
     e.preventDefault();
-    // console.log(e.target.files);
+    console.log(e.target.files);
 
     if (e.target.files) {
       // const uploadFile = e.target.files[0];
       const formData = new FormData();
       formData.append("image", e.target.files[0]);
-      console.log(formData);
+      console.log(formData.get('image'));
       await axios({
         method: "put",
         url: "/api/v1/users/image",
         data: formData,
         headers: {
-          "X-Auth-Token":
-            "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzc2FmeUBzc2FmeS5jb20iLCJpYXQiOjE2NzU4NDEzOTksImV4cCI6MTY3NTg0NDk5OX0.eLiBTDxwnO5F4bYbSZUL1I5ctHDRYYZTneiLKg2TJ6U",
+          "X-Auth-Token": token,
           "Content-Type": "multipart/form-data",
         },
       });
@@ -48,7 +49,7 @@ const ProfileImg = ({ open, onClose, email }) => {
         {
           headers: {
             "X-Auth-Token":
-              "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzc2FmeUBzc2FmeS5jb20iLCJpYXQiOjE2NzU4NDEzOTksImV4cCI6MTY3NTg0NDk5OX0.eLiBTDxwnO5F4bYbSZUL1I5ctHDRYYZTneiLKg2TJ6U",
+              userToken,
             "Content-Type": "multipart/form-data",
           },
         },

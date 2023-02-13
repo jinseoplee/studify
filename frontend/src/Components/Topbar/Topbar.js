@@ -14,6 +14,7 @@ const Topbar = () => {
   const token = useSelector((state) => state.token.accesstoken);
   const dispatch = useDispatch();
   const [haveToken, setHaveToken] = useState(false);
+  console.log(token);
 
   useEffect(() => {
     if (token === " ") {
@@ -40,7 +41,7 @@ const Topbar = () => {
       navigate("/");
     } else {
       //토큰이 있다면?
-      navigate("/dashboard");
+      navigate("/mainpage");
     }
   };
 
@@ -49,7 +50,12 @@ const Topbar = () => {
       <div className={Topbarstyle.topbar}>
         <div className={Topbarstyle.topbar_left}>
           <div className={Topbarstyle.section}>
-            <img className="logo" src={logo} alt="logo" onClick={gotoMain} />
+            <img
+              className={Topbarstyle.logo}
+              src={logo}
+              alt="logo"
+              onClick={gotoMain}
+            />
           </div>
           <div className={Topbarstyle.section}>
             {haveToken && (
@@ -81,17 +87,21 @@ const Topbar = () => {
         <div className={Topbarstyle.section}>
           {haveToken && (
             <>
-              <img className={Topbarstyle.vector} src={vector} alt="로그아웃" />
               <Link to="/" className={Topbarstyle.text_link} onClick={logout}>
-                로그아웃
+                <div className={Topbarstyle.login}>
+                  <img src={vector} alt="로그아웃" />
+                  <p className={Topbarstyle.logouttext}>로그아웃</p>
+                </div>
               </Link>
             </>
           )}
           {!haveToken && (
             <>
-              <img className={Topbarstyle.vector} src={vector} alt="로그인" />
               <Link to="/user/login" className={Topbarstyle.text_link}>
-                로그인
+                <div className={Topbarstyle.login}>
+                  <img src={vector} alt="로그인" />
+                  <p className={Topbarstyle.logintext}>로그인</p>
+                </div>
               </Link>
             </>
           )}
