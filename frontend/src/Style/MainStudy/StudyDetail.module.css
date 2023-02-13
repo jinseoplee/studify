@@ -18,6 +18,7 @@
 }
 .StudyBtn {
   margin-top: 40px;
+  margin-right: 20px;
   text-align: center;
   padding: 18px 28px 18px 32px;
   width: 168px;
@@ -27,6 +28,10 @@
   border: 0px;
   color: white;
   font-size: 20px;
+  cursor: pointer;
+}
+.StudyBtn:hover {
+  background-color: #5321be;
 }
 .studyDetailInside {
   margin-top: 50px;
@@ -172,3 +177,17 @@
   font-size: large;
   border: 0px;
 }
+
+.StudySetting {
+  display: flex;
+  position: absolute;
+  width: 2vw;
+  /* display: flex;
+  justify-content: right; */
+  right: 10px;
+  top: 480px;
+}
+/* .Studysettingbox {
+  width: 100vw;
+  right: 300px;
+} */

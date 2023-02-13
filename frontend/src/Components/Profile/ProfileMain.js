@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-
 import ProfileBody from "./ProfileBody";
 import ProfileUserInfo from "./ProfileUserInfo";
 import ProfileStyle from "../../Style/Profile/Profile.module.css";
@@ -11,29 +10,23 @@ import { useSelector } from "react-redux";
 
 const ProfileMain = () => {
   const [myImage, setMyImage] = useState("");
-  const [userEmail, setUserEmail] = useState("");
-  const [userName, setUserName] = useState("");
-  const [userClassNum, setUserClassNum] = useState("");
-  const [userGeneration, setUserGeneration] = useState("");
-  const [userRegion, setUserRegion] = useState("");
+  let [userInfo, setUserInfo] = useState("");
+  let [userBadge, setUserBadge] = useState([]);
 
   const userToken = useSelector((state) => state.token.accesstoken);
   const navigate = useNavigate();
 
   useEffect(() => {
     axios
-      .get("api/v1/users/detail", {
+      .get("api/v1/users", {
         headers: {
           "X-Auth-Token": userToken,
         },
       })
       .then((res) => {
-        console.log(res.data);
-        setUserEmail(res.data.email);
-        setUserName(res.data.name);
-        setUserGeneration(res.data.generation);
-        setUserRegion(res.data.region);
-        setUserClassNum(res.data.classNum);
+        console.log(res);
+        setUserInfo(res.data.content);
+        setUserBadge(res.data.content.badges);
       })
       .catch((err) => {
         console.log(err);
@@ -65,6 +58,7 @@ const ProfileMain = () => {
     <div>
       <div className={ProfileStyle.profileBackground}>
         <img
+          alt="settingpng"
           src={setting}
           className={ProfileStyle.UserInfoSetting}
           onClick={userInfoEdit}
@@ -80,13 +74,8 @@ const ProfileMain = () => {
               alt="userPro"
             ></img>
           </div>
-          <ProfileUserInfo
-            username={userName}
-            usergene={userGeneration}
-            userregion={userRegion}
-            userclassNum={userClassNum}
-          />
-          <ProfileBody />
+          <ProfileUserInfo userinfo={userInfo} />
+          <ProfileBody userbadge={userBadge} />
         </div>
       </div>
     </div>

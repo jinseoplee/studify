@@ -4,6 +4,8 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
+import babypic from "../../assets/image/baby.png";
+import birdfirst from "../../assets/image/bird1level.png";
 import Dashboardstyle from "../../Style/Dashboard/Dashboard.module.css";
 
 const DashboardProfile = () => {
@@ -11,6 +13,7 @@ const DashboardProfile = () => {
   const [myImage, setMyImage] = useState("");
   const userToken = useSelector((state) => state.token.accesstoken);
   let [userInfo, setUserInfo] = useState("");
+  let [userBadge, setUserBadge] = useState([]);
 
   useEffect(() => {
     axios
@@ -22,6 +25,7 @@ const DashboardProfile = () => {
       .then((res) => {
         console.log(res);
         setUserInfo(res.data.content);
+        setUserBadge(res.data.content.badges);
       })
       .catch((err) => {
         console.log(err);
@@ -69,6 +73,26 @@ const DashboardProfile = () => {
       </div>
       <div className={Dashboardstyle.dashboardProfileBadge}>
         <h4>나의 뱃지</h4>
+        <div className={Dashboardstyle.DashboardBadgeBox}>
+          {userBadge.map((el) => (
+            <div key={el.id}>
+              {el.name === "신입" && (
+                <img
+                  alt="baby"
+                  src={babypic}
+                  className={Dashboardstyle.DashboardMyBadge}
+                ></img>
+              )}
+              {el.name === "출석 1단계" && (
+                <img
+                  alt="bird1"
+                  src={birdfirst}
+                  className={Dashboardstyle.DashboardMyBadge}
+                ></img>
+              )}
+            </div>
+          ))}
+        </div>
         <br></br>
       </div>
     </div>

@@ -23,6 +23,10 @@
   border-radius: 30px;
   border: 0px;
   margin: 50px 0 0 0;
+  cursor: pointer;
+}
+.startpageBtn:hover {
+  background-color: #5321be;
 }
 
 .startpageFull {
