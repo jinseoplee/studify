@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import MDEditor from '@uiw/react-md-editor';
+import '../../../Style/Openvidu/MdEditorComponent.css'
 
 export default class MdEditor extends Component {
   constructor(props) {
@@ -14,10 +15,11 @@ export default class MdEditor extends Component {
   render() {
     const styleEditor = { display: this.props.editorDisplay };
     return (
-      <div className="container" style={styleEditor}>
+      <div className='Mdeditorcontainer' style={styleEditor}>
       <MDEditor
         value={this.state.message}
         onChange={this.handleChange}
+        minHeights={100}
         />
       <MDEditor.Markdown source={this.state.message} style={{ whiteSpace: 'pre-wrap' }} />
     </div>

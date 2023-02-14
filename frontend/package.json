@@ -26,6 +26,8 @@
     "@nivo/core": "^0.80.0",
     "@nivo/stream": "^0.80.0",
     "@reduxjs/toolkit": "^1.9.1",
+    "@toast-ui/editor": "^3.2.1",
+    "@toast-ui/react-editor": "^3.2.2",
     "@uiw/react-md-editor": "^3.20.2",
     "aos": "^2.3.4",
     "axios": "^1.2.2",
@@ -52,8 +54,9 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+
+    "start": "set \"GENERATE_SOURCEMAP=false\" && react-scripts start",
+    "build": "set \"GENERATE_SOURCEMAP=false\" && react-scripts build",
     "build:openvidu-react": "npm install --prefix ../library/ && node library-copy.js && cd ../library && npm run create-library",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

@@ -9,7 +9,7 @@ const StudySwitchbar = ({ id }) => {
       </NavLink>
 
       <NavLink to="record" className={SwitchStyle.studyMenuText}>
-        활동 기록
+        규칙
       </NavLink>
 
       <NavLink to="member" className={SwitchStyle.studyMenuText}>

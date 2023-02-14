@@ -167,9 +167,9 @@ const StudyRounge = () => {
                     src={require(`../../assets/image/stack/${data.skill}.png`)}
                     id={data.skill}
                   />
-                  <div className={RoungeStyle.RoungeFilterText}>
+                  {/* <div className={RoungeStyle.RoungeFilterText}>
                     {data.skill}
-                  </div>
+                  </div> */}
                 </button>
               </div>
             ))}
