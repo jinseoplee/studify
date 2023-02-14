@@ -30,7 +30,7 @@ const MyStudy = ({ studies }) => {
         </Link>
 
         <div className={Dashboardstyle.MyStudyList}>
-          {studies.map((study) => (
+          {studies?.map((study) => (
             <div
               key={study.id}
               className={Dashboardstyle.MyStudyListItem}
@@ -58,7 +58,7 @@ const MyStudy = ({ studies }) => {
                 )}
               </p>
               <div className={Dashboardstyle.flexbox}>
-                {study.category.map((skill) => (
+                {study.category?.map((skill) => (
                   <div key={skill}>
                     <p className={Dashboardstyle.MyStudyTag}>{skill}</p>
                   </div>

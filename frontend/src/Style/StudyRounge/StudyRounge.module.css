@@ -133,6 +133,17 @@
   justify-content: space-between;
 }
 
+.StudytitleLeft {
+  width: 65%;
+}
+
+.StudytitleRight {
+  width: 35%;
+  position: relative;
+  bottom: 20px;
+  left: 5px;
+}
+
 .usingSkill {
   margin-bottom: 5px;
 }
@@ -185,7 +196,7 @@
 
 .StudyListcardheader img {
   width: 100%;
-  height: 200px;
+  height: 150px;
   object-fit: cover;
 }
 
@@ -194,7 +205,7 @@
   flex-direction: column;
   align-items: flex-start;
   padding: 20px;
-  min-height: 250px;
+  min-height: 150px;
 }
 
 .StudySkill {

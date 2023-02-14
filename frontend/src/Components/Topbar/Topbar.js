@@ -9,15 +9,14 @@ import vector from "../../assets/image/vector.png";
 import { useEffect } from "react";
 
 const Topbar = () => {
-  //check가 현재 access-token이 있는지 체크해서 있으면 true 없으면 false를 반환하게 만들어주어야합니다.
   const navigate = useNavigate();
-  const token = useSelector((state) => state.token.accesstoken);
+  const userToken = useSelector((state) => state.token.accesstoken);
   const dispatch = useDispatch();
   const [haveToken, setHaveToken] = useState(false);
-  console.log(token);
+  console.log(userToken);
 
   useEffect(() => {
-    if (token === " ") {
+    if (userToken === " ") {
       setHaveToken(false);
     } else {
       setHaveToken(true);
@@ -36,7 +35,7 @@ const Topbar = () => {
 
   const gotoMain = () => {
     //이미지를 눌렀을때 메인페이지로 가는 것
-    if (token === " ") {
+    if (userToken === " ") {
       //토큰이 없으면?
       navigate("/");
     } else {

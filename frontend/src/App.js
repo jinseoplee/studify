@@ -22,6 +22,7 @@ import RankAll from "./Components/Rank/RankAll";
 import RankGenerations from "./Components/Rank/RankGenerations";
 import ProfileEdit from "./Components/Profile/ProfileEdit";
 import StudyExplain from "./pages/StudyRounge/StudyExplain";
+import UserCheck from "./Components/TokenCheck/UserCheck";
 
 const router = createBrowserRouter([
   {
@@ -76,6 +77,7 @@ const router = createBrowserRouter([
         ],
       },
       { path: "/chart", element: <ChartTest /> },
+      { path: "/usercheck", element: <UserCheck /> },
       { path: "/videoroom", element: <VideoRoom /> },
       {
         path: "/ranking",

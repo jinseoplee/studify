@@ -1,13 +1,12 @@
-import React from 'react';
+import React from "react";
 import VideoRoomComponent from "../../Openvidu/components/VideoRoomComponent";
 
 const VideoRoom = () => {
-
-    return (
-        <>
-            <VideoRoomComponent />
-        </>
-    )
-}
+  return (
+    <>
+      <VideoRoomComponent />
+    </>
+  );
+};
 
 export default VideoRoom;
