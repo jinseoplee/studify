@@ -10,8 +10,10 @@
   min-width: 400px !important;
 }
 .side {
+  position: absolute;
   padding: 0 !important;
-  top: 40vh;
+  top: 30vh;
+  left: 3vw;
 }
 
 .headerLight {

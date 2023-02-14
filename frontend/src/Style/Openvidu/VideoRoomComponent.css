@@ -922,3 +922,7 @@
   height: 100%;
   margin-top: 40px;
 }
+
+.sc {
+  border: 5px solid #cabbe7 !important;
+}

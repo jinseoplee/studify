@@ -9,7 +9,6 @@ import DashBoard from "./pages/DashBoard/DashBoard";
 import StudyMake from "./Components/DashBoard/StudyMake";
 import StudyDetails from "./pages/MainStudy/StudyDetails";
 import StudyInfo from "./Components/MainStudy/StudyInfo";
-import StudyRule from "./Components/MainStudy/StudyRule";
 import StudyHistory from "./Components/MainStudy/StudyHistory";
 import StudyMember from "./Components/MainStudy/StudyMember";
 import StudyUpdate from "./Components/MainStudy/StudyUpdate";
@@ -71,7 +70,6 @@ const router = createBrowserRouter([
         children: [
           { index: true, element: <StudyInfo /> },
           { path: "info", element: <StudyInfo /> },
-          { path: "rule", element: <StudyRule /> },
           { path: "record", element: <StudyHistory /> },
           { path: "member", element: <StudyMember /> },
         ],

@@ -112,20 +112,20 @@
   font-size: 20px;
   margin: 8px;
 }
-
+/* 
 .RoungeFilterTBtn > img {
   margin: 5px;
   width: 40px;
   height: 40px;
   border-radius: 5px;
-}
+} */
 
-.RoungeFilterFBtn > img {
+/* .RoungeFilterFBtn > img {
   margin: 5px;
   width: 40px;
   height: 40px;
   border-radius: 5px;
-}
+} */
 
 .Studytitle {
   width: 100%;
@@ -153,8 +153,8 @@
   height: 50px;
   font-size: 14px;
   border-width: 3px;
-  border-color: #cabbe7;
-  border-radius: 5px;
+  border: 2px solid #8A6BCD;
+  border-radius: 15px;
   background-color: white;
   margin-left: 2rem;
 }
@@ -181,6 +181,7 @@
 .Listcontainer {
   display: flex;
   width: 90%;
+  width: 90%;
   justify-content: space-evenly;
   flex-wrap: wrap;
 }
@@ -192,6 +193,7 @@
   box-shadow: 0px 0px 4px 4px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   width: 300px;
+  width: 300px;
 }
 
 .StudyListcardheader img {
@@ -202,7 +204,7 @@
 
 .StudyListCardbody {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: flex-start;
   padding: 20px;
   min-height: 150px;
@@ -211,12 +213,15 @@
 .StudySkill {
   display: flex;
   flex-direction: row;
+  min-height: 250px;
 }
 
 .Studytag {
   background: #cccccc;
   border-radius: 50px;
   font-size: 12px;
+  margin-right: 5px;
+  margin-bottom: 5px;
   margin-right: 5px;
   margin-bottom: 5px;
   color: #fff;
@@ -235,14 +240,15 @@
   opacity: 1;
   transform: scale(1.03) translateZ(0);
   cursor: pointer;
-}
 
 .moreButton {
-  width: 60px;
-  height: 30px;
-  margin: 1rem;
-  border-radius: 2px;
-  border-color: #cabbe7;
-  background-color: #cabbe7;
+  width: 160px;
+  height: 64px;
+  margin: 10px;
+  border-radius: 20px;
+  border: 2px solid #8A6BCD;
+  background-color: #faf8fb;
   overflow: hidden;
+  font-size: 20px;
+}
 }

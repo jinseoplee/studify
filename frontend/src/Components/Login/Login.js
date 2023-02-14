@@ -58,7 +58,6 @@ const Login = () => {
       } else {
         removeCookie("useremail");
       }
-      sessionStorage.setItem("email", response.data.email);
       sessionStorage.setItem("name", response.data.name);
       sessionStorage.setItem("token", response.data.token); //세션스토리지 말고 쿠키에 저장할 방법..
       //좀 더 안전하게 데이터를 저장할 수 있는 방법을 생각해보아야합니다.

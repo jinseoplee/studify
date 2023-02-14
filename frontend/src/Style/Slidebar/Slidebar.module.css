@@ -1,5 +1,5 @@
 .slidecontent {
-  width: 400px;
+  width: 340px;
   height: 724px;
 }
 
@@ -20,7 +20,7 @@
 }
 .sidebarButton {
   position: relative;
-  left: 420px;
+  left: 310px;
   top: 350px;
   width: 40px;
   height: 40px;
@@ -29,6 +29,8 @@
   /* border: 2px solid #202020; */
   border-radius: 40px;
   overflow: hidden;
+  border: none;
+  background-color: #eae3f4;
 }
 .sidebararrow {
   width: 10px;
