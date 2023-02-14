@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
+import SignupStyle from "../../Style/Signup/SignupForm.module.css";
 
 const ResetPw = () => {
   //이 페이지에서는 이전에 넘어온 이름, 이메일 정보를 가지고 있어야합니다.
@@ -67,17 +67,17 @@ const ResetPw = () => {
   };
   return (
     <>
-      비밀번호 재설정 페이지.
+      <h1>비밀번호 재설정 페이지.</h1>
       <form onSubmit={ResetPw}>
-        <label className="signupform-label">Password</label>
+        <label className="signupform_label">Password</label>
         <div>
           <input
             type="password"
             value={Password}
             onChange={onChangePassword}
-            className="signup-input"
+            className="signup_input"
           ></input>
-          <p className="signup-message">
+          <p className="signup_message">
             {
               <span className={`message ${isPassword ? "success" : "error"}`}>
                 {passwordMessage}
@@ -85,15 +85,15 @@ const ResetPw = () => {
             }
           </p>
         </div>
-        <label className="signupform-label">Password Check</label>
+        <label className="signupform_label">Password Check</label>
         <div>
           <input
             type="password"
             value={PasswordCheck}
             onChange={onChangePasswordCheck}
-            className="signup-input"
+            className="signup_input"
           ></input>
-          <p className="signup-message">
+          <p className="signup_message">
             {
               <span
                 className={`message ${isPasswordCheck ? "success" : "error"}`}
@@ -106,7 +106,7 @@ const ResetPw = () => {
         <button
           type="submit"
           disabled={!(isPassword && isPasswordCheck)}
-          className="signup-button"
+          className="signup_button"
         >
           변경하기
         </button>

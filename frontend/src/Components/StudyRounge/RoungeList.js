@@ -15,6 +15,8 @@ const RoungeList = (props) => {
 
   useEffect(() => {
     const skill = filterSkill.join(",");
+    console.log(filterUser);
+    console.log(skill);
 
     try {
       const response = axios
@@ -22,14 +24,18 @@ const RoungeList = (props) => {
           headers: { "X-AUTH-TOKEN": userToken },
           params: {
             category: skill,
-            info: filterUser,
+            region: props.region,
+            classnum: props.classnum,
+            ispublic: props.isPublic,
             //기수 지역 반
           },
         })
         .then(function (response) {
           setData(response.data.content);
+          console.log(response);
           console.log(response.data.content);
         });
+      console.log(response);
       setData(response.data); //데이터를 우선 전부 가져옵니다.;
     } catch (err) {
       console.log(err);
