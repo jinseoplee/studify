@@ -12,9 +12,9 @@ const Dashboard = () => {
 
   useEffect(() => {
     axios
-      .get("/api/v1/users", {
+      .get("api/v1/users", {
         headers: {
-          "X-Auth-Token": userToken,
+          "X-Auth-Token": `${userToken}`,
         },
       })
       .then((res) => {

@@ -578,26 +578,23 @@ class VideoRoomComponent extends Component {
           />
         </div>
         <PenComponent user={localUser} isBlackBoard={this.state.isBlackBoard} />
-
         <div id="layout" className="bounds">
           {this.state.subscribers.map((sub, i) => (
             <div
               key={i}
-              className="OT_root OT_publisher custom-class"
+              className="OT_root OT_subscriber custom-class sc"
               id="remoteUsers"
             >
-              <StreamComponent
-                user={sub}
-                streamId={sub.streamManager.stream.streamId}
-              />
+                <StreamComponent
+                  user={sub}
+                  streamId={sub.streamManager.stream.streamId}
+                  className="subcribers_video"
+                />
             </div>
           ))}
           {localUser !== undefined &&
             localUser.getStreamManager() !== undefined && (
-              <div
-                className="OT_root OT_publisher custom-class"
-                style={chatDisplay}
-              >
+              <div className="OT_root OT_publisher" style={chatDisplay}>
                 <ChatComponent
                   user={localUser}
                   chatDisplay={this.state.chatDisplay}
@@ -606,11 +603,11 @@ class VideoRoomComponent extends Component {
                 />
               </div>
             )}
-          <MdEditorComponent
-            close={this.toggleEditor}
-            editorDisplay={this.state.editorDisplay}
-          />
         </div>
+        <MdEditorComponent
+          close={this.toggleEditor}
+          editorDisplay={this.state.editorDisplay}
+        />
       </div>
     );
   }

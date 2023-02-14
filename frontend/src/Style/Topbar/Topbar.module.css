@@ -4,6 +4,7 @@
   justify-content: space-between;
   top: 0;
   width: 100%;
+  height: 80px;
   align-items: center;
   text-align: center;
   overflow: hidden;
@@ -22,12 +23,13 @@
 
 .logo {
   margin-left: 1rem;
-  width: 280px;
-  height: 100px;
+  /* width: 280px; */
+  height: 60px;
 }
 
 .text_link {
-  color: #8A6BCD;
+  color: #303030;
+  font-weight: bold;
   text-decoration: inherit;
   font-size: 22px;
 }

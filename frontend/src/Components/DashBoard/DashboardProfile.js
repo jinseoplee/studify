@@ -6,6 +6,7 @@ import axios from "axios";
 
 import babypic from "../../assets/image/baby.png";
 import birdfirst from "../../assets/image/bird1level.png";
+import firts from "../../assets/image/badge_first.png";
 import Dashboardstyle from "../../Style/Dashboard/Dashboard.module.css";
 
 const DashboardProfile = () => {
@@ -87,6 +88,13 @@ const DashboardProfile = () => {
                 <img
                   alt="bird1"
                   src={birdfirst}
+                  className={Dashboardstyle.DashboardMyBadge}
+                ></img>
+              )}
+              {el.name === "1st" && (
+                <img
+                  alt="time1"
+                  src={firts}
                   className={Dashboardstyle.DashboardMyBadge}
                 ></img>
               )}
