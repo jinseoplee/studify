@@ -64,7 +64,7 @@ public class BadgeServiceImpl implements BadgeService {
     @Override
     public void createDayBadge(String email) {
         User user = userRepository.findByEmail(email).get();
-        List<UserTimeLog> userTimeLog = userTimeLogRepository.findByUser(user);
+        List<UserTimeLog> userTimeLog = userTimeLogRepository.findAllByUser(user);
 
         int size = userTimeLog.size();
         String badgeName = "";
@@ -85,7 +85,7 @@ public class BadgeServiceImpl implements BadgeService {
             badgeName = "출석 1단계";
         }
 
-        if (!userBadgeRepository.existsByUserIdAndBadgeId(user.getId(), badgeRepository.findByName(badgeName).getId())) {
+        if (size>=2 && !userBadgeRepository.existsByUserIdAndBadgeId(user.getId(), badgeRepository.findByName(badgeName).getId())) {
             UserBadge userBadge = new UserBadge(user, badgeRepository.findByName(badgeName));
             userBadgeRepository.save(userBadge);
         }
