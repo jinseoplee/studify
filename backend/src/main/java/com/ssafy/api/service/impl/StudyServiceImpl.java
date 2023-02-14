@@ -57,7 +57,7 @@ public class StudyServiceImpl implements StudyService {
         for (int i = 0; i < studyCreatePostReq.getCategory().size(); i++) {
             categories.add(new Category(newStudy, studyCreatePostReq.getCategory().get(i)));
         }
-        newStudy.setCategories(categories);
+        newStudy.setCategory(categories);
 
         // 스터디 저장
         studyRepository.save(newStudy);
@@ -126,7 +126,7 @@ public class StudyServiceImpl implements StudyService {
         }
 
         if (!flag) {
-            throw new AccessDeniedException("스터디 가입 후 이용해주세요.");
+            throw new AccessDeniedException("잘못된 접근입니다. 처음으로 이동합니다.");
         }
     }
 
@@ -163,9 +163,28 @@ public class StudyServiceImpl implements StudyService {
      * 스터디 목록 조회
      */
     @Override
-    public List<StudyRes> findByCondition(Integer generation, String region, Integer classNum, Boolean isPublic) {
-        return qStudyRepositorySupport.findByCondition(generation, region, classNum, isPublic).stream()
+    public List<StudyRes> findByCondition(List<String> skill, Integer generation, String region, Integer classNum, Boolean isPublic) {
+        if (skill == null) {
+            skill = new ArrayList<>();
+            skill.add("java");
+            skill.add("javascript");
+            skill.add("python");
+            skill.add("c");
+            skill.add("cpp");
+            skill.add("spring");
+            skill.add("vue");
+            skill.add("react");
+        }
+
+        List<StudyRes> response = qStudyRepositorySupport.findByCondition(skill, generation, region, classNum, isPublic).stream()
                 .map(StudyRes::new).collect(Collectors.toList());
+
+        for (int i = 0; i < response.size(); i++) {
+            List<Category> categories = studyRepository.findById(response.get(i).getId()).get().getCategory();
+            response.get(i).setCategory(categories);
+        }
+
+        return response;
     }
 
     /**
@@ -178,6 +197,7 @@ public class StudyServiceImpl implements StudyService {
 
         StudyRes studyRes = new StudyRes(foundStudy);
         studyRes.setUsers(userStudyRepository.findAllByStudyId(studyId));
+        studyRes.setCategory(categoryRepository.findAllByStudyId(studyId));
         return studyRes;
     }
 
@@ -204,7 +224,7 @@ public class StudyServiceImpl implements StudyService {
             categoryRepository.save(category);
         }
         foundStudy.changeInfo(studyInfoUpdatePutReq);
-        foundStudy.setCategories(list);
+        foundStudy.setCategory(list);
         Study changedStudy = studyRepository.save(foundStudy);
 
         StudyRes studyRes = new StudyRes(changedStudy);

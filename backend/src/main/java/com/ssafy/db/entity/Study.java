@@ -1,5 +1,6 @@
 package com.ssafy.db.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ssafy.api.request.study.StudyInfoUpdatePutReq;
 import lombok.Builder;
@@ -41,8 +42,9 @@ public class Study extends BaseEntity {
     @CollectionTable(name = "study_day", joinColumns = @JoinColumn(name = "study_id"))
     private List<String> day = new ArrayList<>(); // 요일
 
+    @JsonIgnore
     @OneToMany(mappedBy = "study")
-    private List<Category> categories = new ArrayList<>();
+    private List<Category> category = new ArrayList<>(); // 카테고리
 
     @Column(nullable = false)
     private Boolean isPublic; // 공개 여부

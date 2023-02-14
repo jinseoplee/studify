@@ -37,7 +37,7 @@ public interface StudyService {
     /**
      * 스터디 목록 조회
      */
-    List<StudyRes> findByCondition(Integer generation, String region, Integer classNum, Boolean isPublic);
+    List<StudyRes> findByCondition(List<String> skill, Integer generation, String region, Integer classNum, Boolean isPublic);
 
     /**
      * 스터디 조회
