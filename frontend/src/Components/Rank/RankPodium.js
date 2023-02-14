@@ -1,35 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import RankStyle from "../../Style/Rank/Rank.module.css";
-import axios from "axios";
 import RankGetImage from "./RankGetImage";
-import { useEffect } from "react";
 
 const RankPodium = (props) => {
   const { data } = props;
-  console.log(data)
-  // const first = data[0]?.email
-  // const second = data[1]?.email
-  // const third = data[2]?.email
-  // const [myImage, setMyImage] = useState([]);
-  // const GetImghandler = async () => {
-  //   try {
-  //     const response = await axios.get("/api/v1/users/rank/image", {
-  //       params: {
-  //         email: email
-  //       },
-  //       responseType: "blob",
-  //     });
-  //     console.log(response);
-  //     let objectURL = URL.createObjectURL(response.data);
-  //     setMyImage(arr => [arr,objectURL]);
-  //     console.log(response)
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-  // useEffect(() => {
-
-  // }, []);
   return (
     <div className={RankStyle.RankPodiumContainer}>
       <div className={RankStyle.RankPodiumDetail}>

@@ -1,7 +1,6 @@
 import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import { useSelector } from "react-redux";
 import filesample from "../../assets/image/file.png";
 import ModalContainer from "../UI/ModalContainer";
 import ModalStyle from "../../Style/Profile/Profile.module.css";

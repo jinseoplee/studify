@@ -35,6 +35,8 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
+  padding-bottom: 20px;
+  flex: 1;
 }
 
 .leftContanier {
@@ -61,7 +63,6 @@
 .RoungeInfoContainer {
   display: flex;
   width: 100%;
-  margin-top: 1rem;
 }
 
 .RoungeInfoBox {
@@ -79,38 +80,39 @@
   margin: 1rem;
 }
 
+.RoungeFilterBtn {
+  margin: 8px;
+  /* display: flex; */
+  /* justify-content: center; */
+  /* align-items: center; */
+}
+
 .RoungeFilterFBtn {
   display: flex;
   align-items: center;
-  width: auto;
+  /* width: 180px; */
   height: 60px;
   border: 1px solid #8a6bcd;
   border-radius: 20px;
   background-color: white;
   font-size: 20px;
-  margin: 8px;
+  margin: 5px;
 }
 
 .RoungeFilterFBtn > .RoungeFilterText {
   font-size: 24px;
-  margin-right: 5px;
-}
-
-.RoungeFilterTBtn > .RoungeFilterText {
-  font-size: 24px;
-  margin-right: 5px;
 }
 
 .RoungeFilterTBtn {
   display: flex;
   align-items: center;
-  width: auto;
+  /* width: 180px; */
   height: 60px;
   border: 3px solid #8a6bcd;
   border-radius: 20px;
   background-color: white;
   font-size: 20px;
-  margin: 8px;
+  margin: 5px;
 }
 /* 
 .RoungeFilterTBtn > img {
@@ -126,27 +128,6 @@
   height: 40px;
   border-radius: 5px;
 } */
-
-.Studytitle {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-}
-
-.StudytitleLeft {
-  width: 65%;
-}
-
-.StudytitleRight {
-  width: 35%;
-  position: relative;
-  bottom: 20px;
-  left: 5px;
-}
-
-.usingSkill {
-  margin-bottom: 5px;
-}
 
 .RoungeSearchBtn {
   width: 80px;
@@ -204,7 +185,7 @@
 
 .StudyListCardbody {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: flex-start;
   padding: 20px;
   min-height: 150px;
@@ -213,7 +194,6 @@
 .StudySkill {
   display: flex;
   flex-direction: row;
-  min-height: 250px;
 }
 
 .Studytag {
@@ -240,15 +220,4 @@
   opacity: 1;
   transform: scale(1.03) translateZ(0);
   cursor: pointer;
-
-.moreButton {
-  width: 160px;
-  height: 64px;
-  margin: 10px;
-  border-radius: 20px;
-  border: 2px solid #8A6BCD;
-  background-color: #faf8fb;
-  overflow: hidden;
-  font-size: 20px;
-}
 }
