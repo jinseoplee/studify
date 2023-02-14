@@ -41,9 +41,8 @@ public class Study extends BaseEntity {
     @CollectionTable(name = "study_day", joinColumns = @JoinColumn(name = "study_id"))
     private List<String> day = new ArrayList<>(); // 요일
 
-    @ElementCollection
-    @CollectionTable(name = "study_category", joinColumns = @JoinColumn(name = "study_id"))
-    private List<String> category = new ArrayList<>(); // 카테고리
+    @OneToMany(mappedBy = "study")
+    private List<Category> categories = new ArrayList<>();
 
     @Column(nullable = false)
     private Boolean isPublic; // 공개 여부
@@ -69,14 +68,13 @@ public class Study extends BaseEntity {
     private StudyImg studyImg;
 
     @Builder
-    public Study(String title, String description, Integer capacity, List<String> day, List<String> category,
+    public Study(String title, String description, Integer capacity, List<String> day,
                  boolean isPublic, Integer generation, String region, Integer classNum) {
         this.title = title;
         this.description = description;
         this.headcount = 1;
         this.capacity = capacity;
         this.day = day;
-        this.category = category;
         this.isPublic = isPublic;
         this.generation = generation;
         this.region = region;
@@ -91,7 +89,6 @@ public class Study extends BaseEntity {
         this.description = studyInfoUpdatePutReq.getDescription();
         this.capacity = studyInfoUpdatePutReq.getCapacity();
         this.day = studyInfoUpdatePutReq.getDay();
-        this.category = studyInfoUpdatePutReq.getCategory();
         this.isPublic = studyInfoUpdatePutReq.getIsPublic();
     }
 

@@ -6,10 +6,7 @@ import com.ssafy.api.response.study.StudyRes;
 import com.ssafy.api.service.StudyService;
 import com.ssafy.common.exception.AccessDeniedException;
 import com.ssafy.common.util.FileValidator;
-import com.ssafy.db.entity.Study;
-import com.ssafy.db.entity.StudyImg;
-import com.ssafy.db.entity.User;
-import com.ssafy.db.entity.UserStudy;
+import com.ssafy.db.entity.*;
 import com.ssafy.db.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -21,6 +18,7 @@ import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -38,6 +36,7 @@ public class StudyServiceImpl implements StudyService {
     private final QStudyRepositorySupport qStudyRepositorySupport;
     private final UserStudyRepository userStudyRepository;
     private final StudyImgRepository studyImgRepository;
+    private final CategoryRepository categoryRepository;
     private final String path = "C:\\Users\\images\\study\\";
 
     /**
@@ -46,15 +45,32 @@ public class StudyServiceImpl implements StudyService {
     @Transactional
     @Override
     public StudyRes createStudy(String email, StudyCreatePostReq studyCreatePostReq) {
+        // 회원 조회
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다"));
 
-        Study newStudy = studyRepository.save(studyCreatePostReq.toEntity(user));
+        // 스터디 생성
+        Study newStudy = studyCreatePostReq.toEntity(user);
 
+        // 카테고리 생성
+        List<Category> categories = new ArrayList<>();
+        for (int i = 0; i < studyCreatePostReq.getCategory().size(); i++) {
+            categories.add(new Category(newStudy, studyCreatePostReq.getCategory().get(i)));
+        }
+        newStudy.setCategories(categories);
+
+        // 스터디 저장
+        studyRepository.save(newStudy);
         userStudyRepository.save(new UserStudy(user, newStudy));
+
+        // 카테고리 저장
+        for (int i = 0; i < categories.size(); i++) {
+            categoryRepository.save(categories.get(i));
+        }
 
         StudyRes studyRes = new StudyRes(newStudy);
         studyRes.setUsers(userStudyRepository.findAllByStudyId(newStudy.getId()));
+        studyRes.setCategory(categoryRepository.findAllByStudyId(newStudy.getId()));
         LOGGER.info("[createStudy] 스터디(id : {}) 생성 완료", studyRes.getId());
 
         return studyRes;
@@ -89,6 +105,29 @@ public class StudyServiceImpl implements StudyService {
         StudyRes studyRes = new StudyRes(foundStudy);
         studyRes.setUsers(userStudyRepository.findAllByStudyId(studyId));
         return studyRes;
+    }
+
+    /**
+     * 스터디 참여 여부 확인
+     */
+    @Override
+    public void checkStudyMember(String email, Long studyId) {
+        // 스터디 조회
+        Study foundStudy = studyRepository.findById(studyId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 스터디입니다."));
+
+        boolean flag = false;
+        // 스터디에 가입한 인원이 아니라면 예외를 던진다
+        List<UserStudy> userStudies = foundStudy.getUsers();
+        for (int i = 0; i < userStudies.size(); i++) {
+            if (email.equals(userStudies.get(i).getUser().getEmail())) {
+                flag = true;
+            }
+        }
+
+        if (!flag) {
+            throw new AccessDeniedException("스터디 가입 후 이용해주세요.");
+        }
     }
 
     /**
@@ -141,6 +180,7 @@ public class StudyServiceImpl implements StudyService {
     /**
      * 스터디 수정
      */
+    @Transactional
     @Override
     public StudyRes updateStudyInfo(String email, Long studyId, StudyInfoUpdatePutReq studyInfoUpdatePutReq) {
         Study foundStudy = studyRepository.findById(studyId)
@@ -151,11 +191,24 @@ public class StudyServiceImpl implements StudyService {
             throw new AccessDeniedException("권한이 없습니다");
         }
 
+        // 스터디 수정
+        categoryRepository.deleteByStudyId(studyId);
+        List<Category> list = new ArrayList<>();
+        for (int i = 0; i < studyInfoUpdatePutReq.getCategory().size(); i++) {
+            Category category = new Category(foundStudy, studyInfoUpdatePutReq.getCategory().get(i));
+            list.add(category);
+            categoryRepository.save(category);
+        }
         foundStudy.changeInfo(studyInfoUpdatePutReq);
+        foundStudy.setCategories(list);
         Study changedStudy = studyRepository.save(foundStudy);
+
+        StudyRes studyRes = new StudyRes(changedStudy);
+        studyRes.setUsers(userStudyRepository.findAllByStudyId(changedStudy.getId()));
+        studyRes.setCategory(categoryRepository.findAllByStudyId(changedStudy.getId()));
         LOGGER.info("[updateStudyInfo] 스터디(id : {}) 수정 완료", changedStudy.getId());
 
-        return new StudyRes(changedStudy);
+        return studyRes;
     }
 
     /**

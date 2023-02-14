@@ -25,6 +25,11 @@ public interface StudyService {
     StudyRes joinStudy(String email, Long studyId);
 
     /**
+     * 스터디 가입 여부 확인
+     */
+    void checkStudyMember(String email, Long studyId);
+
+    /**
      * 스터디 나가기
      */
     void leaveStudy(String email, Long studyId);
