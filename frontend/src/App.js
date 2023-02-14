@@ -15,12 +15,13 @@ import StudyUpdate from "./Components/MainStudy/StudyUpdate";
 import StudyRoungeMain from "./pages/StudyRounge/StudyRounge";
 import ChartTest from "./Components/UI/ChartTest";
 import ProfilePage from "./pages/Profile/ProfileMain";
-import VideoRoomComponent from "./Openvidu/components/VideoRoomComponent";
+import VideoRoom from "./pages/ViedeoRoom/VideoRoom";
 import Ranking from "./pages/Rank/Ranking";
 import RankAll from "./Components/Rank/RankAll";
 import RankGenerations from "./Components/Rank/RankGenerations";
 import ProfileEdit from "./Components/Profile/ProfileEdit";
 import StudyExplain from "./pages/StudyRounge/StudyExplain";
+import UserCheck from "./Components/TokenCheck/UserCheck";
 
 const router = createBrowserRouter([
   {
@@ -74,7 +75,8 @@ const router = createBrowserRouter([
         ],
       },
       { path: "/chart", element: <ChartTest /> },
-      { path: "/videoroom", element: <VideoRoomComponent /> },
+      { path: "/usercheck", element: <UserCheck /> },
+      { path: "/videoroom", element: <VideoRoom /> },
       {
         path: "/ranking",
         element: <Ranking />,

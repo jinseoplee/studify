@@ -5,7 +5,7 @@ import axios from "axios";
 import swal from "sweetalert";
 import ModalSignup from "../UI/ModalSignup";
 import logo from "../../assets/image/logo.png";
-import "../../Style/Signup/SignupForm.css";
+import SignupStyle from "../../Style/Signup/SignupForm.module.css";
 
 const SignupForm = () => {
   const dispatch = useDispatch();
@@ -119,19 +119,19 @@ const SignupForm = () => {
     }
   };
   return (
-    <div className="signup-background">
-      <form onSubmit={OnSubmitHandler} className="signupform-div">
-        <img alt="logo" src={logo} className="signup-logo"></img>
-        <div className="signup-input-div">
-          <label className="signupform-label">이메일 </label>
+    <div className={SignupStyle.signup_background}>
+      <form onSubmit={OnSubmitHandler} className={SignupStyle.signupform_div}>
+        <img alt="logo" src={logo} className={SignupStyle.signup_logo}></img>
+        <div className={SignupStyle.signupinput_div}>
+          <label className={SignupStyle.signupform_label}>이메일 </label>
           <div>
             <input
               type="email"
               value={Email}
               onChange={onChangeEmail}
-              className="signup-input"
+              className={SignupStyle.signup_input}
             ></input>
-            <p className="signup-message">
+            <p className={SignupStyle.signup_message}>
               {Email.length > 0 && (
                 <span className={`message ${isEmail ? "success" : "error"}`}>
                   {emailMessage}
@@ -140,15 +140,15 @@ const SignupForm = () => {
             </p>
           </div>
 
-          <label className="signupform-label">비밀번호</label>
+          <label className={SignupStyle.signupform_label}>비밀번호</label>
           <div>
             <input
               type="password"
               value={Password}
               onChange={onChangePassword}
-              className="signup-input"
+              className={SignupStyle.signup_input}
             ></input>
-            <p className="signup-message">
+            <p className={SignupStyle.signup_message}>
               {Password.length > 0 && (
                 <span className={`message ${isPassword ? "success" : "error"}`}>
                   {passwordMessage}
@@ -156,15 +156,15 @@ const SignupForm = () => {
               )}
             </p>
           </div>
-          <label className="signupform-label">비밀번호 확인</label>
+          <label className={SignupStyle.signupform_label}>비밀번호 확인</label>
           <div>
             <input
               type="password"
               value={PasswordCheck}
               onChange={onChangePasswordCheck}
-              className="signup-input"
+              className={SignupStyle.signup_input}
             ></input>
-            <p className="signup-message">
+            <p className={SignupStyle.signup_message}>
               {PasswordCheck.length > 0 && (
                 <span
                   className={`message ${isPasswordCheck ? "success" : "error"}`}
@@ -174,18 +174,21 @@ const SignupForm = () => {
               )}
             </p>
           </div>
-          <label className="signupform-label">이름</label>
+          <label className={SignupStyle.signupform_label}>이름</label>
           <div>
             <input
               type="name"
               value={Name}
               onChange={onNameHandler}
-              className="signup-input"
+              className={SignupStyle.signup_input}
             ></input>
           </div>
           <div>
-            <label className="signupform-label">지역</label>
-            <select onChange={regionChange} className="ClassSelectbox">
+            <label className={SignupStyle.signupform_label}>지역</label>
+            <select
+              onChange={regionChange}
+              className={SignupStyle.ClassSelectbox}
+            >
               <option value="">-- 선택하세요 --</option>
               <option key="3" value="서울">
                 서울
@@ -205,8 +208,11 @@ const SignupForm = () => {
             </select>
           </div>
           <div>
-            <label className="signupform-label">기수</label>
-            <select onChange={geneChange} className="ClassSelectbox">
+            <label className={SignupStyle.signupform_label}>기수</label>
+            <select
+              onChange={geneChange}
+              className={SignupStyle.ClassSelectbox}
+            >
               <option value="">-- 선택하세요 --</option>
               <option key="8기" value="8">
                 8기
@@ -219,12 +225,12 @@ const SignupForm = () => {
               </option>
             </select>
           </div>
-          <div className="signup-input-div">
-            <label className="signupform-label">반</label>
+          <div className={SignupStyle.signupinput_div}>
+            <label className={SignupStyle.signupform_label}>반</label>
             <div>
               <input
                 type="number"
-                className="signup-input"
+                className={SignupStyle.signup_input}
                 onChange={changeClassHandler}
                 value={clssNum}
               ></input>
@@ -234,7 +240,7 @@ const SignupForm = () => {
           <button
             type="submit"
             disabled={!(isEmail && isPassword && isPasswordCheck)}
-            className="signup-button"
+            className={SignupStyle.signup_button}
           >
             가입하기
           </button>

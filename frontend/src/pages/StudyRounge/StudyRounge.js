@@ -11,12 +11,11 @@ import TokenCheck from "../../Components/TokenCheck/TokenCheck";
 const StudyRoungeMain = () => {
   return (
     <>
-      {/* <TokenCheck /> */}
+      <TokenCheck />
       <Topbar />
 
       {/* <RoungeBanner /> */}
       <OpenStudyAd />
-      <hr />
       <StudyRounge />
       <Footer />
     </>

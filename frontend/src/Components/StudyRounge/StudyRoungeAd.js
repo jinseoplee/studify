@@ -42,7 +42,11 @@ const StudyRoungeAd = () => {
         className={openstudyAdStyle.mySwiper}
       >
         <SwiperSlide>
-          <img src={Ad} className={openstudyAdStyle.adSize} />
+          <img
+            src={userguide}
+            className={openstudyAdStyle.adSize}
+            onClick={gotoExplainPage}
+          />
         </SwiperSlide>
         <SwiperSlide>
           <img src={Ad} className={openstudyAdStyle.adSize} />

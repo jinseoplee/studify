@@ -23,7 +23,7 @@ const StudyMake = () => {
   const days = useSelector((state) => state.selectday.userDay);
   const skills = useSelector((state) => state.selectday.studySkill);
   const [isPublic, setIsPublic] = useState(false);
-  const token = useSelector((state) => state.token.accesstoken);
+  const userToken = useSelector((state) => state.token.accesstoken);
 
   const enteredTitleIsvalid = Title.trim() !== "";
   const checkSkill = skills.length !== 0;
@@ -60,7 +60,7 @@ const StudyMake = () => {
           },
           {
             headers: {
-              "X-AUTH-TOKEN": token,
+              "X-AUTH-TOKEN": userToken,
             },
           }
         );
