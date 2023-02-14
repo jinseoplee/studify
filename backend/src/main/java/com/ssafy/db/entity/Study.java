@@ -99,4 +99,11 @@ public class Study extends BaseEntity {
         this.headcount += 1;
     }
 
+    /**
+     * 참여자 수 감소
+     */
+    public void decreaseHeadcount() {
+        this.headcount -= 1;
+    }
+
 }

@@ -147,9 +147,13 @@ public class StudyServiceImpl implements StudyService {
 
         // 스터디를 나가는 사용자가 호스트일 경우 스터디를 없앰
         if (email.equals(foundStudy.getCreatedBy())) {
+            categoryRepository.deleteByStudyId(studyId);
             userStudyRepository.deleteByStudyId(studyId);
             studyRepository.delete(foundStudy);
         }
+
+        // 참여자 수를 하나 감소시킴
+        foundStudy.decreaseHeadcount();
 
         userStudyRepository.delete(userStudy);
         LOGGER.info("[leaveStudy] {} 스터디(id : {}) 떠나기 완료", email, studyId);
