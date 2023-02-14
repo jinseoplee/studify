@@ -49,7 +49,7 @@ const StudyMake = () => {
             capacity: Capacity,
             day: days,
             category: skills,
-            public: isPublic,
+            isPublic: isPublic,
           },
           {
             headers: {
