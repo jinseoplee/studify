@@ -9,7 +9,6 @@ import DashBoard from "./pages/DashBoard/DashBoard";
 import StudyMake from "./Components/DashBoard/StudyMake";
 import StudyDetails from "./pages/MainStudy/StudyDetails";
 import StudyInfo from "./Components/MainStudy/StudyInfo";
-import StudyRule from "./Components/MainStudy/StudyRule";
 import StudyHistory from "./Components/MainStudy/StudyHistory";
 import StudyMember from "./Components/MainStudy/StudyMember";
 import StudyUpdate from "./Components/MainStudy/StudyUpdate";
@@ -19,8 +18,9 @@ import ProfilePage from "./pages/Profile/ProfileMain";
 import VideoRoomComponent from "./Openvidu/components/VideoRoomComponent";
 import Ranking from "./pages/Rank/Ranking";
 import RankAll from "./Components/Rank/RankAll";
-import RankStudy from "./Components/Rank/RankStudy";
+import RankGenerations from "./Components/Rank/RankGenerations";
 import ProfileEdit from "./Components/Profile/ProfileEdit";
+import StudyExplain from "./pages/StudyRounge/StudyExplain";
 
 const router = createBrowserRouter([
   {
@@ -47,7 +47,7 @@ const router = createBrowserRouter([
         element: <ResetPw />,
       },
       {
-        path: "/dashboard",
+        path: "/mainpage",
         element: <DashBoard />,
       },
       {
@@ -58,6 +58,10 @@ const router = createBrowserRouter([
         path: "/study/newstudy",
         element: <StudyMake />,
       },
+      {
+        path: "/study/explain",
+        element: <StudyExplain />,
+      },
       // 중첩라우팅
       {
         path: "/study/:studyId",
@@ -65,7 +69,6 @@ const router = createBrowserRouter([
         children: [
           { index: true, element: <StudyInfo /> },
           { path: "info", element: <StudyInfo /> },
-          { path: "rule", element: <StudyRule /> },
           { path: "record", element: <StudyHistory /> },
           { path: "member", element: <StudyMember /> },
         ],
@@ -78,10 +81,10 @@ const router = createBrowserRouter([
         children: [
           { index: true, element: <RankAll /> },
           { path: "all", element: <RankAll /> },
-          { path: "study", element: <RankStudy /> },
+          { path: "generations", element: <RankGenerations /> },
         ],
       },
-      { path: "/userprofile", element: <ProfilePage />, },
+      { path: "/userprofile", element: <ProfilePage /> },
       { path: "/userprofile/edit", element: <ProfileEdit /> },
       { path: "/study/:studyId/update", element: <StudyUpdate /> },
     ],

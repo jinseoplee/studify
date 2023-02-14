@@ -58,12 +58,13 @@ const Login = () => {
       } else {
         removeCookie("useremail");
       }
-      sessionStorage.setItem("email", response.data.email);
       sessionStorage.setItem("name", response.data.name);
-      sessionStorage.setItem("token", response.data.token);
+      sessionStorage.setItem("token", response.data.token); //세션스토리지 말고 쿠키에 저장할 방법..
+      //좀 더 안전하게 데이터를 저장할 수 있는 방법을 생각해보아야합니다.
+      //현재 리덕스에 토큰을 저장합니다.
       dispatch(loginActions.saveToken(response.data.token));
       //이메일을 로컬 스토리지에 저장..
-      navigate("/dashboard");
+      navigate("/mainpage");
     } catch (err) {
       console.log(err);
       swal("아이디가 잘못 입력 되었습니다. 다시입력해주세요");
@@ -94,48 +95,50 @@ const Login = () => {
   return (
     <LoginCard>
       <form onSubmit={handleSubmit} className={LoginStyle.loginForm}>
-        <h2 className={LoginStyle.loginText}>로그인</h2>
-        <div className={LoginStyle.loginEmailform}>
-          <input
-            type="text"
-            id="email"
-            value={email}
-            name="email"
-            onChange={handleChangeId}
-            className={LoginStyle.loginTextform}
-            placeholder="test@test.com"
-          />
+        <div className={LoginStyle.loginBox}>
+          <h2 className={LoginStyle.loginText}>로그인</h2>
+          <div className={LoginStyle.loginEmailform}>
+            <input
+              type="text"
+              id="email"
+              value={email}
+              name="email"
+              onChange={handleChangeId}
+              className={LoginStyle.loginTextform}
+              placeholder="test@test.com"
+            />
+          </div>
+          <label className={LoginStyle.loginEmailform}>
+            <input
+              type="password"
+              name="email"
+              value={password}
+              onChange={handleChangePw}
+              className={LoginStyle.loginTextform}
+              placeholder="비밀번호를 입력해주세요"
+            />
+          </label>
+          <br />
+          <br />
+          <fieldset>
+            <input
+              type="checkbox"
+              id="saveid"
+              onChange={togglecheck}
+              checked={isRemember}
+              className={LoginStyle.loginCheckboxform}
+            />
+            <label htmlFor="saveid">아이디저장</label>
+          </fieldset>
         </div>
-        <label className={LoginStyle.loginEmailform}>
-          <input
-            type="password"
-            name="email"
-            value={password}
-            onChange={handleChangePw}
-            className={LoginStyle.loginTextform}
-            placeholder="비밀번호를 입력해주세요"
-          />
-        </label>
-        <br />
-        <br />
-        <fieldset>
-          <input
-            type="checkbox"
-            id="saveid"
-            onChange={togglecheck}
-            checked={isRemember}
-            className={LoginStyle.loginCheckboxform}
-          />
-          <label htmlFor="saveid">아이디저장</label>
-        </fieldset>
         <div className={LoginStyle.loginBottom}>
-          아이디가 존재하지 않으신가요? &nbsp;
           <Link to="/user/signup" className={LoginStyle.loginText_link}>
             회원가입
           </Link>
-          <div onClick={findPw}>비밀번호를 잊어버리셨나요?</div>
+          <div onClick={findPw} className={LoginStyle.pwFind}>
+            비밀번호 찾기
+          </div>
           {modalOpen && <ModalLogin setModal={notFindPw}></ModalLogin>}
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <button type="submit" className={LoginStyle.loginBtnform}>
             {">>>"}
           </button>

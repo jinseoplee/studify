@@ -1,10 +1,15 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { useDispatch } from "react-redux";
+import { Autoplay, Pagination, Navigation } from "swiper";
 import Dashboardstyle from "../../Style/Dashboard/Dashboard.module.css";
 import makestudy from "../../assets/image/plus.png";
 import { selectdayActions } from "../../store/StudyStore";
-import lockImg from "../../assets/image/lock.png";
-import unlockImg from "../../assets/image/unlock.png";
+
+//swiper
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
 
 const MyStudy = ({ studies }) => {
   const dispatch = useDispatch();
@@ -19,7 +24,7 @@ const MyStudy = ({ studies }) => {
   //나의 스터디 리스트를 눌렀을 경우 리덕스에 그 번호 저장
   return (
     <div className={Dashboardstyle.MyStudycontainer}>
-      <h3>나의 스터디</h3>
+      <h3 style={{ fontSize: "20px" }}>나의 스터디</h3>
       <div className={Dashboardstyle.MyStudybox}>
         <Link to="/study/newstudy" className={Dashboardstyle.MyStudyMake}>
           <img
@@ -30,46 +35,79 @@ const MyStudy = ({ studies }) => {
         </Link>
 
         <div className={Dashboardstyle.MyStudyList}>
-          {studies.map((study) => (
-            <div
-              key={study.id}
-              className={Dashboardstyle.MyStudyListItem}
-              onClick={(e) => {
-                studyClickHandler(study.id, e);
-              }}
-            >
-              <p className={Dashboardstyle.MystudyTitle}>
-                {study.title}
-                {!study.public && (
-                  <img
-                    alt="공개"
-                    src={unlockImg}
-                    style={{ width: "30px", marginLeft: "15px" }}
-                  ></img>
-                )}
-                {study.public && (
-                  <p>
-                    <img
-                      alt="비공개"
-                      src={lockImg}
-                      style={{ width: "30px" }}
-                    ></img>
-                  </p>
-                )}
-              </p>
-              <div className={Dashboardstyle.flexbox}>
-                {study.category.map((skill) => (
-                  <div key={skill}>
-                    <p className={Dashboardstyle.MyStudyTag}>{skill}</p>
+          <Swiper
+            slidesPerView={1}
+            spaceBetween={1}
+            centeredSlides={true}
+            freeMode={true}
+            watchOverflow={true}
+            autoplay={{
+              delay: 5000,
+              disableOnInteraction: false,
+            }}
+            pagination={{
+              clickable: true,
+            }}
+            loop={true}
+            navigation={true}
+            modules={[Autoplay, Pagination, Navigation]}
+          >
+            {studies.map((study) => (
+              <SwiperSlide>
+                <div
+                  key={study.title}
+                  onClick={(e) => {
+                    studyClickHandler(study.id, e);
+                  }}
+                  className={Dashboardstyle.flexbox}
+                >
+                  <div className={Dashboardstyle.MyStudyListItem}>
+                    <p className={Dashboardstyle.rangebox}>
+                      <p className={Dashboardstyle.MystudyTitle}>
+                        {study.title}
+                      </p>
+                      {/* {!study.public && (
+                        <img
+                          alt="공개"
+                          src={unlockImg}
+                          style={{ width: "30px", marginLeft: "15px" }}
+                        ></img>
+                      )}
+                      {study.public && (
+                        <p>
+                          <img
+                            alt="비공개"
+                            src={lockImg}
+                            style={{ width: "30px" }}
+                          ></img>
+                        </p>
+                      )} */}
+                    </p>
+                    <div className={Dashboardstyle.flexbox}>
+                      {study.category.map((skill, index) => (
+                        <div key={index}>
+                          <p className={Dashboardstyle.MyStudyTag}>{skill}</p>
+                        </div>
+                      ))}
+                    </div>
+                    <div className={Dashboardstyle.MystudyListbox}>
+                      <p>
+                        인원 : {study.headcount} / {study.capacity}
+                      </p>
+                      <div className={Dashboardstyle.flexbox}>
+                        일 정 :
+                        {study.day.map((d, index) => (
+                          <div key={d}>
+                            <p>{d} </p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
                   </div>
-                ))}
-              </div>
-              <div>
-                <p>{study.public}</p>
-                <p className={Dashboardstyle.MyStudyDes}>{study.description}</p>
-              </div>
-            </div>
-          ))}
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </div>
       </div>
     </div>

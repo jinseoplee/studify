@@ -25,13 +25,49 @@
   background-image: url(../../assets/image/Banner_1.png);
 }
 
-.RoungeFilterContainer {
+/* @media only screen and (max-width: 1000px) {
+  button {
+    display: none;
+  }
+} */
+
+.Container {
   display: flex;
-  /* flex-direction: column; */
+  justify-content: space-between;
+  width: 100%;
+}
+
+.leftContanier {
+  display: flex;
+  width: 70%;
+  flex-direction: column;
+  padding-left: 100px;
+}
+
+.rightContainer {
+  display: flex;
+  width: 25%;
+  align-items: center;
+}
+
+.RoungeSkillContainer {
+  display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
-  /* margin-top: 50px; */
+  flex-wrap: wrap;
+}
+
+.RoungeInfoContainer {
+  display: flex;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.RoungeInfoBox {
+  margin-left: 1rem;
+  margin-right: 1rem;
+  font-size: 20px;
 }
 
 .RoungeListContainer {
@@ -40,39 +76,87 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  margin-top: 50px;
+  margin: 1rem;
 }
 
 .RoungeFilterFBtn {
-  width: 144px;
-  height: 64px;
+  display: flex;
+  align-items: center;
+  width: auto;
+  height: 60px;
   border: 1px solid #8a6bcd;
   border-radius: 20px;
   background-color: white;
   font-size: 20px;
-  margin: 20px;
+  margin: 8px;
+}
+
+.RoungeFilterFBtn > .RoungeFilterText {
+  font-size: 24px;
+  margin-right: 5px;
+}
+
+.RoungeFilterTBtn > .RoungeFilterText {
+  font-size: 24px;
+  margin-right: 5px;
 }
 
 .RoungeFilterTBtn {
-  width: 144px;
-  height: 64px;
+  display: flex;
+  align-items: center;
+  width: auto;
+  height: 60px;
   border: 3px solid #8a6bcd;
   border-radius: 20px;
   background-color: white;
   font-size: 20px;
-  margin: 20px;
+  margin: 8px;
 }
 
 .RoungeFilterTBtn > img {
-  margin-top: 2px;
-  width: 50px;
-  height: 50px;
+  margin: 5px;
+  width: 40px;
+  height: 40px;
+  border-radius: 5px;
 }
 
 .RoungeFilterFBtn > img {
-  margin-top: 2px;
-  width: 50px;
+  margin: 5px;
+  width: 40px;
+  height: 40px;
+  border-radius: 5px;
+}
+
+.Studytitle {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.StudytitleLeft {
+  width: 65%;
+}
+
+.StudytitleRight {
+  width: 35%;
+  position: relative;
+  bottom: 20px;
+  left: 5px;
+}
+
+.usingSkill {
+  margin-bottom: 5px;
+}
+
+.RoungeSearchBtn {
+  width: 80px;
   height: 50px;
+  font-size: 14px;
+  border-width: 3px;
+  border-color: #cabbe7;
+  border-radius: 5px;
+  background-color: white;
+  margin-left: 2rem;
 }
 
 .Banner1Title {
@@ -96,7 +180,7 @@
 
 .Listcontainer {
   display: flex;
-  width: 1040px;
+  width: 90%;
   justify-content: space-evenly;
   flex-wrap: wrap;
 }
@@ -107,29 +191,34 @@
   border-radius: 10px;
   box-shadow: 0px 0px 4px 4px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  width: 400px;
+  width: 300px;
 }
 
 .StudyListcardheader img {
   width: 100%;
-  height: 200px;
+  height: 150px;
   object-fit: cover;
 }
 
 .StudyListCardbody {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: flex-start;
   padding: 20px;
-  min-height: 250px;
+  min-height: 150px;
+}
+
+.StudySkill {
+  display: flex;
+  flex-direction: row;
 }
 
 .Studytag {
   background: #cccccc;
   border-radius: 50px;
   font-size: 12px;
-  margin: 0;
+  margin-right: 5px;
+  margin-bottom: 5px;
   color: #fff;
   padding: 2px 10px;
   text-transform: uppercase;
@@ -146,4 +235,14 @@
   opacity: 1;
   transform: scale(1.03) translateZ(0);
   cursor: pointer;
+}
+
+.moreButton {
+  width: 60px;
+  height: 30px;
+  margin: 1rem;
+  border-radius: 2px;
+  border-color: #cabbe7;
+  background-color: #cabbe7;
+  overflow: hidden;
 }

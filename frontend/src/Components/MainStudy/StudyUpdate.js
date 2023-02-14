@@ -1,6 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { Editor } from "@toast-ui/react-editor";
+import "@toast-ui/editor/dist/toastui-editor.css";
 import axios from "axios";
 import swal from "sweetalert";
 import Topbar from "../Topbar/Topbar";
@@ -10,6 +12,7 @@ import SkillCheckBox from "../UI/SkillCheckBox";
 import StudyStyle from "../../Style/MainStudy/StudyDetail.module.css";
 
 const StudyUpdate = () => {
+  const editorRef = useRef();
   const navigate = useNavigate();
 
   //axios용
@@ -24,6 +27,11 @@ const StudyUpdate = () => {
   const skills = useSelector((state) => state.selectday.studySkill);
   const [isPublic, setIsPublic] = useState(false);
   const token = useSelector((state) => state.token.accesstoken);
+
+  //소개글 파일 생성
+  const onChangeDescription = () => {
+    setDescription(editorRef.current.getInstance().getHTML());
+  };
 
   //유효성 검사용
   const enteredTitleIsvalid = Title.trim() !== "";
@@ -49,6 +57,7 @@ const StudyUpdate = () => {
       alert("요일을 선택해주세요");
     } else {
       try {
+        console.log(Description);
         const response = await axios.put(
           `/api/v1/studies/${studyId}`,
           {
@@ -57,7 +66,7 @@ const StudyUpdate = () => {
             capacity: Capacity,
             day: days,
             category: skills,
-            public: isPublic,
+            isPublic: isPublic,
           },
           {
             headers: {
@@ -66,7 +75,7 @@ const StudyUpdate = () => {
           }
         );
         console.log(response);
-        navigate("/dashboard");
+        navigate("/mainpage");
       } catch (err) {
         console.log(err);
         swal("스터디 생성이 실패했습니다.");
@@ -111,7 +120,6 @@ const StudyUpdate = () => {
         <div className={StudyStyle.studyUpdatebox}>
           <p className={StudyStyle.studyUpdateLabel}>기술 스택</p>
           <SkillCheckBox />
-          {/* <p>{days}</p> */}
         </div>
         <div className={StudyStyle.studyUpdatebox}>
           <p className={StudyStyle.studyUpdateLabel}>스터디 정원</p>
@@ -120,17 +128,19 @@ const StudyUpdate = () => {
         <div className={StudyStyle.studyUpdatebox}>
           <p className={StudyStyle.studyUpdateLabel}>스터디 요일</p>
           <DayCheckbox />
-          {/* <p>{days}</p> */}
         </div>
         <div className={StudyStyle.studyUpdatebox}>
           <p className={StudyStyle.studyUpdateLabel}>스터디 소개글</p>
-          <textarea
-            cols="40"
-            rows="8"
-            value={Description}
-            onChange={onChangeDes}
-            className={StudyStyle.StudyUpdateDescription}
-          ></textarea>
+          <Editor
+            initialValue=""
+            previewStyle="vertical"
+            height="600px"
+            initialEditType="wysiwyg"
+            language="ko-KR"
+            ref={editorRef}
+            useCommandShortcut={false}
+            onChange={onChangeDescription}
+          ></Editor>
         </div>
         <div className={StudyStyle.studyUpdatebox}>
           <p className={StudyStyle.studyUpdateLabel}>공개 설정</p>

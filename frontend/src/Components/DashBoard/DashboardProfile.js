@@ -6,6 +6,7 @@ import axios from "axios";
 
 import babypic from "../../assets/image/baby.png";
 import birdfirst from "../../assets/image/bird1level.png";
+import firts from "../../assets/image/badge_first.png";
 import Dashboardstyle from "../../Style/Dashboard/Dashboard.module.css";
 
 const DashboardProfile = () => {
@@ -58,13 +59,10 @@ const DashboardProfile = () => {
           ></img>
         </div>
       </Link>
+      <div className={Dashboardstyle.dashboardProfileLine}>
+        {userInfo.generation}기 {userInfo.region} {userInfo.classNum}반
+      </div>
       <div className={Dashboardstyle.dashboardProfileName}>{userInfo.name}</div>
-      <div className={Dashboardstyle.dashboardProfileLine}>
-        {userInfo.generation}기
-      </div>
-      <div className={Dashboardstyle.dashboardProfileLine}>
-        {userInfo.region} {userInfo.classNum}반
-      </div>
       <div className={Dashboardstyle.dashboardProfileLine}></div>
       <div className={Dashboardstyle.dashboardProfileSkill}>
         <h4>공부중!</h4>
@@ -87,6 +85,13 @@ const DashboardProfile = () => {
                 <img
                   alt="bird1"
                   src={birdfirst}
+                  className={Dashboardstyle.DashboardMyBadge}
+                ></img>
+              )}
+              {el.name === "1st" && (
+                <img
+                  alt="time1"
+                  src={firts}
                   className={Dashboardstyle.DashboardMyBadge}
                 ></img>
               )}

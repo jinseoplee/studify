@@ -253,7 +253,7 @@ export default class SidebarComponent extends Component {
           <ListItemIcon
             color="secondary"
           >
-            <PowerSettingsNew color="#8A6BCD" />
+            <PowerSettingsNew />
           </ListItemIcon>
           <ListItemText
             color="secondary"

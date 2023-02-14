@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { useSelector } from "react-redux";
 import axios from "axios";
 
 import filesample from "../../assets/image/file.png";
@@ -6,6 +7,7 @@ import ModalContainer from "../UI/ModalContainer";
 import ModalStyle from "../../Style/Profile/Profile.module.css";
 
 const ProfileImg = ({ open, onClose, email }) => {
+  const userToken = useSelector((state) => state.token.accesstoken);
   const [fileImg, setFileImage] = useState(`${filesample}`);
   const fileInput = useRef(null);
 
@@ -18,42 +20,31 @@ const ProfileImg = ({ open, onClose, email }) => {
 
   const onChangeImg = async (e) => {
     e.preventDefault();
-    // console.log(e.target.files);
 
     if (e.target.files) {
       // const uploadFile = e.target.files[0];
       const formData = new FormData();
       formData.append("image", e.target.files[0]);
-      console.log(formData);
+      console.log(formData.get("image"));
       await axios({
-        method: "put",
+        method: "post",
         url: "/api/v1/users/image",
         data: formData,
         headers: {
-          "X-Auth-Token":
-            "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzc2FmeUBzc2FmeS5jb20iLCJpYXQiOjE2NzU4NDEzOTksImV4cCI6MTY3NTg0NDk5OX0.eLiBTDxwnO5F4bYbSZUL1I5ctHDRYYZTneiLKg2TJ6U",
+          "X-Auth-Token": `${userToken}`,
           "Content-Type": "multipart/form-data",
         },
       });
     }
   };
 
-  const saveUserPic = async () => {
+  const deletePic = async () => {
     await axios
-      .put(
-        "/api/v1/users/image",
-        {
-          image: fileImg,
+      .delete("/api/v1/users/image", {
+        headers: {
+          "X-Auth-Token": `${userToken}`,
         },
-        {
-          headers: {
-            "X-Auth-Token":
-              "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzc2FmeUBzc2FmeS5jb20iLCJpYXQiOjE2NzU4NDEzOTksImV4cCI6MTY3NTg0NDk5OX0.eLiBTDxwnO5F4bYbSZUL1I5ctHDRYYZTneiLKg2TJ6U",
-            "Content-Type": "multipart/form-data",
-          },
-        },
-        {}
-      )
+      })
       .then((res) => {
         console.log(res);
       })
@@ -78,14 +69,15 @@ const ProfileImg = ({ open, onClose, email }) => {
               >
                 파일 선택
               </button>
+              <button className={ModalStyle.profileUploadBtn}>저장하기</button>
               <button
-                onClick={onChangeImg}
                 className={ModalStyle.profileUploadBtn}
+                onClick={deletePic}
               >
-                저장하기
+                삭제하기
               </button>
             </div>
-            <form>
+            <form onSubmit={onChangeImg}>
               <input
                 type="file"
                 id="profile-upload"

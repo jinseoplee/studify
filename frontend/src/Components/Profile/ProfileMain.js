@@ -52,8 +52,6 @@ const ProfileMain = () => {
     navigate("/userprofile/edit");
   };
 
-  //모달 관련
-  // const [openImgModal, setOpenImgModal] = useState(false);
   return (
     <div>
       <div className={ProfileStyle.profileBackground}>

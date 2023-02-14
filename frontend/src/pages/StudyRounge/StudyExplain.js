@@ -1,18 +1,17 @@
 import React from "react";
-import Topbar from "../../Components/Topbar/Topbar";
-import RankDetail from "../../Components/Rank/RankDetail";
 import Footer from "../../Components/Footer/Footer";
 import TokenCheck from "../../Components/TokenCheck/TokenCheck";
+import Topbar from "../../Components/Topbar/Topbar";
 
-const Ranking = () => {
+const StudyExplain = () => {
   return (
     <>
       <TokenCheck />
       <Topbar />
-      <RankDetail />
+      <h1>스터디 사용설명서</h1>
       <Footer />
     </>
   );
 };
 
-export default Ranking;
+export default StudyExplain;

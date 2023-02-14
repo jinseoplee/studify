@@ -8,12 +8,19 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 
 import Ad from "../../assets/image/Banner_Ad.jpg";
+import userguide from "../../assets/image/userguide8.PNG";
+import wait from "../../assets/image/wait.jpg";
 import openstudyAdStyle from "../../Style/OpenStudy/OpenStudyAd.module.css";
 
 // import required modules
 import { Autoplay, Pagination, Navigation } from "swiper";
+import { useNavigate } from "react-router-dom";
 
 const StudyRoungeAd = () => {
+  const navigate = useNavigate();
+  const gotoExplainPage = () => {
+    navigate("/study/explain");
+  };
   return (
     <>
       <Swiper
@@ -35,18 +42,18 @@ const StudyRoungeAd = () => {
         className={openstudyAdStyle.mySwiper}
       >
         <SwiperSlide>
-          <img src={Ad} className={openstudyAdStyle.adSize} />
+          <img
+            src={userguide}
+            className={openstudyAdStyle.adSize}
+            onClick={gotoExplainPage}
+          />
         </SwiperSlide>
         <SwiperSlide>
           <img src={Ad} className={openstudyAdStyle.adSize} />
         </SwiperSlide>
-        <SwiperSlide>Slide 3</SwiperSlide>
-        <SwiperSlide>Slide 4</SwiperSlide>
-        <SwiperSlide>Slide 5</SwiperSlide>
-        <SwiperSlide>Slide 6</SwiperSlide>
-        <SwiperSlide>Slide 7</SwiperSlide>
-        <SwiperSlide>Slide 8</SwiperSlide>
-        <SwiperSlide>Slide 9</SwiperSlide>
+        <SwiperSlide>
+          <img src={wait} className={openstudyAdStyle.adSize} />
+        </SwiperSlide>
       </Swiper>
     </>
   );

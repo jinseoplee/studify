@@ -1,21 +1,36 @@
-import { ResponsiveTimeRange } from "@nivo/calendar";
-import { streamData } from "../UI/streamData";
-
-const StudyMonthly = () => {
+import Dashboardstyle from "../../Style/Dashboard/Dashboard.module.css";
+import book from "../../assets/image/book.png";
+import userpic from "../../assets/image/memberpic.png";
+const StudyMonthly = ({ recordData, user, userTime }) => {
   return (
-    <div style={{ height: 330 }}>
-      <ResponsiveTimeRange
-        data={streamData}
-        from="2021-03-01"
-        to="2021-03-31"
-        emptyColor="#eeeeee"
-        colors={["#61cdbb", "#97e3d5", "#e8c1a0", "#f47560"]}
-        margin={{ top: 40, right: 40, bottom: 100, left: 40 }}
-        dayBorderWidth={2}
-        weekdayLegendOffset={80}
-        dayBorderColor="#ffffff"
-        legends={[]}
-      />
+    <div>
+      <h3 className={Dashboardstyle.flexrangebox} style={{ fontSize: "20px" }}>
+        나의 상태
+      </h3>
+      <div className={Dashboardstyle.DashMyStatus}>
+        <img
+          alt="book"
+          src={book}
+          style={{ width: "30px", marginLeft: "3px" }}
+        ></img>
+        <p>총 {Math.floor(recordData.totalTime / 3600)} 시간 공부</p>
+        {!userTime[0] && <p>최근 스터디가 없습니다!</p>}
+        <p>가장 최근 스터디는 {userTime[0] && userTime[0].day} 입니다</p>
+      </div>
+      <div className={Dashboardstyle.DashMyStatus}>
+        <img
+          alt="userpic"
+          src={userpic}
+          style={{ width: "30px", marginLeft: "3px", marginTop: "5px" }}
+        ></img>
+        {user.studies && user.studies.length <= 0 && (
+          <p>스터디를 참가해주세요!</p>
+        )}
+        {user.studies && user.studies.length > 0 && (
+          <p>{user.studies.length}개 스터디 참가</p>
+        )}
+        <p>{user.badges && user.badges.length}개 뱃지 보유</p>
+      </div>
     </div>
   );
 };
