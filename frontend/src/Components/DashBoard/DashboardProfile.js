@@ -59,13 +59,10 @@ const DashboardProfile = () => {
           ></img>
         </div>
       </Link>
+      <div className={Dashboardstyle.dashboardProfileLine}>
+        {userInfo.generation}기 {userInfo.region} {userInfo.classNum}반
+      </div>
       <div className={Dashboardstyle.dashboardProfileName}>{userInfo.name}</div>
-      <div className={Dashboardstyle.dashboardProfileLine}>
-        {userInfo.generation}기
-      </div>
-      <div className={Dashboardstyle.dashboardProfileLine}>
-        {userInfo.region} {userInfo.classNum}반
-      </div>
       <div className={Dashboardstyle.dashboardProfileLine}></div>
       <div className={Dashboardstyle.dashboardProfileSkill}>
         <h4>공부중!</h4>

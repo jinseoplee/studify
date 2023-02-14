@@ -16,6 +16,7 @@ const StudyDetail = () => {
   const [dummyimg, setImg] = useState(
     "https://t1.daumcdn.net/thumb/R720x0/?fname=http://t1.daumcdn.net/brunch/service/user/A1Z/image/luE0JoNHfcq1dK6y1_6lAvvTqDI.jpg"
   );
+  const userEmail = sessionStorage.getItem("email");
   const imgstyle = {
     width: "100%",
     height: "400px",
@@ -87,26 +88,59 @@ const StudyDetail = () => {
           <div className={StudyStyle.StudyDetailback}>
             <p className={StudyStyle.StudyDetailName}>{studydata.title}</p>
             <div className={StudyStyle.StudyDetailButtons}>
-              <button className={StudyStyle.StudyBtn} onClick={joinSession}>
-                회의하기
-              </button>
-              <button
-                className={StudyStyle.StudyBtn}
-                onClick={joinStudyHandler}
-              >
-                가입하기
-              </button>
-              <button className={StudyStyle.StudyBtn} onClick={outStudyHandler}>
-                나가기
-              </button>
+              {studydata.users &&
+                studydata.users.map((el) => (
+                  <div key={el.id}>
+                    {el.email === userEmail && (
+                      <button
+                        className={StudyStyle.StudyBtn}
+                        onClick={joinSession}
+                      >
+                        회의하기
+                      </button>
+                    )}
+                  </div>
+                ))}
+              {userEmail !== studydata.createdBy && (
+                <button
+                  className={StudyStyle.StudyBtn}
+                  onClick={joinStudyHandler}
+                >
+                  가입하기
+                </button>
+              )}
+              {studydata.users &&
+                userEmail !== studydata.createdBy &&
+                studydata.users.map((el) => (
+                  <div key={el.id}>
+                    {el.email === userEmail && (
+                      <button
+                        className={StudyStyle.StudyBtn}
+                        onClick={outStudyHandler}
+                      >
+                        나가기
+                      </button>
+                    )}
+                  </div>
+                ))}
+              {userEmail === studydata.createdBy && (
+                <button
+                  className={StudyStyle.StudyBtn}
+                  onClick={outStudyHandler}
+                >
+                  스터디 삭제
+                </button>
+              )}
             </div>
-            <Link to="update">
-              <img
-                alt="settingpng"
-                src={settingpng}
-                className={StudyStyle.StudySetting}
-              ></img>
-            </Link>
+            {userEmail === studydata.createdBy && (
+              <Link to="update">
+                <img
+                  alt="settingpng"
+                  src={settingpng}
+                  className={StudyStyle.StudySetting}
+                ></img>
+              </Link>
+            )}
           </div>
         </div>
         <div className={StudyStyle.studySwitchbarContainer}>

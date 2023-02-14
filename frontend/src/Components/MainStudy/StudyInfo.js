@@ -14,11 +14,12 @@ const StudyInfo = () => {
       <div className={StudyStyle.studyInfoContainer}>
         <div className={StudyStyle.studyContent}>
           <p>
-            인 원: {studydata && studydata.users.length} / {studydata?.capacity}
+            인 원: {studydata.users && studydata.users.length} /{" "}
+            {studydata?.capacity}
           </p>
-          <p className={StudyStyle.StudyInfoBox}>
+          <div className={StudyStyle.StudyInfoBox}>
             기술 스택 :
-            {studydata &&
+            {studydata.category &&
               studydata.category.map((skill) => (
                 <div key={skill}>
                   <span className={StudyStyle.StudyInfoItem}>
@@ -53,17 +54,17 @@ const StudyInfo = () => {
                   </span>
                 </div>
               ))}
-          </p>
-          <p className={StudyStyle.StudyInfoBox}>
+          </div>
+          <div className={StudyStyle.StudyInfoBox}>
             일 정 :{" "}
-            {studydata &&
-              studydata?.day.map((studyday) => (
+            {studydata.day &&
+              studydata.day.map((studyday) => (
                 <div key={studyday}>
                   <p className={StudyStyle.StudyInfoItem}>{studyday}</p>
                 </div>
               ))}
-          </p>
-          <p className={StudyStyle.StudyInfoBox}>스터디장 : </p>
+          </div>
+          <div className={StudyStyle.StudyInfoBox}>스터디장 : </div>
         </div>
       </div>
     </div>

@@ -7,6 +7,10 @@
   justify-content: center;
   align-items: center;
 }
+.flexrangebox {
+  display: flex;
+  align-items: center;
+}
 .dashboardContainer {
   display: flex;
   width: 100vw;
@@ -32,7 +36,7 @@
   text-align: center;
   width: 192px;
   height: 32px;
-  font-size: 2rem;
+  font-size: 24px;
 }
 .dashboardProfileFollow {
   width: 300px;
@@ -42,24 +46,25 @@
   text-align: center;
   width: 192px;
   height: 32px;
-  font-size: 2rem;
+  font-size: 24px;
 }
 .dashboardProfileSkill {
-  width: 380px;
+  width: 300px;
   height: 120px;
-  font-size: 2rem;
+  font-size: 20px;
 }
 .dashboardProfileBadge {
-  width: 380px;
+  width: 300px;
   height: 120px;
+  font-size: 20px;
 }
 .dashboardProfileList {
   font: bold;
-  font-size: medium;
+  font-size: 2rem;
 }
 .StudyRecordContainer {
   margin-top: 50px;
-  margin-left: 50px;
+  margin-left: 120px;
   width: 55vw;
   /* width: 820px; */
   height: 336px;
@@ -79,17 +84,18 @@
   border-radius: 15px;
 }
 .StudyRecordStrick {
-  width: 29%;
+  width: 14.5vw;
   height: 257px;
   background-color: white;
   margin-left: 24px;
   border-radius: 15px;
+  padding: 10px;
 }
 .MyStudycontainer {
   width: 55vw;
   height: 376;
   margin-top: 50px;
-  margin-left: 50px;
+  margin-left: 120px;
   margin-bottom: 10px;
 }
 .MyStudybox {
@@ -127,7 +133,7 @@
 }
 .StudyMakeTitle {
   margin-top: 88px;
-  font-size: 44px;
+  font-size: 34px;
   font: bold;
 }
 .StudyMakeTitle:after {
@@ -240,7 +246,7 @@
   box-shadow: 0 1.5em 2.5em -0.5em rgba(#000000, 0.1);
   transition: transform 0.45s ease;
   background: 0.45s ease;
-  font-size: 1rem;
+  font-size: 12px;
 }
 .MyStudyListItem:hover {
   background: #8950cf;
@@ -253,7 +259,7 @@
   appearance: none;
 
   font-family: "Noto Sansf KR", sans-serif;
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: 400;
   line-height: 1.1;
   text-align: center;
@@ -285,11 +291,11 @@
 }
 
 .MystudyTitle {
-  font-size: 1.4rem;
+  font-size: 1.3rem;
 }
 
 .MyStudyListItem > p {
-  font-size: 1.8rem;
+  font-size: 10px;
   width: 15vw;
   margin-top: 10px;
   padding-bottom: 15px;
@@ -320,7 +326,7 @@
   display: flex;
 }
 .MenuFont {
-  font-size: 2rem;
+  font-size: 1.5rem;
 }
 .DashboardMyBadge {
   width: 60px;
@@ -333,4 +339,11 @@
 }
 .MystudyListbox {
   margin-top: 30px;
+  font-size: 1rem;
+}
+.DashMyStatus {
+  margin-left: 20px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-size: 18px;
 }

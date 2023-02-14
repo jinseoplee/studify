@@ -4,6 +4,8 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { selectstudyActions } from "../../store/StudyRounge";
 import { selectdayActions } from "../../store/StudyStore";
+import { useCookies } from "react-cookie";
+import { useSelector } from "react-redux";
 
 import RoungeStyle from "../../Style/StudyRounge/StudyRounge.module.css";
 import RoungeList from "./RoungeList";
@@ -15,9 +17,16 @@ const StudyRounge = () => {
   const [checkViewStudy, setCheckViewStudy] = useState(" ");
   const [checkFilter, setCheckFilter] = useState(false);
   const [selectedId, setSeletedId] = useState(0);
+  const [tokencookies, setTokenCookie, removeTokenCookie] = useCookies([
+    "userToken",
+  ]);
+  const [studyIdcookies, setStudyIdcookies, removeStudyIdcookes] = useCookies([
+    "studyId",
+  ]);
   const navigate = useNavigate();
   const mounted = useRef(false);
 
+  const userToken = useSelector((state) => state.token.accesstoken);
   const data = [
     {
       id: 0,
@@ -114,6 +123,8 @@ const StudyRounge = () => {
   useEffect(() => {
     dispatch(selectstudyActions.changestudySelect(checkViewStudy));
     dispatch(selectstudyActions.changeskillList(checkSkill));
+    removeTokenCookie("userToken");
+    removeStudyIdcookes("studyId");
   }, [checkViewStudy, checkSkill]);
 
   const idselect = (id) => {
@@ -130,10 +141,10 @@ const StudyRounge = () => {
   }, [selectedId]);
 
   const goDetailPage = () => {
-    //여기서 해당 스터디에 해당하는 id 부분으로 가야합니다. 즉
-    // navigate(`/study/${id}`);
     console.log(selectedId);
-    // if(checkViewStudy)
+    setTokenCookie("userToken", userToken);
+    setStudyIdcookies("studyId", selectedId);
+
     navigate(`/study/${selectedId}`);
   };
 

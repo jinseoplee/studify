@@ -5,8 +5,11 @@ import { Autoplay, Pagination, Navigation } from "swiper";
 import Dashboardstyle from "../../Style/Dashboard/Dashboard.module.css";
 import makestudy from "../../assets/image/plus.png";
 import { selectdayActions } from "../../store/StudyStore";
-import lockImg from "../../assets/image/lock.png";
-import unlockImg from "../../assets/image/unlock.png";
+
+//swiper
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
 
 //swiper
 import "swiper/css";
@@ -26,7 +29,7 @@ const MyStudy = ({ studies }) => {
   //나의 스터디 리스트를 눌렀을 경우 리덕스에 그 번호 저장
   return (
     <div className={Dashboardstyle.MyStudycontainer}>
-      <h3>나의 스터디</h3>
+      <h3 style={{ fontSize: "20px" }}>나의 스터디</h3>
       <div className={Dashboardstyle.MyStudybox}>
         <Link to="/study/newstudy" className={Dashboardstyle.MyStudyMake}>
           <img
@@ -38,7 +41,7 @@ const MyStudy = ({ studies }) => {
 
         <div className={Dashboardstyle.MyStudyList}>
           <Swiper
-            slidesPerView={2}
+            slidesPerView={1}
             spaceBetween={1}
             centeredSlides={true}
             freeMode={true}
@@ -57,17 +60,17 @@ const MyStudy = ({ studies }) => {
             {studies.map((study) => (
               <SwiperSlide>
                 <div
-                  key={study.id}
+                  key={study.title}
                   onClick={(e) => {
                     studyClickHandler(study.id, e);
                   }}
                   className={Dashboardstyle.flexbox}
                 >
                   <div className={Dashboardstyle.MyStudyListItem}>
-                    <div className={Dashboardstyle.rangebox}>
-                      <div className={Dashboardstyle.MystudyTitle}>
+                    <p className={Dashboardstyle.rangebox}>
+                      <p className={Dashboardstyle.MystudyTitle}>
                         {study.title}
-                      </div>
+                      </p>
                       {/* {!study.public && (
                         <img
                           alt="공개"
@@ -84,10 +87,10 @@ const MyStudy = ({ studies }) => {
                           ></img>
                         </p>
                       )} */}
-                    </div>
+                    </p>
                     <div className={Dashboardstyle.flexbox}>
-                      {study.category.map((skill) => (
-                        <div key={skill}>
+                      {study.category.map((skill, index) => (
+                        <div key={index}>
                           <p className={Dashboardstyle.MyStudyTag}>{skill}</p>
                         </div>
                       ))}
@@ -98,7 +101,7 @@ const MyStudy = ({ studies }) => {
                       </p>
                       <div className={Dashboardstyle.flexbox}>
                         일 정 :
-                        {study.day.map((d) => (
+                        {study.day.map((d, index) => (
                           <div key={d}>
                             <p>{d} </p>
                           </div>

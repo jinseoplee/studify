@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { useSelector } from "react-redux";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import filesample from "../../assets/image/file.png";
@@ -20,41 +21,31 @@ const ProfileImg = ({ open, onClose, email }) => {
 
   const onChangeImg = async (e) => {
     e.preventDefault();
-    console.log(e.target.files);
 
     if (e.target.files) {
       // const uploadFile = e.target.files[0];
       const formData = new FormData();
       formData.append("image", e.target.files[0]);
-      console.log(formData.get('image'));
+      console.log(formData.get("image"));
       await axios({
-        method: "put",
+        method: "post",
         url: "/api/v1/users/image",
         data: formData,
         headers: {
-          "X-Auth-Token": token,
+          "X-Auth-Token": `${userToken}`,
           "Content-Type": "multipart/form-data",
         },
       });
     }
   };
 
-  const saveUserPic = async () => {
+  const deletePic = async () => {
     await axios
-      .put(
-        "/api/v1/users/image",
-        {
-          image: fileImg,
+      .delete("/api/v1/users/image", {
+        headers: {
+          "X-Auth-Token": `${userToken}`,
         },
-        {
-          headers: {
-            "X-Auth-Token":
-              userToken,
-            "Content-Type": "multipart/form-data",
-          },
-        },
-        {}
-      )
+      })
       .then((res) => {
         console.log(res);
       })
@@ -79,14 +70,15 @@ const ProfileImg = ({ open, onClose, email }) => {
               >
                 파일 선택
               </button>
+              <button className={ModalStyle.profileUploadBtn}>저장하기</button>
               <button
-                onClick={onChangeImg}
                 className={ModalStyle.profileUploadBtn}
+                onClick={deletePic}
               >
-                저장하기
+                삭제하기
               </button>
             </div>
-            <form>
+            <form onSubmit={onChangeImg}>
               <input
                 type="file"
                 id="profile-upload"

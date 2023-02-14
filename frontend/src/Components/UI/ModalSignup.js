@@ -1,6 +1,7 @@
 import Modalstyle from "../../Style/UI/ModalSignup.module.css";
 import { useNavigate } from "react-router-dom";
 import ModalContainer from "./ModalContainer";
+import AuthTimer from "../Signup/AuthTimer";
 import swal from "sweetalert";
 import axios from "axios";
 
@@ -24,6 +25,7 @@ const ModalSignup = ({ open, onClose, userEmail }) => {
         <div className={Modalstyle.modalBody}>
           <p className={Modalstyle.modalCloseBtn}>X</p>
           <p>인증 메일이 발송되었습니다</p>
+          <AuthTimer />
           <div>
             <button className={Modalstyle.modalBtn}>이메일 재발송</button>
           </div>
