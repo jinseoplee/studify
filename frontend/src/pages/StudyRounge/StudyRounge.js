@@ -1,10 +1,8 @@
 import React from "react";
 
 import Topbar from "../../Components/Topbar/Topbar";
-// import RoungeBanner from "./RoungeBanner";
 import StudyRounge from "../../Components/StudyRounge/StudyRounge";
 import OpenStudyAd from "../../Components/StudyRounge/StudyRoungeAd";
-import Footer from "../../Components/Footer/Footer";
 import TokenCheck from "../../Components/TokenCheck/TokenCheck";
 
 const StudyRoungeMain = () => {
@@ -16,7 +14,6 @@ const StudyRoungeMain = () => {
       {/* <RoungeBanner /> */}
       <OpenStudyAd />
       <StudyRounge />
-      <Footer />
     </>
   );
 };

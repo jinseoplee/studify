@@ -4,7 +4,6 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 
 import Topbar from "../Topbar/Topbar";
-import Footer from "../Footer/Footer";
 import ProfileBody from "./ProfileBody";
 import ProfileImg from "./ProfileImg";
 import ProfileStyle from "../../Style/Profile/Profile.module.css";
@@ -181,7 +180,6 @@ const Profile = () => {
           <ProfileBody />
         </div>
       </div>
-      <Footer />
     </>
   );
 };
