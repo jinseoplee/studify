@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+import static com.ssafy.db.entity.QCategory.category;
 import static com.ssafy.db.entity.QStudy.study;
 
 @Repository
@@ -20,13 +21,27 @@ public class QStudyRepositorySupport extends QuerydslRepositorySupport {
         this.jpaQueryFactory = jpaQueryFactory;
     }
 
-    public List<Study> findByCondition(Integer generation, String region, Integer classNum, Boolean isPublic) {
-        return jpaQueryFactory.selectFrom(study)
-                .where(generationEq(generation),
+    public List<Study> findByCondition(List<String> skill, Integer generation, String region, Integer classNum, Boolean isPublic) {
+        return jpaQueryFactory
+                .selectFrom(study)
+                .distinct()
+                .join(study.category, category)
+                .where(
+                        study.id.eq(category.study.id),
+                        category.name.in(skill),
+                        generationEq(generation),
                         regionEq(region),
                         classNumEq(classNum),
                         isPublicEq(isPublic))
                 .fetch();
+    }
+
+    private String[] toStringArr(List<String> skill) {
+        String[] strArr = new String[skill.size()];
+        for (int i = 0; i < skill.size(); i++) {
+            strArr[i] = skill.get(i);
+        }
+        return strArr;
     }
 
     BooleanExpression generationEq(Integer generation) {
@@ -56,5 +71,6 @@ public class QStudyRepositorySupport extends QuerydslRepositorySupport {
         }
         return study.isPublic.eq(isPublic);
     }
+
 
 }

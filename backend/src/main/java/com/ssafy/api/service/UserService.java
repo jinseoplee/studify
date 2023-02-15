@@ -148,4 +148,5 @@ public interface UserService {
      */
     List<User> findAllUserRank();
 
+    List<UserTimeLog> getUserTimeLog(String email);
 }

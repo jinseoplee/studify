@@ -28,6 +28,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 스터디 관련 API 요청 처리를 위한 컨트롤러 정의
@@ -64,6 +65,17 @@ public class StudyController {
     }
 
     /**
+     * 스터디 가입 여부 확인 API([POST] /api/v1/studies/check
+     */
+    @Operation(summary = "스터디 참여 여부")
+    @PostMapping("/check")
+    public ResponseEntity<? extends BaseResponseBody> checkStudyMember(@AuthenticationPrincipal String email,
+                                                                       @RequestBody Map<String, String> param) {
+        studyService.checkStudyMember(email, Long.parseLong(param.get("studyId")));
+        return ResponseEntity.ok(new BaseResponseBody(200, "참여할 수 있는 스터디입니다."));
+    }
+
+    /**
      * 스터디 나가기 API([DELETE] /api/v1/studies/leave/{studyId})
      */
     @Operation(summary = "스터디 나가기")
@@ -88,10 +100,13 @@ public class StudyController {
     public ResponseEntity<? extends BaseResponse> findByCondition(@RequestParam(required = false) List<String> category,
                                                                   @RequestParam(required = false) Integer generation,
                                                                   @RequestParam(required = false) String region,
-                                                                  @RequestParam(name = "classnum",required = false) Integer classNum,
-                                                                  @RequestParam(required = false) Boolean isPublic) {
+                                                                  @RequestParam(name = "classnum", required = false) Integer classNum,
+                                                                  @RequestParam(name = "ispublic", required = false) Boolean isPublic) {
+        System.out.println("===================");
+        System.out.println(generation);
+        System.out.println("===================");
         return ResponseEntity.ok(new BaseResponse<List<StudyRes>>(200, "스터디 목록 조회 성공",
-                studyService.findByCondition(generation, region, classNum, isPublic)));
+                studyService.findByCondition(category, generation, region, classNum, isPublic)));
     }
 
     /**

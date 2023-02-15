@@ -20,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Sort;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,6 +31,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -204,6 +206,11 @@ public class UserServiceImpl implements UserService {
         tempUserRepository.deleteById(email);
     }
 
+    @Scheduled(cron = "0 0 0 * * 0", zone = "Asia/Seoul")
+    public void deleteAllTempUser() {
+        tempUserRepository.deleteAll();
+    }
+
     /* 프로필 이미지 관련하여 사용 */
     @Override
     public User updateUser(User user) {
@@ -299,6 +306,23 @@ public class UserServiceImpl implements UserService {
                         .user(user)
                         .build()
         );
+    }
+
+    /* 사용자 공부 시간 기록 조회 */
+    @Override
+    public List<UserTimeLog> getUserTimeLog(String email) {
+        User user = userRepository.findByEmail(email).orElseThrow(()-> new IllegalArgumentException("존재하지 않는 사용자입니다."));
+        // 공부 시간 기록 가져오기
+        List<UserTimeLog> userTimeLogList = userTimeLogRepository.findAllByUser(user, Sort.by(Sort.Direction.DESC, "day"));
+        // 기록이 5개 이상이면 최근 5개 기록만 가져오기
+        if(userTimeLogList.size()>5){
+            List<UserTimeLog> subUserTimeList = new ArrayList<>();
+            for(int i=0; i<5; i++) {
+                subUserTimeList.add(userTimeLogList.get(i));
+            }
+            return subUserTimeList;
+        }
+        return userTimeLogList;
     }
 
     /* 사용자 공부 시간 기록 수정 */
