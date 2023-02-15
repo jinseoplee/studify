@@ -3,7 +3,6 @@ package com.ssafy.api.controller;
 import com.ssafy.api.request.user.UserDetailPutReq;
 import com.ssafy.api.request.user.UserTimeLogReq;
 import com.ssafy.api.response.user.UserInfoRes;
-import com.ssafy.api.response.user.UserTimeLogRes;
 import com.ssafy.api.service.BadgeService;
 import com.ssafy.api.service.UserService;
 import com.ssafy.common.model.response.BaseResponse;
@@ -174,23 +173,6 @@ public class UserController {
     }
 
     /**
-     * 사용자 공부 시간 기록 생성 API([POST] /api/v1/users/log)
-     */
-    @Operation(summary = "사용자 공부 시간 기록 생성")
-    @ApiResponse(responseCode = "200", description = "사용자 공부 시간 기록 생성 성공")
-    @PostMapping("/log")
-    public ResponseEntity<?> createUserTimeLog(@AuthenticationPrincipal String email, @RequestBody UserTimeLogReq userTimeLogReq) {
-        Long diff = (userTimeLogReq.getEndTime() - userTimeLogReq.getStartTime()) / 1000;
-        Instant startInstant = Instant.ofEpochMilli(userTimeLogReq.getStartTime());
-        LocalDate day = LocalDateTime.ofInstant(startInstant, ZoneId.systemDefault()).toLocalDate();
-        UserTimeLog userTimeLog = userService.createUserTimeLog(day, diff, email);
-        badgeService.createTimeBadge(email);
-        badgeService.createDayBadge(email);
-        return ResponseEntity.ok().body(new BaseResponse<UserTimeLog>(200, "사용자 공부 시간 기록 생성 성공", userTimeLog));
-    }
-
-
-    /**
      * 사용자 공부 시간 기록 조회 API([GET] /api/v1/users/log)
      */
     @Operation(summary = "사용자 공부 시간 기록 조회")
@@ -203,8 +185,8 @@ public class UserController {
     /**
      * 사용자 공부 시간 기록 수정 API([PUT] /api/v1/users/log)
      */
-    @Operation(summary = "사용자 공부 시간 기록 수정")
-    @ApiResponse(responseCode = "200", description = "사용자 공부 시간 기록 수정 성공")
+    @Operation(summary = "사용자 공부 시간 기록 생성 및 수정")
+    @ApiResponse(responseCode = "200", description = "사용자 공부 시간 기록 생성 및 수정 성공")
     @PutMapping("/log")
     public ResponseEntity<?> updateUserTimeLog(@AuthenticationPrincipal String email, @RequestBody UserTimeLogReq userTimeLogReq) {
         Long diff = (userTimeLogReq.getEndTime() - userTimeLogReq.getStartTime()) / 1000;
@@ -213,7 +195,7 @@ public class UserController {
         UserTimeLog userTimeLog = userService.updateUserTimeLog(day, diff, email);
         badgeService.createTimeBadge(email);
         badgeService.createDayBadge(email);
-        return ResponseEntity.ok().body(new BaseResponse<UserTimeLog>(200, "사용자 공부 시간 기록 수정 성공", userTimeLog));
+        return ResponseEntity.ok().body(new BaseResponse<UserTimeLog>(200, "사용자 공부 시간 기록 생성 및 수정 성공", userTimeLog));
     }
 
     /**

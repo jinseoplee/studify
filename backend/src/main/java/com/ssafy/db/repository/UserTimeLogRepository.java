@@ -16,4 +16,6 @@ public interface UserTimeLogRepository extends JpaRepository<UserTimeLog, Long> 
 
     List<UserTimeLog> findAllByUser(User user, Sort sort);
 
+    boolean existsByUserAndDay(User user, LocalDate day);
+
 }
