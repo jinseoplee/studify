@@ -50,6 +50,10 @@ public class UserController {
     private final UserService userService;
     private final BadgeService badgeService;
 
+    /**
+     * 사용자 정보 조회 API([GET] /api/v1/users/{email})
+     */
+    @Operation(summary = "이메일을 통한 사용자 정보 조회")
     @GetMapping("/{email}")
     public ResponseEntity<? extends BaseResponseBody> getUser(@PathVariable String email) {
         User user = userService.getUser(email);
@@ -57,6 +61,10 @@ public class UserController {
         return ResponseEntity.ok().body(new BaseResponseBody(200, "Success"));
     }
 
+    /**
+     * 비밀번호 재설정 API([PUT] /api/v1/users/pass)
+     */
+    @Operation(summary = "비밀번호 재설정")
     @PutMapping("/pass")
     public ResponseEntity<? extends BaseResponseBody> updateUserPassword(@RequestBody Map<String, String> userInfo) {
         userService.updateUserPassword(userInfo);
@@ -64,8 +72,12 @@ public class UserController {
         return ResponseEntity.ok().body(new BaseResponseBody(200, "Success"));
     }
 
-    @DeleteMapping("/withdraw/{email}")
-    public ResponseEntity<? extends BaseResponseBody> deleteUser(@PathVariable String email) {
+    /**
+     * 회원탈퇴 API([DELETE] /api/v1/users)
+     */
+    @Operation(summary = "회원 탈퇴")
+    @DeleteMapping
+    public ResponseEntity<? extends BaseResponseBody> deleteUser(@AuthenticationPrincipal String email) {
         userService.deleteUser(email);
 
         return ResponseEntity.ok().body(new BaseResponseBody(200, "Success"));

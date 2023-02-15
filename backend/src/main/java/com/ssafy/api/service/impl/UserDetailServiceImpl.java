@@ -15,10 +15,6 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
     /**
      * 이메일을 입력받아 디비로부터 유저 정보를 받음
-     *
-     * @param email
-     * @return 유저 정보
-     * @throws UsernameNotFoundException
      */
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
