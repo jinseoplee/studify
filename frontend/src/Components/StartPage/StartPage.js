@@ -13,6 +13,7 @@ const StartPage = () => {
   const [tokencookies, , removeTokenCookies] = useCookies(["userToken"]);
   const [studyIdcookies, , removeStudyIdcookes] = useCookies(["studyId"]);
   const navigate = useNavigate();
+  localStorage.clear();
 
   const goSignup = () => {
     navigate("/user/signup");
