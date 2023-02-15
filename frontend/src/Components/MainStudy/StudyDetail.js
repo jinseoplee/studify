@@ -62,6 +62,7 @@ const StudyDetail = () => {
       )
       .then((res) => {
         console.log(res);
+        navigate("/mainpage");
       })
       .catch((err) => {
         console.log(err);
