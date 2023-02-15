@@ -15,37 +15,43 @@ const ProfileMain = () => {
 
   const userToken = useSelector((state) => state.token.accesstoken);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    axios
-      .get("api/v1/users", {
+  const getUserInfo = async () => {
+    try {
+      const response = axios.get("/api/v1/users", {
         headers: {
           "X-Auth-Token": userToken,
         },
-      })
-      .then((res) => {
+      });
+      response.then((res) => {
         console.log(res);
         setUserInfo(res.data.content);
         setUserBadge(res.data.content.badges);
-      })
-      .catch((err) => {
-        console.log(err);
       });
-    axios
-      .get("/api/v1/users/image", {
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const getUserImg = async () => {
+    try {
+      const response = await axios.get("/api/v1/users/image", {
         headers: {
           "X-Auth-Token": userToken,
         },
         responseType: "blob",
-      })
-      .then((res) => {
+      });
+      response.then((res) => {
+        console.log(res);
         let objectURL = URL.createObjectURL(res.data);
         setMyImage(objectURL);
         console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
       });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  useEffect(() => {
+    getUserInfo();
+    getUserImg();
   }, []);
 
   const userInfoEdit = () => {

@@ -21,7 +21,7 @@ export default class PenComponent extends Component {
   render() {
     return (
       <React.Fragment>
-        {this.props.user !== undefined && this.props.isBlackBoard && (
+        { this.props.isBlackBoard && (
           <div className="drawing">
             <div className={classNames.tools}>
               <CanvasDraw

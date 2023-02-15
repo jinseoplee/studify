@@ -41,6 +41,27 @@ const StudyDetail = () => {
   const joinSession = () => {
     window.open(url, "_blank", "noopener noreferrer");
   };
+  
+  // const getStudydata = async () => {
+  //   try{
+  //     const response = await axios
+  //     .get(`/api/v1/studies/${studyId}`, {
+  //       headers: {
+  //         "X-Auth-Token": `${userToken}`,
+  //       },
+  //     })
+  //     response.then((res) => {
+  //       console.log(res);
+  //       setStudyData(res.data.content);
+  //     })
+  //   } catch(err) {
+  //     console.log(err)
+  //   }
+  // }
+
+  // useEffect(() => {
+  //   getStudydata();
+  // }, []);
 
   const studyDataHandler = async () => {
     try {

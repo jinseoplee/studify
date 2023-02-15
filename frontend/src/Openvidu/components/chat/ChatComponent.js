@@ -36,9 +36,6 @@ export default class ChatComponent extends Component {
         });
         const document = window.document;
         setTimeout(() => {
-          const userImg = document.getElementById(
-            "userImg-" + (this.state.messageList.length - 1)
-          );
           this.props.messageReceived();
         }, 50);
         this.setState({ messageList: messageList });
