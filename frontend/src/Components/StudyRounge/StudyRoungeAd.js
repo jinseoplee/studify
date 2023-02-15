@@ -7,9 +7,9 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
-import Ad from "../../assets/image/Banner_Ad.jpg";
-import userguide from "../../assets/image/userguide8.PNG";
-import wait from "../../assets/image/wait.jpg";
+import Ad from "../../assets/image/Banner_Ad.png";
+import userguide from "../../assets/image/userguide.png";
+import wait from "../../assets/image/wait.png";
 import openstudyAdStyle from "../../Style/OpenStudy/OpenStudyAd.module.css";
 
 // import required modules

@@ -89,7 +89,7 @@ const MyStudy = ({ studies }) => {
                           {study.day &&
                             study.day.map((d, index) => (
                               <div key={d}>
-                                <p>{d} </p>
+                                <p>{d}</p>
                               </div>
                             ))}
                         </div>

@@ -187,7 +187,7 @@ const StudyRounge = () => {
             ))}
           </div>
           <div className={RoungeStyle.RoungeInfoContainer}>
-            <fieldset className={RoungeStyle.RoungeInfoField}>
+            <div className={RoungeStyle.RoungeInfoField}>
               <div key="region" className={RoungeStyle.RoungeInfoBox}>
                 <label htmlFor="region">같은지역 보기</label>
                 <input
@@ -196,6 +196,7 @@ const StudyRounge = () => {
                   onChange={handleRegion}
                   checked={region}
                   id="region"
+                  className={RoungeStyle.RoungeInfoButton}
                 ></input>
               </div>
               <div key="classnum" className={RoungeStyle.RoungeInfoBox}>
@@ -206,6 +207,7 @@ const StudyRounge = () => {
                   onChange={handleClassnum}
                   checked={classnum}
                   id="classnum"
+                   className={RoungeStyle.RoungeInfoButton}
                 ></input>
               </div>
               <div key="ispublic" className={RoungeStyle.RoungeInfoBox}>
@@ -216,9 +218,10 @@ const StudyRounge = () => {
                   onChange={handleIsPublic}
                   checked={isPublic}
                   id="ispublic"
+                  className={RoungeStyle.RoungeInfoButton}
                 ></input>
               </div>
-            </fieldset>
+            </div>
           </div>
         </span>
         <div className={RoungeStyle.rightContainer}>
