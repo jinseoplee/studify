@@ -102,9 +102,6 @@ public class StudyController {
                                                                   @RequestParam(required = false) String region,
                                                                   @RequestParam(name = "classnum", required = false) Integer classNum,
                                                                   @RequestParam(name = "ispublic", required = false) Boolean isPublic) {
-        System.out.println("===================");
-        System.out.println(generation);
-        System.out.println("===================");
         return ResponseEntity.ok(new BaseResponse<List<StudyRes>>(200, "스터디 목록 조회 성공",
                 studyService.findByCondition(category, generation, region, classNum, isPublic)));
     }
