@@ -260,7 +260,7 @@ class VideoRoomComponent extends Component {
       .post(
         "/api/v1/users/log",
         {
-          'endTime': Date.now,
+          'endTime': Date.now(),
           'startTime':
             localUser.getStreamManager()["session"]["connection"][
               "creationTime"
