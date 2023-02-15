@@ -2,6 +2,7 @@ package com.ssafy.api.service.impl;
 
 import com.ssafy.api.request.study.StudyCreatePostReq;
 import com.ssafy.api.request.study.StudyInfoUpdatePutReq;
+import com.ssafy.api.response.study.StudyDetailRes;
 import com.ssafy.api.response.study.StudyRes;
 import com.ssafy.api.service.StudyService;
 import com.ssafy.common.exception.AccessDeniedException;
@@ -190,15 +191,24 @@ public class StudyServiceImpl implements StudyService {
     /**
      * 스터디 조회
      */
+    @Transactional
     @Override
-    public StudyRes findByStudyId(Long studyId) {
+    public StudyDetailRes findByStudyId(Long studyId) {
         Study foundStudy = studyRepository.findById(studyId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 스터디입니다"));
 
-        StudyRes studyRes = new StudyRes(foundStudy);
-        studyRes.setUsers(userStudyRepository.findAllByStudyId(studyId));
-        studyRes.setCategory(categoryRepository.findAllByStudyId(studyId));
-        return studyRes;
+        StudyDetailRes studyDetailRes = new StudyDetailRes(foundStudy);
+        List<UserStudy> userStudies = userStudyRepository.findAllByStudyId(studyId);
+
+        List<String> emails = new ArrayList<>();
+        for(int i = 0; i < userStudies.size(); i++){
+            emails.add(userStudies.get(i).getUser().getEmail());
+        }
+
+        studyDetailRes.setUserList(emails);
+        studyDetailRes.setUsers(userStudies);
+        studyDetailRes.setCategory(categoryRepository.findAllByStudyId(studyId));
+        return studyDetailRes;
     }
 
     /**
