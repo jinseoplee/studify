@@ -1,89 +1,95 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
-
-import ProfileBody from "./ProfileBody";
-import ProfileUserInfo from "./ProfileUserInfo";
-import ProfileStyle from "../../Style/Profile/Profile.module.css";
-import setting from "../../assets/image/setting.png";
-import { useNavigate } from "react-router-dom";
+import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
+import axios from "axios";
+import filesample from "../../assets/image/file.png";
+import ModalContainer from "../UI/ModalContainer";
+import ModalStyle from "../../Style/Profile/Profile.module.css";
 
-const ProfileMain = () => {
-  const [myImage, setMyImage] = useState("");
-  let [userInfo, setUserInfo] = useState("");
-  let [userBadge, setUserBadge] = useState([]);
-
+const ProfileImg = ({ open, onClose, email }) => {
   const userToken = useSelector((state) => state.token.accesstoken);
-  const navigate = useNavigate();
-  const getUserInfo = async () => {
-    try {
-      const response = axios.get("/api/v1/users", {
-        headers: {
-          "X-Auth-Token": userToken,
-        },
-      });
-      response.then((res) => {
-        console.log(res);
-        setUserInfo(res.data.content);
-        setUserBadge(res.data.content.badges);
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  const getUserImg = async () => {
-    try {
-      const response = await axios.get("/api/v1/users/image", {
-        headers: {
-          "X-Auth-Token": userToken,
-        },
-        responseType: "blob",
-      });
-      response.then((res) => {
-        console.log(res);
-        let objectURL = URL.createObjectURL(res.data);
-        setMyImage(objectURL);
-        console.log(res.data);
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  useEffect(() => {
-    getUserInfo();
-    getUserImg();
-  }, []);
+  const [fileImg, setFileImage] = useState(`${filesample}`);
+  const fileInput = useRef(null);
+  const token = useSelector((state) => state.token.accesstoken);
 
-  const userInfoEdit = () => {
-    navigate("/userprofile/edit");
+  const handleButtonClick = (e) => {
+    fileInput.current.click();
+  };
+  const handlePicChange = (e) => {
+    setFileImage(URL.createObjectURL(e.target.files[0]));
   };
 
+  const onChangeImg = async (e) => {
+    e.preventDefault();
+
+    if (e.target.files) {
+      // const uploadFile = e.target.files[0];
+      const formData = new FormData();
+      formData.append("image", e.target.files[0]);
+      console.log(formData.get("image"));
+      await axios({
+        method: "post",
+        url: "/api/v1/users/image",
+        data: formData,
+        headers: {
+          "X-Auth-Token": `${userToken}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
+    }
+  };
+
+  const deletePic = async () => {
+    await axios
+      .delete("/api/v1/users/image", {
+        headers: {
+          "X-Auth-Token": `${userToken}`,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  if (!open) return null;
   return (
     <div>
-      <div className={ProfileStyle.profileBackground}>
-        <img
-          alt="settingpng"
-          src={setting}
-          className={ProfileStyle.UserInfoSetting}
-          onClick={userInfoEdit}
-        />
-        <div className={ProfileStyle.profileUpperContainer}>
-          <div
-            className={ProfileStyle.profilePicBox}
-            // onClick={() => setOpenImgModal(true)}
-          >
-            <img
-              src={`${myImage}`}
-              className={ProfileStyle.profilePic}
-              alt="userPro"
-            ></img>
+      <ModalContainer>
+        <div className={ModalStyle.profileModal}>
+          <p onClick={onClose}>x</p>
+          <div className={ModalStyle.profileModalBody}>
+            <h3>프로필 이미지 업로드</h3>
+            <img alt="sample" src={fileImg} style={{ width: "250px" }}></img>
+            <div className={ModalStyle.profileUploadBtnbox}>
+              <button
+                onClick={handleButtonClick}
+                className={ModalStyle.profileUploadBtn}
+              >
+                파일 선택
+              </button>
+              <button className={ModalStyle.profileUploadBtn}>저장하기</button>
+              <button
+                className={ModalStyle.profileUploadBtn}
+                onClick={deletePic}
+              >
+                삭제하기
+              </button>
+            </div>
+            <form onSubmit={onChangeImg}>
+              <input
+                type="file"
+                id="profile-upload"
+                accept="image/*"
+                onChange={onChangeImg}
+              />
+            </form>
           </div>
-          <ProfileUserInfo userinfo={userInfo} />
-          <ProfileBody userbadge={userBadge} />
         </div>
-      </div>
+      </ModalContainer>
     </div>
   );
 };
 
-export default ProfileMain;
+export default ProfileImg;
