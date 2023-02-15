@@ -2,6 +2,7 @@ package com.ssafy.api.controller;
 
 import com.ssafy.api.request.study.StudyCreatePostReq;
 import com.ssafy.api.request.study.StudyInfoUpdatePutReq;
+import com.ssafy.api.response.study.StudyDetailRes;
 import com.ssafy.api.response.study.StudyRes;
 import com.ssafy.api.service.StudyService;
 import com.ssafy.common.model.response.BaseResponse;
@@ -115,7 +116,7 @@ public class StudyController {
     })
     @GetMapping("/{studyId}")
     public ResponseEntity<? extends BaseResponse> findByUserId(@PathVariable Long studyId) {
-        return ResponseEntity.ok(new BaseResponse<StudyRes>(200, "스터디 조회 성공", studyService.findByStudyId(studyId)));
+        return ResponseEntity.ok(new BaseResponse<StudyDetailRes>(200, "스터디 조회 성공", studyService.findByStudyId(studyId)));
     }
 
     /**

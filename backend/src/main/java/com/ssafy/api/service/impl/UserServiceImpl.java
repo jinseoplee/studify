@@ -332,23 +332,6 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * 사용자 공부 시간 기록 생성
-     */
-    @Override
-    public UserTimeLog createUserTimeLog(LocalDate day, Long diff, String email) {
-        User user = userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
-        // 누적 공부 시간 계산
-        user.setTotalTime(user.getTotalTime() + diff);
-        return userTimeLogRepository.save(
-                UserTimeLog.builder()
-                        .day(day)
-                        .studyTime(diff)
-                        .user(user)
-                        .build()
-        );
-    }
-
-    /**
      * 사용자 공부 시간 기록 조회
      */
     @Override
@@ -368,15 +351,23 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * 사용자 공부 시간 기록 수정
+     * 사용자 공부 시간 기록 생성 및 수정
      */
     @Override
     public UserTimeLog updateUserTimeLog(LocalDate day, Long diff, String email) {
         User user = userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
+        user.setTotalTime(user.getTotalTime() + diff);
+        if (!userTimeLogRepository.existsByUserAndDay(user, day)) {
+            return userTimeLogRepository.save(
+                    UserTimeLog.builder()
+                            .day(day)
+                            .studyTime(diff)
+                            .user(user)
+                            .build()
+            );
+        }
         UserTimeLog savedUserTimeLog = userTimeLogRepository.findByUserAndDay(user, day).orElseThrow(() -> new IllegalArgumentException("공부 기록이 존재하지 않습니다."));
         savedUserTimeLog.setStudyTime(savedUserTimeLog.getStudyTime() + diff);
-        // 누적 공부 시간 계산
-        user.setTotalTime(user.getTotalTime() + diff);
         return userTimeLogRepository.save(savedUserTimeLog);
     }
 
