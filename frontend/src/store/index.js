@@ -16,7 +16,6 @@ import SignupStoreSlice from "./SignupStore";
 import tokensaveSlice from "./LoginStore";
 import studyStoreSlice from "./StudyStore";
 import userStoreSlice from "./UserStore";
-import userStudySlice from "./UserStudyStore";
 import userSelectStudySlice from "./StudyRounge";
 
 const reducers = combineReducers({
@@ -24,7 +23,6 @@ const reducers = combineReducers({
   token: tokensaveSlice,
   selectday: studyStoreSlice,
   userinfo: userStoreSlice,
-  userStudyInfo: userStudySlice,
   selectStudy: userSelectStudySlice,
 });
 

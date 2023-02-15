@@ -35,7 +35,6 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
-  padding-bottom: 20px;
   flex: 1;
 }
 
@@ -58,6 +57,10 @@
   justify-content: center;
   width: 100%;
   flex-wrap: wrap;
+}
+
+.RoungeInfoField {
+  display: flex;
 }
 
 .RoungeInfoContainer {
@@ -114,27 +117,13 @@
   font-size: 20px;
   margin: 5px;
 }
-/* 
-.RoungeFilterTBtn > img {
-  margin: 5px;
-  width: 40px;
-  height: 40px;
-  border-radius: 5px;
-} */
-
-/* .RoungeFilterFBtn > img {
-  margin: 5px;
-  width: 40px;
-  height: 40px;
-  border-radius: 5px;
-} */
 
 .RoungeSearchBtn {
   width: 80px;
   height: 50px;
   font-size: 14px;
   border-width: 3px;
-  border: 2px solid #8A6BCD;
+  border: 2px solid #8a6bcd;
   border-radius: 15px;
   background-color: white;
   margin-left: 2rem;
@@ -151,7 +140,6 @@
   width: 20px;
   margin-left: 0.5rem;
   margin-right: 3rem;
-  /* margin-top: 1rem; */
   top: 0.3rem;
 }
 
@@ -220,4 +208,14 @@
   opacity: 1;
   transform: scale(1.03) translateZ(0);
   cursor: pointer;
+}
+
+.moreButton {
+  width: 60px;
+  height: 30px;
+  font-size: 12px;
+  border-width: 3px;
+  border: 4px solid #8a6bcd;
+  border-radius: 8px;
+  background-color: white;
 }

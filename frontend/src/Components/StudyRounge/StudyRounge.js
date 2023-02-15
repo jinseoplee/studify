@@ -6,6 +6,7 @@ import { selectstudyActions } from "../../store/StudyRounge";
 import { selectdayActions } from "../../store/StudyStore";
 import { useCookies } from "react-cookie";
 import { useSelector } from "react-redux";
+import swal from "sweetalert";
 
 import RoungeStyle from "../../Style/StudyRounge/StudyRounge.module.css";
 import RoungeList from "./RoungeList";
@@ -13,6 +14,7 @@ import { useRef } from "react";
 
 const StudyRounge = () => {
   const dispatch = useDispatch();
+  const userRegion = useSelector((state) => state.userinfo.userRegion);
   const [checkSkill, setCheckSkill] = useState([]);
   const [checkViewStudy, setCheckViewStudy] = useState("");
   const [checkFilter, setCheckFilter] = useState(false);
@@ -50,7 +52,7 @@ const StudyRounge = () => {
     },
     {
       id: 3,
-      skill: "cpp",
+      skill: "c++",
       classify: false,
     },
     {
@@ -71,26 +73,6 @@ const StudyRounge = () => {
   ];
 
   //그럼 여기서 나의 정보를 가지고 있어야합니다.
-  const studyViewData = [
-    {
-      id: 101, //우리지역만
-      name: "같은지역 보기",
-      checkStudy: "daejeon",
-      query: "region=daejeon",
-    },
-    {
-      id: 102, //우리반 스터디인지 확인하는 아이디(100번)
-      name: "우리반 보기",
-      checkStudy: 8,
-      query: "classNum=8",
-    },
-    {
-      id: 103, //공개스터디만
-      name: "공개스터디 보기",
-      checkStudy: true,
-      query: "public=true",
-    },
-  ];
 
   const handleRegion = () => {
     if (region) {
@@ -99,18 +81,22 @@ const StudyRounge = () => {
     } else {
       setRegion(true);
       //유저의 지역이름 저장.
-      setRegionName("daejeon");
+      setRegionName(userRegion);
     }
   };
 
   const handleClassnum = () => {
-    if (classnum) {
-      setClassnum(false);
-      setClassnumName(null);
+    if (region) {
+      if (classnum) {
+        setClassnum(false);
+        setClassnumName(null);
+      } else {
+        setClassnum(true);
+        //유저의 반을 저장.
+        setClassnumName(5);
+      }
     } else {
-      setClassnum(true);
-      //유저의 반을 저장.
-      setClassnumName(5);
+      swal("지역을 먼저 선택해주세요.");
     }
   };
 
@@ -122,27 +108,7 @@ const StudyRounge = () => {
     }
   };
 
-  // const handleSingleCheck = (checked, id) => {
-  //   console.log("나 동작해?");
-  //   console.log(checked);
-  //   console.log(checkViewStudy);
-  //   if (checked) {
-  //     setCheckViewStudy((prev) => prev + id + ",");
-  //   } else {
-  //     setCheckViewStudy((prev) => {
-  //       if (prev === undefined) {
-  //         setCheckViewStudy("");
-  //       } else {
-  //         const str = id + ",";
-  //         setCheckViewStudy(checkViewStudy.replace(str, ""));
-  //       }
-  //     });
-  //   }
-  // };
-
   const filterStudy = () => {
-    console.log("검색 클릭합니다.");
-    console.log(checkViewStudy);
     if (checkViewStudy.charAt(checkViewStudy.length - 1) === ",") {
       setCheckViewStudy(checkViewStudy.slice(0, -1));
     }
@@ -175,10 +141,9 @@ const StudyRounge = () => {
   }, [selectedId]);
 
   const goDetailPage = () => {
-    console.log(selectedId);
     setTokenCookie("userToken", userToken);
     setStudyIdcookies("studyId", selectedId);
-
+    localStorage.setItem("studyId", selectedId);
     navigate(`/study/${selectedId}`);
   };
 
@@ -212,15 +177,12 @@ const StudyRounge = () => {
                     src={require(`../../assets/image/stack/${data.skill}.PNG`)}
                     id={data.skill}
                   />
-                  {/* <div className={RoungeStyle.RoungeFilterText}>
-                    {data.skill}
-                  </div> */}
                 </button>
               </div>
             ))}
           </div>
           <div className={RoungeStyle.RoungeInfoContainer}>
-            <fieldset>
+            <fieldset className={RoungeStyle.RoungeInfoField}>
               <div key="region" className={RoungeStyle.RoungeInfoBox}>
                 <label htmlFor="region">같은지역 보기</label>
                 <input

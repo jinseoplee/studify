@@ -15,15 +15,16 @@ const APPLICATION_SERVER_URL =
   process.env.NODE_ENV === "production" ? "" : "https://i8b108.p.ssafy.io:8443";
 // process.env.NODE_ENV === "production" ? "" : "http://localhost:5000";
 const OPENVIDU_SERVER_SECRET = "studify";
-
 class VideoRoomComponent extends Component {
   constructor(props) {
     super(props);
+    this.studyId = localStorage.getItem("studyId");
+    console.log(this.studyId);
     this.hasBeenUpdated = false;
     this.layout = new OpenViduLayout();
     let sessionName = this.props.sessionName
       ? this.props.sessionName
-      : "Studyroom";
+      : "Studyroom" + this.studyId;
     let userName = this.props.user
       ? this.props.user
       : "User" + Math.floor(Math.random() * 10000);
@@ -236,6 +237,7 @@ class VideoRoomComponent extends Component {
   }
 
   leaveSession() {
+    localStorage.removeItem("studyId");
     const mySession = this.state.session;
 
     if (mySession) {
@@ -585,11 +587,11 @@ class VideoRoomComponent extends Component {
               className="OT_root OT_subscriber custom-class sc"
               id="remoteUsers"
             >
-                <StreamComponent
-                  user={sub}
-                  streamId={sub.streamManager.stream.streamId}
-                  className="subcribers_video"
-                />
+              <StreamComponent
+                user={sub}
+                streamId={sub.streamManager.stream.streamId}
+                className="subcribers_video"
+              />
             </div>
           ))}
           {localUser !== undefined &&

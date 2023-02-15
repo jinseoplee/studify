@@ -11,11 +11,6 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
-//swiper
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
-
 const MyStudy = ({ studies }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -91,7 +86,9 @@ const MyStudy = ({ studies }) => {
                     <div className={Dashboardstyle.flexbox}>
                       {study.category.map((skill, index) => (
                         <div key={index}>
-                          <p className={Dashboardstyle.MyStudyTag}>{skill}</p>
+                          <p className={Dashboardstyle.MyStudyTag}>
+                            {skill.name}
+                          </p>
                         </div>
                       ))}
                     </div>

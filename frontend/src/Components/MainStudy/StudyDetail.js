@@ -31,6 +31,7 @@ const StudyDetail = () => {
 
   useEffect(() => {
     console.log(studydata);
+    localStorage.setItem("studyId", studyId);
     axios
       .get(`/api/v1/studies/${studyId}`, {
         headers: {

@@ -4,6 +4,7 @@ import axios from "axios";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import swal from "sweetalert";
+import TokenCheck from "./TokenCheck";
 
 const UserCheck = () => {
   const [tokencookies] = useCookies(["userToken"]);
@@ -30,16 +31,23 @@ const UserCheck = () => {
           },
         }
       );
+      console.log(response);
       navigate("/videoroom");
     } catch (err) {
-      console.log(err.response.data.message);
+      console.log(err);
       swal(err.response.data.message);
-      setTimeout(() => {
-        window.close();
-      }, 3000);
+      if (userToken === " ") {
+        swal("로그인 정보가 없습니다. 시작페이지로 이동합니다.");
+        navigate("/");
+      } else {
+        navigate("/mainpage");
+        setTimeout(() => {
+          window.close();
+        }, 3000);
+      }
     }
   }, []);
 
-  return <></>;
+  return <>{/* <TokenCheck /> */}</>;
 };
 export default UserCheck;
