@@ -37,7 +37,7 @@ const StudyInfo = () => {
                         style={{ width: "40px" }}
                       ></img>
                     )}
-                    {skill === "javaScript" && (
+                    {skill === "javascript" && (
                       <img
                         alt="javascript"
                         src={javascript}

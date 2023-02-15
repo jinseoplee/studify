@@ -66,11 +66,6 @@ const DashboardProfile = () => {
       </div>
       <div className={Dashboardstyle.dashboardProfileName}>{userInfo.name}</div>
       <div className={Dashboardstyle.dashboardProfileLine}></div>
-      <div className={Dashboardstyle.dashboardProfileSkill}>
-        <h4>공부중!</h4>
-
-        <br></br>
-      </div>
       <div className={Dashboardstyle.dashboardProfileBadge}>
         <h4>나의 뱃지</h4>
         <div className={Dashboardstyle.DashboardBadgeBox}>

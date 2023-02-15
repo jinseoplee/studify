@@ -1,8 +1,15 @@
 import { ResponsiveBar } from "@nivo/bar";
+import Dashboardstyle from "../../Style/Dashboard/Dashboard.module.css";
 
 const StudyRecordDetail = ({ userTime }) => {
   return (
     <div style={{ width: "37vw", height: 300 }}>
+      <h3
+        className={Dashboardstyle.flexrangebox}
+        style={{ fontSize: "18px", marginLeft: "3px" }}
+      >
+        나의 공부시간
+      </h3>
       <ResponsiveBar
         data={userTime}
         keys={["studyTime"]}
