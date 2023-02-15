@@ -43,7 +43,6 @@ const RoungeList = (props) => {
           dispatch(selectstudyActions.changestudySelect());
           dispatch(selectstudyActions.changeskillList([]));
         });
-      console.log(response);
       setData(response.data); //데이터를 우선 전부 가져옵니다.;
     } catch (err) {
       console.log(err);
@@ -57,6 +56,10 @@ const RoungeList = (props) => {
   useEffect(() => {
     if (firstcheck) {
       setFirstCheck(false);
+      if (viewList >= data.length) {
+        setMoreButton(false);
+        console.log("나 동작하제?");
+      }
       return;
     }
     if (viewList >= data?.length) {

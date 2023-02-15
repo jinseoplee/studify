@@ -15,6 +15,7 @@ import { useRef } from "react";
 const StudyRounge = () => {
   const dispatch = useDispatch();
   const userRegion = useSelector((state) => state.userinfo.userRegion);
+  const username = useSelector((state) => state.token.name);
   const [checkSkill, setCheckSkill] = useState([]);
   const [checkViewStudy, setCheckViewStudy] = useState("");
   const [checkFilter, setCheckFilter] = useState(false);
@@ -149,6 +150,7 @@ const StudyRounge = () => {
     localStorage.setItem("token", userToken);
     setStudyIdcookies("studyId", selectedId);
     localStorage.setItem("studyId", selectedId);
+    localStorage.setItem("name", username);
     navigate(`/study/${selectedId}`);
   };
 
@@ -226,7 +228,7 @@ const StudyRounge = () => {
         </span>
         <div className={RoungeStyle.rightContainer}>
           <button onClick={filterStudy} className={RoungeStyle.RoungeSearchBtn}>
-            검색
+            필터 적용하기
           </button>
         </div>
       </div>

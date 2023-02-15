@@ -15,11 +15,13 @@ const MyStudy = ({ studies }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userToken = useSelector((state) => state.token.accesstoken);
+  const username = useSelector((state) => state.token.name);
   const studyClickHandler = (params, e) => {
     e.preventDefault();
     dispatch(selectdayActions.changestudynum(params));
     localStorage.setItem("studyId", params);
     localStorage.setItem("token", userToken);
+    localStorage.setItem("name", username);
     navigate(`/study/${params}`);
   };
 
