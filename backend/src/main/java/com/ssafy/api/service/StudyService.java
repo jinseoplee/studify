@@ -2,6 +2,7 @@ package com.ssafy.api.service;
 
 import com.ssafy.api.request.study.StudyCreatePostReq;
 import com.ssafy.api.request.study.StudyInfoUpdatePutReq;
+import com.ssafy.api.response.study.StudyDetailRes;
 import com.ssafy.api.response.study.StudyRes;
 import com.ssafy.db.entity.Study;
 import com.ssafy.db.entity.StudyImg;
@@ -42,7 +43,7 @@ public interface StudyService {
     /**
      * 스터디 조회
      */
-    StudyRes findByStudyId(Long studyId);
+    StudyDetailRes findByStudyId(Long studyId);
 
     /**
      * 스터디 수정
