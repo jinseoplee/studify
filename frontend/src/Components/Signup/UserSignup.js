@@ -16,7 +16,6 @@ const UserSignup = () => {
       .then((res) => {
         console.log(res);
         console.log(codenum);
-        window.close();
       })
       .catch((err) => {
         console.log(err);
