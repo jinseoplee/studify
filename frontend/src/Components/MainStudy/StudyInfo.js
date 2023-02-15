@@ -4,6 +4,10 @@ import python from "../../assets/image/stack/icons/python_icon.png";
 import java from "../../assets/image/stack/icons/java_icon.png";
 import javascript from "../../assets/image/stack/icons/javascript_icon.png";
 import Cplus from "../../assets/image/stack/icons/cpp_icon.png";
+import c from "../../assets/image/stack/icons/c_icon.png";
+import react from "../../assets/image/stack/icons/react_icon.png";
+import spring from "../../assets/image/stack/icons/spring_icon.png";
+import vue from "../../assets/image/stack/icons/vue_icon.png";
 import StudyStyle from "../../Style/MainStudy/StudyDetail.module.css";
 
 const StudyInfo = () => {
@@ -37,7 +41,7 @@ const StudyInfo = () => {
                         style={{ width: "40px" }}
                       ></img>
                     )}
-                    {skill === "javaScript" && (
+                    {skill === "javascript" && (
                       <img
                         alt="javascript"
                         src={javascript}
@@ -46,10 +50,30 @@ const StudyInfo = () => {
                     )}
                     {skill === "cpp" && (
                       <img
-                        alt="C++"
+                        alt="Cplus"
                         src={Cplus}
                         style={{ width: "40px" }}
                       ></img>
+                    )}
+                    {skill === "c" && (
+                      <img alt="C" src={c} style={{ width: "40px" }}></img>
+                    )}
+                    {skill === "react" && (
+                      <img
+                        alt="react"
+                        src={react}
+                        style={{ width: "40px" }}
+                      ></img>
+                    )}
+                    {skill === "spring" && (
+                      <img
+                        alt="spring"
+                        src={spring}
+                        style={{ width: "40px" }}
+                      ></img>
+                    )}
+                    {skill === "vue" && (
+                      <img alt="vue" src={vue} style={{ width: "40px" }}></img>
                     )}
                   </span>
                 </div>

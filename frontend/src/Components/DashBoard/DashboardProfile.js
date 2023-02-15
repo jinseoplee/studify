@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-
+import { useDispatch, useSelector } from "react-redux";
+import { loginActions } from "../../store/LoginStore";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
@@ -10,7 +10,7 @@ import firts from "../../assets/image/badge_first.png";
 import Dashboardstyle from "../../Style/Dashboard/Dashboard.module.css";
 
 const DashboardProfile = () => {
-  const [userName, setUserName] = useState("");
+  const dispatch = useDispatch();
   const [myImage, setMyImage] = useState("");
   const userToken = useSelector((state) => state.token.accesstoken);
   let [userInfo, setUserInfo] = useState("");
@@ -23,6 +23,7 @@ const DashboardProfile = () => {
         },
       });
       console.log(res);
+      dispatch(loginActions.saveName(res.data.content.name));
       setUserInfo(res.data.content);
       setUserBadge(res.data.content.badges);
     } catch (err) {
@@ -66,11 +67,6 @@ const DashboardProfile = () => {
       </div>
       <div className={Dashboardstyle.dashboardProfileName}>{userInfo.name}</div>
       <div className={Dashboardstyle.dashboardProfileLine}></div>
-      <div className={Dashboardstyle.dashboardProfileSkill}>
-        <h4>공부중!</h4>
-
-        <br></br>
-      </div>
       <div className={Dashboardstyle.dashboardProfileBadge}>
         <h4>나의 뱃지</h4>
         <div className={Dashboardstyle.DashboardBadgeBox}>

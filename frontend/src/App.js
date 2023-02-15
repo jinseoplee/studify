@@ -76,7 +76,7 @@ const router = createBrowserRouter([
       },
       { path: "/chart", element: <ChartTest /> },
       { path: "/usercheck", element: <UserCheck /> },
-      { path: "/videoroom", element: <VideoRoom /> },
+      { path: "/videoroom", element: <VideoRoom />, errorElement: <DashBoard /> },
       {
         path: "/ranking",
         element: <Ranking />,

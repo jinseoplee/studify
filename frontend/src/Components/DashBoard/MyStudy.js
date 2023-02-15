@@ -15,12 +15,13 @@ const MyStudy = ({ studies }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userToken = useSelector((state) => state.token.accesstoken);
-
+  const username = useSelector((state) => state.token.name);
   const studyClickHandler = (params, e) => {
     e.preventDefault();
     dispatch(selectdayActions.changestudynum(params));
     localStorage.setItem("studyId", params);
     localStorage.setItem("token", userToken);
+    localStorage.setItem("name", username);
     navigate(`/study/${params}`);
   };
 
@@ -71,7 +72,7 @@ const MyStudy = ({ studies }) => {
                           {study.title}
                         </p>
                       </p>
-                      <div className={Dashboardstyle.flexbox}>
+                      <div className={Dashboardstyle.MystudyStackbox}>
                         {study.category &&
                           study.category.map((skill, index) => (
                             <div key={index}>
@@ -82,15 +83,19 @@ const MyStudy = ({ studies }) => {
                           ))}
                       </div>
                       <div className={Dashboardstyle.MystudyListbox}>
-                        <p>
-                          인원 : {study.headcount} / {study.capacity}
-                        </p>
-                        <div className={Dashboardstyle.flexbox}>
+                        <div className={Dashboardstyle.lineMargin}>
+                          <p>
+                            인원 : {study.headcount} / {study.capacity}
+                          </p>
+                        </div>
+                        <div className={Dashboardstyle.MystudyDate}>
                           일 정 :
                           {study.day &&
                             study.day.map((d, index) => (
                               <div key={d}>
-                                <p>{d} </p>
+                                <p className={Dashboardstyle.MystudyDate}>
+                                  {d}
+                                </p>
                               </div>
                             ))}
                         </div>

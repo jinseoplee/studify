@@ -19,6 +19,7 @@ class VideoRoomComponent extends Component {
   constructor(props) {
     super(props);
     this.studyId = localStorage.getItem("studyId");
+    this.username = localStorage.getItem("name");
     console.log(this.studyId);
     this.hasBeenUpdated = false;
     this.layout = new OpenViduLayout();
@@ -27,7 +28,7 @@ class VideoRoomComponent extends Component {
       : "Studyroom" + this.studyId;
     let userName = this.props.user
       ? this.props.user
-      : "User" + Math.floor(Math.random() * 10000);
+      : this.username;
     this.remotes = [];
     this.localUserAccessAllowed = false;
     console.log(sessionName);
@@ -237,7 +238,6 @@ class VideoRoomComponent extends Component {
   }
 
   leaveSession() {
-    localStorage.removeItem("studyId");
     const mySession = this.state.session;
 
     if (mySession) {

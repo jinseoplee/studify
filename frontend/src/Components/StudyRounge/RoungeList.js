@@ -9,7 +9,7 @@ const RoungeList = (props) => {
   const userToken = useSelector((state) => state.token.accesstoken);
   const [firstcheck, setFirstCheck] = useState(true);
   const [data, setData] = useState([]);
-  const [viewList, setViewList] = useState(4);
+  const [viewList, setViewList] = useState(8);
   const [moreButton, setMoreButton] = useState(true); //더보기 버튼 보여줄 것인지 안보여줄 것인지 확인.
   let search = props.checkFilter;
   const dispatch = useDispatch();
@@ -24,7 +24,7 @@ const RoungeList = (props) => {
     if (isPublic === false) {
       isPublic = null;
     }
-    setViewList(4);
+    setViewList(8);
     console.log(skill);
     try {
       const response = axios
@@ -43,7 +43,6 @@ const RoungeList = (props) => {
           dispatch(selectstudyActions.changestudySelect());
           dispatch(selectstudyActions.changeskillList([]));
         });
-      console.log(response);
       setData(response.data); //데이터를 우선 전부 가져옵니다.;
     } catch (err) {
       console.log(err);
@@ -51,12 +50,16 @@ const RoungeList = (props) => {
   }, [search]); //상위에서 반응이 온다면?
 
   const moreStudyList = () => {
-    setViewList(viewList + 4);
+    setViewList(viewList + 8);
   };
 
   useEffect(() => {
     if (firstcheck) {
       setFirstCheck(false);
+      if (viewList >= data.length) {
+        setMoreButton(false);
+        console.log("나 동작하제?");
+      }
       return;
     }
     if (viewList >= data?.length) {
