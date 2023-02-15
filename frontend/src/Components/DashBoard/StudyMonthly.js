@@ -13,8 +13,11 @@ const StudyMonthly = ({ recordData, user, userTime }) => {
           src={book}
           style={{ width: "30px", marginLeft: "3px" }}
         ></img>
-        <p>총 {Math.floor(recordData.totalTime / 3600)} 시간 공부</p>
-        {!userTime[0] && <p>최근 스터디가 없습니다!</p>}
+        {!recordData && <p>아직 스터디 시간이 없습니다</p>}
+        {recordData && (
+          <p>총 {Math.floor(recordData.totalTime / 3600)} 시간 공부</p>
+        )}
+        {!userTime[0] && <p>최근 스터디가 없습니다</p>}
         <p>가장 최근 스터디는 {userTime[0] && userTime[0].day} 입니다</p>
       </div>
       <div className={Dashboardstyle.DashMyStatus}>

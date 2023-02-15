@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { selectstudyActions } from "../../store/StudyRounge";
 import RoungeStyle from "../../Style/StudyRounge/StudyRounge.module.css";
 
 const RoungeList = (props) => {
@@ -8,19 +9,23 @@ const RoungeList = (props) => {
   const userToken = useSelector((state) => state.token.accesstoken);
   const [firstcheck, setFirstCheck] = useState(true);
   const [data, setData] = useState([]);
-  const [viewList, setViewList] = useState(4); //처음에 2개만 보여준다고 우선 가정.
+  const [viewList, setViewList] = useState(4);
   const [moreButton, setMoreButton] = useState(true); //더보기 버튼 보여줄 것인지 안보여줄 것인지 확인.
   let search = props.checkFilter;
+  const dispatch = useDispatch();
 
   useEffect(() => {
     let skill = filterSkill.join(",");
     if (skill.length === 0) {
       skill = null;
+    } else {
     }
     let isPublic = props.isPublic;
     if (isPublic === false) {
       isPublic = null;
     }
+    setViewList(4);
+    console.log(skill);
     try {
       const response = axios
         .get(`/api/v1/studies`, {
@@ -35,8 +40,8 @@ const RoungeList = (props) => {
         })
         .then(function (response) {
           setData(response.data.content);
-          console.log(response);
-          console.log(response.data.content);
+          dispatch(selectstudyActions.changestudySelect());
+          dispatch(selectstudyActions.changeskillList([]));
         });
       console.log(response);
       setData(response.data); //데이터를 우선 전부 가져옵니다.;
@@ -47,7 +52,6 @@ const RoungeList = (props) => {
 
   const moreStudyList = () => {
     setViewList(viewList + 4);
-    console.log(data.length);
   };
 
   useEffect(() => {
@@ -55,12 +59,10 @@ const RoungeList = (props) => {
       setFirstCheck(false);
       return;
     }
-    console.log(viewList);
-    console.log(data);
-    console.log(data.length);
-    console.log(moreButton);
-    if (viewList >= data.length) {
+    if (viewList >= data?.length) {
       setMoreButton(false);
+    } else {
+      setMoreButton(true);
     }
   }, [viewList]);
 
