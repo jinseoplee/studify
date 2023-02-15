@@ -2,7 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import LoginPage from "./pages/Login/Login";
 import MainPage from "./pages/MainPage/MainPage";
 import RootLayout from "./pages/MainPage/RootLayout";
-import Signup, { action as newSignupAction } from "./pages/Signup/Signup";
+import Signup from "./pages/Signup/Signup";
 import UserSignup from "./Components/Signup/UserSignup";
 import ResetPw from "./pages/Login/ResetPw";
 import DashBoard from "./pages/DashBoard/DashBoard";
@@ -32,7 +32,7 @@ const router = createBrowserRouter([
       {
         path: "/user/signup",
         element: <Signup />,
-        action: { newSignupAction },
+        // action: { newSignupAction },
         errorElement: <p>잘못된 정보입니다.</p>,
       },
       {

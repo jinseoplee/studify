@@ -71,6 +71,7 @@ const StudyDetail = () => {
         },
       });
       console.log(res);
+      localStorage.setItem("studyId", studyId);
       setStudyData(res.data.content);
     } catch (err) {
       console.log(err);
