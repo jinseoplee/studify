@@ -242,7 +242,7 @@ public class UserServiceImpl implements UserService {
             userImg = UserImg.builder()
                     .name("default.png")
                     .type("image/png")
-                    .fileUrl("./src/main/resources/static/images/default.png")
+                    .fileUrl("/src/img/profile/default.png")
                     .build();
         }
         return userImg;
