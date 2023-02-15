@@ -35,8 +35,134 @@ const MyStudy = ({ studies }) => {
         </Link>
 
         <div className={Dashboardstyle.MyStudyList}>
-          <Swiper
-            slidesPerView={2}
+          {studies && studies.length === 1 && (
+            <Swiper
+              slidesPerView={1}
+              spaceBetween={0}
+              centeredSlides={true}
+              freeMode={true}
+              watchOverflow={true}
+              autoplay={{
+                delay: 5000,
+                disableOnInteraction: false,
+              }}
+              pagination={{
+                clickable: true,
+              }}
+              loop={true}
+              navigation={true}
+              modules={[Autoplay, Pagination, Navigation]}
+            >
+              {studies.map((study) => (
+                <SwiperSlide>
+                  <div
+                    key={study.title}
+                    onClick={(e) => {
+                      studyClickHandler(study.id, e);
+                    }}
+                    className={Dashboardstyle.flexbox}
+                  >
+                    <div className={Dashboardstyle.MyStudyListItem}>
+                      <p className={Dashboardstyle.rangebox}>
+                        <p className={Dashboardstyle.MystudyTitle}>
+                          {study.title}
+                        </p>
+                      </p>
+                      <div className={Dashboardstyle.flexbox}>
+                        {study.category &&
+                          study.category.map((skill, index) => (
+                            <div key={index}>
+                              <p className={Dashboardstyle.MyStudyTag}>
+                                {skill.name}
+                              </p>
+                            </div>
+                          ))}
+                      </div>
+                      <div className={Dashboardstyle.MystudyListbox}>
+                        <p>
+                          인원 : {study.headcount} / {study.capacity}
+                        </p>
+                        <div className={Dashboardstyle.flexbox}>
+                          일 정 :
+                          {study.day &&
+                            study.day.map((d, index) => (
+                              <div key={d}>
+                                <p>{d} </p>
+                              </div>
+                            ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          )}
+          {studies && studies.length >= 2 && (
+            <Swiper
+              slidesPerView={2}
+              spaceBetween={1}
+              centeredSlides={true}
+              freeMode={true}
+              watchOverflow={true}
+              autoplay={{
+                delay: 5000,
+                disableOnInteraction: false,
+              }}
+              pagination={{
+                clickable: true,
+              }}
+              loop={true}
+              navigation={true}
+              modules={[Autoplay, Pagination, Navigation]}
+            >
+              {studies.map((study) => (
+                <SwiperSlide>
+                  <div
+                    key={study.title}
+                    onClick={(e) => {
+                      studyClickHandler(study.id, e);
+                    }}
+                    className={Dashboardstyle.flexbox}
+                  >
+                    <div className={Dashboardstyle.MyStudyListItem}>
+                      <p className={Dashboardstyle.rangebox}>
+                        <p className={Dashboardstyle.MystudyTitle}>
+                          {study.title}
+                        </p>
+                      </p>
+                      <div className={Dashboardstyle.flexbox}>
+                        {study.category &&
+                          study.category.map((skill, index) => (
+                            <div key={index}>
+                              <p className={Dashboardstyle.MyStudyTag}>
+                                {skill.name}
+                              </p>
+                            </div>
+                          ))}
+                      </div>
+                      <div className={Dashboardstyle.MystudyListbox}>
+                        <p>
+                          인원 : {study.headcount} / {study.capacity}
+                        </p>
+                        <div className={Dashboardstyle.flexbox}>
+                          일 정 :
+                          {study.day &&
+                            study.day.map((d, index) => (
+                              <div key={d}>
+                                <p>{d} </p>
+                              </div>
+                            ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          )}
+          {/* <Swiper
+            slidesPerView={1}
             spaceBetween={1}
             centeredSlides={true}
             freeMode={true}
@@ -71,7 +197,9 @@ const MyStudy = ({ studies }) => {
                       {study.category &&
                         study.category.map((skill, index) => (
                           <div key={index}>
-                            <p className={Dashboardstyle.MyStudyTag}>{skill}</p>
+                            <p className={Dashboardstyle.MyStudyTag}>
+                              {skill.name}
+                            </p>
                           </div>
                         ))}
                     </div>
@@ -93,7 +221,7 @@ const MyStudy = ({ studies }) => {
                 </div>
               </SwiperSlide>
             ))}
-          </Swiper>
+          </Swiper> */}
         </div>
       </div>
     </div>

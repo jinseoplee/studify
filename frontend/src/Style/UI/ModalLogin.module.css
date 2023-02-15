@@ -42,6 +42,8 @@
   position: absolute;
   right: 1rem;
   top: 0.8rem;
+  border-radius: 2rem;
+  border-width: 1px;
 }
 
 .modalloginInputspace {
@@ -67,4 +69,6 @@
 .modalFindBtn {
   position: relative;
   right: 8px;
+  border-radius: 5rem;
+  border-width: 1px;
 }

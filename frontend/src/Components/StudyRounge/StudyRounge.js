@@ -4,6 +4,9 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { selectstudyActions } from "../../store/StudyRounge";
 import { selectdayActions } from "../../store/StudyStore";
+import { useCookies } from "react-cookie";
+import { useSelector } from "react-redux";
+import swal from "sweetalert";
 
 import RoungeStyle from "../../Style/StudyRounge/StudyRounge.module.css";
 import RoungeList from "./RoungeList";
@@ -11,13 +14,26 @@ import { useRef } from "react";
 
 const StudyRounge = () => {
   const dispatch = useDispatch();
+  const userRegion = useSelector((state) => state.userinfo.userRegion);
   const [checkSkill, setCheckSkill] = useState([]);
-  const [checkViewStudy, setCheckViewStudy] = useState(" ");
+  const [checkViewStudy, setCheckViewStudy] = useState("");
   const [checkFilter, setCheckFilter] = useState(false);
   const [selectedId, setSeletedId] = useState(0);
+  const [region, setRegion] = useState(false);
+  const [regionName, setRegionName] = useState(null);
+  const [classnum, setClassnum] = useState(false);
+  const [classnumName, setClassnumName] = useState(null);
+  const [isPublic, setIsPublic] = useState(null);
+  const [tokencookies, setTokenCookie, removeTokenCookie] = useCookies([
+    "userToken",
+  ]);
+  const [studyIdcookies, setStudyIdcookies, removeStudyIdcookes] = useCookies([
+    "studyId",
+  ]);
   const navigate = useNavigate();
   const mounted = useRef(false);
 
+  const userToken = useSelector((state) => state.token.accesstoken);
   const data = [
     {
       id: 0,
@@ -36,7 +52,7 @@ const StudyRounge = () => {
     },
     {
       id: 3,
-      skill: "cpp",
+      skill: "c++",
       classify: false,
     },
     {
@@ -57,45 +73,42 @@ const StudyRounge = () => {
   ];
 
   //그럼 여기서 나의 정보를 가지고 있어야합니다.
-  const studyViewData = [
-    {
-      id: 100, //기수만
-      name: "같은기수 보기",
-      checkStudy: 8,
-      query: `generation=8`, //`generation
-    },
-    {
-      id: 101, //우리지역만
-      name: "같은지역 보기",
-      checkStudy: "daejeon",
-      query: "region=daejeon",
-    },
-    {
-      id: 102, //우리반 스터디인지 확인하는 아이디(100번)
-      name: "우리반 보기",
-      checkStudy: 8,
-      query: "classNum=8",
-    },
-    {
-      id: 103, //공개스터디만
-      name: "공개스터디 보기",
-      checkStudy: true,
-      query: "public=true",
-    },
-  ];
 
-  const handleSingleCheck = (checked, id) => {
-    if (checked) {
-      setCheckViewStudy((prev) => prev + id + ",");
+  const handleRegion = () => {
+    if (region) {
+      setRegion(false);
+      setRegionName(null);
     } else {
-      setCheckViewStudy((prev) => {
-        if (prev === undefined) {
-          setCheckViewStudy("");
-        } else {
-          const str = id + ",";
-          setCheckViewStudy(checkViewStudy.replace(str, ""));
-        }
-      });
+      setRegion(true);
+      //유저의 지역이름 저장.
+      setRegionName(userRegion);
+    }
+  };
+
+  const handleClassnum = () => {
+    if (region) {
+      if (classnum) {
+        setClassnum(false);
+        setClassnumName(null);
+      } else {
+        setClassnum(true);
+        //유저의 반을 저장.
+        setClassnumName(5);
+      }
+    } else {
+      swal("지역을 먼저 선택해주세요.");
+    }
+  };
+
+  const handleIsPublic = () => {
+    if (isPublic === null) {
+      console.log("ㅋㅋㅋㅋ 이거맞니?");
+      setIsPublic(true);
+    }
+    if (isPublic) {
+      setIsPublic(false);
+    } else {
+      setIsPublic(true);
     }
   };
 
@@ -114,6 +127,8 @@ const StudyRounge = () => {
   useEffect(() => {
     dispatch(selectstudyActions.changestudySelect(checkViewStudy));
     dispatch(selectstudyActions.changeskillList(checkSkill));
+    removeTokenCookie("userToken");
+    removeStudyIdcookes("studyId");
   }, [checkViewStudy, checkSkill]);
 
   const idselect = (id) => {
@@ -130,10 +145,10 @@ const StudyRounge = () => {
   }, [selectedId]);
 
   const goDetailPage = () => {
-    //여기서 해당 스터디에 해당하는 id 부분으로 가야합니다. 즉
-    // navigate(`/study/${id}`);
-    console.log(selectedId);
-    // if(checkViewStudy)
+    setTokenCookie("userToken", userToken);
+    localStorage.setItem("token", userToken);
+    setStudyIdcookies("studyId", selectedId);
+    localStorage.setItem("studyId", selectedId);
     navigate(`/study/${selectedId}`);
   };
 
@@ -167,34 +182,43 @@ const StudyRounge = () => {
                     src={require(`../../assets/image/stack/${data.skill}.PNG`)}
                     id={data.skill}
                   />
-                  <div className={RoungeStyle.RoungeFilterText}>
-                    {data.skill}
-                  </div>
                 </button>
               </div>
             ))}
           </div>
           <div className={RoungeStyle.RoungeInfoContainer}>
-            {studyViewData.map((data, key) => (
-              <div key={key} className={RoungeStyle.RoungeInfoBox}>
-                <fieldset>
-                  <label htmlFor={data.id}>{data.name}</label>
-
-                  <input
-                    type="checkbox"
-                    name={`select-${data.id}`}
-                    onChange={(e) =>
-                      handleSingleCheck(e.target.checked, data.query)
-                    }
-                    checked={
-                      checkViewStudy?.includes(data.query) ? true : false
-                    }
-                    // id="chk_top"
-                    id={data.id}
-                  ></input>
-                </fieldset>
+            <fieldset className={RoungeStyle.RoungeInfoField}>
+              <div key="region" className={RoungeStyle.RoungeInfoBox}>
+                <label htmlFor="region">같은지역 보기</label>
+                <input
+                  type="checkbox"
+                  name="region"
+                  onChange={handleRegion}
+                  checked={region}
+                  id="region"
+                ></input>
               </div>
-            ))}
+              <div key="classnum" className={RoungeStyle.RoungeInfoBox}>
+                <label htmlFor="classnum">같은반 보기</label>
+                <input
+                  type="checkbox"
+                  name="classnum"
+                  onChange={handleClassnum}
+                  checked={classnum}
+                  id="classnum"
+                ></input>
+              </div>
+              <div key="ispublic" className={RoungeStyle.RoungeInfoBox}>
+                <label htmlFor="ispublic">공유 스터디</label>
+                <input
+                  type="checkbox"
+                  name="ispublic"
+                  onChange={handleIsPublic}
+                  checked={isPublic}
+                  id="ispublic"
+                ></input>
+              </div>
+            </fieldset>
           </div>
         </span>
         <div className={RoungeStyle.rightContainer}>
@@ -203,7 +227,13 @@ const StudyRounge = () => {
           </button>
         </div>
       </div>
-      <RoungeList checkFilter={checkFilter} idselect={idselect} />
+      <RoungeList
+        checkFilter={checkFilter}
+        idselect={idselect}
+        region={regionName}
+        classnum={classnumName}
+        isPublic={isPublic}
+      />
     </>
   );
 };

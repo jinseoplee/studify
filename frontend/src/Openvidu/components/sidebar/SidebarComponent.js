@@ -1,27 +1,21 @@
 import React, { Component } from "react";
 import "../../../Style/Openvidu/SidebarComponent.css";
-
-import Mic from "@material-ui/icons/Mic";
-import MicOff from "@material-ui/icons/MicOff";
-import Videocam from "@material-ui/icons/Videocam";
-import VideocamOff from "@material-ui/icons/VideocamOff";
-import Fullscreen from "@material-ui/icons/Fullscreen";
-import FullscreenExit from "@material-ui/icons/FullscreenExit";
-import PictureInPicture from "@material-ui/icons/PictureInPicture";
-import ScreenShare from "@material-ui/icons/ScreenShare";
-import StopScreenShare from "@material-ui/icons/StopScreenShare";
-import Tooltip from "@material-ui/core/Tooltip";
-import PowerSettingsNew from "@material-ui/icons/PowerSettingsNew";
-import QuestionAnswer from "@material-ui/icons/QuestionAnswer";
-import CreateIcon from "@material-ui/icons/Create";
-import BorderColorIcon from "@material-ui/icons/BorderColor";
-import HighlightOffIcon from "@material-ui/icons/HighlightOff";
-import {
-  ListItemText,
-  ListItemIcon,
-  MenuItem,
-  MenuList,
-} from "@material-ui/core";
+import camoff from "../../../assets/image/videoroom/camoff.png";
+import camon from "../../../assets/image/videoroom/camon.png";
+import chatoff from "../../../assets/image/videoroom/chatoff.png";
+import chaton from "../../../assets/image/videoroom/chaton.png";
+import fulloff from "../../../assets/image/videoroom/fulloff.png";
+import fullon from "../../../assets/image/videoroom/fullon.png";
+import mdoff from "../../../assets/image/videoroom/mdoff.png";
+import mdon from "../../../assets/image/videoroom/mdon.png";
+import micoff from "../../../assets/image/videoroom/micoff.png";
+import micon from "../../../assets/image/videoroom/micon.png";
+import off from "../../../assets/image/videoroom/off.png";
+import paintoff from "../../../assets/image/videoroom/paintoff.png";
+import painton from "../../../assets/image/videoroom/painton.png";
+import shareoff from "../../../assets/image/videoroom/shareoff.png";
+import shareon from "../../../assets/image/videoroom/shareon.png";
+import newshare from "../../../assets/image/videoroom/newshare.png"
 
 export default class SidebarComponent extends Component {
   constructor(props) {
@@ -119,149 +113,62 @@ export default class SidebarComponent extends Component {
     const { isFull } = this.state;
     const editorDisplay = this.props.editorDisplay.display;
     return (
-      <MenuList className="side">
-        <MenuItem onClick={this.micStatusChanged}>
-          <ListItemIcon
-            id="navMicButton"
-          >
-            {localUser !== undefined && localUser.isAudioActive() ? (
-              <Mic />
-            ) : (
-              <MicOff color="secondary" />
-            )}
-          </ListItemIcon>
-          <ListItemText
-            id="navMicButton"
-          >
-            {localUser !== undefined && localUser.isAudioActive()
-              ? "마이크 끄기"
-              : "마이크 켜기"}
-          </ListItemText>
-        </MenuItem>
-        <MenuItem onClick={this.camStatusChanged}>
-          <ListItemIcon
-            color="inherit"
-            id="navCamButton"
-          >
-            {localUser !== undefined && localUser.isVideoActive() ? (
-              <Videocam />
-            ) : (
-              <VideocamOff color="secondary" />
-            )}
-          </ListItemIcon>
-          <ListItemText
-            color="inherit"
-            id="navCamButton"
-          >
-            {localUser !== undefined && localUser.isVideoActive()
-              ? "카메라 끄기"
-              : "카메라 켜기"}
-          </ListItemText>
-        </MenuItem>
-        <MenuItem onClick={this.screenShare}>
-          <ListItemIcon
-            color="inherit"
-            id="navScreenButton"
-          >
-            {localUser !== undefined && localUser.isScreenShareActive() ? (
-              <PictureInPicture />
-            ) : (
-              <ScreenShare />
-            )}
-          </ListItemIcon>
-          <ListItemText
-            color="inherit"
-            id="navScreenButton"
-          >
-            {localUser !== undefined && localUser.isScreenShareActive()
-              ? "창 변경하기"
-              : "화면 공유"}
-          </ListItemText>
-        </MenuItem>
+      <div className="side">
+        <div onClick={this.micStatusChanged}>
+          {localUser !== undefined && localUser.isAudioActive() ? (
+            <img src={micoff} alt="micoff" />
+          ) : (
+            <img src={micon} alt="micon" />
+          )}
+        </div>
+        <div onClick={this.camStatusChanged}>
+          {localUser !== undefined && localUser.isVideoActive() ? (
+            <img src={camoff} alt="camoff" />
+          ) : (
+            <img src={camon} alt="camon" />
+          )}
+        </div>
+        <div onClick={this.screenShare}>
+          {localUser !== undefined && localUser.isScreenShareActive() ? (
+            <img src={newshare} alt="newshare" />
+          ) : (
+            <img src={shareon} alt="shareon" />
+          )}
+        </div>
         {localUser !== undefined && localUser.isScreenShareActive() && (
-          <MenuItem onClick={this.stopScreenShare}>
-            <ListItemIcon id="navScreenButton">
-              <StopScreenShare color="secondary" />
-            </ListItemIcon>
-            <ListItemText id="navScreenButton">화면 공유 중지</ListItemText>
-          </MenuItem>
+          <div onClick={this.stopScreenShare}>
+            <img src={shareoff} alt="shareoff" />
+          </div>
         )}
-        <MenuItem onClick={this.handleFullScreen}>
-          <ListItemIcon
-            color="inherit"
-          >
-            {localUser !== undefined && isFull ? (
-              <FullscreenExit />
-            ) : (
-              <Fullscreen />
-            )}
-          </ListItemIcon>
-          <ListItemText
-            color="inherit"
-          >
-            {localUser !== undefined && isFull ? "전체 화면 종료" : "전체 화면"}
-          </ListItemText>
-        </MenuItem>
-        <MenuItem onClick={this.toggleIsBlackBoard}>
-          <ListItemIcon
-            color="inherit"
-          >
-            {localUser !== undefined && this.state.isBlackBoard ? (
-              <HighlightOffIcon />
-            ) : (
-              <BorderColorIcon />
-            )}
-          </ListItemIcon>
-          <ListItemText
-            color="inherit"
-          >
-            {localUser !== undefined && this.state.isBlackBoard
-              ? "칠판 끄기"
-              : "칠판 키기"}
-          </ListItemText>
-        </MenuItem>
-        <MenuItem onClick={this.toggleEditor}>
-          <ListItemIcon color="inherit" id="navEditorButton">
-            {localUser !== undefined && editorDisplay === "none" ? (
-              <CreateIcon />
-            ) : (
-              <CreateIcon color="secondary" />
-            )}
-          </ListItemIcon>
-          <ListItemText color="inherit" id="navEditorButton">
-            {localUser !== undefined && editorDisplay === "none"
-              ? "편집기 열기"
-              : "편집기 끄기"}
-          </ListItemText>
-        </MenuItem>
-        <MenuItem onClick={this.toggleChat}>
-          <ListItemIcon
-            color="inherit"
-          >
-            {this.props.showNotification && <div id="point" className="" />}
-            <Tooltip title="Chat">
-              <QuestionAnswer />
-            </Tooltip>
-          </ListItemIcon>
-          <ListItemText
-            color="inherit"
-          >
-            채팅하기
-          </ListItemText>
-        </MenuItem>
-        <MenuItem onClick={this.leaveSession}>
-          <ListItemIcon
-            color="secondary"
-          >
-            <PowerSettingsNew />
-          </ListItemIcon>
-          <ListItemText
-            color="secondary"
-          >
-            종료하기
-          </ListItemText>
-        </MenuItem>
-      </MenuList>
+        <div onClick={this.handleFullScreen}>
+          { isFull ? (
+            <img src={fulloff} alt="fulloff" />
+          ) : (
+            <img src={fullon} alt="fullon" />
+          )}
+        </div>
+        <div onClick={this.toggleIsBlackBoard}>
+          { this.state.isBlackBoard ? (
+            <img src={paintoff} alt="paintoff" />
+          ) : (
+            <img src={painton} alt="painton" />
+          )}
+        </div>
+        <div onClick={this.toggleEditor}>
+          { editorDisplay === "none" ? (
+            <img src={mdon} alt="mdon" />
+          ) : (
+            <img src={mdoff} alt="mdoff" />
+          )}
+        </div>
+        <div onClick={this.toggleChat}>
+          {this.props.showNotification && <div id="point" className="" />}
+          <img src={chaton} alt="chaton" />
+        </div>
+        <div onClick={this.leaveSession}>
+          <img src={off} alt="off" />
+        </div>
+      </div>
     );
   }
 }

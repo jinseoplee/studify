@@ -82,7 +82,7 @@ const LoginModal = (props) => {
           <button className={Modalstyle.modalloginClose} onClick={modalmodal}>
             X
           </button>
-          <div className={Modalstyle.modalloginTitle}>비밀번호 찾기 모달창</div>
+          <div className={Modalstyle.modalloginTitle}>비밀번호 찾기 창</div>
           <form>
             <div className={Modalstyle.modalInputspaceName}>
               이름 :{" "}

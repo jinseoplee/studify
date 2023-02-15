@@ -9,8 +9,8 @@ export default class PenComponent extends Component {
     super(props);
     this.state = {
       color: "#00000",
-      width: 500,
-      height: 500,
+      width: 1200,
+      height: 720,
       brushRadius: 5,
       lazyRadius: 0,
     };
@@ -21,7 +21,7 @@ export default class PenComponent extends Component {
   render() {
     return (
       <React.Fragment>
-        {this.props.user !== undefined && this.props.isBlackBoard && (
+        { this.props.isBlackBoard && (
           <div className="drawing">
             <div className={classNames.tools}>
               <CanvasDraw
@@ -32,39 +32,25 @@ export default class PenComponent extends Component {
                 canvasWidth={this.state.width}
                 canvasHeight={this.state.height}
               />
-              <button
-                onClick={() => {
-                  localStorage.setItem(
-                    "savedDrawing",
-                    this.saveableCanvas.getSaveData()
-                  );
-                }}
-              >
-                로컬에 저장
-              </button>
-              <button
-                onClick={() => {
-                  this.saveableCanvas.eraseAll();
-                }}
-              >
-                모두 지우기
-              </button>
-              <button
-                onClick={() => {
-                  this.saveableCanvas.undo();
-                }}
-              >
-                되돌리기
-              </button>
-              <button
-                onClick={() => {
-                  console.log(this.saveableCanvas.getDataURL());
-                  alert("DataURL written to console");
-                }}
-              >
-                URL에 데이터 저장
-              </button>
-              <div>
+              <div className="items">
+                <button
+                  onClick={() => {
+                    this.saveableCanvas.eraseAll();
+                  }}
+                  className="btn"
+                >
+                  모두 지우기
+                </button>
+                <button
+                  onClick={() => {
+                    this.saveableCanvas.undo();
+                  }}
+                  className="btn"
+                >
+                  되돌리기
+                </button>
+
+                {/* <div>
                 <label>가로:</label>
                 <input
                   type="number"
@@ -83,18 +69,20 @@ export default class PenComponent extends Component {
                     this.setState({ height: parseInt(e.target.value, 10) })
                   }
                 />
-              </div>
-              <div>
-                <label>펜의 굵기:</label>
-                <input
-                  type="number"
-                  value={this.state.brushRadius}
-                  onChange={(e) =>
-                    this.setState({
-                      brushRadius: parseInt(e.target.value, 10),
-                    })
-                  }
-                />
+              </div> */}
+                <div>
+                  <label>펜의 굵기: </label>
+                  <input
+                    type="number"
+                    value={this.state.brushRadius}
+                    onChange={(e) =>
+                      this.setState({
+                        brushRadius: parseInt(e.target.value, 10),
+                      })
+                    }
+                    className="input"
+                  />
+                </div>
               </div>
             </div>
           </div>

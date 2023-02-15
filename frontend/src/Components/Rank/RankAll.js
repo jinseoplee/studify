@@ -23,10 +23,6 @@ const RankAll = () => {
     RankAllhandler();
   }, []);
 
-  // AllRanking?.sort((a, b) => {
-  //   return b.totalTime - a.totalTime;
-  // });
-
   return (
     <div className={RankStyle.RankDetailContainer}>
       <div className={RankStyle.RankContentContainter}>

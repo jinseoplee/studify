@@ -16,7 +16,6 @@ import SignupStoreSlice from "./SignupStore";
 import tokensaveSlice from "./LoginStore";
 import studyStoreSlice from "./StudyStore";
 import userStoreSlice from "./UserStore";
-import userStudySlice from "./UserStudyStore";
 import userSelectStudySlice from "./StudyRounge";
 
 const reducers = combineReducers({
@@ -24,14 +23,13 @@ const reducers = combineReducers({
   token: tokensaveSlice,
   selectday: studyStoreSlice,
   userinfo: userStoreSlice,
-  userStudyInfo: userStudySlice,
   selectStudy: userSelectStudySlice,
 });
 
 const persistConfig = {
   key: "root",
   storage: session,
-  whitelist: ["codenum", "token"],
+  whitelist: ["codenum", "token", "selectday"],
 };
 
 const persistedReducer = persistReducer(persistConfig, reducers);

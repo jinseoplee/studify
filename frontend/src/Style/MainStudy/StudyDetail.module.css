@@ -13,8 +13,9 @@
   justify-content: center;
 }
 .StudyDetailName {
-  color: white;
+  color: black;
   font-size: 50px;
+  margin-top: 100px;
 }
 .StudyBtn {
   margin-top: 40px;
@@ -46,7 +47,6 @@
 }
 
 .studyHr {
-  margin-top: 50px;
   margin-bottom: 20px;
   width: 100%;
   background-color: #8a6bcd;
@@ -55,8 +55,8 @@
 }
 .studyInfoContainer {
   display: flex;
-  font-size: 20px;
-  justify-content: space-around;
+  align-items: center;
+  justify-content: center;
 }
 .studyInfoSpan {
   margin-right: 40px;
@@ -66,11 +66,15 @@
   display: flex;
   flex-direction: column;
   justify-content: left;
+  width: 50vw;
+  margin-bottom: 60px;
+  font-size: 20px;
 }
 
 .studyContentTitle {
-  font-size: 1.8rem;
+  font-size: 2.8rem;
   margin-bottom: 30px;
+  width: 51vw;
 }
 
 .studyUpdateContainer {
@@ -159,7 +163,6 @@
   height: 240px;
   border: 1px solid rgb(189, 188, 188);
   border-radius: 20px;
-  /* box-shadow: 5px 5px 5px gray; */
   padding: 10px;
   font-size: 20px;
 }
@@ -182,12 +185,30 @@
   display: flex;
   position: absolute;
   width: 2vw;
-  /* display: flex;
-  justify-content: right; */
   right: 10px;
-  top: 480px;
+  top: 440px;
 }
-/* .Studysettingbox {
-  width: 100vw;
-  right: 300px;
-} */
+.StudyInfoBox {
+  display: flex;
+  align-items: center;
+  margin-top: 40px;
+}
+.StudyInfoItem {
+  margin-left: 15px;
+}
+.StudyDescription {
+  font-size: 2rem;
+}
+.StudyDescriptionContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.StudyDetailButtons {
+  margin-top: 80px;
+  display: flex;
+}
+.StudyViewer {
+  font-size: 2rem;
+  margin-bottom: 40px;
+}

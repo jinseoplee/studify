@@ -5,19 +5,19 @@ import { loginActions } from "../../store/LoginStore";
 
 import Topbarstyle from "../../Style/Topbar/Topbar.module.css";
 import logo from "../../assets/image/logo.png";
-import vector from "../../assets/image/vector.png";
+import loginImg from "../../assets/image/login.png";
+import logoutImg from "../../assets/image/logout.png";
 import { useEffect } from "react";
 
 const Topbar = () => {
-  //check가 현재 access-token이 있는지 체크해서 있으면 true 없으면 false를 반환하게 만들어주어야합니다.
   const navigate = useNavigate();
-  const token = useSelector((state) => state.token.accesstoken);
+  const userToken = useSelector((state) => state.token.accesstoken);
   const dispatch = useDispatch();
   const [haveToken, setHaveToken] = useState(false);
-  console.log(token);
+  console.log(userToken);
 
   useEffect(() => {
-    if (token === " ") {
+    if (userToken === " ") {
       setHaveToken(false);
     } else {
       setHaveToken(true);
@@ -36,7 +36,7 @@ const Topbar = () => {
 
   const gotoMain = () => {
     //이미지를 눌렀을때 메인페이지로 가는 것
-    if (token === " ") {
+    if (userToken === " ") {
       //토큰이 없으면?
       navigate("/");
     } else {
@@ -89,8 +89,8 @@ const Topbar = () => {
             <>
               <Link to="/" className={Topbarstyle.text_link} onClick={logout}>
                 <div className={Topbarstyle.login}>
-                  <img src={vector} alt="로그아웃" />
-                  <p className={Topbarstyle.logouttext}>로그아웃</p>
+                  <img src={logoutImg} alt="로그아웃" />
+                  {/* <p className={Topbarstyle.logouttext}>로그아웃</p> */}
                 </div>
               </Link>
             </>
@@ -99,8 +99,8 @@ const Topbar = () => {
             <>
               <Link to="/user/login" className={Topbarstyle.text_link}>
                 <div className={Topbarstyle.login}>
-                  <img src={vector} alt="로그인" />
-                  <p className={Topbarstyle.logintext}>로그인</p>
+                  <img src={loginImg} alt="로그인" />
+                  {/* <p className={Topbarstyle.logintext}>로그인</p> */}
                 </div>
               </Link>
             </>

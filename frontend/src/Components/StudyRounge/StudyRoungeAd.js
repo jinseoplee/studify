@@ -8,7 +8,8 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 
 import Ad from "../../assets/image/Banner_Ad.jpg";
-import info from "../../assets/image/studifyinfo.JPG";
+import userguide from "../../assets/image/userguide8.PNG";
+import wait from "../../assets/image/wait.jpg";
 import openstudyAdStyle from "../../Style/OpenStudy/OpenStudyAd.module.css";
 
 // import required modules
@@ -42,7 +43,7 @@ const StudyRoungeAd = () => {
       >
         <SwiperSlide>
           <img
-            src={info}
+            src={userguide}
             className={openstudyAdStyle.adSize}
             onClick={gotoExplainPage}
           />
@@ -51,7 +52,7 @@ const StudyRoungeAd = () => {
           <img src={Ad} className={openstudyAdStyle.adSize} />
         </SwiperSlide>
         <SwiperSlide>
-          <img src={Ad} className={openstudyAdStyle.adSize} />
+          <img src={wait} className={openstudyAdStyle.adSize} />
         </SwiperSlide>
       </Swiper>
     </>

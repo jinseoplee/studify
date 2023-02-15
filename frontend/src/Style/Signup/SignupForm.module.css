@@ -1,4 +1,4 @@
-.signup-background {
+.signup_background {
   background-image: linear-gradient(to bottom, #cabbe77d, #ffffff);
   display: flex;
   align-items: center;
@@ -6,7 +6,7 @@
   flex-direction: column;
 }
 
-.signupform-div {
+.signupform_div {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -18,12 +18,12 @@
   border-radius: 5px;
   margin-top: 60px;
 }
-.signupform-label {
+.signupform_label {
   font-size: 20px;
   margin-top: 30px;
 }
 
-.signup-input-div {
+.signupinput_div {
   width: 700px;
   display: flex;
   align-items: left;
@@ -31,7 +31,7 @@
   flex-direction: column;
 }
 
-.signup-input {
+.signup_input {
   margin: 5px;
   width: 500px;
   margin-left: -5px;
@@ -44,7 +44,7 @@
   margin-top: 10px;
 }
 
-.signup-button {
+.signup_button {
   width: 150px;
   height: 50px;
   background-color: #8a6bcd;
@@ -53,11 +53,11 @@
   margin-top: 20px;
 }
 
-.signup-message {
+.signup_message {
   color: #554a6f;
 }
 
-.signup-logo {
+.signup_logo {
   margin-bottom: 20px;
   width: 300px;
 }
@@ -95,4 +95,10 @@
   box-shadow: 0 0 0 3px -moz-mac-focusring;
   color: #222;
   outline: none;
+}
+.userSignupPage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

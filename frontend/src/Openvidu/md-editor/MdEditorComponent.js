@@ -19,7 +19,6 @@ export default class MdEditor extends Component {
         value={this.state.message}
         onChange={this.handleChange}
         />
-      <MDEditor.Markdown source={this.state.message} style={{ whiteSpace: 'pre-wrap' }} />
     </div>
   );
 }

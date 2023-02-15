@@ -10,8 +10,24 @@
   min-width: 400px !important;
 }
 .side {
+  display: flex;
+  flex-direction: column;
+  /* position: absolute;
+  height: 50vh;
   padding: 0 !important;
-  top: 40vh;
+  bottom: 12vh;
+  left: 3vw; */
+}
+
+.side > div {
+  display: flex;
+  margin-bottom: 8px;
+  justify-content: center;
+}
+
+.side > div > img {
+  height: 6vh;
+  cursor: pointer;
 }
 
 .headerLight {

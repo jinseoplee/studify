@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { Editor } from "@toast-ui/react-editor";
+import "@toast-ui/editor/dist/toastui-editor.css";
 import Dashboardstyle from "../../Style/Dashboard/Dashboard.module.css";
 import SkillCheckBox from "../UI/SkillCheckBox";
 import SelectCapaBox from "../UI/SelectCapaBox";
@@ -11,13 +13,17 @@ import swal from "sweetalert";
 
 const StudyMake = () => {
   const navigate = useNavigate();
+  const editorRef = useRef();
+  const onChangeDescription = () => {
+    setDescription(editorRef.current.getInstance().getHTML());
+  };
   const [Title, setTitle] = useState("");
   const [Description, setDescription] = useState("");
   const Capacity = useSelector((state) => state.selectday.studyCapa);
   const days = useSelector((state) => state.selectday.userDay);
   const skills = useSelector((state) => state.selectday.studySkill);
   const [isPublic, setIsPublic] = useState(false);
-  const token = useSelector((state) => state.token.accesstoken);
+  const userToken = useSelector((state) => state.token.accesstoken);
 
   const enteredTitleIsvalid = Title.trim() !== "";
   const checkSkill = skills.length !== 0;
@@ -41,6 +47,7 @@ const StudyMake = () => {
       alert("요일을 선택해주세요");
     } else {
       try {
+        console.log(typeof Description);
         const response = await axios.post(
           "/api/v1/studies",
           {
@@ -53,7 +60,7 @@ const StudyMake = () => {
           },
           {
             headers: {
-              "X-AUTH-TOKEN": token,
+              "X-AUTH-TOKEN": userToken,
             },
           }
         );
@@ -101,13 +108,16 @@ const StudyMake = () => {
         </div>
         <div className={Dashboardstyle.StudyMakebox}>
           <p className={Dashboardstyle.StudyMakeLabel}>스터디 소개글</p>
-          <textarea
-            cols="40"
-            rows="8"
-            value={Description}
-            onChange={onChangeDes}
-            className={Dashboardstyle.StudyDescriptioninput}
-          ></textarea>
+          <Editor
+            initialValue="소개를 넣어주세요"
+            previewStyle="vertical"
+            height="600px"
+            initialEditType="wysiwyg"
+            language="ko-KR"
+            ref={editorRef}
+            useCommandShortcut={false}
+            onChange={onChangeDescription}
+          ></Editor>
         </div>
         <div className={Dashboardstyle.StudyMakebox}>
           <p className={Dashboardstyle.StudyMakeLabel}>공개 설정</p>
