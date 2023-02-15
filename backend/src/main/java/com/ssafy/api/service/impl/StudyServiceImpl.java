@@ -170,7 +170,7 @@ public class StudyServiceImpl implements StudyService {
             skill.add("javascript");
             skill.add("python");
             skill.add("c");
-            skill.add("cpp");
+            skill.add("c++");
             skill.add("spring");
             skill.add("vue");
             skill.add("react");
