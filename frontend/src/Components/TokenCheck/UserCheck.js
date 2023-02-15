@@ -9,6 +9,7 @@ import TokenCheck from "./TokenCheck";
 const UserCheck = () => {
   const [tokencookies] = useCookies(["userToken"]);
   const [studyIdcookies] = useCookies(["studyId"]);
+  // const userToken = tokencookies.userToken; //페이지가 옮겨져와서 아무것도없어~
   const studyId = localStorage.getItem("studyId");
   const userToken = localStorage.getItem("token");
   const navigate = useNavigate();

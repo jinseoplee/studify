@@ -29,6 +29,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     userDataHandler();
+    localStorage.clear();
   }, []);
   return (
     <div className={Dashboardstyle.dashboardContainer}>

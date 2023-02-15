@@ -43,6 +43,8 @@
   width: 70%;
   flex-direction: column;
   padding-left: 100px;
+  align-items: center;
+  justify-content: center;
 }
 
 .rightContainer {
@@ -55,23 +57,25 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  width: 63%;
   flex-wrap: wrap;
 }
 
 .RoungeInfoField {
   display: flex;
+  width: 100%;
+  flex-wrap: wrap;
 }
 
 .RoungeInfoContainer {
-  display: flex;
-  width: 100%;
+  margin: 8px;
 }
 
 .RoungeInfoBox {
-  margin-left: 1rem;
+  margin-top : 0.5rem;
+  margin-left: 2rem;
   margin-right: 1rem;
-  font-size: 20px;
+  font-size: 32px;
 }
 
 .RoungeListContainer {
@@ -81,6 +85,11 @@
   justify-content: center;
   width: 100%;
   margin: 1rem;
+}
+
+.RoungeInfoButton {
+    height: 1.6rem;
+    width: 1.6rem;
 }
 
 .RoungeFilterBtn {
@@ -93,7 +102,6 @@
 .RoungeFilterFBtn {
   display: flex;
   align-items: center;
-  /* width: 180px; */
   height: 60px;
   border: 1px solid #8a6bcd;
   border-radius: 20px;
@@ -119,8 +127,8 @@
 }
 
 .RoungeSearchBtn {
-  width: 80px;
-  height: 50px;
+  width: 120px;
+  height: 60px;
   font-size: 14px;
   border-width: 3px;
   border: 2px solid #8a6bcd;
@@ -149,8 +157,7 @@
 
 .Listcontainer {
   display: flex;
-  width: 90%;
-  width: 90%;
+  width: 85%;
   justify-content: space-evenly;
   flex-wrap: wrap;
 }
@@ -161,8 +168,7 @@
   border-radius: 10px;
   box-shadow: 0px 0px 4px 4px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  width: 300px;
-  width: 300px;
+  width: 320px;
 }
 
 .StudyListcardheader img {
@@ -190,8 +196,7 @@
   font-size: 12px;
   margin-right: 5px;
   margin-bottom: 5px;
-  margin-right: 5px;
-  margin-bottom: 5px;
+  margin-top : 5px;
   color: #fff;
   padding: 2px 10px;
   text-transform: uppercase;
