@@ -115,12 +115,7 @@ public interface UserService {
     void deleteImage(String email);
 
     /**
-     * 사용자 공부 시간 기록 생성
-     */
-    UserTimeLog createUserTimeLog(LocalDate day, Long diff, String email);
-
-    /**
-     * 사용자 공부 시간 기록 수정
+     * 사용자 공부 시간 기록 생성 및 수정
      */
     UserTimeLog updateUserTimeLog(LocalDate day, Long diff, String email);
 
