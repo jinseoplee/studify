@@ -279,7 +279,7 @@ class VideoRoomComponent extends Component {
       Date.now() -
         localUser.getStreamManager()["session"]["connection"]["creationTime"]
     );
-    // window.close();
+    window.close();
   }
   camStatusChanged() {
     localUser.setVideoActive(!localUser.isVideoActive());
