@@ -1,7 +1,5 @@
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { userChangeActions } from "../../store/UserStore";
 import StudyRecord from "./StudyRecord";
 import SlidebarMain from "../Slidebar/SlidebarMain";
 import MyStudy from "./MyStudy";
@@ -12,7 +10,6 @@ const Dashboard = () => {
   const userToken = useSelector((state) => state.token.accesstoken);
   const [userData, setUserData] = useState("");
   let [studies, setMyStudies] = useState([]);
-  const dispatch = useDispatch();
 
   const userDataHandler = async () => {
     try {
@@ -20,17 +17,6 @@ const Dashboard = () => {
         headers: {
           "X-Auth-Token": `${userToken}`,
         },
-      })
-      .then((res) => {
-        console.log(res.data.content.region);
-        // console.log(res.data.region);
-        sessionStorage.setItem("email", res.data.content.email);
-        dispatch(userChangeActions.saveUserRegion(res.data.content.region));
-        setMyStudies(res.data.content.studies);
-        setUserData(res.data.content);
-      })
-      .catch((err) => {
-        console.log(err);
       });
       console.log(res);
       setUserData(res.data.content);

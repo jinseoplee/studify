@@ -9,7 +9,11 @@ const SkillCheckBox = () => {
     { id: 0, skill: "python", name: "Python" },
     { id: 1, skill: "java", name: "Java" },
     { id: 2, skill: "javascript", name: "JavaScript" },
-    { id: 3, skill: "cpp", name: "C++" },
+    { id: 3, skill: "c++", name: "C++" },
+    { id: 4, skill: "c", name: "C" },
+    { id: 5, skill: "react", name: "React" },
+    { id: 6, skill: "spring", name: "Spring" },
+    { id: 7, skill: "vue", name: "Vue" },
   ];
   const [checkSkill, setCheckSkill] = useState([]);
   const handleSingleCheck = (checked, id) => {

@@ -19,45 +19,37 @@ const Profile = () => {
   const [classNum, setClassNum] = useState("");
   const userToken = useSelector((state) => state.token.accesstoken);
 
-  const getUserInfo = async () => {
-    try {
-      const response = axios.get("/api/v1/users", {
+  useEffect(() => {
+    axios
+      .get("/api/v1/users", {
         headers: {
           "X-Auth-Token": userToken,
         },
+      })
+      .then((res) => {
+        console.log(res.data);
+        setUserEmail(res.data.email);
+        setUserName(res.data.name);
+        setUserGeneration(res.data.generation);
+        setUserRegion(res.data.region);
+      })
+      .catch((err) => {
+        console.log(err);
       });
-      response.then((res) => {
-        console.log(res);
-        setUserEmail(res.data.content.email);
-        setUserName(res.data.content.name);
-        setUserGeneration(res.data.content.generation);
-        setUserRegion(res.data.content.region);
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  const getUserImg = async () => {
-    try {
-      const response = await axios.get("/api/v1/users/image", {
+    axios
+      .get("/api/v1/users/image", {
         headers: {
           "X-Auth-Token": userToken,
         },
         responseType: "blob",
-      });
-      response.then((res) => {
-        console.log(res);
+      })
+      .then((res) => {
         let objectURL = URL.createObjectURL(res.data);
         setMyImage(objectURL);
-        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
       });
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  useEffect(() => {
-    getUserInfo();
-    getUserImg();
   }, []);
 
   const chageUserInfo = () => {
