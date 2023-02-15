@@ -114,6 +114,3 @@ const RoungeList = (props) => {
 };
 
 export default RoungeList;
-
-
-export default RoungeList;
