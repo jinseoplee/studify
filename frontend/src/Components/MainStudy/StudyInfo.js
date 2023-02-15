@@ -64,7 +64,9 @@ const StudyInfo = () => {
                 </div>
               ))}
           </div>
-          <div className={StudyStyle.StudyInfoBox}>스터디장 : </div>
+          <div className={StudyStyle.StudyInfoBox}>
+            연락처 : {studydata.createdBy}
+          </div>
         </div>
       </div>
     </div>

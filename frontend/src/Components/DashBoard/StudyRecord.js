@@ -13,21 +13,23 @@ const StudyRecord = ({ userData }) => {
   const [recordData, setRecordData] = useState("");
 
   //useEffect 로 시간 데이터 통신
-  useEffect(() => {
-    axios
-      .get("/api/v1/users/log", {
+
+  const userTimeHandler = async () => {
+    try {
+      const res = await axios.get("/api/v1/users/log", {
         headers: {
           "X-Auth-Token": `${userToken}`,
         },
-      })
-      .then((res) => {
-        console.log(res.data.content);
-        setUserTime(res.data.content);
-        setRecordData(res.data.content[0].user);
-      })
-      .catch((err) => {
-        console.log(err);
       });
+      console.log(res);
+      setUserTime(res.data.content);
+      setRecordData(res.data.content[0].user);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  useEffect(() => {
+    userTimeHandler();
   }, []);
 
   return (

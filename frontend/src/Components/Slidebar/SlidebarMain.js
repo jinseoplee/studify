@@ -4,7 +4,7 @@ import SlidebarContents from "./SlidebarContents";
 import rightarrow from "../../assets/image/rightarrow.png";
 import leftarrow from "../../assets/image/leftarrow.png";
 
-const SlidebarMain = ({ width = 400, children }) => {
+const SlidebarMain = ({ width = 300, children }) => {
   const [isOpen, setOpen] = useState(false);
   const [xPosition, setX] = useState(width);
   const side = useRef();

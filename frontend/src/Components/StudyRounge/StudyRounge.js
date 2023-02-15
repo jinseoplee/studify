@@ -21,7 +21,7 @@ const StudyRounge = () => {
   const [regionName, setRegionName] = useState(null);
   const [classnum, setClassnum] = useState(false);
   const [classnumName, setClassnumName] = useState(null);
-  const [isPublic, setIsPublic] = useState(false);
+  const [isPublic, setIsPublic] = useState(null);
   const [tokencookies, setTokenCookie, removeTokenCookie] = useCookies([
     "userToken",
   ]);
@@ -71,26 +71,6 @@ const StudyRounge = () => {
   ];
 
   //그럼 여기서 나의 정보를 가지고 있어야합니다.
-  const studyViewData = [
-    {
-      id: 101, //우리지역만
-      name: "같은지역 보기",
-      checkStudy: "daejeon",
-      query: "region=daejeon",
-    },
-    {
-      id: 102, //우리반 스터디인지 확인하는 아이디(100번)
-      name: "우리반 보기",
-      checkStudy: 8,
-      query: "classNum=8",
-    },
-    {
-      id: 103, //공개스터디만
-      name: "공개스터디 보기",
-      checkStudy: true,
-      query: "public=true",
-    },
-  ];
 
   const handleRegion = () => {
     if (region) {
@@ -99,7 +79,8 @@ const StudyRounge = () => {
     } else {
       setRegion(true);
       //유저의 지역이름 저장.
-      setRegionName("daejeon");
+
+      setRegionName("대전");
     }
   };
 
@@ -115,6 +96,10 @@ const StudyRounge = () => {
   };
 
   const handleIsPublic = () => {
+    if (isPublic === null) {
+      console.log("ㅋㅋㅋㅋ 이거맞니?");
+      setIsPublic(true);
+    }
     if (isPublic) {
       setIsPublic(false);
     } else {
@@ -176,6 +161,7 @@ const StudyRounge = () => {
 
   const goDetailPage = () => {
     console.log(selectedId);
+    console.log("나 동작해야해?");
     setTokenCookie("userToken", userToken);
     setStudyIdcookies("studyId", selectedId);
 
@@ -212,9 +198,6 @@ const StudyRounge = () => {
                     src={require(`../../assets/image/stack/${data.skill}.PNG`)}
                     id={data.skill}
                   />
-                  {/* <div className={RoungeStyle.RoungeFilterText}>
-                    {data.skill}
-                  </div> */}
                 </button>
               </div>
             ))}
