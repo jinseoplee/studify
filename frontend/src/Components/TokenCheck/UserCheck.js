@@ -9,8 +9,9 @@ import TokenCheck from "./TokenCheck";
 const UserCheck = () => {
   const [tokencookies] = useCookies(["userToken"]);
   const [studyIdcookies] = useCookies(["studyId"]);
-  const userToken = tokencookies.userToken; //페이지가 옮겨져와서 아무것도없어~
-  const studyId = studyIdcookies.studyId;
+  // const userToken = tokencookies.userToken; //페이지가 옮겨져와서 아무것도없어~
+  const studyId = localStorage.getItem("studyId");
+  const userToken = localStorage.getItem("token");
   const navigate = useNavigate();
 
   //토큰을 이용하여 해당토큰의 이메일을 먼저 가져온 후에

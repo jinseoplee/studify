@@ -238,6 +238,7 @@ class VideoRoomComponent extends Component {
 
   leaveSession() {
     localStorage.removeItem("studyId");
+    localStorage.removeItem("token");
     const mySession = this.state.session;
 
     if (mySession) {
@@ -260,8 +261,8 @@ class VideoRoomComponent extends Component {
       .post(
         "/api/v1/users/log",
         {
-          'endTime': Date.now,
-          'startTime':
+          endTime: Date.now,
+          startTime:
             localUser.getStreamManager()["session"]["connection"][
               "creationTime"
             ],

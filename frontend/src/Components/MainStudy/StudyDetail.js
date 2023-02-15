@@ -29,7 +29,6 @@ const StudyDetail = () => {
     studydata &&
       studydata.users.some((el) => {
         if (el !== userEmail) {
-          console.log("안맞아요");
           studyUserCheck = true;
         }
         return studyUserCheck === true;
@@ -41,7 +40,7 @@ const StudyDetail = () => {
   const joinSession = () => {
     window.open(url, "_blank", "noopener noreferrer");
   };
-  
+
   // const getStudydata = async () => {
   //   try{
   //     const response = await axios

@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Autoplay, Pagination, Navigation } from "swiper";
 import Dashboardstyle from "../../Style/Dashboard/Dashboard.module.css";
 import makestudy from "../../assets/image/plus.png";
@@ -14,10 +14,12 @@ import "swiper/css/navigation";
 const MyStudy = ({ studies }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const userToken = useSelector((state) => state.token.accesstoken);
   const studyClickHandler = (params, e) => {
     e.preventDefault();
     dispatch(selectdayActions.changestudynum(params));
+    localStorage.setItem("studyId", params);
+    localStorage.setItem("token", userToken);
     navigate(`/study/${params}`);
   };
 
