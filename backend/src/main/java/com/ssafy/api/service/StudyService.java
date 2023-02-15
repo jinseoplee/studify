@@ -54,10 +54,19 @@ public interface StudyService {
      */
     void deleteStudy(String email, Long studyId);
 
+    /**
+     * 이미지 유효성 검사
+     */
     boolean validImgFile(MultipartFile multipartFile);
 
+    /**
+     * 스터디 조회
+     */
     Study getStudy(Long studyId);
 
+    /**
+     * 스터디 이미지 수정
+     */
     Study updateStudy(Study study);
 
     /**

@@ -7,7 +7,6 @@ import com.ssafy.api.request.user.UserSignupPostReq;
 import com.ssafy.api.response.user.UserAuthPostRes;
 import com.ssafy.api.response.user.UserInfoRes;
 import com.ssafy.api.response.user.UserLoginPostRes;
-import com.ssafy.api.response.user.UserRes;
 import com.ssafy.db.entity.TempUser;
 import com.ssafy.db.entity.User;
 import com.ssafy.db.entity.UserImg;
@@ -27,49 +26,31 @@ public interface UserService {
 
     /**
      * 회원인증 완료 후 가입
-     *
-     * @param tempUser
-     * @return
      */
     User createUser(TempUser tempUser);
 
     /**
      * 로그인
-     *
-     * @param userLoginPostReq
-     * @return
      */
     UserLoginPostRes signIn(UserLoginPostReq userLoginPostReq);
 
     /**
      * 사용자 조회
-     *
-     * @param email
-     * @return
      */
     User getUser(String email);
 
     /**
      * 인증메일 발송
-     *
-     * @param req
-     * @return
      */
     TempUser sendAuthMail(UserAuthPostReq req) throws MessagingException;
 
     /**
      * 임시회원 삽입
-     *
-     * @param tempUser
-     * @return
      */
     UserAuthPostRes insertTempUser(TempUser tempUser);
 
     /**
      * 사용자 메일 인증 확인
-     *
-     * @param authReq
-     * @return
      */
     TempUser certificateTempUser(UserSignupPostReq authReq);
 
@@ -80,41 +61,41 @@ public interface UserService {
 
     /**
      * 사용자 비밀번호 변경
-     *
-     * @param userInfo
-     * @return
      */
     User updateUserPassword(Map<String, String> userInfo);
 
     /**
      * 사용자 정보 수정
-     *
-     * @param userDetailPutReq
-     * @param email
-     * @return
      */
     User updateUserDetail(UserDetailPutReq userDetailPutReq, String email);
 
     /**
      * 사용자 정보 삭제
-     *
-     * @param email
      */
     void deleteUser(String email);
 
+    /**
+     * 임시 사용자 정보 삭제
+     */
     void deleteTempUser(String email);
 
+    /**
+     * 사용자 이메일 중복 확인
+     */
     boolean checkDuplicate(String email);
 
+    /**
+     * 사용자 정보 수정(이미지 관련)
+     */
     User updateUser(User user);
 
+    /**
+     * 이미지 파일 유효성 검사
+     */
     boolean validImgFile(MultipartFile multipartFile);
 
     /**
      * 프로필 이미지 조회
-     *
-     * @param email
-     * @return
      */
     UserImg getImage(String email);
 
@@ -148,5 +129,9 @@ public interface UserService {
      */
     List<User> findAllUserRank();
 
+    /**
+     * 사용자 공부 기록 조회
+     */
     List<UserTimeLog> getUserTimeLog(String email);
+
 }

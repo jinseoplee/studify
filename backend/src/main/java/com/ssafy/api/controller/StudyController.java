@@ -90,7 +90,6 @@ public class StudyController {
         return ResponseEntity.ok(new BaseResponseBody(200, "스터디 떠나기 완료"));
     }
 
-
     /**
      * 스터디 목록 조회 API([GET] /api/v1/studies)
      */
