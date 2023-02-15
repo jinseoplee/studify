@@ -21,6 +21,7 @@ const RoungeList = (props) => {
     if (isPublic === false) {
       isPublic = null;
     }
+    setViewList(4);
     try {
       const response = axios
         .get(`/api/v1/studies`, {
@@ -50,6 +51,11 @@ const RoungeList = (props) => {
   };
 
   useEffect(() => {
+    console.log(data.length);
+    console.log(viewList);
+    if (data.length < 5) {
+      setMoreButton(false);
+    }
     if (firstcheck) {
       setFirstCheck(false);
       return;
@@ -95,7 +101,7 @@ const RoungeList = (props) => {
               </div>
             </div>
           ))
-          .slice(0, props.viewList)}
+          .slice(0, viewList)}
       </div>
       {moreButton && (
         <div className={RoungeStyle.buttonContainer}>

@@ -37,17 +37,19 @@ const UserCheck = () => {
       console.log(err);
       swal(err.response.data.message);
       if (userToken === " ") {
-        swal("로그인 정보가 없습니다. 시작페이지로 이동합니다.");
-        navigate("/");
+        // navigate("/");
+        setTimeout(() => {
+          swal("로그인 정보가 없습니다. 시작페이지로 이동합니다.");
+        }, 50000000);
       } else {
         navigate("/mainpage");
         setTimeout(() => {
           window.close();
-        }, 3000);
+        }, 1000000000);
       }
     }
   }, []);
 
-  return <>{/* <TokenCheck /> */}</>;
+  return <></>;
 };
 export default UserCheck;

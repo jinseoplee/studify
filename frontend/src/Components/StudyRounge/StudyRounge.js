@@ -142,6 +142,7 @@ const StudyRounge = () => {
 
   const goDetailPage = () => {
     setTokenCookie("userToken", userToken);
+    localStorage.setItem("token", userToken);
     setStudyIdcookies("studyId", selectedId);
     localStorage.setItem("studyId", selectedId);
     navigate(`/study/${selectedId}`);
