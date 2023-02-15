@@ -257,7 +257,7 @@ class VideoRoomComponent extends Component {
       this.props.leaveSession();
     }
     axios
-      .post(
+      .put(
         "/api/v1/users/log",
         {
           'endTime': Date.now(),

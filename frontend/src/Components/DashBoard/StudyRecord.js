@@ -1,55 +1,41 @@
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-
 import Dashboardstyle from "../../Style/Dashboard/Dashboard.module.css";
-import StudyRecordDetail from "./StudyRecordDetail";
-import StudyMonthly from "./StudyMonthly";
-import axios from "axios";
-
-const StudyRecord = ({ userData }) => {
-  const userToken = useSelector((state) => state.token.accesstoken);
-  const [userTime, setUserTime] = useState([]);
-  const todayDay = new Date().getDay() - 1;
-  const [recordData, setRecordData] = useState("");
-
-  //useEffect 로 시간 데이터 통신
-
-  const userTimeHandler = async () => {
-    try {
-      const res = await axios.get("/api/v1/users/log", {
-        headers: {
-          "X-Auth-Token": `${userToken}`,
-        },
-      });
-      console.log(res);
-      setUserTime(res.data.content);
-      setRecordData(res.data.content[0].user);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  useEffect(() => {
-    userTimeHandler();
-  }, []);
-
+import book from "../../assets/image/book.png";
+import userpic from "../../assets/image/memberpic.png";
+const StudyMonthly = ({ recordData, user, userTime }) => {
   return (
-    <div className={Dashboardstyle.StudyRecordContainer}>
-      <h3 style={{ fontSize: "20px" }}>나의 기록</h3>
-      <div className={Dashboardstyle.StudyRecordbox}>
-        <div className={Dashboardstyle.StudyRecordTime}>
-          <StudyRecordDetail userTime={userTime} />
-        </div>
-        <div className={Dashboardstyle.StudyRecordStrick}>
-          <StudyMonthly
-            user={userData}
-            recordData={recordData}
-            userTime={userTime}
-          />
-        </div>
+    <div>
+      <h3 className={Dashboardstyle.flexrangebox} style={{ fontSize: "20px" }}>
+        나의 상태
+      </h3>
+      <div className={Dashboardstyle.DashMyStatus}>
+        <img
+          alt="book"
+          src={book}
+          style={{ width: "30px", marginLeft: "3px" }}
+        ></img>
+        {!recordData && <p>아직 스터디 시간이 없습니다</p>}
+        {recordData && (
+          <p>총 {Math.floor(recordData.totalTime / 3600)} 시간 공부</p>
+        )}
+        {!userTime[0] && <p>최근 스터디가 없습니다</p>}
+        <p>가장 최근 스터디는 {userTime[0] && userTime[0].day} 입니다</p>
       </div>
-      <div></div>
+      <div className={Dashboardstyle.DashMyStatus}>
+        <img
+          alt="userpic"
+          src={userpic}
+          style={{ width: "30px", marginLeft: "3px", marginTop: "5px" }}
+        ></img>
+        {user.studies && user.studies.length <= 0 && (
+          <p>스터디를 참가해주세요!</p>
+        )}
+        {user.studies && user.studies.length > 0 && (
+          <p>{user.studies.length}개 스터디 참가</p>
+        )}
+        <p>{user.badges && user.badges.length}개 뱃지 보유</p>
+      </div>
     </div>
   );
 };
 
-export default StudyRecord;
+export default StudyMonthly;
