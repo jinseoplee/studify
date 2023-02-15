@@ -15,37 +15,39 @@ const DashboardProfile = () => {
   const userToken = useSelector((state) => state.token.accesstoken);
   let [userInfo, setUserInfo] = useState("");
   let [userBadge, setUserBadge] = useState([]);
-
-  useEffect(() => {
-    axios
-      .get("api/v1/users", {
+  const userDataHandler = async () => {
+    try {
+      const res = await axios.get("/api/v1/users", {
         headers: {
           "X-Auth-Token": `${userToken}`,
         },
-      })
-      .then((res) => {
-        console.log(res);
-        setUserInfo(res.data.content);
-        setUserBadge(res.data.content.badges);
-      })
-      .catch((err) => {
-        console.log(err);
       });
-    axios
-      .get("api/v1/users/image", {
+      console.log(res);
+      setUserInfo(res.data.content);
+      setUserBadge(res.data.content.badges);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const userImageHandler = async () => {
+    try {
+      const res = await axios.get("api/v1/users/image", {
         headers: {
           "X-Auth-Token": userToken,
         },
         responseType: "blob",
-      })
-      .then((res) => {
-        let objectURL = URL.createObjectURL(res.data);
-        setMyImage(objectURL);
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
       });
+      console.log(res);
+      let objectURL = URL.createObjectURL(res.data);
+      setMyImage(objectURL);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  useEffect(() => {
+    userDataHandler();
+    userImageHandler();
   }, []);
 
   return (

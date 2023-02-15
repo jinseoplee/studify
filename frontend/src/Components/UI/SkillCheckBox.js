@@ -6,10 +6,10 @@ import { selectdayActions } from "../../store/StudyStore";
 const SkillCheckBox = () => {
   const dispatch = useDispatch();
   const data = [
-    { id: 0, skill: "Python" },
-    { id: 1, skill: "Java" },
-    { id: 2, skill: "JavaScript" },
-    { id: 3, skill: "C++" },
+    { id: 0, skill: "python" },
+    { id: 1, skill: "java" },
+    { id: 2, skill: "javascript" },
+    { id: 3, skill: "cpp" },
   ];
   const [checkSkill, setCheckSkill] = useState([]);
   const handleSingleCheck = (checked, id) => {

@@ -13,14 +13,27 @@ const StudyDetail = () => {
   const studyId = useSelector((state) => state.selectday.studyNum);
   const userToken = useSelector((state) => state.token.accesstoken);
   const [studydata, setStudyData] = useState("");
+  let studyUserCheck = false;
   const [dummyimg, setImg] = useState(
     "https://t1.daumcdn.net/thumb/R720x0/?fname=http://t1.daumcdn.net/brunch/service/user/A1Z/image/luE0JoNHfcq1dK6y1_6lAvvTqDI.jpg"
   );
-  const userEmail = sessionStorage.getItem("email");
+  let userEmail = sessionStorage.getItem("email");
   const imgstyle = {
     width: "100%",
     height: "400px",
     backgroundImage: `url(${dummyimg})`,
+  };
+
+  //유저 확인
+  const userCheckHandler = () => {
+    studydata &&
+      studydata.users.some((el) => {
+        if (el !== userEmail) {
+          console.log("안맞아요");
+          studyUserCheck = true;
+        }
+        return studyUserCheck === true;
+      });
   };
 
   //오픈 비두 참가
@@ -29,21 +42,23 @@ const StudyDetail = () => {
     window.open(url, "_blank", "noopener noreferrer");
   };
 
-  useEffect(() => {
-    console.log(studydata);
-    axios
-      .get(`/api/v1/studies/${studyId}`, {
+  const studyDataHandler = async () => {
+    try {
+      const res = await axios.get(`/api/v1/studies/${studyId}`, {
         headers: {
           "X-Auth-Token": `${userToken}`,
         },
-      })
-      .then((res) => {
-        console.log(res);
-        setStudyData(res.data.content);
-      })
-      .catch((err) => {
-        console.log(err);
       });
+      console.log(res);
+      setStudyData(res.data.content);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    studyDataHandler();
+    userCheckHandler();
   }, []);
 
   const outStudyHandler = () => {
@@ -55,7 +70,7 @@ const StudyDetail = () => {
       })
       .then((res) => {
         console.log(res);
-        navigate("/dashboard");
+        navigate("/mainpage");
       })
       .catch((err) => {
         console.log(err);
@@ -75,6 +90,7 @@ const StudyDetail = () => {
       )
       .then((res) => {
         console.log(res);
+        navigate("/mainpage");
       })
       .catch((err) => {
         console.log(err);
@@ -86,7 +102,10 @@ const StudyDetail = () => {
       <div className={StudyStyle.StudyDetailContainer}>
         <div style={imgstyle}>
           <div className={StudyStyle.StudyDetailback}>
-            <p className={StudyStyle.StudyDetailName}>{studydata.title}</p>
+            <p className={StudyStyle.StudyDetailName}>
+              {studydata.title}
+              {studyUserCheck}
+            </p>
             <div className={StudyStyle.StudyDetailButtons}>
               {studydata.users &&
                 studydata.users.map((el) => (
@@ -101,7 +120,8 @@ const StudyDetail = () => {
                     )}
                   </div>
                 ))}
-              {userEmail !== studydata.createdBy && (
+
+              {studyUserCheck === true && (
                 <button
                   className={StudyStyle.StudyBtn}
                   onClick={joinStudyHandler}
