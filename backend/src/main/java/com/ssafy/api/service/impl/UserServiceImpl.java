@@ -55,6 +55,9 @@ public class UserServiceImpl implements UserService {
     private final UserBadgeRepository userBadgeRepository;
     private final String path = "C:\\Users\\images\\users";
 
+    /**
+     * 회원 가입
+     */
     @Transactional
     @Override
     public User createUser(TempUser tempUser) {
@@ -103,6 +106,9 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
     }
 
+    /**
+     * 이메일 중복 검사
+     */
     @Transactional
     public boolean checkDuplicate(String email) {
         if (userRepository.existsByEmail(email))
@@ -111,7 +117,9 @@ public class UserServiceImpl implements UserService {
         return true;
     }
 
-
+    /**
+     * 인증 메일 전송
+     */
     @Override
     public TempUser sendAuthMail(UserAuthPostReq req) throws MessagingException {
         String code = UUID.randomUUID().toString();
@@ -132,6 +140,9 @@ public class UserServiceImpl implements UserService {
                 .build();
     }
 
+    /**
+     * 임시 사용자 추가
+     */
     @Transactional
     @Override
     public UserAuthPostRes insertTempUser(TempUser tempUser) {
@@ -146,6 +157,9 @@ public class UserServiceImpl implements UserService {
                 .build();
     }
 
+    /**
+     * 사용자 인증 확인
+     */
     @Transactional
     @Override
     public TempUser certificateTempUser(UserSignupPostReq authReq) {
@@ -153,6 +167,9 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new IllegalArgumentException("만료된 페이지거나 인증 대상이 존재하지 않습니다."));
     }
 
+    /**
+     * 비밀번호 재설정
+     */
     @Override
     public User updateUserPassword(Map<String, String> userInfo) {
         User user = userRepository.findByEmail(userInfo.get("email"))
@@ -178,8 +195,9 @@ public class UserServiceImpl implements UserService {
         return userInfoRes;
     }
 
-
-    /* 사용자 정보 수정 */
+    /**
+     * 사용자 정보 수정
+     */
     @Override
     public User updateUserDetail(UserDetailPutReq userDetailPutReq, String email) {
         User user = userRepository.findByEmail(email)
@@ -189,7 +207,9 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
-
+    /**
+     * 회원 탈퇴
+     */
     @Override
     public void deleteUser(String email) {
         User user = userRepository.findByEmail(email)
@@ -198,6 +218,9 @@ public class UserServiceImpl implements UserService {
         userRepository.deleteById(user.getId());
     }
 
+    /**
+     * 임시 사용자 삭제
+     */
     @Override
     public void deleteTempUser(String email) {
         TempUser tempUser = tempUserRepository.findById(email)
@@ -206,18 +229,25 @@ public class UserServiceImpl implements UserService {
         tempUserRepository.deleteById(email);
     }
 
+    /**
+     * 임시 사용자 전체 삭제
+     */
     @Scheduled(cron = "0 0 0 * * 0", zone = "Asia/Seoul")
     public void deleteAllTempUser() {
         tempUserRepository.deleteAll();
     }
 
-    /* 프로필 이미지 관련하여 사용 */
+    /**
+     * 이미지 파일 관련 사용자 수정
+     */
     @Override
     public User updateUser(User user) {
         return userRepository.save(user);
     }
 
-    /* 이미지 파일 검증 */
+    /**
+     * 이미지 파일 유효성 검증
+     */
     @Override
     public boolean validImgFile(MultipartFile multipartFile) {
         try (InputStream inputStream = multipartFile.getInputStream()) {
@@ -233,7 +263,9 @@ public class UserServiceImpl implements UserService {
         return true;
     }
 
-    /* 프로필 이미지 조회 */
+    /**
+     * 프로필 이미지 조회
+     */
     @Override
     public UserImg getImage(String email) {
         User user = userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
@@ -248,7 +280,9 @@ public class UserServiceImpl implements UserService {
         return userImg;
     }
 
-    /* 프로필 이미지 업로드 */
+    /**
+     * 프로필 이미지 업로드
+     */
     public UserImg uploadImage(MultipartFile multipartFile) throws IOException {
         UUID uuid = UUID.randomUUID();
         String fileUrl = path + uuid.toString() + "_" + multipartFile.getOriginalFilename();
@@ -264,7 +298,9 @@ public class UserServiceImpl implements UserService {
         return userImg;
     }
 
-    /* 프로필 이미지 수정 */
+    /**
+     * 프로필 이미지
+     */
     public UserImg updateImage(MultipartFile multipartFile, User user) throws IOException {
         UUID uuid = UUID.randomUUID();
         String filePath = path + uuid.toString() + "_" + multipartFile.getOriginalFilename();
@@ -281,7 +317,9 @@ public class UserServiceImpl implements UserService {
         return userImg;
     }
 
-    /* 프로필 이미지 삭제 */
+    /**
+     * 프로필 이미지 삭제
+     */
     public void deleteImage(String email) {
         User user = userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
         UserImg userImg = userImgRepository.findById(user.getUserImg().getId()).get();
@@ -293,7 +331,9 @@ public class UserServiceImpl implements UserService {
         userImgRepository.deleteById(userImg.getId());
     }
 
-    /* 사용자 공부 시간 기록 생성 */
+    /**
+     * 사용자 공부 시간 기록 생성
+     */
     @Override
     public UserTimeLog createUserTimeLog(LocalDate day, Long diff, String email) {
         User user = userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
@@ -308,16 +348,18 @@ public class UserServiceImpl implements UserService {
         );
     }
 
-    /* 사용자 공부 시간 기록 조회 */
+    /**
+     * 사용자 공부 시간 기록 조회
+     */
     @Override
     public List<UserTimeLog> getUserTimeLog(String email) {
-        User user = userRepository.findByEmail(email).orElseThrow(()-> new IllegalArgumentException("존재하지 않는 사용자입니다."));
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
         // 공부 시간 기록 가져오기
         List<UserTimeLog> userTimeLogList = userTimeLogRepository.findAllByUser(user, Sort.by(Sort.Direction.DESC, "day"));
         // 기록이 5개 이상이면 최근 5개 기록만 가져오기
-        if(userTimeLogList.size()>5){
+        if (userTimeLogList.size() > 5) {
             List<UserTimeLog> subUserTimeList = new ArrayList<>();
-            for(int i=0; i<5; i++) {
+            for (int i = 0; i < 5; i++) {
                 subUserTimeList.add(userTimeLogList.get(i));
             }
             return subUserTimeList;
@@ -325,7 +367,9 @@ public class UserServiceImpl implements UserService {
         return userTimeLogList;
     }
 
-    /* 사용자 공부 시간 기록 수정 */
+    /**
+     * 사용자 공부 시간 기록 수정
+     */
     @Override
     public UserTimeLog updateUserTimeLog(LocalDate day, Long diff, String email) {
         User user = userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
@@ -336,7 +380,9 @@ public class UserServiceImpl implements UserService {
         return userTimeLogRepository.save(savedUserTimeLog);
     }
 
-    /* 사용자 랭킹 집계 및 조회 */
+    /**
+     * 사용자 랭킹 집계 및 조회
+     */
     @Override
     public List<User> findAllUserRank() {
         return userRepository.findAll(Sort.by(Sort.Direction.DESC, "totalTime"));
