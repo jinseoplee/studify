@@ -177,6 +177,17 @@ public class UserController {
         return ResponseEntity.ok().body(new BaseResponse<UserTimeLog>(200, "사용자 공부 시간 기록 생성 성공", userTimeLog));
     }
 
+
+    /**
+     * 사용자 공부 시간 기록 조회 API([GET] /api/v1/users/log)
+     */
+    @Operation(summary = "사용자 공부 시간 기록 조회")
+    @ApiResponse(responseCode = "200", description = "사용자 공부 시간 기록 생성 조회")
+    @GetMapping("/log")
+    public ResponseEntity<?> findUserTimeLog(@AuthenticationPrincipal String email) {
+        return ResponseEntity.ok().body(new BaseResponse<List<UserTimeLog>>(200, "사용자 공부 시간 기록 생성 성공", userService.getUserTimeLog(email)));
+    }
+
     /**
      * 사용자 공부 시간 기록 수정 API([PUT] /api/v1/users/log)
      */

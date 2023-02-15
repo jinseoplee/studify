@@ -25,6 +25,11 @@ public interface StudyService {
     StudyRes joinStudy(String email, Long studyId);
 
     /**
+     * 스터디 가입 여부 확인
+     */
+    void checkStudyMember(String email, Long studyId);
+
+    /**
      * 스터디 나가기
      */
     void leaveStudy(String email, Long studyId);
@@ -32,7 +37,7 @@ public interface StudyService {
     /**
      * 스터디 목록 조회
      */
-    List<StudyRes> findByCondition(Integer generation, String region, Integer classNum, Boolean isPublic);
+    List<StudyRes> findByCondition(List<String> skill, Integer generation, String region, Integer classNum, Boolean isPublic);
 
     /**
      * 스터디 조회

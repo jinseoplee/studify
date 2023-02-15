@@ -1,9 +1,11 @@
 package com.ssafy.api.request.study;
 
+import com.ssafy.db.entity.Category;
 import com.ssafy.db.entity.Study;
 import com.ssafy.db.entity.User;
 import lombok.Getter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,7 +38,6 @@ public class StudyCreatePostReq {
                 .description(description)
                 .capacity(capacity)
                 .day(day)
-                .category(category)
                 .isPublic(isPublic)
                 .generation(user.getGeneration())
                 .region(user.getRegion())

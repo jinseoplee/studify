@@ -1,5 +1,6 @@
 package com.ssafy.api.response.study;
 
+import com.ssafy.db.entity.Category;
 import com.ssafy.db.entity.Study;
 import com.ssafy.db.entity.User;
 import com.ssafy.db.entity.UserStudy;
@@ -42,7 +43,6 @@ public class StudyRes {
         this.headcount = study.getHeadcount();
         this.capacity = study.getCapacity();
         this.day = study.getDay();
-        this.category = study.getCategory();
         this.isPublic = study.getIsPublic();
     }
 
@@ -52,6 +52,14 @@ public class StudyRes {
             users.add(userStudies.get(i).getUser());
         }
         this.users = users;
+    }
+
+    public void setCategory(List<Category> categories) {
+        List<String> names = new ArrayList<>();
+        for (int i = 0; i < categories.size(); i++) {
+            names.add(categories.get(i).getName());
+        }
+        this.category = names;
     }
 
 }
