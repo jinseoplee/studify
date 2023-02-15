@@ -27,6 +27,7 @@
 
 .side > div > img {
   height: 6vh;
+  cursor: pointer;
 }
 
 .headerLight {

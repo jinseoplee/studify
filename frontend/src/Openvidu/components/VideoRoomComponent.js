@@ -254,7 +254,30 @@ class VideoRoomComponent extends Component {
     if (this.props.leaveSession) {
       this.props.leaveSession();
     }
-    window.close();
+    axios
+      .post(
+        "/api/v1/users/log",
+        {
+          'endTime': Date.now,
+          'startTime':
+            localUser.getStreamManager()["session"]["connection"][
+              "creationTime"
+            ],
+        },
+        { headers: { "X-Auth-Token": localStorage.getItem("token") } }
+      )
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    console.log(localStorage.getItem("token"));
+    console.log(
+      Date.now() -
+        localUser.getStreamManager()["session"]["connection"]["creationTime"]
+    );
+    // window.close();
   }
   camStatusChanged() {
     localUser.setVideoActive(!localUser.isVideoActive());
@@ -512,7 +535,6 @@ class VideoRoomComponent extends Component {
     if (display === "block") {
       this.setState({ editorDisplay: display });
     } else {
-      console.log("MDEditor", display);
       this.setState({ editorDisplay: display });
     }
     this.updateLayout();
@@ -585,11 +607,11 @@ class VideoRoomComponent extends Component {
               className="OT_root OT_subscriber custom-class sc"
               id="remoteUsers"
             >
-                <StreamComponent
-                  user={sub}
-                  streamId={sub.streamManager.stream.streamId}
-                  className="subcribers_video"
-                />
+              <StreamComponent
+                user={sub}
+                streamId={sub.streamManager.stream.streamId}
+                className="subcribers_video"
+              />
             </div>
           ))}
           {localUser !== undefined &&

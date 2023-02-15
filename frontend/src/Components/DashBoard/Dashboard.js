@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import StudyRecord from "./StudyRecord";
 import SlidebarMain from "../Slidebar/SlidebarMain";
 import MyStudy from "./MyStudy";
-import AuthTimer from "../Signup/AuthTimer";
 import axios from "axios";
 import Dashboardstyle from "../../Style/Dashboard/Dashboard.module.css";
 
@@ -14,7 +13,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     axios
-      .get("api/v1/users", {
+      .get("/api/v1/users", {
         headers: {
           "X-Auth-Token": `${userToken}`,
         },
@@ -31,7 +30,6 @@ const Dashboard = () => {
   }, []);
   return (
     <div className={Dashboardstyle.dashboardContainer}>
-      <AuthTimer />
       <SlidebarMain width={300} />
       <div>
         <StudyRecord userData={userData} />

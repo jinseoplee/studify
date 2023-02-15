@@ -141,21 +141,21 @@ export default class SidebarComponent extends Component {
           </div>
         )}
         <div onClick={this.handleFullScreen}>
-          {localUser !== undefined && isFull ? (
+          { isFull ? (
             <img src={fulloff} alt="fulloff" />
           ) : (
             <img src={fullon} alt="fullon" />
           )}
         </div>
         <div onClick={this.toggleIsBlackBoard}>
-          {localUser !== undefined && this.state.isBlackBoard ? (
+          { this.state.isBlackBoard ? (
             <img src={paintoff} alt="paintoff" />
           ) : (
             <img src={painton} alt="painton" />
           )}
         </div>
         <div onClick={this.toggleEditor}>
-          {localUser !== undefined && editorDisplay === "none" ? (
+          { editorDisplay === "none" ? (
             <img src={mdon} alt="mdon" />
           ) : (
             <img src={mdoff} alt="mdoff" />

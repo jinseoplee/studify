@@ -23,28 +23,28 @@ const StudyInfo = () => {
               studydata.category.map((skill) => (
                 <div key={skill}>
                   <span className={StudyStyle.StudyInfoItem}>
-                    {skill === "Python" && (
+                    {skill === "python" && (
                       <img
                         alt="python"
                         src={python}
                         style={{ width: "40px" }}
                       ></img>
                     )}
-                    {skill === "Java" && (
+                    {skill === "java" && (
                       <img
                         alt="java"
                         src={java}
                         style={{ width: "40px" }}
                       ></img>
                     )}
-                    {skill === "JavaScript" && (
+                    {skill === "javaScript" && (
                       <img
                         alt="javascript"
                         src={javascript}
                         style={{ width: "40px" }}
                       ></img>
                     )}
-                    {skill === "C++" && (
+                    {skill === "cpp" && (
                       <img
                         alt="C++"
                         src={Cplus}

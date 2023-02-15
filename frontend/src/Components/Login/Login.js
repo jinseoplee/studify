@@ -63,6 +63,7 @@ const Login = () => {
       //좀 더 안전하게 데이터를 저장할 수 있는 방법을 생각해보아야합니다.
       //현재 리덕스에 토큰을 저장합니다.
       dispatch(loginActions.saveToken(response.data.token));
+      localStorage.setItem('token', response.data.token)
       //이메일을 로컬 스토리지에 저장..
       navigate("/mainpage");
     } catch (err) {
