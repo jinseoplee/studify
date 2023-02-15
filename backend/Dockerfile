@@ -5,8 +5,6 @@ EXPOSE 8080
 RUN mkdir src && cd src && mkdir img && cd img && mkdir profile && mkdir study
 RUN cd /
 
-COPY ./default.png /src/img/profile/default.png
-
 COPY ./build/libs/studify-0.0.1-SNAPSHOT.jar app.jar
 
 ENTRYPOINT ["java","-jar","/app.jar"]
