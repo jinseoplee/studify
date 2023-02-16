@@ -58,7 +58,7 @@ const RankAll = () => {
         </div>
       </div>
       <Pagination
-        total={AllRanking?.filter((data) => data.generation === 8).length}
+        total={AllRanking?.filter((data) => data.generation === userGeneration).length}
         limit={limit}
         page={page}
         setPage={setPage}
