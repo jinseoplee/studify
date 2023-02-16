@@ -106,6 +106,18 @@
   flex: 1;
 }
 
-.RankNameBox > div > span {
-  margin: 0 0 0 5px;
+/* .RankNameBox > div > span {
+  margin: 0 0 0 0px;
+} */
+
+.RankBoxInfo > span {
+  margin: 0 5px 0 0;
+}
+
+.RankBoxTime {
+  margin: 0 25px 0 0;
+}
+
+.RankColor {
+  color: yellow !important;
 }

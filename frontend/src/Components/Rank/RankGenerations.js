@@ -37,14 +37,14 @@ const RankGenerations = () => {
             ?.slice(offset, offset + limit)
             ?.map((data, key) => (
               <div key={key} className={RankStyle.RankNameBox}>
-                <div>
-                  <span>{key + offset + 1}</span>
+                <div className={RankStyle.RankBoxInfo}>
+                  <span className={RankStyle.RankColor}>{key + offset + 1}. </span>
                   <span>{data?.generation}기</span>
                   <span>{data?.region}</span>
                   <span>{data?.classNum}반</span>
                   <span>{data?.name}</span>
                 </div>
-                <div>
+                <div className={RankStyle.RankBoxTime}>
                   <span>
                     <h4>
                       {parseInt(data?.totalTime / 3600)}시간
