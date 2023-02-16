@@ -9,6 +9,7 @@ import com.ssafy.api.service.UserService;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.TempUser;
 import com.ssafy.db.entity.User;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,17 +26,21 @@ public class AuthController {
     private final Logger LOGGER = LoggerFactory.getLogger(AuthController.class);
     private final UserService userService;
 
+    /**
+     * 로그인 API([POST] /api/v1/users/auth/signin)
+     */
+    @Operation(summary = "로그인")
     @PostMapping("/signin")
-    public ResponseEntity<UserLoginPostRes> signIn(@RequestBody UserLoginPostReq userLoginPostReq) {
+    public ResponseEntity<? extends BaseResponseBody> signIn(@RequestBody UserLoginPostReq userLoginPostReq) {
         UserLoginPostRes userLoginPostRes = userService.signIn(userLoginPostReq);
-
-        if(userLoginPostRes.getStatusCode() == 200){
-            LOGGER.info("[signIn] 정상적으로 로그인되었습니다. email : {}, token : {}", userLoginPostRes.getEmail(), userLoginPostRes.getToken());
-        }
 
         return ResponseEntity.status(HttpStatus.OK).body(userLoginPostRes);
     }
 
+    /**
+     * 사용자 메일 인증 API([POST] /api/v1/users/auth/mail/register)
+     */
+    @Operation(summary = "사용자 메일 인증")
     @PostMapping("/mail/register")
     public ResponseEntity<? extends BaseResponseBody> sendAuthMail(
             @RequestBody UserAuthPostReq req) throws Exception {
@@ -48,6 +53,10 @@ public class AuthController {
         return ResponseEntity.status(HttpStatus.OK).body(userAuthPostRes);
     }
 
+    /**
+     * 회원가입 API([POST] /api/v1/users/auth/signup)
+     */
+    @Operation(summary = "회원가입")
     @PostMapping("/signup")
     public ResponseEntity<? extends BaseResponseBody> signUp(@RequestBody UserSignupPostReq signupPostReq) {
         TempUser tempUser = userService.certificateTempUser(signupPostReq);

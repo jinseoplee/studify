@@ -5,9 +5,11 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   border-radius: 5px;
   position: fixed;
-  top: 27vh;
-  left: 30%;
-  width: 40%;
+  /* top: 27vh;
+  left: 30%; */
+  display: flex;
+  justify-content: center;
+  width: 580px;
   /* height: auto; */
   min-height: 300px;
   overflow: hidden;

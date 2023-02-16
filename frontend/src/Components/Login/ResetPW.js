@@ -2,6 +2,8 @@ import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import SignupStyle from "../../Style/Signup/SignupForm.module.css";
+import LoginCard from "./LoginCard";
 
 const ResetPw = () => {
   //이 페이지에서는 이전에 넘어온 이름, 이메일 정보를 가지고 있어야합니다.
@@ -54,7 +56,7 @@ const ResetPw = () => {
       localStorage.removeItem("findname");
       localStorage.removeItem("findemail");
       //만약 정보가 맞으면?
-      navigate("/user/login/pw"); //이 부분이 애매하네..
+      navigate("/user/login"); //이 부분이 애매하네..
       //컴포넌트만 바꿔 끼우는 거라 useLocation은 현재 내 페이지에 있는 값을 가져오는 것이다.
       //redirect를 쓴적이 없어 가지고 있지 않을까? 라는 생각.
       //useLocation은 현재 페이지에 있는 것을 가져오는 것이라 모달창으로 띄운것을 가져오지 못했다.
@@ -66,50 +68,66 @@ const ResetPw = () => {
   };
   return (
     <>
-      비밀번호 재설정 페이지.
-      <form onSubmit={ResetPw}>
-        <label className="signupform-label">Password</label>
-        <div>
-          <input
-            type="password"
-            value={Password}
-            onChange={onChangePassword}
-            className="signup-input"
-          ></input>
-          <p className="signup-message">
-            {
-              <span className={`message ${isPassword ? "success" : "error"}`}>
-                {passwordMessage}
-              </span>
-            }
-          </p>
-        </div>
-        <label className="signupform-label">Password Check</label>
-        <div>
-          <input
-            type="password"
-            value={PasswordCheck}
-            onChange={onChangePasswordCheck}
-            className="signup-input"
-          ></input>
-          <p className="signup-message">
-            {
-              <span
-                className={`message ${isPasswordCheck ? "success" : "error"}`}
-              >
-                {passwordCheckMessage}
-              </span>
-            }
-          </p>
-        </div>
-        <button
-          type="submit"
-          disabled={!(isPassword && isPasswordCheck)}
-          className="signup-button"
-        >
-          변경하기
-        </button>
-      </form>
+      <div className={SignupStyle.maincontainer}>
+        <LoginCard>
+          <div className={SignupStyle.Container}>
+            <h1>비밀번호 재설정 페이지.</h1>
+            <form onSubmit={ResetPw}>
+              <label className={SignupStyle.signupform_label}>
+                비밀번호 입력
+              </label>
+              <div>
+                <input
+                  type="password"
+                  value={Password}
+                  onChange={onChangePassword}
+                  className={SignupStyle.signup_input}
+                ></input>
+                <p className={SignupStyle.signup_message}>
+                  {
+                    <span
+                      className={`message ${isPassword ? "success" : "error"}`}
+                    >
+                      {passwordMessage}
+                    </span>
+                  }
+                </p>
+              </div>
+              <label className={SignupStyle.signupform_label}>
+                비밀번호 확인
+              </label>
+              <div>
+                <input
+                  type="password"
+                  value={PasswordCheck}
+                  onChange={onChangePasswordCheck}
+                  className={SignupStyle.signup_input}
+                ></input>
+                <p className={SignupStyle.signup_message}>
+                  {
+                    <span
+                      className={`message ${
+                        isPasswordCheck ? "success" : "error"
+                      }`}
+                    >
+                      {passwordCheckMessage}
+                    </span>
+                  }
+                </p>
+              </div>
+              <div className={SignupStyle.btnEnd}>
+                <button
+                  type="submit"
+                  disabled={!(isPassword && isPasswordCheck)}
+                  className={SignupStyle.signup_button}
+                >
+                  변경하기
+                </button>
+              </div>
+            </form>
+          </div>
+        </LoginCard>
+      </div>
     </>
   );
 };

@@ -29,7 +29,7 @@ public class StudyImg {
     private String fileUrl;
 
     @Builder
-    public StudyImg(String name, String type, String fileUrl){
+    public StudyImg(String name, String type, String fileUrl) {
         this.name = name;
         this.type = type;
         this.fileUrl = fileUrl;

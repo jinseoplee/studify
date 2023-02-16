@@ -43,35 +43,40 @@
 }
 
 .sidebar {
-  background-color: antiquewhite;
+  background-color: #eae3f4;
   /* 사이드 바는 화면을 기준으로 배치 */
+  display: flex;
   position: fixed;
+  justify-content: space-evenly;
+  flex-direction: column;
   left: 0;
   top: 0;
   bottom: 0;
   width: 20vw;
-  padding: 1rem;
+  padding: 15px;
   z-index: 9999;
+  border-radius: 0 50px 0 0;
 }
 
 .publish {
-  background-color: #494949;
+  background-color: #565656;
+  display: flex;
   /* overflow: hidden; */
-  position: absolute;
+  /* position: absolute;
   left: 1vw;
   right: 0px;
   top: 8vh;
-  bottom: 0px;
-  height: 30vh;
-  min-width: 20vw !important;
+  bottom: 0px; */
+  height: 16vw;
+  min-width: 10vw !important;
   width: 20vw;
 }
 
 .bounds {
-  background-color: #494949;
+  background-color: #faf8fb;
   overflow: hidden;
   position: absolute;
-  left: 22vw;
+  /* left: 22vw; */
   right: 0;
   top: 0;
   bottom: 0;
@@ -920,4 +925,8 @@
   text-align: center;
   height: 100%;
   margin-top: 40px;
+}
+
+.sc {
+  border: 5px solid #cabbe7 !important;
 }

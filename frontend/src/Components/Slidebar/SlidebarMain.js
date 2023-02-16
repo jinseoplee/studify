@@ -4,7 +4,7 @@ import SlidebarContents from "./SlidebarContents";
 import rightarrow from "../../assets/image/rightarrow.png";
 import leftarrow from "../../assets/image/leftarrow.png";
 
-const SlidebarMain = ({ width = 400, children }) => {
+const SlidebarMain = ({ width = 300, children }) => {
   const [isOpen, setOpen] = useState(false);
   const [xPosition, setX] = useState(width);
   const side = useRef();
@@ -18,21 +18,23 @@ const SlidebarMain = ({ width = 400, children }) => {
       setOpen(false);
     }
   };
-  const handleClose = async (event) => {
+  const handleClose = (event) => {
     let sideArea = side.current;
     let sideChildren = side.current.contains(event.target);
     if (isOpen && (!sideArea || !sideChildren)) {
-      await setX(width);
-      await setOpen(false);
+      setX(width);
+      setOpen(false);
     }
   };
-
   useEffect(() => {
-    window.addEventListener("click", handleClose);
-    return () => {
-      window.removeEventListener("click", handleClose);
-    };
-  });
+    slideToggle();
+  }, true);
+  // useEffect(() => {
+  //   window.addEventListener("click", handleClose);
+  //   return () => {
+  //     window.removeEventListener("click", handleClose);
+  //   };
+  // });
   return (
     <div className={sidestyle.Slidecontainer}>
       <div

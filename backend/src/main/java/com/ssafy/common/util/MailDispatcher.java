@@ -39,10 +39,8 @@ public class MailDispatcher {
         return sb.append(split[0])
                 .append(name)
                 .append(split[1])
-                .append(domain)
-                .append(split[2])
                 .append(code)
-                .append(split[3])
+                .append(split[2])
                 .toString();
     }
 

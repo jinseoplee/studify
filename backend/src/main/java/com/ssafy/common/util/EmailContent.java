@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class EmailContent {
-    public static String AUTH_MAIL_DELIMITERS = "USERNAME|DOMAIN|CODE";
+    public static String AUTH_MAIL_DELIMITERS = "USERNAME|CODE";
     public static String AUTH_MAIL_BODY = "<!DOCTYPE html> \n" +
             "<html lang=\"en\"> \n" +
             "<head> \n" +
@@ -30,7 +30,7 @@ public class EmailContent {
             "      감사합니다. \n" +
             "    </p>\n" +
             "    <div>\n" +
-            "      <a href=\"http://DOMAIN/user/signup/CODE\" \n" +
+            "      <a href=\"https://i8b108.p.ssafy.io/user/signup/CODE\" \n" +
             "        class=\"certificate\"\n" +
             "        style=\"display: inline-block;\n" +
             "        color:white; \n" +

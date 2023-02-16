@@ -1,19 +1,29 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { Editor } from "@toast-ui/react-editor";
+import "@toast-ui/editor/dist/toastui-editor.css";
 import Dashboardstyle from "../../Style/Dashboard/Dashboard.module.css";
 import SkillCheckBox from "../UI/SkillCheckBox";
 import SelectCapaBox from "../UI/SelectCapaBox";
 import DayCheckbox from "../UI/DayCheckbox";
 import Topbar from "../Topbar/Topbar";
 import axios from "axios";
+import swal from "sweetalert";
 
 const StudyMake = () => {
+  const navigate = useNavigate();
+  const editorRef = useRef();
+  const onChangeDescription = () => {
+    setDescription(editorRef.current.getInstance().getHTML());
+  };
   const [Title, setTitle] = useState("");
   const [Description, setDescription] = useState("");
   const Capacity = useSelector((state) => state.selectday.studyCapa);
   const days = useSelector((state) => state.selectday.userDay);
   const skills = useSelector((state) => state.selectday.studySkill);
   const [isPublic, setIsPublic] = useState(false);
+  const userToken = useSelector((state) => state.token.accesstoken);
 
   const enteredTitleIsvalid = Title.trim() !== "";
   const checkSkill = skills.length !== 0;
@@ -37,24 +47,28 @@ const StudyMake = () => {
       alert("요일을 선택해주세요");
     } else {
       try {
+        console.log(typeof Description);
         const response = await axios.post(
-          "http://192.168.31.27:8080/api/v1/study",
+          "/api/v1/studies",
           {
-            // userid: "유저pk",
-            // thumbnailUrl:
-            //   "https://www.google.com/url?sa=i&url=https%3A%2F%2Fcanadablog.tistory.com%2F139&psig=AOvVaw13fpUadImITUBRotyFE_3Z&ust=1675209858482000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCNCqpJbB8PwCFQAAAAAdAAAAABAE",
             title: Title,
             description: Description,
-            host: "jjjp9966@gmail.com",
             capacity: Capacity,
             day: days,
             category: skills,
-            public: isPublic,
+            isPublic: isPublic,
+          },
+          {
+            headers: {
+              "X-AUTH-TOKEN": userToken,
+            },
           }
         );
         console.log(response);
+        navigate("/mainpage");
       } catch (err) {
         console.log(err);
+        swal("스터디 생성이 실패했습니다.");
       }
     }
   };
@@ -94,13 +108,16 @@ const StudyMake = () => {
         </div>
         <div className={Dashboardstyle.StudyMakebox}>
           <p className={Dashboardstyle.StudyMakeLabel}>스터디 소개글</p>
-          <textarea
-            cols="40"
-            rows="8"
-            value={Description}
-            onChange={onChangeDes}
-            className={Dashboardstyle.StudyDescriptioninput}
-          ></textarea>
+          <Editor
+            initialValue="소개를 넣어주세요"
+            previewStyle="vertical"
+            height="600px"
+            initialEditType="wysiwyg"
+            language="ko-KR"
+            ref={editorRef}
+            useCommandShortcut={false}
+            onChange={onChangeDescription}
+          ></Editor>
         </div>
         <div className={Dashboardstyle.StudyMakebox}>
           <p className={Dashboardstyle.StudyMakeLabel}>공개 설정</p>

@@ -18,12 +18,12 @@ public class StudyInfoUpdatePutReq {
 
     private String description; // 스터디 설명
 
-    private int capacity; // 인원
+    private Integer capacity; // 인원
 
     private List<String> day; // 요일
 
     private List<String> category; // 카테고리
 
-    private boolean isPublic; // 공개 여부
+    private Boolean isPublic; // 공개 여부
 
 }

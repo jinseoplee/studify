@@ -1,0 +1,117 @@
+.signup_background {
+  background-image: linear-gradient(to bottom, #cabbe77d, #ffffff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.signupform_div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: #ffffff;
+  width: 1200px;
+  height: 900px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  margin-top: 60px;
+}
+.signupform_label {
+  font-size: 20px;
+  margin-top: 30px;
+}
+
+.signupinput_div {
+  width: 700px;
+  display: flex;
+  align-items: left;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.signup_input {
+  margin: 5px;
+  width: 500px;
+  margin-left: -5px;
+  height: 25px;
+  font-size: 18px;
+  border: none;
+  padding: 5px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+  margin-top: 10px;
+}
+
+.signup_button {
+  width: 150px;
+  height: 50px;
+  background-color: #8a6bcd;
+  color: white;
+  border-radius: 25px;
+  margin-top: 20px;
+}
+
+.signup_message {
+  color: #554a6f;
+}
+
+.signup_logo {
+  margin-bottom: 20px;
+  width: 300px;
+}
+.ClassSelectbox {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+
+  font-family: "Noto Sansf KR", sans-serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+  line-height: 1.1;
+  text-align: center;
+
+  color: #444;
+  background-color: #fff;
+
+  padding: 0.6em 1.4em 0.5em 0.8em;
+  margin-top: 25px;
+  margin-left: 70px;
+
+  width: 350px;
+  border: 1px solid #8a6bcd;
+  border-radius: 1em;
+  box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.04);
+}
+
+.ClassSelectbox:hover {
+  border: 1px solid #b29ae3;
+  cursor: pointer;
+}
+.ClassSelectbox:focus {
+  border-color: #aaa;
+  box-shadow: 0 0 1px 3px #b29ae3;
+  box-shadow: 0 0 0 3px -moz-mac-focusring;
+  color: #222;
+  outline: none;
+}
+.userSignupPage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.btnEnd {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.maincontainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}

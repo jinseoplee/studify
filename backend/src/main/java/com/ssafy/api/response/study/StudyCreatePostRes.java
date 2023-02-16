@@ -13,7 +13,7 @@ import java.util.List;
 @Getter
 public class StudyCreatePostRes extends BaseResponseBody {
 
-    private long id; // 스터디 번호
+    private Long id; // 스터디 번호
 
     private String title; // 스터디 제목
 
@@ -21,13 +21,13 @@ public class StudyCreatePostRes extends BaseResponseBody {
 
     private String host; // 스터디 주최자
 
-    private int capacity; // 인원
+    private Integer capacity; // 인원
 
     private List<String> day; // 요일
 
     private List<String> category; // 카테고리
 
-    private boolean isPublic; // 공개 여부
+    private Boolean isPublic; // 공개 여부
 
     @Builder
     public StudyCreatePostRes(Integer statusCode, String message, Study study) {
@@ -37,7 +37,7 @@ public class StudyCreatePostRes extends BaseResponseBody {
         this.description = study.getDescription();
         this.capacity = study.getCapacity();
         this.day = study.getDay();
-        this.isPublic = study.isPublic();
+        this.isPublic = study.getIsPublic();
     }
 
 }

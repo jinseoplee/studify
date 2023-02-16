@@ -1,0 +1,111 @@
+.RankDetailContainer {
+  display: flex;
+  flex-direction: column;
+  white-space: nowrap;
+  background-color: #eae3f4;
+  padding: 5vh 0 5vh 0;
+  width: 90vw;
+  height: 500px;
+  border-radius: 10px;
+  ;
+}
+
+.RankContentContainter {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-top: auto;
+}
+
+.RankBarContainer {
+  display: flex;
+  width: 630px;
+  height: 100%;
+  flex-direction: column;
+}
+
+.RankNameBox {
+  display: flex;
+  align-items: center;
+  color: white;
+  font-size: 20px;
+  background-color: #8a6bcd;
+  width: 600px;
+  height: 58px;
+  padding: 0 0 0 30px;
+  margin: 0 0 10px 0;
+  border-radius: 10px;
+  justify-content: space-between;
+}
+
+.RankMainContainer {
+  margin: 5vh 5vw 5vh 5vw;
+}
+
+.RankSwitchBarContainer {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 20px;
+  margin: 0 20px 15px 0;
+}
+
+.RankSwitchBarLink {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+.RankPodiumContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap-reverse;
+  justify-content: center;
+  background-color: #8a6bcd;
+  width: 500px;
+  height: 330px;
+  margin: 10px 0 10px 0;
+  border-radius: 10px;
+}
+
+.RankFirst {
+  background-color: #DACFED;
+  height: 200px;
+  width: 100px;
+}
+
+.RankSecond {
+  background-color: #CABBE7;
+  height: 150px;
+  width: 100px;
+}
+
+.RankThird {
+  background-color: #CABBE7;
+  height: 100px;
+  width: 100px;
+}
+
+.RankPodiumDetail {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+}
+/* 
+.RankPagination {
+  justify-content: center;
+} */
+
+.ProfileImg {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.wrapper {
+  flex: 1;
+}
+
+.RankNameBox > div > span {
+  margin: 0 0 0 5px;
+}

@@ -1,5 +1,5 @@
 .modalloginTitle {
-  margin: 10px;
+  margin: 15px;
 }
 
 .modalloginFullScreen {
@@ -14,8 +14,8 @@
 
 .modalloginContainer {
   /* 모달창 크기 */
-  width: 22rem;
-  height: 10rem;
+  width: 350px;
+  height: 160px;
   /* 최상단 위치 */
   z-index: 9999999;
 
@@ -42,19 +42,21 @@
   position: absolute;
   right: 1rem;
   top: 0.8rem;
+  border-radius: 2rem;
+  border-width: 1px;
 }
 
 .modalloginInputspace {
-  width: 11rem;
-  height: 1.3rem;
+  width: 180px;
+  height: 22px;
 }
-.modalloginInputspaceName {
-  margin-left: 1rem;
-  margin-bottom: 0.3rem;
+.modalInputspaceName {
+  position: relative;
+  left: 6px;
 }
 
 .modalloginInputspaceEmail {
-  margin: 0.3rem;
+  margin: 8px;
 }
 
 .modalloginLoginButton {
@@ -62,4 +64,11 @@
   justify-content: flex-end;
   margin-right: 3rem;
   margin-top: 0.5rem;
+}
+
+.modalFindBtn {
+  position: relative;
+  right: 8px;
+  border-radius: 5rem;
+  border-width: 1px;
 }

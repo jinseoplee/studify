@@ -1,22 +1,27 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import LoginId from "./pages/Login/LoginId";
-import LoginPw from "./pages/Login/LoginPw";
+import LoginPage from "./pages/Login/Login";
 import MainPage from "./pages/MainPage/MainPage";
 import RootLayout from "./pages/MainPage/RootLayout";
-import Signup, { action as newSignupAction } from "./pages/Signup/Signup";
+import Signup from "./pages/Signup/Signup";
 import UserSignup from "./Components/Signup/UserSignup";
 import ResetPw from "./pages/Login/ResetPw";
 import DashBoard from "./pages/DashBoard/DashBoard";
-//이 아래로 컴포넌트로 이동?.. 이것도 페이지 이동으로 바꿔야할거 같은데..
 import StudyMake from "./Components/DashBoard/StudyMake";
 import StudyDetails from "./pages/MainStudy/StudyDetails";
 import StudyInfo from "./Components/MainStudy/StudyInfo";
-import StudyRule from "./Components/MainStudy/StudyRule";
 import StudyHistory from "./Components/MainStudy/StudyHistory";
 import StudyMember from "./Components/MainStudy/StudyMember";
-import StudyRoungeMain from "./Components/StudyRounge/StudyRoungeMain";
+import StudyUpdate from "./Components/MainStudy/StudyUpdate";
+import StudyRoungeMain from "./pages/StudyRounge/StudyRounge";
 import ChartTest from "./Components/UI/ChartTest";
-import VideoRoomComponent from "./Openvidu/components/VideoRoomComponent";
+import ProfilePage from "./pages/Profile/ProfileMain";
+import VideoRoom from "./pages/ViedeoRoom/VideoRoom";
+import Ranking from "./pages/Rank/Ranking";
+import RankAll from "./Components/Rank/RankAll";
+import RankGenerations from "./Components/Rank/RankGenerations";
+import ProfileEdit from "./Components/Profile/ProfileEdit";
+import StudyExplain from "./pages/StudyRounge/StudyExplain";
+import UserCheck from "./Components/TokenCheck/UserCheck";
 
 const router = createBrowserRouter([
   {
@@ -27,7 +32,7 @@ const router = createBrowserRouter([
       {
         path: "/user/signup",
         element: <Signup />,
-        action: { newSignupAction },
+        // action: { newSignupAction },
         errorElement: <p>잘못된 정보입니다.</p>,
       },
       {
@@ -35,19 +40,15 @@ const router = createBrowserRouter([
         element: <UserSignup />,
       },
       {
-        path: "/user/login/id",
-        element: <LoginId />,
-      },
-      {
-        path: "/user/login/pw",
-        element: <LoginPw />,
+        path: "/user/login",
+        element: <LoginPage />,
       },
       {
         path: "/user/resetpw",
         element: <ResetPw />,
       },
       {
-        path: "/dashboard",
+        path: "/mainpage",
         element: <DashBoard />,
       },
       {
@@ -58,19 +59,36 @@ const router = createBrowserRouter([
         path: "/study/newstudy",
         element: <StudyMake />,
       },
+      {
+        path: "/study/explain",
+        element: <StudyExplain />,
+      },
       // 중첩라우팅
       {
         path: "/study/:studyId",
         element: <StudyDetails />,
         children: [
+          { index: true, element: <StudyInfo /> },
           { path: "info", element: <StudyInfo /> },
-          { path: "rule", element: <StudyRule /> },
           { path: "record", element: <StudyHistory /> },
           { path: "member", element: <StudyMember /> },
         ],
       },
       { path: "/chart", element: <ChartTest /> },
-      { path: "/videoroom", element: <VideoRoomComponent /> },
+      { path: "/usercheck", element: <UserCheck /> },
+      { path: "/videoroom", element: <VideoRoom />, errorElement: <DashBoard /> },
+      {
+        path: "/ranking",
+        element: <Ranking />,
+        children: [
+          { index: true, element: <RankAll /> },
+          { path: "all", element: <RankAll /> },
+          { path: "generations", element: <RankGenerations /> },
+        ],
+      },
+      { path: "/userprofile", element: <ProfilePage /> },
+      { path: "/userprofile/edit", element: <ProfileEdit /> },
+      { path: "/study/:studyId/update", element: <StudyUpdate /> },
     ],
   },
 ]);

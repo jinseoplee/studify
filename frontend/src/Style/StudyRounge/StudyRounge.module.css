@@ -10,6 +10,7 @@
   /* display: flex; */
   width: 100%;
   margin-top: 50px;
+  margin-bottom: 50px;
 }
 
 .RoungeBannerBox {
@@ -24,32 +25,200 @@
   background-image: url(../../assets/image/Banner_1.png);
 }
 
-.RoungeFilterContainer {
+/* @media only screen and (max-width: 1000px) {
+  button {
+    display: none;
+  }
+} */
+
+.Container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.leftContanier {
+  display: flex;
+  width: 70%;
+  flex-direction: column;
+  padding-left: 100px;
+  align-items: center;
+}
+
+.rightContainer {
+  display: flex;
+  width: 25%;
+  align-items: center;
+}
+
+.RoungeSkillContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 63%;
+  flex-wrap: wrap;
+}
+
+.RoungeInfoField {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.RoungeInfoContainer {
+  margin: 8px;
+}
+
+.RoungeInfoBox {
+  margin-top: 0.5rem;
+  margin-left: 2rem;
+  margin-right: 1rem;
+  font-size: 32px;
+}
+
+.RoungeListContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100%;
-  margin-top: 50px;
+  margin: 1rem;
 }
 
-.RoungeListContainer {
-  width: 70%;
-  margin-top: 50px;
+.RoungeInfoButton {
+  height: 1.6rem;
+  width: 1.6rem;
 }
 
 .RoungeFilterBtn {
-  width: 160px;
-  height: 64px;
+  margin: 8px;
+  /* display: flex; */
+  /* justify-content: center; */
+  /* align-items: center; */
+}
+
+.RoungeFilterFBtn {
+  display: flex;
+  align-items: center;
+  height: 60px;
   border: 1px solid #8a6bcd;
   border-radius: 20px;
   background-color: white;
   font-size: 20px;
-  margin-left: 20px;
-  margin-right: 20px;
+  margin: 5px;
+}
+
+.RoungeFilterFBtn > .RoungeFilterText {
+  font-size: 24px;
+}
+
+.RoungeFilterTBtn {
+  display: flex;
+  align-items: center;
+  /* width: 180px; */
+  height: 60px;
+  border: 3px solid #8a6bcd;
+  border-radius: 20px;
+  background-color: white;
+  font-size: 20px;
+  margin: 5px;
+}
+
+.RoungeSearchBtn {
+  width: 120px;
+  height: 60px;
+  font-size: 14px;
+  border-width: 3px;
+  border: 2px solid #8a6bcd;
+  border-radius: 15px;
+  background-color: white;
+  margin-left: 2rem;
 }
 
 .Banner1Title {
   color: white;
   font-size: 40px;
+}
+
+.RoungeCheckBox {
+  position: relative;
+  height: 20px;
+  width: 20px;
+  margin-left: 0.5rem;
+  margin-right: 3rem;
+  top: 0.3rem;
+}
+
+.RoungeFilterBox {
+  display: flex;
+}
+
+.Listcontainer {
+  display: flex;
+  width: 85%;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.StudyListcard {
+  margin: 10px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 0px 4px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  width: 320px;
+}
+
+.StudyListcardheader img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.StudyListCardbody {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 20px;
+  min-height: 150px;
+}
+
+.StudySkill {
+  display: flex;
+  flex-direction: row;
+}
+
+.Studytag {
+  background: #cccccc;
+  border-radius: 50px;
+  font-size: 12px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  color: #fff;
+  padding: 2px 10px;
+  text-transform: uppercase;
+  cursor: pointer;
+  background-color: #8a6bcd;
+}
+
+.StudyListCardbody p {
+  font-size: 13px;
+  margin: 0 0 40px;
+}
+
+.StudyListcard:hover {
+  opacity: 1;
+  transform: scale(1.03) translateZ(0);
+  cursor: pointer;
+}
+
+.moreButton {
+  width: 60px;
+  height: 30px;
+  font-size: 12px;
+  border-width: 3px;
+  border: 4px solid #8a6bcd;
+  border-radius: 8px;
+  background-color: white;
 }

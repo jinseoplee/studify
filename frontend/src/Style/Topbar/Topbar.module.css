@@ -4,10 +4,13 @@
   justify-content: space-between;
   top: 0;
   width: 100%;
-  font-size: 24px;
+  height: 80px;
   align-items: center;
   text-align: center;
+  overflow: hidden;
+  overflow: hidden;
 }
+
 .topbar_left {
   display: flex;
   align-items: center;
@@ -15,23 +18,48 @@
 
 .section {
   margin-right: 5rem;
-  display: inline-flex;
+  display: flex;
+  display: flex;
   align-items: center;
 }
 
 .logo {
   margin-left: 1rem;
+  /* width: 280px; */
+  height: 60px;
 }
 
-.vector {
-  margin-right: 1rem;
+.logo:hover {
+  cursor: pointer;
 }
 
 .text_link {
-  color: inherit;
+  color: #303030;
+  font-weight: bold;
   text-decoration: inherit;
+  font-size: 22px;
+}
+@media (max-width: 1200px) {
+  .text_link {
+    font-size: 12px;
+  }
 }
 
 .text_link:hover {
-  color: blue;
+  color: #cabbe7;
+}
+
+.logintext {
+  position: absolute;
+  margin: 0 0 0 85px;
+}
+
+.logouttext {
+  position: absolute;
+  margin: 0 0 0 75px;
+}
+
+.login {
+  display: flex;
+  align-items: center;
 }

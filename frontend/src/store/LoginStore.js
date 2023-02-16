@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialTokenState = { accesstoken: " " };
+const initialTokenState = { accesstoken: " ", useremail: " ", name: " " };
 
 const loginSlice = createSlice({
   name: "token",
@@ -9,6 +9,12 @@ const loginSlice = createSlice({
     saveToken(state, action) {
       state.accesstoken = action.payload;
     },
+    saveUserEmail(state, action) {
+      state.useremail = action.payload;
+    },
+    saveName(state, action) {
+      state.name = action.payload;
+    }
   },
 });
 

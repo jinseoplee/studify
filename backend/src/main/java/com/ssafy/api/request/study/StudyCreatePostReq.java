@@ -1,36 +1,47 @@
 package com.ssafy.api.request.study;
 
+import com.ssafy.db.entity.Category;
 import com.ssafy.db.entity.Study;
-import lombok.Setter;
-import lombok.ToString;
+import com.ssafy.db.entity.User;
+import lombok.Getter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 스터디 생성 API ([POST] /api/v1/study) 요청에 필요한 리퀘스트 바디 정의
+ * 스터디 생성 API ([POST] /api/v1/studies) 요청에 필요한 리퀘스트 바디 정의
  */
-@Setter
+@Getter
 public class StudyCreatePostReq {
 
-    private String title; // 스터디 제목
+    private String title;
 
-    private String description; // 스터디 설명
-    
-    private int capacity; // 수용 인원
+    private String description;
 
-    private List<String> day; // 요일
+    private Integer capacity;
 
-    private List<String> category; // 카테고리
+    private List<String> day;
 
-    private boolean isPublic; // 공개 여부
+    private List<String> category;
 
-    public Study toEntity() {
+    private Boolean isPublic;
+
+    private Integer generation;
+
+    private String region;
+
+    private Integer classNum;
+
+    public Study toEntity(User user) {
         return Study.builder()
                 .title(title)
                 .description(description)
                 .capacity(capacity)
                 .day(day)
                 .isPublic(isPublic)
+                .generation(user.getGeneration())
+                .region(user.getRegion())
+                .classNum(user.getClassNum())
                 .build();
     }
 

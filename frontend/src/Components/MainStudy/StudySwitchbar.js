@@ -1,23 +1,20 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import SwitchStyle from "../../Style/MainStudy/Switchbar.module.css";
 
 const StudySwitchbar = ({ id }) => {
   return (
     <div className={SwitchStyle.studyMenu}>
-      <Link to="info" className={SwitchStyle.studyMenuText}>
+      <NavLink to="info" className={SwitchStyle.studyMenuText}>
         소개
-      </Link>
-      <Link to="rule" className={SwitchStyle.studyMenuText}>
-        이용수칙
-      </Link>
+      </NavLink>
 
-      <Link to="record" className={SwitchStyle.studyMenuText}>
-        활동 기록
-      </Link>
+      <NavLink to="record" className={SwitchStyle.studyMenuText}>
+        규칙
+      </NavLink>
 
-      <Link to="member" className={SwitchStyle.studyMenuText}>
+      <NavLink to="member" className={SwitchStyle.studyMenuText}>
         스터디 멤버
-      </Link>
+      </NavLink>
     </div>
   );
 };

@@ -10,9 +10,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 /**
- * 인증(authentication) 와 인가(authorization) 처리를 위한 스프링 시큐리티 설정 정의
+ * 인증(authentication)과 인가(authorization) 처리를 위한 스프링 시큐리티 설정 정의
  */
 @RequiredArgsConstructor
 @Configuration
@@ -31,13 +34,14 @@ public class SecurityConfig {
         http
                 .httpBasic().disable() // REST API는 UI를 사용하지 않으므로 기본 설정을 비활성화
                 .csrf().disable() // REST API는 csrf 보안이 필요 없으므로 비활성화
+
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // JWT token 인증 방식은 세션이 필요 없으므로 비활성화
 
                 .and()
                 .authorizeRequests()
-                .antMatchers("/api/v1/users/**").permitAll()
-                .antMatchers("/api/v1/study/**").authenticated()
+                .antMatchers("/api/v1/users/**", "/v3/api-docs/", "/swagger-ui/", "/swagger-resources/**").permitAll()
+                .antMatchers("/api/v1/studies/**").authenticated()
 
                 .and()
                 .exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint())
