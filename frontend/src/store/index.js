@@ -29,7 +29,7 @@ const reducers = combineReducers({
 const persistConfig = {
   key: "root",
   storage: session,
-  whitelist: ["codenum", "token", "selectday"],
+  whitelist: ["codenum", "token", "selectday", "userinfo"],
 };
 
 const persistedReducer = persistReducer(persistConfig, reducers);

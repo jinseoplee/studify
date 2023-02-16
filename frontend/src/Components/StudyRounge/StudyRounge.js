@@ -14,7 +14,9 @@ import { useRef } from "react";
 
 const StudyRounge = () => {
   const dispatch = useDispatch();
+  const userToken = useSelector((state) => state.token.accesstoken);
   const userRegion = useSelector((state) => state.userinfo.userRegion);
+  const userClassNum = useSelector((state) => state.userinfo.classNum);
   const username = useSelector((state) => state.token.name);
   const [checkSkill, setCheckSkill] = useState([]);
   const [checkViewStudy, setCheckViewStudy] = useState("");
@@ -24,7 +26,7 @@ const StudyRounge = () => {
   const [regionName, setRegionName] = useState(null);
   const [classnum, setClassnum] = useState(false);
   const [classnumName, setClassnumName] = useState(null);
-  const [isPublic, setIsPublic] = useState(null);
+  const [isPublic, setIsPublic] = useState(true);
   const [tokencookies, setTokenCookie, removeTokenCookie] = useCookies([
     "userToken",
   ]);
@@ -34,7 +36,6 @@ const StudyRounge = () => {
   const navigate = useNavigate();
   const mounted = useRef(false);
 
-  const userToken = useSelector((state) => state.token.accesstoken);
   const data = [
     {
       id: 0,
@@ -74,15 +75,27 @@ const StudyRounge = () => {
   ];
 
   //그럼 여기서 나의 정보를 가지고 있어야합니다.
-
   const handleRegion = () => {
     if (region) {
       setRegion(false);
       setRegionName(null);
     } else {
       setRegion(true);
-      //유저의 지역이름 저장.
-      setRegionName(userRegion);
+      userRegionChange();
+    }
+  };
+  const userRegionChange = () => {
+    if (userRegion === "서울") {
+      setRegionName("seoul");
+    } else if (userRegion == "대전") {
+      console.log("내가 동작해야해..");
+      setRegionName("daejeon");
+    } else if (userRegion == "부산") {
+      setRegionName("buk");
+    } else if (userRegion == "구미") {
+      setRegionName("gumi");
+    } else if (userRegion == "광주") {
+      setRegionName("gwangju");
     }
   };
 
@@ -94,7 +107,8 @@ const StudyRounge = () => {
       } else {
         setClassnum(true);
         //유저의 반을 저장.
-        setClassnumName(5);
+        setClassnumName(userClassNum);
+        console.log(userClassNum);
       }
     } else {
       swal("지역을 먼저 선택해주세요.");
