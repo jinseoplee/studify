@@ -14,52 +14,27 @@ const StudyMember = () => {
             <h5 style={{ fontSize: "25px" }}>스터디장</h5>
             <div className={Style.userTitle}>
               <p>
-                {studydata.users && studydata.users[0].region}{" "}
-                {studydata.users && studydata.users[0].classNum}반
+                {studydata.users[0].region} {studydata.users[0].classNum}반
               </p>
-              <p style={{ marginLeft: "7px" }}>
-                {" "}
-                {studydata.users && studydata.users[0].name}
-              </p>
+              <p style={{ marginLeft: "7px" }}> {studydata.users[0].name}</p>
             </div>
           </div>
-          <div className={Style.MemberTime}>
-            <p style={{ marginRight: "10px" }}>공부 총 시간</p>
-            <span>
-              {parseInt(studydata.users[0].totalTime / 3600)}시간{" "}
-              {parseInt((studydata.users[0].totalTime % 3600) / 60)}분{" "}
-              {parseInt(studydata.users[0].totalTime % 60)}초
-            </span>
-          </div>
         </div>
-        <div>
+        <div className={Style.StudyMemberList}>
           {studydata.users &&
             studydata.users.slice(1).map((study) => (
-              <div key={study.id}>
-                <div className={Style.Maintainerbox}>
-                  <img
-                    alt="member"
-                    src={memberpic}
-                    className={Style.userImg}
-                  ></img>
-                  <div>
-                    <h5 style={{ fontSize: "25px" }}>스터디원</h5>
-                    <div className={Style.userTitle}>
-                      <p>
-                        {study.region} {study.classNum}반
-                      </p>
-                      <p style={{ marginLeft: "7px" }}>{study.name}</p>
-                    </div>
-                  </div>
-                  <div className={Style.MemberTime}>
-                    <p style={{ marginRight: "10px" }}>공부 총 시간</p>
-                    <span>
-                      {parseInt(study.totalTime / 3600)}시간{" "}
-                      {parseInt((study.totalTime % 3600) / 60)}분{" "}
-                      {parseInt(study.totalTime % 60)}초
-                    </span>
-                  </div>
-                </div>
+              <div key={study.id} className={Style.MemberListItem}>
+                <img
+                  alt="member"
+                  src={memberpic}
+                  style={{ width: "5vw" }}
+                ></img>
+                <h5>스터디 팀원</h5>
+                <p>{study.name}</p>
+                <p>{study.generation} 기</p>
+                <p>{study.classNum} 반</p>
+                <p>{study.region}</p>
+                <p>공부시간 {study.totalTime / 3600}</p>
               </div>
             ))}
         </div>

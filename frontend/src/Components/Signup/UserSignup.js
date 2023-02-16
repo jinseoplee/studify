@@ -28,11 +28,7 @@ const UserSignup = () => {
   });
   return (
     <div className={SignupStyle.userSignupPage}>
-      <img
-        src={logo}
-        alt="logo"
-        style={{ width: "300px", marginTop: "300px" }}
-      ></img>
+      <img src={logo} alt="logo"></img>
       <p>메일 인증을 확인했습니다</p>
     </div>
   );
