@@ -5,6 +5,7 @@ import RankPodium from "./RankPodium";
 import Pagination from "../UI/Pagination";
 
 const RankAll = () => {
+  const limit = 5;
   const [AllRanking, setAllRanking] = useState([])
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
@@ -17,9 +18,9 @@ const RankAll = () => {
       console.log(err);
     }
   };
-  // useEffect(() => {
-  //   RankAllhandler();
-  // }, []);
+  useEffect(() => {
+    RankAllhandler();
+  }, []);
 
   return (
     <div className={RankStyle.RankDetailContainer}>
