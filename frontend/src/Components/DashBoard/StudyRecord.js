@@ -34,7 +34,7 @@ const StudyRecord = ({ userData }) => {
 
   return (
     <div className={Dashboardstyle.StudyRecordContainer}>
-      <h3 style={{ fontSize: "20px" }}>나의 기록</h3>
+      <h3 style={{ fontSize: "20px", marginLeft: "26px" }}>나의 기록</h3>
       <div className={Dashboardstyle.StudyRecordbox}>
         <div className={Dashboardstyle.StudyRecordTime}>
           <StudyRecordDetail userTime={userTime} />

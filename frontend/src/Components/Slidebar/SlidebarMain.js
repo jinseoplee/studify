@@ -26,7 +26,9 @@ const SlidebarMain = ({ width = 300, children }) => {
       setOpen(false);
     }
   };
-
+  useEffect(() => {
+    slideToggle();
+  }, true);
   // useEffect(() => {
   //   window.addEventListener("click", handleClose);
   //   return () => {

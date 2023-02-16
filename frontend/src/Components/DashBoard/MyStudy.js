@@ -28,7 +28,7 @@ const MyStudy = ({ studies }) => {
   //나의 스터디 리스트를 눌렀을 경우 리덕스에 그 번호 저장
   return (
     <div className={Dashboardstyle.MyStudycontainer}>
-      <h3 style={{ fontSize: "20px" }}>나의 스터디</h3>
+      <h3 style={{ fontSize: "20px", marginLeft: "22px" }}>나의 스터디</h3>
       <div className={Dashboardstyle.MyStudybox}>
         <Link to="/study/newstudy" className={Dashboardstyle.MyStudyMake}>
           <img
@@ -36,9 +36,15 @@ const MyStudy = ({ studies }) => {
             src={makestudy}
             alt="makestudy"
           />
+          <p>스터디 만들기</p>
         </Link>
 
         <div className={Dashboardstyle.MyStudyList}>
+          {studies && studies.length === 0 && (
+            <p className={Dashboardstyle.MystudyAlert}>
+              아직 참가중인 스터디가 없습니다
+            </p>
+          )}
           {studies && studies.length === 1 && (
             <Swiper
               slidesPerView={1}
@@ -82,24 +88,18 @@ const MyStudy = ({ studies }) => {
                             </div>
                           ))}
                       </div>
-                      <div className={Dashboardstyle.MystudyListbox}>
-                        <div className={Dashboardstyle.lineMargin}>
+                      <p className={Dashboardstyle.MystudyListbox}>
+                        <p className={Dashboardstyle.lineMargin}>
                           <p>
                             인원 : {study.headcount} / {study.capacity}
                           </p>
-                        </div>
-                        <div className={Dashboardstyle.MystudyDate}>
-                          일 정 :
-                          {study.day &&
-                            study.day.map((d, index) => (
-                              <div key={d}>
-                                <p className={Dashboardstyle.MystudyDate}>
-                                  {d}
-                                </p>
-                              </div>
-                            ))}
-                        </div>
-                      </div>
+                          <p>
+                            일정:
+                            {study.day &&
+                              study.day.map((d, index) => <p key={d}>{d}</p>)}
+                          </p>
+                        </p>
+                      </p>
                     </div>
                   </div>
                 </SwiperSlide>
