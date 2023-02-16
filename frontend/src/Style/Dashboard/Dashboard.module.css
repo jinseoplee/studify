@@ -3,7 +3,13 @@
 }
 
 .flexbox > div > p {
-  margin-right: 10px;
+  margin-left: 6px;
+  margin-right: 6px;
+}
+
+.flexbox > div > p > p {
+  margin-left: 6px;
+  margin-right: 6px;
 }
 
 .rangebox {
