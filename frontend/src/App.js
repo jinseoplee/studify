@@ -19,7 +19,7 @@ import VideoRoom from "./pages/ViedeoRoom/VideoRoom";
 import Ranking from "./pages/Rank/Ranking";
 import RankAll from "./Components/Rank/RankAll";
 import RankGenerations from "./Components/Rank/RankGenerations";
-import ProfileEdit from "./Components/Profile/ProfileEdit";
+import ProfileEdit from "./pages/Profile/ProfileEdit";
 import StudyExplain from "./pages/StudyRounge/StudyExplain";
 import UserCheck from "./Components/TokenCheck/UserCheck";
 
