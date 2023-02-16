@@ -242,7 +242,7 @@ const StudyRounge = () => {
         </span>
         <div className={RoungeStyle.rightContainer}>
           <button onClick={filterStudy} className={RoungeStyle.RoungeSearchBtn}>
-            필터 적용하기
+            필터 적용
           </button>
         </div>
       </div>

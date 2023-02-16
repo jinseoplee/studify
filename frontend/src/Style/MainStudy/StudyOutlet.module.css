@@ -5,7 +5,7 @@
   align-items: center;
 }
 .StudyMemberBox {
-  width: 50vw;
+  width: 55vw;
 }
 
 .StudyMemberList {
@@ -19,9 +19,11 @@
   align-items: center;
   margin: 10px;
   border-left: 2px solid #8a6bcd;
-  padding-left: 20px;
+  padding-left: 30px;
   padding-top: 1px;
   padding-bottom: 33px;
+  margin-bottom: 40px;
+  margin-left: 140px;
 }
 .MemberListItem {
   display: flex;
@@ -43,5 +45,11 @@
 .userTitle {
   display: flex;
   margin-top: -13px;
+  font-size: 20px;
+}
+.MemberTime {
+  display: flex;
+  margin-left: 200px;
+  margin-top: 30px;
   font-size: 20px;
 }

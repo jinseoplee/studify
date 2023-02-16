@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import LoginCard from "./LoginCard";
 import ModalLogin from "../UI/ModalLogin";
 import LoginStyle from "../../Style/Login/Login.module.css";
+import logo from "../../assets/image/logo.png";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -95,6 +96,16 @@ const Login = () => {
       <LoginCard>
         <form onSubmit={handleSubmit} className={LoginStyle.loginForm}>
           <div className={LoginStyle.loginBox}>
+            <img
+              src={logo}
+              alt="studify"
+              style={{
+                width: "150px",
+                marginLeft: "110px",
+                marginBottom: "30px",
+                marginTop: "-20px",
+              }}
+            ></img>
             <h2 className={LoginStyle.loginText}>로그인</h2>
             <div className={LoginStyle.loginEmailform}>
               <input
