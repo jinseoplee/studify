@@ -39,11 +39,6 @@
   text-decoration: inherit;
   font-size: 22px;
 }
-@media (max-width: 1200px) {
-  .text_link {
-    font-size: 12px;
-  }
-}
 
 .text_link:hover {
   color: #cabbe7;

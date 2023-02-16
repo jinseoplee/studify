@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import RankStyle from "../../Style/Rank/Rank.module.css";
 import RankPodium from "./RankPodium";
-import Pagination from "../UI/Pagination";
+import Paginations from "../UI/Paginations";
 import { useSelector } from "react-redux";
 
 const RankGenerations = () => {
@@ -57,7 +57,7 @@ const RankGenerations = () => {
             ))}
         </div>
       </div>
-      <Pagination
+      <Paginations
         total={AllRanking?.filter((data) => data.generation === userGeneration).length}
         limit={limit}
         page={page}

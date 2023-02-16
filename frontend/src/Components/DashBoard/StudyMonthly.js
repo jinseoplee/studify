@@ -15,7 +15,11 @@ const StudyMonthly = ({ recordData, user, userTime }) => {
         ></img>
         {!recordData && <p>스터디 시간이 없습니다</p>}
         {recordData && (
-          <p>총 {Math.floor(recordData.totalTime / 3600)} 시간 공부</p>
+          <p>
+            총 {parseInt(recordData.totalTime / 3600)}시간{" "}
+            {parseInt((recordData.totalTime % 3600) / 60)}분{" "}
+            {parseInt(recordData.totalTime % 60)}초 공부했습니다
+          </p>
         )}
         {!userTime[0] && <p>최근 스터디가 없습니다</p>}
         <p>최근 스터디는 {userTime[0] && userTime[0].day} 입니다</p>
