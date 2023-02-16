@@ -5,6 +5,8 @@ import RankGetImage from "./RankGetImage";
 const RankPodium = (props) => {
   const { data } = props;
   return (
+    <div>
+      <h1>명예의 전당</h1>
     <div className={RankStyle.RankPodiumContainer}>
       <div className={RankStyle.RankPodiumDetail}>
         <div className={RankStyle.RankSecond} />
@@ -27,6 +29,7 @@ const RankPodium = (props) => {
           {data[2]?.name}
         </p>
       </div>
+    </div>
     </div>
   );
 };

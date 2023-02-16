@@ -7,6 +7,7 @@ const TokenRemove = () => {
   const dispatch = useDispatch();
   dispatch(loginActions.saveToken(" "));
   dispatch(userChangeActions.saveUserRegion());
+  dispatch(userChangeActions.saveUserGeneration());
   return <></>;
 };
 

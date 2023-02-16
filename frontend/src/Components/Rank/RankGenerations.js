@@ -3,17 +3,17 @@ import axios from "axios";
 import RankStyle from "../../Style/Rank/Rank.module.css";
 import RankPodium from "./RankPodium";
 import Pagination from "../UI/Pagination";
+import { useSelector } from "react-redux";
 
 const RankAll = () => {
+  const userGeneration = useSelector((state) => state.userinfo.userGeneration);
   const [AllRanking, setAllRanking] = useState([]);
   const limit = 5;
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
   const RankAllhandler = async () => {
     try {
-      const response = await axios.get(
-        "/api/v1/users/rank"
-      );
+      const response = await axios.get("/api/v1/users/rank");
       setAllRanking(response.data.content);
     } catch (err) {
       console.log(err);
@@ -23,22 +23,42 @@ const RankAll = () => {
     RankAllhandler();
   }, []);
 
-  return ( 
+  return (
     <div className={RankStyle.RankDetailContainer}>
       <div className={RankStyle.RankContentContainter}>
-        <RankPodium data={AllRanking?.filter(data => data.generation === 8)} />
+        <RankPodium
+          data={AllRanking?.filter(
+            (data) => data.generation === userGeneration
+          )}
+        />
         <div className={RankStyle.RankBarContainer}>
-          {AllRanking?.filter(data => data.generation === 8)?.slice(offset, offset + limit)?.map((data, key) => (
-            <div key={key} className={RankStyle.RankNameBox}>
-              <span>{key + offset + 1}</span>
-              <span>{data?.name}</span>
-              <span>{data?.totalTime}</span>
-            </div>
-          ))}
+          <h1>순위표</h1>
+          {AllRanking?.filter((data) => data.generation === userGeneration)
+            ?.slice(offset, offset + limit)
+            ?.map((data, key) => (
+              <div key={key} className={RankStyle.RankNameBox}>
+                <div>
+                  <span>{key + offset + 1}</span>
+                  <span>{data?.generation}기</span>
+                  <span>{data?.region}</span>
+                  <span>{data?.classNum}반</span>
+                  <span>{data?.name}</span>
+                </div>
+                <div>
+                  <span>
+                    <h4>
+                      {parseInt(data?.totalTime / 3600)}시간
+                      {parseInt((data?.totalTime % 3600) / 60)}분
+                      {parseInt(data?.totalTime % 60)}초
+                    </h4>
+                  </span>
+                </div>
+              </div>
+            ))}
         </div>
       </div>
       <Pagination
-        total={AllRanking?.filter(data => data.generation === 8).length}
+        total={AllRanking?.filter((data) => data.generation === 8).length}
         limit={limit}
         page={page}
         setPage={setPage}

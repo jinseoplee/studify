@@ -91,7 +91,7 @@ const Login = () => {
     closeModal();
   };
   return (
-    <div className={LoginStyle.loginContainer}>
+    <div className={LoginStyle.maincontainer}>
       <LoginCard>
         <form onSubmit={handleSubmit} className={LoginStyle.loginForm}>
           <div className={LoginStyle.loginBox}>
@@ -139,7 +139,7 @@ const Login = () => {
             </div>
             {modalOpen && <ModalLogin setModal={notFindPw}></ModalLogin>}
             <button type="submit" className={LoginStyle.loginBtnform}>
-              <p>{">>>"}</p>
+              {">>>"}
             </button>
           </div>
         </form>

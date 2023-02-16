@@ -17,67 +17,84 @@ const StudyInfo = () => {
     <div>
       <div className={StudyStyle.studyInfoContainer}>
         <div className={StudyStyle.studyContent}>
-          <p>
-            인 원: {studydata.users && studydata.users.length} /{" "}
-            {studydata?.capacity}
-          </p>
+          <div style={{ display: "flex" }}>
+            <p style={{ marginRight: "20px" }}>인 원 :</p>
+            <p>
+              {studydata.users && studydata.users.length} /{" "}
+              {studydata?.capacity}
+            </p>
+          </div>
           <div className={StudyStyle.StudyInfoBox}>
-            기술 스택 :
-            {studydata.category &&
-              studydata.category.map((skill) => (
-                <div key={skill}>
-                  <span className={StudyStyle.StudyInfoItem}>
-                    {skill === "python" && (
-                      <img
-                        alt="python"
-                        src={python}
-                        style={{ width: "40px" }}
-                      ></img>
-                    )}
-                    {skill === "java" && (
-                      <img
-                        alt="java"
-                        src={java}
-                        style={{ width: "40px" }}
-                      ></img>
-                    )}
-                    {skill === "javascript" && (
-                      <img
-                        alt="javascript"
-                        src={javascript}
-                        style={{ width: "40px" }}
-                      ></img>
-                    )}
-                    {skill === "cpp" && (
-                      <img
-                        alt="Cplus"
-                        src={Cplus}
-                        style={{ width: "40px" }}
-                      ></img>
-                    )}
-                    {skill === "c" && (
-                      <img alt="C" src={c} style={{ width: "40px" }}></img>
-                    )}
-                    {skill === "react" && (
-                      <img
-                        alt="react"
-                        src={react}
-                        style={{ width: "40px" }}
-                      ></img>
-                    )}
-                    {skill === "spring" && (
-                      <img
-                        alt="spring"
-                        src={spring}
-                        style={{ width: "40px" }}
-                      ></img>
-                    )}
-                    {skill === "vue" && (
-                      <img alt="vue" src={vue} style={{ width: "40px" }}></img>
-                    )}
-                  </span>
-                </div>
-              ))}
+            <p style={{ marginRight: "15px" }}>기 술 :</p>
+            <div style={{ display: "flex" }}>
+              {studydata.category &&
+                studydata.category.map((skill) => (
+                  <div key={skill}>
+                    <span>
+                      {skill === "python" && (
+                        <img
+                          alt="python"
+                          src={python}
+                          style={{ width: "40px", marginRight: "5px" }}
+                        ></img>
+                      )}
+                      {skill === "java" && (
+                        <img
+                          alt="java"
+                          src={java}
+                          style={{ width: "40px", marginRight: "5px" }}
+                        ></img>
+                      )}
+                      {skill === "javascript" && (
+                        <img
+                          alt="javascript"
+                          src={javascript}
+                          style={{ width: "40px", marginRight: "5px" }}
+                        ></img>
+                      )}
+                      {skill === "cpp" && (
+                        <img
+                          alt="Cplus"
+                          src={Cplus}
+                          style={{ width: "40px", marginRight: "5px" }}
+                        ></img>
+                      )}
+                      {skill === "c" && (
+                        <img
+                          alt="C"
+                          src={c}
+                          style={{ width: "40px", marginRight: "5px" }}
+                        ></img>
+                      )}
+                      {skill === "react" && (
+                        <img
+                          alt="react"
+                          src={react}
+                          style={{ width: "40px", marginRight: "5px" }}
+                        ></img>
+                      )}
+                      {skill === "spring" && (
+                        <img
+                          alt="spring"
+                          src={spring}
+                          style={{
+                            width: "40px",
+                            marginTop: "10px",
+                            marginRight: "5px",
+                          }}
+                        ></img>
+                      )}
+                      {skill === "vue" && (
+                        <img
+                          alt="vue"
+                          src={vue}
+                          style={{ width: "40px", marginRight: "5px" }}
+                        ></img>
+                      )}
+                    </span>
+                  </div>
+                ))}
+            </div>
           </div>
           <div className={StudyStyle.StudyInfoBox}>
             일 정 :{" "}
@@ -89,7 +106,7 @@ const StudyInfo = () => {
               ))}
           </div>
           <div className={StudyStyle.StudyInfoBox}>
-            연락처 : {studydata.createdBy}
+            <p style={{ marginTop: "10px" }}>이메일 : {studydata.createdBy}</p>
           </div>
         </div>
       </div>
