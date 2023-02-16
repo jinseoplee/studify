@@ -21,6 +21,7 @@ const Dashboard = () => {
         },
       });
       dispatch(userChangeActions.saveUserRegion(res.data.content.region));
+      dispatch(userChangeActions.saveUserGeneration(res.data.content.generation));
       dispatch(userChangeActions.saveUserclassNum(res.data.content.classNum));
       setUserData(res.data.content);
       setMyStudies(res.data.content.studies);
