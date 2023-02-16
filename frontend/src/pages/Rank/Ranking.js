@@ -6,7 +6,7 @@ import TokenCheck from "../../Components/TokenCheck/TokenCheck";
 const Ranking = () => {
   return (
     <>
-      <TokenCheck />
+      {/* <TokenCheck /> */}
       <Topbar />
       <RankDetail />
     </>

@@ -21,7 +21,7 @@
 .RankBarContainer {
   display: flex;
   width: 630px;
-  height: 350px;
+  height: 100%;
   flex-direction: column;
 }
 
@@ -32,10 +32,11 @@
   font-size: 20px;
   background-color: #8a6bcd;
   width: 600px;
-  height: 50px;
+  height: 58px;
   padding: 0 0 0 30px;
-  margin: 10px 0 10px 0;
+  margin: 0 0 10px 0;
   border-radius: 10px;
+  justify-content: space-between;
 }
 
 .RankMainContainer {
@@ -103,4 +104,8 @@
 
 .wrapper {
   flex: 1;
+}
+
+.RankNameBox > div > span {
+  margin: 0 0 0 5px;
 }

@@ -15,7 +15,7 @@ import paintoff from "../../../assets/image/videoroom/paintoff.png";
 import painton from "../../../assets/image/videoroom/painton.png";
 import shareoff from "../../../assets/image/videoroom/shareoff.png";
 import shareon from "../../../assets/image/videoroom/shareon.png";
-import newshare from "../../../assets/image/videoroom/newshare.png"
+import newshare from "../../../assets/image/videoroom/newshare.png";
 
 export default class SidebarComponent extends Component {
   constructor(props) {
@@ -114,59 +114,75 @@ export default class SidebarComponent extends Component {
     const editorDisplay = this.props.editorDisplay.display;
     return (
       <div className="side">
-        <div onClick={this.micStatusChanged}>
-          {localUser !== undefined && localUser.isAudioActive() ? (
-            <img src={micoff} alt="micoff" />
-          ) : (
-            <img src={micon} alt="micon" />
-          )}
-        </div>
-        <div onClick={this.camStatusChanged}>
-          {localUser !== undefined && localUser.isVideoActive() ? (
-            <img src={camoff} alt="camoff" />
-          ) : (
-            <img src={camon} alt="camon" />
-          )}
-        </div>
-        <div onClick={this.screenShare}>
-          {localUser !== undefined && localUser.isScreenShareActive() ? (
-            <img src={newshare} alt="newshare" />
-          ) : (
-            <img src={shareon} alt="shareon" />
-          )}
-        </div>
-        {localUser !== undefined && localUser.isScreenShareActive() && (
-          <div onClick={this.stopScreenShare}>
-            <img src={shareoff} alt="shareoff" />
+        <div className="IconContainer">
+          <div onClick={this.micStatusChanged}>
+            {localUser !== undefined && localUser.isAudioActive() ? (
+              <img src={micoff} alt="micoff" />
+            ) : (
+              <img src={micon} alt="micon" />
+            )}
           </div>
-        )}
-        <div onClick={this.handleFullScreen}>
-          { isFull ? (
-            <img src={fulloff} alt="fulloff" />
-          ) : (
-            <img src={fullon} alt="fullon" />
+        </div>
+        <div className="IconContainer">
+          <div onClick={this.camStatusChanged}>
+            {localUser !== undefined && localUser.isVideoActive() ? (
+              <img src={camoff} alt="camoff" />
+            ) : (
+              <img src={camon} alt="camon" />
+            )}
+          </div>
+        </div>
+        <div className="IconContainer">
+          <div onClick={this.screenShare}>
+            {localUser !== undefined && localUser.isScreenShareActive() ? (
+              <img src={newshare} alt="newshare" />
+            ) : (
+              <img src={shareon} alt="shareon" />
+            )}
+          </div>
+        </div>
+        <div className="IconContainer">
+          {localUser !== undefined && localUser.isScreenShareActive() && (
+            <div onClick={this.stopScreenShare}>
+              <img src={shareoff} alt="shareoff" />
+            </div>
           )}
+          <div onClick={this.handleFullScreen}>
+            {isFull ? (
+              <img src={fulloff} alt="fulloff" />
+            ) : (
+              <img src={fullon} alt="fullon" />
+            )}
+          </div>
         </div>
-        <div onClick={this.toggleIsBlackBoard}>
-          { this.state.isBlackBoard ? (
-            <img src={paintoff} alt="paintoff" />
-          ) : (
-            <img src={painton} alt="painton" />
-          )}
+        <div className="IconContainer">
+          <div onClick={this.toggleIsBlackBoard}>
+            {this.state.isBlackBoard ? (
+              <img src={paintoff} alt="paintoff" />
+            ) : (
+              <img src={painton} alt="painton" />
+            )}
+          </div>
         </div>
-        <div onClick={this.toggleEditor}>
-          { editorDisplay === "none" ? (
-            <img src={mdon} alt="mdon" />
-          ) : (
-            <img src={mdoff} alt="mdoff" />
-          )}
+        <div className="IconContainer">
+          <div onClick={this.toggleEditor}>
+            {editorDisplay === "none" ? (
+              <img src={mdon} alt="mdon" />
+            ) : (
+              <img src={mdoff} alt="mdoff" />
+            )}
+          </div>
         </div>
-        <div onClick={this.toggleChat}>
-          {this.props.showNotification && <div id="point" className="" />}
-          <img src={chaton} alt="chaton" />
+        <div className="IconContainer">
+          <div onClick={this.toggleChat}>
+            {this.props.showNotification && <div id="point" className="" />}
+            <img src={chaton} alt="chaton" />
+          </div>
         </div>
-        <div onClick={this.leaveSession}>
-          <img src={off} alt="off" />
+        <div className="IconContainer">
+          <div onClick={this.leaveSession}>
+            <img src={off} alt="off" />
+          </div>
         </div>
       </div>
     );
