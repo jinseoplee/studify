@@ -5,7 +5,7 @@ import RankPodium from "./RankPodium";
 import Pagination from "../UI/Pagination";
 import { useSelector } from "react-redux";
 
-const RankAll = () => {
+const RankGenerations = () => {
   const userGeneration = useSelector((state) => state.userinfo.userGeneration);
   const [AllRanking, setAllRanking] = useState([]);
   const limit = 5;
@@ -67,4 +67,4 @@ const RankAll = () => {
   );
 };
 
-export default RankAll;
+export default RankGenerations;

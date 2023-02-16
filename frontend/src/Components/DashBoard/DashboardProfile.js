@@ -65,6 +65,8 @@ const DashboardProfile = () => {
   useEffect(() => {
     userDataHandler();
     userImageHandler();
+    userSkillHandler();
+    setUserSSkil(Array.from(new Set(myskills)));
   }, []);
 
   return (
@@ -83,7 +85,7 @@ const DashboardProfile = () => {
       </div>
       <div className={Dashboardstyle.dashboardProfileName}>{userInfo.name}</div>
       <div className={Dashboardstyle.dashboardProfileLine}></div>
-      <div className={Dashboardstyle.dashboardProfileSkill}>
+      {/* <div className={Dashboardstyle.dashboardProfileSkill}>
         <h4>현재</h4>
         <div className={Dashboardstyle.flexbox}>
           {userSSkill &&
@@ -98,7 +100,7 @@ const DashboardProfile = () => {
         </p>
 
         <br></br>
-      </div>
+      </div> */}
       <div className={Dashboardstyle.dashboardProfileBadge}>
         <h4>나의 뱃지</h4>
         <div className={Dashboardstyle.DashboardBadgeBox}>

@@ -59,12 +59,14 @@ const RoungeList = (props) => {
       setFirstCheck(false);
       return;
     }
-    console.log(data.length);
-    console.log(viewList);
-    if (viewList >= data.length) {
+    if (data === undefined) {
       setMoreButton(false);
     } else {
-      setMoreButton(true);
+      if (viewList >= data.length) {
+        setMoreButton(false);
+      } else {
+        setMoreButton(true);
+      }
     }
   }, [viewList]);
 

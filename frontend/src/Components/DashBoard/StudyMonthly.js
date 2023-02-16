@@ -4,7 +4,7 @@ import userpic from "../../assets/image/memberpic.png";
 const StudyMonthly = ({ recordData, user, userTime }) => {
   return (
     <div>
-      <h3 className={Dashboardstyle.flexrangebox} style={{ fontSize: "20px" }}>
+      <h3 className={Dashboardstyle.flexrangebox} style={{ fontSize: "22px" }}>
         나의 상태
       </h3>
       <div className={Dashboardstyle.DashMyStatus}>
