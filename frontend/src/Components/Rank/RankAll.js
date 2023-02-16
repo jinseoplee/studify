@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import RankStyle from "../../Style/Rank/Rank.module.css";
 import RankPodium from "./RankPodium";
-import Pagination from "../UI/Pagination";
+import Paginations from "../UI/Paginations";
 
 const RankAll = () => {
   const limit = 5;
@@ -30,14 +30,14 @@ const RankAll = () => {
           <h1>순위표</h1>
           {AllRanking?.slice(offset, offset + limit)?.map((data, key) => (
             <div key={key} className={RankStyle.RankNameBox}>
-              <div>
-                <span>{key + offset + 1}</span>
+              <div className={RankStyle.RankBoxInfo}>
+                <span className={RankStyle.RankColor}>{key + offset + 1}. </span>
                 <span>{data?.generation}기</span>
                 <span>{data?.region}</span>
                 <span>{data?.classNum}반</span>
                 <span>{data?.name}</span>
               </div>
-              <div>
+              <div className={RankStyle.RankBoxTime}>
                 <span>
                   <h4>
                     {parseInt(data?.totalTime / 3600)}시간
@@ -50,7 +50,7 @@ const RankAll = () => {
           ))}
         </div>
       </div>
-      <Pagination
+      <Paginations
         total={AllRanking.length}
         limit={limit}
         page={page}

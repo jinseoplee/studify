@@ -86,18 +86,7 @@ const StudyRounge = () => {
     }
   };
   const userRegionChange = () => {
-    if (userRegion === "서울") {
-      setRegionName("seoul");
-    } else if (userRegion === "대전") {
-      console.log("내가 동작해야해..");
-      setRegionName("daejeon");
-    } else if (userRegion === "부산") {
-      setRegionName("buk");
-    } else if (userRegion === "구미") {
-      setRegionName("gumi");
-    } else if (userRegion === "광주") {
-      setRegionName("gwangju");
-    }
+    setRegionName(userRegion);
   };
 
   const handleClassnum = () => {
@@ -109,7 +98,6 @@ const StudyRounge = () => {
         setClassnum(true);
         //유저의 반을 저장.
         setClassnumName(userClassNum);
-        console.log(userClassNum);
       }
     } else {
       swal("지역을 먼저 선택해주세요.");

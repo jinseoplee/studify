@@ -20,10 +20,7 @@ const RoungeList = (props) => {
       skill = null;
     } else {
     }
-    let isPublic = props.isPublic;
-    // if (isPublic === true) {
-    //   isPublic = null;
-    // }
+    let isPublic = props.isPublic
     setViewList(8);
     try {
       const response = axios
@@ -32,14 +29,12 @@ const RoungeList = (props) => {
           params: {
             category: skill,
             region: props.region,
-            class_num: props.classnum,
+            classnum: props.classnum,
             ispublic: isPublic,
             //기수 지역 반
           },
         })
         .then(function (response) {
-          console.log(response);
-          console.log(response.data.content);
           setData(response.data.content);
           dispatch(selectstudyActions.changestudySelect());
           dispatch(selectstudyActions.changeskillList([]));
@@ -68,6 +63,7 @@ const RoungeList = (props) => {
         setMoreButton(true);
       }
     }
+
   }, [viewList]);
 
   return (
