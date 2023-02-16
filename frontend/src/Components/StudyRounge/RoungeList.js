@@ -21,11 +21,10 @@ const RoungeList = (props) => {
     } else {
     }
     let isPublic = props.isPublic;
-    if (isPublic === false) {
-      isPublic = null;
-    }
+    // if (isPublic === true) {
+    //   isPublic = null;
+    // }
     setViewList(8);
-    console.log(skill);
     try {
       const response = axios
         .get(`/api/v1/studies`, {
@@ -33,12 +32,14 @@ const RoungeList = (props) => {
           params: {
             category: skill,
             region: props.region,
-            classnum: props.classnum,
+            class_num: props.classnum,
             ispublic: isPublic,
             //기수 지역 반
           },
         })
         .then(function (response) {
+          console.log(response);
+          console.log(response.data.content);
           setData(response.data.content);
           dispatch(selectstudyActions.changestudySelect());
           dispatch(selectstudyActions.changeskillList([]));
@@ -56,16 +57,16 @@ const RoungeList = (props) => {
   useEffect(() => {
     if (firstcheck) {
       setFirstCheck(false);
-      if (viewList >= data.length) {
-        setMoreButton(false);
-        console.log("나 동작하제?");
-      }
       return;
     }
-    if (viewList >= data?.length) {
+    if (data === undefined) {
       setMoreButton(false);
     } else {
-      setMoreButton(true);
+      if (viewList >= data.length) {
+        setMoreButton(false);
+      } else {
+        setMoreButton(true);
+      }
     }
   }, [viewList]);
 
@@ -81,7 +82,9 @@ const RoungeList = (props) => {
             >
               <div className={RoungeStyle.StudyListcardheader}>
                 <img
-                  src="https://images6.alphacoders.com/312/thumb-1920-312773.jpg"
+                  src={require(`../../assets/image/studybackground${
+                    study.id % 5
+                  }.jpg`)}
                   alt="rover"
                 />
               </div>

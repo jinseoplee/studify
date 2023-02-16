@@ -14,6 +14,7 @@ const RankGenerations = () => {
   const RankAllhandler = async () => {
     try {
       const response = await axios.get("/api/v1/users/rank");
+      console.log(response);
       setAllRanking(response.data.content);
     } catch (err) {
       console.log(err);

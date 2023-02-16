@@ -36,6 +36,7 @@
   font-size: 20px;
   padding-left: 2mm;
 }
+
 .loginCheckboxform {
   position: relative;
   height: 1.5rem;
@@ -55,6 +56,10 @@
   color: white;
   bottom: 7px;
   right: 8px;
+}
+
+.loginBtnform > p {
+  font-size: 20px;
 }
 
 .loginBottom {

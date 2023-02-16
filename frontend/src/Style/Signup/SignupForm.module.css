@@ -102,3 +102,16 @@
   justify-content: center;
   align-items: center;
 }
+
+.btnEnd {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.maincontainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}

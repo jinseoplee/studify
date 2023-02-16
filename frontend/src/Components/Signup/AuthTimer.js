@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 
 const AuthTimer = ({ active, onCheckTime }) => {
   //5분 고정이 아닐 경우 Props로 전달
-  const [min, setMin] = useState(0);
-  const [sec, setSec] = useState(5);
+  const [min, setMin] = useState(5);
+  const [sec, setSec] = useState(0);
 
   useEffect(() => {
     let timer;

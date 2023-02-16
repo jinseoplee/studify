@@ -14,7 +14,21 @@ const DashboardProfile = () => {
   const [myImage, setMyImage] = useState("");
   const userToken = useSelector((state) => state.token.accesstoken);
   let [userInfo, setUserInfo] = useState("");
+  const [userStudies, setUserStudies] = useState([]);
   let [userBadge, setUserBadge] = useState([]);
+  let myskills = [];
+  const [userSSkill, setUserSSkil] = useState([]);
+
+  const userSkillHandler = () => {
+    if (userStudies) {
+      for (let item of userStudies) {
+        for (let skill of item.category) {
+          myskills.push(skill.name);
+        }
+      }
+    }
+    console.log(userSSkill);
+  };
   const userDataHandler = async () => {
     try {
       const res = await axios.get("/api/v1/users", {
@@ -26,6 +40,7 @@ const DashboardProfile = () => {
       dispatch(loginActions.saveName(res.data.content.name));
       setUserInfo(res.data.content);
       setUserBadge(res.data.content.badges);
+      setUserStudies(res.data.content.studies);
     } catch (err) {
       console.log(err);
     }
@@ -49,6 +64,8 @@ const DashboardProfile = () => {
   useEffect(() => {
     userDataHandler();
     userImageHandler();
+    userSkillHandler();
+    setUserSSkil(Array.from(new Set(myskills)));
   }, []);
 
   return (
@@ -67,6 +84,22 @@ const DashboardProfile = () => {
       </div>
       <div className={Dashboardstyle.dashboardProfileName}>{userInfo.name}</div>
       <div className={Dashboardstyle.dashboardProfileLine}></div>
+      {/* <div className={Dashboardstyle.dashboardProfileSkill}>
+        <h4>현재</h4>
+        <div className={Dashboardstyle.flexbox}>
+          {userSSkill &&
+            userSSkill.map((el) => (
+              <div key={el}>
+                <p style={{ marginTop: "-10px" }}>{el}</p>
+              </div>
+            ))}
+        </div>
+        <p style={{ marginTop: "15px", fontWeight: "500" }}>
+          를 공부하고 있습니다
+        </p>
+
+        <br></br>
+      </div> */}
       <div className={Dashboardstyle.dashboardProfileBadge}>
         <h4>나의 뱃지</h4>
         <div className={Dashboardstyle.DashboardBadgeBox}>

@@ -5,8 +5,8 @@ import RankPodium from "./RankPodium";
 import Pagination from "../UI/Pagination";
 
 const RankAll = () => {
-  const limit = 5;
-  const [AllRanking, setAllRanking] = useState([])
+  let limit = 5;
+  const [AllRanking, setAllRanking] = useState([]);
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
   const RankAllhandler = async () => {
