@@ -6,12 +6,14 @@ const StudyRecordDetail = ({ userTime }) => {
     <div style={{ width: "40vw", height: 230 }}>
       <h3
         className={Dashboardstyle.flexrangebox}
-        style={{ fontSize: "18px", marginLeft: "13px" }}
+        style={{ fontSize: "22px", marginLeft: "13px" }}
       >
         나의 공부시간
       </h3>
       {userTime && userTime.length === 0 && (
-        <p style={{ marginLeft: "14px" }}>스터디 시간이 없습니다</p>
+        <p style={{ marginLeft: "14px", fontSize: "15px" }}>
+          스터디 시간이 없습니다
+        </p>
       )}
       {userTime && userTime.length > 0 && (
         <ResponsiveBar
