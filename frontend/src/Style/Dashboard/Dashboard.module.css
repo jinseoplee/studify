@@ -93,6 +93,7 @@
   background-color: white;
   margin-left: 24px;
   border-radius: 15px;
+  border: 1px solid rgb(199, 196, 196);
 }
 .StudyRecordStrick {
   width: 16vw;
@@ -101,6 +102,7 @@
   margin-left: 24px;
   border-radius: 15px;
   padding: 10px;
+  border: 1px solid rgb(199, 196, 196);
 }
 .MyStudycontainer {
   width: 65vw;
@@ -128,6 +130,7 @@
   border-radius: 15px;
   text-decoration: none;
   font-size: 20px;
+  border: 1px solid rgb(199, 196, 196);
 }
 .MyStudyMakeLogo {
   width: 100px;
@@ -141,6 +144,7 @@
   display: flex;
   align-items: center;
   border-radius: 15px;
+  border: 1px solid rgb(199, 196, 196);
 }
 .StudyMakeContainer {
   display: flex;

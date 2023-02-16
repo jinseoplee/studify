@@ -68,64 +68,66 @@ const ResetPw = () => {
   };
   return (
     <>
-      <LoginCard>
-        <div className={SignupStyle.Container}>
-          <h1>비밀번호 재설정 페이지.</h1>
-          <form onSubmit={ResetPw}>
-            <label className={SignupStyle.signupform_label}>
-              비밀번호 입력
-            </label>
-            <div>
-              <input
-                type="password"
-                value={Password}
-                onChange={onChangePassword}
-                className={SignupStyle.signup_input}
-              ></input>
-              <p className={SignupStyle.signup_message}>
-                {
-                  <span
-                    className={`message ${isPassword ? "success" : "error"}`}
-                  >
-                    {passwordMessage}
-                  </span>
-                }
-              </p>
-            </div>
-            <label className={SignupStyle.signupform_label}>
-              비밀번호 확인
-            </label>
-            <div>
-              <input
-                type="password"
-                value={PasswordCheck}
-                onChange={onChangePasswordCheck}
-                className={SignupStyle.signup_input}
-              ></input>
-              <p className={SignupStyle.signup_message}>
-                {
-                  <span
-                    className={`message ${
-                      isPasswordCheck ? "success" : "error"
-                    }`}
-                  >
-                    {passwordCheckMessage}
-                  </span>
-                }
-              </p>
-            </div>
-            <div className={SignupStyle.btnEnd}>
-              <button
-                type="submit"
-                disabled={!(isPassword && isPasswordCheck)}
-                className={SignupStyle.signup_button}
-              >
-                변경하기
-              </button>
-            </div>
-          </form>
-        </div>
-      </LoginCard>
+      <div className={SignupStyle.maincontainer}>
+        <LoginCard>
+          <div className={SignupStyle.Container}>
+            <h1>비밀번호 재설정 페이지.</h1>
+            <form onSubmit={ResetPw}>
+              <label className={SignupStyle.signupform_label}>
+                비밀번호 입력
+              </label>
+              <div>
+                <input
+                  type="password"
+                  value={Password}
+                  onChange={onChangePassword}
+                  className={SignupStyle.signup_input}
+                ></input>
+                <p className={SignupStyle.signup_message}>
+                  {
+                    <span
+                      className={`message ${isPassword ? "success" : "error"}`}
+                    >
+                      {passwordMessage}
+                    </span>
+                  }
+                </p>
+              </div>
+              <label className={SignupStyle.signupform_label}>
+                비밀번호 확인
+              </label>
+              <div>
+                <input
+                  type="password"
+                  value={PasswordCheck}
+                  onChange={onChangePasswordCheck}
+                  className={SignupStyle.signup_input}
+                ></input>
+                <p className={SignupStyle.signup_message}>
+                  {
+                    <span
+                      className={`message ${
+                        isPasswordCheck ? "success" : "error"
+                      }`}
+                    >
+                      {passwordCheckMessage}
+                    </span>
+                  }
+                </p>
+              </div>
+              <div className={SignupStyle.btnEnd}>
+                <button
+                  type="submit"
+                  disabled={!(isPassword && isPasswordCheck)}
+                  className={SignupStyle.signup_button}
+                >
+                  변경하기
+                </button>
+              </div>
+            </form>
+          </div>
+        </LoginCard>
+      </div>
     </>
   );
 };

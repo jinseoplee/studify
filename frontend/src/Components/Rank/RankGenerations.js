@@ -5,7 +5,7 @@ import RankPodium from "./RankPodium";
 import Pagination from "../UI/Pagination";
 import { useSelector } from "react-redux";
 
-const RankAll = () => {
+const RankGenerations = () => {
   const userGeneration = useSelector((state) => state.userinfo.userGeneration);
   const [AllRanking, setAllRanking] = useState([]);
   const limit = 5;
@@ -14,6 +14,7 @@ const RankAll = () => {
   const RankAllhandler = async () => {
     try {
       const response = await axios.get("/api/v1/users/rank");
+      console.log(response);
       setAllRanking(response.data.content);
     } catch (err) {
       console.log(err);
@@ -67,4 +68,4 @@ const RankAll = () => {
   );
 };
 
-export default RankAll;
+export default RankGenerations;

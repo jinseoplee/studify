@@ -27,12 +27,8 @@ const StudyRounge = () => {
   const [classnum, setClassnum] = useState(false);
   const [classnumName, setClassnumName] = useState(null);
   const [isPublic, setIsPublic] = useState(true);
-  const [tokencookies, setTokenCookie, removeTokenCookie] = useCookies([
-    "userToken",
-  ]);
-  const [studyIdcookies, setStudyIdcookies, removeStudyIdcookes] = useCookies([
-    "studyId",
-  ]);
+  const [, setTokenCookie, removeTokenCookie] = useCookies(["userToken"]);
+  const [, setStudyIdcookies, removeStudyIdcookes] = useCookies(["studyId"]);
   const navigate = useNavigate();
   const mounted = useRef(false);
 
@@ -54,21 +50,26 @@ const StudyRounge = () => {
     },
     {
       id: 3,
-      skill: "c++",
+      skill: "c",
       classify: false,
     },
     {
       id: 4,
-      skill: "vue",
+      skill: "c++",
       classify: false,
     },
     {
       id: 5,
-      skill: "spring",
+      skill: "vue",
       classify: false,
     },
     {
       id: 6,
+      skill: "spring",
+      classify: false,
+    },
+    {
+      id: 7,
       skill: "react",
       classify: false,
     },
@@ -87,14 +88,14 @@ const StudyRounge = () => {
   const userRegionChange = () => {
     if (userRegion === "서울") {
       setRegionName("seoul");
-    } else if (userRegion == "대전") {
+    } else if (userRegion === "대전") {
       console.log("내가 동작해야해..");
       setRegionName("daejeon");
-    } else if (userRegion == "부산") {
+    } else if (userRegion === "부산") {
       setRegionName("buk");
-    } else if (userRegion == "구미") {
+    } else if (userRegion === "구미") {
       setRegionName("gumi");
-    } else if (userRegion == "광주") {
+    } else if (userRegion === "광주") {
       setRegionName("gwangju");
     }
   };
@@ -117,7 +118,6 @@ const StudyRounge = () => {
 
   const handleIsPublic = () => {
     if (isPublic === null) {
-      console.log("ㅋㅋㅋㅋ 이거맞니?");
       setIsPublic(true);
     }
     if (isPublic) {
