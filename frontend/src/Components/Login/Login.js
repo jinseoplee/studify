@@ -91,58 +91,60 @@ const Login = () => {
     closeModal();
   };
   return (
-    <LoginCard>
-      <form onSubmit={handleSubmit} className={LoginStyle.loginForm}>
-        <div className={LoginStyle.loginBox}>
-          <h2 className={LoginStyle.loginText}>로그인</h2>
-          <div className={LoginStyle.loginEmailform}>
-            <input
-              type="text"
-              id="email"
-              value={email}
-              name="email"
-              onChange={handleChangeId}
-              className={LoginStyle.loginTextform}
-              placeholder="test@test.com"
-            />
+    <div className={LoginStyle.maincontainer}>
+      <LoginCard>
+        <form onSubmit={handleSubmit} className={LoginStyle.loginForm}>
+          <div className={LoginStyle.loginBox}>
+            <h2 className={LoginStyle.loginText}>로그인</h2>
+            <div className={LoginStyle.loginEmailform}>
+              <input
+                type="text"
+                id="email"
+                value={email}
+                name="email"
+                onChange={handleChangeId}
+                className={LoginStyle.loginTextform}
+                placeholder="test@test.com"
+              />
+            </div>
+            <label className={LoginStyle.loginEmailform}>
+              <input
+                type="password"
+                name="email"
+                value={password}
+                onChange={handleChangePw}
+                className={LoginStyle.loginTextform}
+                placeholder="비밀번호를 입력해주세요"
+              />
+            </label>
+            <br />
+            <br />
+            <fieldset>
+              <input
+                type="checkbox"
+                id="saveid"
+                onChange={togglecheck}
+                checked={isRemember}
+                className={LoginStyle.loginCheckboxform}
+              />
+              <label htmlFor="saveid">아이디저장</label>
+            </fieldset>
           </div>
-          <label className={LoginStyle.loginEmailform}>
-            <input
-              type="password"
-              name="email"
-              value={password}
-              onChange={handleChangePw}
-              className={LoginStyle.loginTextform}
-              placeholder="비밀번호를 입력해주세요"
-            />
-          </label>
-          <br />
-          <br />
-          <fieldset>
-            <input
-              type="checkbox"
-              id="saveid"
-              onChange={togglecheck}
-              checked={isRemember}
-              className={LoginStyle.loginCheckboxform}
-            />
-            <label htmlFor="saveid">아이디저장</label>
-          </fieldset>
-        </div>
-        <div className={LoginStyle.loginBottom}>
-          <Link to="/user/signup" className={LoginStyle.loginText_link}>
-            회원가입
-          </Link>
-          <div onClick={findPw} className={LoginStyle.pwFind}>
-            비밀번호 찾기
+          <div className={LoginStyle.loginBottom}>
+            <Link to="/user/signup" className={LoginStyle.loginText_link}>
+              회원가입
+            </Link>
+            <div onClick={findPw} className={LoginStyle.pwFind}>
+              비밀번호 찾기
+            </div>
+            {modalOpen && <ModalLogin setModal={notFindPw}></ModalLogin>}
+            <button type="submit" className={LoginStyle.loginBtnform}>
+              {">>>"}
+            </button>
           </div>
-          {modalOpen && <ModalLogin setModal={notFindPw}></ModalLogin>}
-          <button type="submit" className={LoginStyle.loginBtnform}>
-            {">>>"}
-          </button>
-        </div>
-      </form>
-    </LoginCard>
+        </form>
+      </LoginCard>
+    </div>
   );
 };
 

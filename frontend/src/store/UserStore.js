@@ -11,6 +11,9 @@ const UserSlice = createSlice({
     saveUserRegion(state, action) {
       state.userRegion = action.payload;
     },
+    saveUserGeneration(state, action) {
+      state.userGeneration = action.payload;
+    },
   },
 });
 

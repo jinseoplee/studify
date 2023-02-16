@@ -79,3 +79,10 @@
 .loginText_link:hover {
   color: blue;
 }
+
+.maincontainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
