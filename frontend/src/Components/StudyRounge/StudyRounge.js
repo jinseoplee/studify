@@ -209,7 +209,7 @@ const StudyRounge = () => {
                   onChange={handleClassnum}
                   checked={classnum}
                   id="classnum"
-                   className={RoungeStyle.RoungeInfoButton}
+                  className={RoungeStyle.RoungeInfoButton}
                 ></input>
               </div>
               <div key="ispublic" className={RoungeStyle.RoungeInfoBox}>

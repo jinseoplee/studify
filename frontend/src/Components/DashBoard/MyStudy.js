@@ -82,24 +82,16 @@ const MyStudy = ({ studies }) => {
                             </div>
                           ))}
                       </div>
-                      <div className={Dashboardstyle.MystudyListbox}>
-                        <div className={Dashboardstyle.lineMargin}>
+                      <p className={Dashboardstyle.MystudyListbox}>
+                        <p className={Dashboardstyle.lineMargin}>
                           <p>
                             인원 : {study.headcount} / {study.capacity}
                           </p>
-                        </div>
-                        <div className={Dashboardstyle.MystudyDate}>
-                          일 정 :
-                          {study.day &&
-                            study.day.map((d, index) => (
-                              <div key={d}>
-                                <p className={Dashboardstyle.MystudyDate}>
-                                  {d}
-                                </p>
-                              </div>
-                            ))}
-                        </div>
-                      </div>
+                        </p>
+                        일정 :
+                        {study.day &&
+                          study.day.map((d, index) => <p key={d}>{d}</p>)}
+                      </p>
                     </div>
                   </div>
                 </SwiperSlide>

@@ -39,6 +39,7 @@ const RoungeList = (props) => {
           },
         })
         .then(function (response) {
+          console.log(response.data.content);
           setData(response.data.content);
           dispatch(selectstudyActions.changestudySelect());
           dispatch(selectstudyActions.changeskillList([]));
@@ -81,7 +82,9 @@ const RoungeList = (props) => {
             >
               <div className={RoungeStyle.StudyListcardheader}>
                 <img
-                  src="https://images6.alphacoders.com/312/thumb-1920-312773.jpg"
+                  src={require(`../../assets/image/studybackground${
+                    study.id % 5
+                  }.jpg`)}
                   alt="rover"
                 />
               </div>

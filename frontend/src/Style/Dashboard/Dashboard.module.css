@@ -1,11 +1,16 @@
 .flexbox {
   display: flex;
 }
+
+.flexbox > div > p {
+  margin-right: 10px;
+}
+
 .rangebox {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  margin-left: 15px;
 }
 .flexrangebox {
   display: flex;
@@ -359,7 +364,11 @@
   margin-left: 20px;
 }
 .MystudyDate {
-  margin-right: 10px;
+  margin: 0 0 10px 0;
+}
+
+.MystudyListbox > p {
+  margin: 0 0 10px 0;
 }
 
 .MystudyListbox > p {
