@@ -1,3 +1,8 @@
+.Container {
+  margin-left: 30px;
+  margin-top: 25px;
+}
+
 .signup_background {
   background-image: linear-gradient(to bottom, #cabbe77d, #ffffff);
   display: flex;
@@ -101,4 +106,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.btnEnd {
+  width: 91.5%;
+  display: flex;
+  justify-content: flex-end;
 }
