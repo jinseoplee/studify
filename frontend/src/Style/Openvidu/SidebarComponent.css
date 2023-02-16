@@ -25,7 +25,7 @@
   justify-content: center;
 }
 
-.side > div > img {
+.side > div > div > img {
   height: 6vh;
   cursor: pointer;
 }
