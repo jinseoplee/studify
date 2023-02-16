@@ -5,6 +5,7 @@ import RankPodium from "./RankPodium";
 import Pagination from "../UI/Pagination";
 
 const RankAll = () => {
+  const limit = 5;
   const [AllRanking, setAllRanking] = useState([])
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
@@ -17,9 +18,9 @@ const RankAll = () => {
       console.log(err);
     }
   };
-  // useEffect(() => {
-  //   RankAllhandler();
-  // }, []);
+  useEffect(() => {
+    RankAllhandler();
+  }, []);
 
   return (
     <div className={RankStyle.RankDetailContainer}>
@@ -29,14 +30,14 @@ const RankAll = () => {
           <h1>순위표</h1>
           {AllRanking?.slice(offset, offset + limit)?.map((data, key) => (
             <div key={key} className={RankStyle.RankNameBox}>
-              <div>
-                <span>{key + offset + 1}</span>
+              <div className={RankStyle.RankBoxInfo}>
+                <span className={RankStyle.RankColor}>{key + offset + 1}. </span>
                 <span>{data?.generation}기</span>
                 <span>{data?.region}</span>
                 <span>{data?.classNum}반</span>
                 <span>{data?.name}</span>
               </div>
-              <div>
+              <div className={RankStyle.RankBoxTime}>
                 <span>
                   <h4>
                     {parseInt(data?.totalTime / 3600)}시간
