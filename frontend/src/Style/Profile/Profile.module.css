@@ -54,7 +54,7 @@
 }
 .profileUserName {
   margin-top: 30px;
-  font-size: 30px;
+  font-size: 42px;
 }
 .UserInfoContainer {
   display: flex;
@@ -64,8 +64,26 @@
 }
 
 .UserInfoSetting {
-  margin-top: 16px;
+  margin-top: 24px;
   margin-left: 92vw;
+  background-color: white;
+  border-radius: 5px;
+  border-width: 1px;
+}
+
+.UserInfoCheck {
+  margin-top: 24px;
+  margin-left: 92vw;
+  background-color: white;
+  border-radius: 5px;
+  border-width: 1px;
+  width : 80px;
+  height: 40px;
+}
+
+.profileUserInfo {
+  margin-top : 8px;
+  font-size: 24px;
 }
 
 .badgeBox {
@@ -122,4 +140,35 @@
 .profileUserInfoBox {
   width: 50vw;
   font-size: 20px;
+}
+
+.formInput {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 300px;
+  margin-top : 1rem;
+  font-size: 16px;
+}
+
+.Input {
+  height: 16px;
+  width : auto;
+  margin : 4px;
+  border-color: #8a6bcd;
+  border-radius: 5px;
+}
+
+.InputSelectBox {
+  height: 20px;
+  width : auto;
+  margin : 4px;
+  border-color: #8a6bcd;
+  border-radius: 5px;
+}
+
+.userInfo {
+  /* display: flex; */
+  font-size: 18px;
+  margin : 4px;
 }

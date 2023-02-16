@@ -5,7 +5,7 @@ const ProfileUserInfo = ({ userinfo }) => {
     <>
       <div className={ProfileStyle.UserInfoContainer}>
         <div className={ProfileStyle.profileUserName}>{userinfo.name}</div>
-        <div>
+        <div className={ProfileStyle.profileUserInfo}>
           {userinfo.generation}기 {userinfo.region} {userinfo.classNum} 반
         </div>
       </div>

@@ -3,20 +3,21 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 
-import Topbar from "../Topbar/Topbar";
 import ProfileBody from "./ProfileBody";
 import ProfileImg from "./ProfileImg";
 import ProfileStyle from "../../Style/Profile/Profile.module.css";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
+  const userToken = useSelector((state) => state.token.accesstoken);
+  const generation = useSelector((state) => state.userinfo.userGeneration);
+  const Region = useSelector((state) => state.userinfo.userRegion);
   const [myImage, setMyImage] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [userName, setUserName] = useState("");
-  const [userGeneration, setUserGeneration] = useState("");
-  const [userRegion, setUserRegion] = useState("");
   const [openImgModal, setOpenImgModal] = useState(false);
   const [classNum, setClassNum] = useState("");
-  const userToken = useSelector((state) => state.token.accesstoken);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -29,8 +30,6 @@ const Profile = () => {
         console.log(res.data);
         setUserEmail(res.data.email);
         setUserName(res.data.name);
-        setUserGeneration(res.data.generation);
-        setUserRegion(res.data.region);
       })
       .catch((err) => {
         console.log(err);
@@ -51,21 +50,29 @@ const Profile = () => {
       });
   }, []);
 
-  const chageUserInfo = () => {
+  const changeUserInfo = () => {
     axios
-      .put("/api/v1/users/pass", {
-        classNum: classNum,
-        name: userName,
-        region: userRegion,
-        generation: userGeneration,
-      })
+      .put("/api/v1/users",
+        {
+          classNum: classNum,
+          name: userName,
+        },
+        {
+          headers: {
+            "X-AUTH-TOKEN": userToken,
+          }
+        },
+        setTimeout(() => {
+          navigate("/mainpage")
+        }, 500)
+    )
       .catch((err) => {
         console.log(err);
       });
   };
 
   const editComplete = () => {
-    chageUserInfo();
+    changeUserInfo();
   };
 
   const classChange = (e) => {
@@ -74,18 +81,18 @@ const Profile = () => {
 
   const nameChange = (e) => {
     setUserName(e.target.value);
+    console.log(userName);
   };
 
   return (
     <>
-      <Topbar />
       <ProfileImg
         open={openImgModal}
         onClose={() => setOpenImgModal(false)}
         email={userEmail}
       />
       <div className={ProfileStyle.profileBackground}>
-        <button onClick={editComplete} className={ProfileStyle.UserInfoSetting}>
+        <button onClick={editComplete} className={ProfileStyle.UserInfoCheck}>
           수정완료
         </button>
         <div className={ProfileStyle.profileUpperContainer}>
@@ -99,11 +106,14 @@ const Profile = () => {
               alt="userPro"
             ></img>
           </div>
-          <form onSubmit={chageUserInfo}>
-            이름 : <input type="text" value={userName} onChange={nameChange} />
+          <form onSubmit={changeUserInfo} className={ProfileStyle.formInput}>
+            <div>
+            이름 : <input type="text" value={userName} onChange={nameChange}
+              className={ProfileStyle.Input} />
+            </div>
             <div>
               반 :
-              <select onChange={classChange}>
+              <select onChange={classChange} className={ProfileStyle.InputSelectBox}>
                 <option key="1" value="1">
                   1
                 </option>
@@ -113,7 +123,7 @@ const Profile = () => {
                 <option key="3" value="3">
                   3
                 </option>
-                <option key="4" value="5">
+                <option key="4" value="4">
                   4
                 </option>
                 <option key="5" value="5">
@@ -167,8 +177,10 @@ const Profile = () => {
               </select>
             </div>
           </form>
-          <div>기수 : {userGeneration}</div>
-          <div>지역 : {userRegion}</div>
+          <div className={ProfileStyle.userInfo}>
+            <div>기수 : {generation} 기</div>
+            <div>지역 : {Region}</div>
+          </div>
           <ProfileBody />
         </div>
       </div>
