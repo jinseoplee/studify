@@ -26,8 +26,8 @@ const DashboardProfile = () => {
           myskills.push(skill.name);
         }
       }
+      setUserSSkil(Array.from(new Set(myskills)));
     }
-    console.log(userSSkill);
   };
   const userDataHandler = async () => {
     try {
@@ -41,6 +41,7 @@ const DashboardProfile = () => {
       setUserInfo(res.data.content);
       setUserBadge(res.data.content.badges);
       setUserStudies(res.data.content.studies);
+      userSkillHandler();
     } catch (err) {
       console.log(err);
     }

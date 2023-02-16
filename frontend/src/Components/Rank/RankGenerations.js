@@ -14,7 +14,6 @@ const RankGenerations = () => {
   const RankAllhandler = async () => {
     try {
       const response = await axios.get("/api/v1/users/rank");
-      console.log(response);
       setAllRanking(response.data.content);
     } catch (err) {
       console.log(err);
@@ -59,7 +58,7 @@ const RankGenerations = () => {
         </div>
       </div>
       <Pagination
-        total={AllRanking?.filter((data) => data.generation === 8).length}
+        total={AllRanking?.filter((data) => data.generation === userGeneration).length}
         limit={limit}
         page={page}
         setPage={setPage}
