@@ -9,47 +9,47 @@
 sudo apt install nginx
 
 # 버전 확인 및 테스트
-nginx -v
-sudo systemctl status nginx
-sudo nginx -t
+$ nginx -v
+$ sudo systemctl status nginx
+$ sudo nginx -t
 ```
 
 ## Docker & Docker Compose 설치
 
 ```bash
 # Update existing packages:
-sudo apt update -y
+$ sudo apt update -y
 
 # Install packages to allow apt to use a repository over HTTPS:
-sudo apt install -y apt-transport-https ca-certificates curl software-properties-common
+$ sudo apt install -y apt-transport-https ca-certificates curl software-properties-common
 
 # Add the Docker GPG key:
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 
 # Add the Docker repository to APT sources:
-sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+$ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
 
 # Update the package database with the Docker packages from the newly added repository:
-sudo apt update
+$ sudo apt update
 
 # Install docker
-sudo apt-get install -y docker-ce
+$ sudo apt-get install -y docker-ce
 
 # Verify that Docker is installed and running:
-sudo systemctl status docker
+$ sudo systemctl status docker
 
 # If the Docker service is not running, start it with the following command:
-sudo systemctl start docker
+$ sudo systemctl start docker
 
 # To run Docker without sudo, add the ubuntu user to the docker group:
-sudo groupadd docker
-sudo usermod -aG docker ubuntu
-newgrp docker
-docker run hello-world
+$ sudo groupadd docker
+$ sudo usermod -aG docker ubuntu
+$ newgrp docker
+$ docker run hello-world
 
 # 테스트
-docker info
-sudo systemctl status docker
+$ docker info
+$ sudo systemctl status docker
 ```
 <br/>
 
@@ -61,11 +61,11 @@ sudo systemctl status docker
 
 ```bash
 # 기본 설정파일 제거
-sudo rm /etc/nginx/sites-available/*
-sudo rm /etc/nginx/sites-enabled/*
+$ sudo rm /etc/nginx/sites-available/*
+$ sudo rm /etc/nginx/sites-enabled/*
 
 # 새로운 설정파일 생성
-sudo vim /etc/nginx/conf.d/default.conf
+$ sudo vim /etc/nginx/conf.d/default.conf
 ```
 
 ### 생성된 default.conf에 다음 내용 추가
@@ -164,7 +164,7 @@ Choose 1-4 [1]:
 ### Nginx 설정파일 열기
 
 ```bash
-sudo vim /etc/nginx/conf.d/default.conf
+$ sudo vim /etc/nginx/conf.d/default.conf
 ```
 
 ### default.conf에 다음 내용 추가
@@ -238,13 +238,13 @@ server {
 
 ```bash
 # 현재 시간 보기
-date
+$ date
 
 # 현재 타임존 확인
-more /etc/timezone
+$ more /etc/timezone
 
 # 타임존 변경
-sudo dpkg-reconfigure tzdata
+$ sudo dpkg-reconfigure tzdata
 ```
 
 이 GUI 메뉴에서 자신의 타임존을 찾아 변경한 뒤 재부팅 또는 원격 재접속을 하면 된다.
@@ -363,7 +363,7 @@ To                         Action      From
 OpenVidu 를 받기 전에 nginx가 머신에 설치되어 있으면 에러가 발생하기 때문에 Nginx는 꺼놓은 뒤 작업을 진행한다.
 
 ```bash
-sudo systemctl stop nginx
+$ sudo systemctl stop nginx
 ```
 
 ## 1. OpenVidu 설치
@@ -374,14 +374,14 @@ OpenVidu는 `/opt` 폴더에 설치하는 것을 권장한다.
 
 ```bash
 # /opt 폴더로 이동
-cd opt
+$ cd opt
 ```
 
 ### OpenVidu 받아오기
 
 ```bash
 # 최신 버전
-curl https://s3-eu-west-1.amazonaws.com/aws.openvidu.io/install_openvidu_latest.sh | bash
+$ curl https://s3-eu-west-1.amazonaws.com/aws.openvidu.io/install_openvidu_latest.sh | bash
 
 # 특정 버전을 설치하려면 latest 대신 해당 버전 숫자를 넣으면 된다.
 # e.g. curl https://s3-eu-west-1.amazonaws.com/aws.openvidu.io/install_openvidu_2.25.0.sh | bash
@@ -392,9 +392,9 @@ curl https://s3-eu-west-1.amazonaws.com/aws.openvidu.io/install_openvidu_latest.
 ### 환경변수파일 설정
 
 ```bash
-cd /opt/openvidu
+$ cd /opt/openvidu
 
-sudo vim .env
+$ sudo vim .env
 ```
 
 ### 다음과 같이 환경변수 값 변경
@@ -409,7 +409,7 @@ LETSENCRYPT_EMAIL=soulb9@naver.com
 ### OpenVidu서버 실행
 
 ```bash
-./openvidu start
+$ ./openvidu start
 ```
 
 - 성공 시 결과
@@ -417,9 +417,9 @@ LETSENCRYPT_EMAIL=soulb9@naver.com
 ### 추가 설정(포트 변경 및 기능 설정)을 위해 OpenVidu 중지
 
 ```bash
-./openvidu stop
+$ ./openvidu stop
 
-sudo vim .env
+$ sudo vim .env
 ```
 
 ### 다음과 같이 포트 및 환경변수 값 지정
@@ -435,13 +435,13 @@ JAVA_OPTIONS=-Xms2048m -Xmx4096m -Duser.timezone=KST
 ### OpenVidu서버 다시 실행
 
 ```bash
-./openvidu start
+$ ./openvidu start
 ```
 
 ### Nginx 재실행
 
 ```bash
-sudo systemctl start nginx
+$ sudo systemctl start nginx
 ```
 <br/>
 
@@ -461,14 +461,14 @@ sudo systemctl start nginx
 ### 데이터 증발을 막기 위해 컨테이너와 마운트할 Docker Volume 생성
 
 ```bash
-sudo docker volume create mysql-data
+$ sudo docker volume create mysql-data
 
 ```
 
 ### 도커 컨테이너 실행
 
 ```bash
-sudo docker run --name studify-mysql-container \
+$ sudo docker run --name studify-mysql-container \
   -d -p 3306:3306 \
 	-e MYSQL_ROOT_PASSWORD=1q2w3e4r \
 	-e MYSQL_DATABASE=studify \
@@ -486,10 +486,10 @@ sudo docker run --name studify-mysql-container \
 
 ```bash
 # 컨테이너 내부로 진입
-docker exec -it studify-mysql-container bash
+$ docker exec -it studify-mysql-container bash
 
 # 한글 설정하기
-cat << 'EOF' > /etc/mysql/conf.d/utf8.cnf
+$ cat << 'EOF' > /etc/mysql/conf.d/utf8.cnf
 [client]
 default-character-set = utf8mb4 
 
@@ -506,9 +506,9 @@ default-character-set = utf8mb4
 default-character-set = utf8mb4
 EOF
 
-cd /etc
+$ cd /etc
 
-echo -e "
+$ echo -e "
 [client]\n
 default-character-set=utf8mb4\n
 [mysql]\n
@@ -523,7 +523,7 @@ character-set-server = utf8mb4\n" >> my.cnf
 
 ```bash
 # 로그인
-mysql -u root -p
+$ mysql -u root -p
 
 # 이후 비밀번호 입력
 ```
@@ -609,38 +609,38 @@ services:
 ### docker compose 실행
 
 ```bash
-docker compose up -d
+$ docker compose up -d
 ```
 
 ## 젠킨스 서버에 백엔드 빌드를 위한 Gradle 7.6 설치
 
 ```bash
 # Gradle Releases에서 다운로드
-wget https://services.gradle.org/distributions/gradle-7.6-bin.zip -P /tmp
+$ wget https://services.gradle.org/distributions/gradle-7.6-bin.zip -P /tmp
 
 # 압축 풀기
-sudo unzip -d /opt/gradle /tmp/gradle-7.6-bin.zip
+$ sudo unzip -d /opt/gradle /tmp/gradle-7.6-bin.zip
 
 # 링크 연결하기
-sudo ln -s /opt/gradle/gradle-7.6 /opt/gradle/latest
+$ sudo ln -s /opt/gradle/gradle-7.6 /opt/gradle/latest
 ```
 ### 터미널에서 gradle을 입력했을 때 위에서 설치한 버전으로 연결하기
 
 ```bash
-sudo vim /etc/profile.d/gradle.sh
+$ sudo vim /etc/profile.d/gradle.sh
 
 # 다음 내용 입력하고 저장
 export GRADLE_HOME=/opt/gradle/latest
 export PATH=${GRADLE_HOME}/bin:${PATH}
 
 # 스크립트에 Executable 권한을 부여
-sudo chmod +x /etc/profile.d/gradle.sh
+$ sudo chmod +x /etc/profile.d/gradle.sh
 
 # 스크립트 로딩 (나중에 버전이 다시 내려갔다면 여기부터 입력하면 된다.)
-source /etc/profile.d/gradle.sh
+$ source /etc/profile.d/gradle.sh
 
 # 버전 확인
-gradle -v
+$ gradle -v
 ```
 <br/>
 
@@ -650,14 +650,14 @@ gradle -v
 
 ```bash
 # 공개IP 확인하기
-curl ifconfig.me
+$ curl ifconfig.me
 ```
 
 ### secret token 입력하기
 
 ```bash
 # 로그를 확인하여 secret token 값을 확인하고, 이 값을 젠킨스 서버 입력창에 입력해 로그인
-docker logs jenkins_docker
+$ docker logs jenkins_docker
 ```
 
 ### 관리자 계정 설정 후 플러그인 추가
